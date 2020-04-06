@@ -28,13 +28,7 @@ public class MemberService {
 		return result;
 	}
 
-	public int selectMemberNo(Member m) {
-		Connection conn = getConnection();
-		
-		int user_no = new MemberDAO().selectMemberNo(conn, m);
-		close(conn);
-		return user_no;
-	}
+
 
 	public Member loginMember(Member m) {
 		Connection conn = getConnection();
