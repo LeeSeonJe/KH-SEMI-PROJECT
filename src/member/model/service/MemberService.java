@@ -29,7 +29,6 @@ public class MemberService {
 	}
 
 
-
 	public Member loginMember(Member m) {
 		Connection conn = getConnection();
 		
