@@ -1,3 +1,5 @@
+<%@page import="cosmetic.model.vo.Cosmetic"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,13 +11,14 @@
 
 <style>
 #page-name>h1 {
-   font-size: 50px;
-   font-weight: 900;
-   margin-left: 70px;
+  	font-size: 40px;
+	font-weight: 900;
+	margin-left: 70px;
+    margin-top: 60px;
 }
 
 #cosmetic-beauty-filter {
-   display: inline-block;
+	display: inline-block;
     border: 1px solid #ccc;
     padding-left: 18px;
     background-color: #F8F8F8;
@@ -24,68 +27,68 @@
 }
 
 #cosmetic-beauty-filter-header>h3 {
-   display: inline-block;
+	display: inline-block;
 }
 
 input {
-   position: relative;
+	position: relative;
 }
 
 .radioChk+label {
-   display: inline-block;
-   margin: -2px;
-   padding: 8px 19px;
-   background-color: white;
-   border: 1px solid #ccc;
-   font-size: 13px !important;
-   width: 94px   ;
-   text-align: center;
-   position: relative;
-   left: -14px;
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid #ccc;
+	font-size: 13px !important;
+	width: 94px	;
+	text-align: center;
+	position: relative;
+	left: -14px;
 }
 
 .radioChkActive+label {
-   display: inline-block;
-   margin: -2px;
-   padding: 8px 19px;
-   background-color: white;
-   border: 1px solid red;
-   font-size: 13px !important;
-   width: 94px;
-   text-align: center;
-   position: relative;
-   left: -14px;
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid red;
+	font-size: 13px !important;
+	width: 94px;
+	text-align: center;
+	position: relative;
+	left: -14px;
 }
 
 .chkboxChk+label {
-   display: inline-block;
-   margin: -2px;
-   padding: 8px 19px;
-   background-color: white;
-   border: 1px solid #ccc;
-   font-size: 13px !important;
-   width: 94px;
-   text-align: center;
-   position: relative;
-   left: -14px;
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid #ccc;
+	font-size: 13px !important;
+	width: 94px;
+	text-align: center;
+	position: relative;
+	left: -14px;
 }
 
 .chkboxChkActive+label {
-   display: inline-block;
-   margin: -2px;
-   padding: 8px 19px;
-   background-color: white;
-   border: 1px solid red;
-   font-size: 13px !important;
-   width: 94px;
-   text-align: center;
-   position: relative;
-   left: -14px;
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid red;
+	font-size: 13px !important;
+	width: 94px;
+	text-align: center;
+	position: relative;
+	left: -14px;
 }
 
 
 #select-btn-center {
-   margin-right: 15px;
+	margin-right: 15px;
     text-align: center;
 }
 
@@ -106,57 +109,57 @@ input {
     border: 1px solid red;
 }
 /* #test {
-   display: inline-flex;
-   width: 500px;
+	display: inline-flex;
+	width: 500px;
 } */
 
 #filter-form {
-   display: inline-flex;
-   margin-top: 50px;
+	display: inline-flex;
+	margin-top: 50px;
 }
 
 #filter-form>section#cosmetic-filter {
-   display: inline-flex;
+	display: inline-flex;
 }
 
 #filter-form>section#cosmetic-category {
-   display: block;
-   margin-left: 30px;
-   font-size: 12px;
+	display: block;
+	margin-left: 30px;
+	font-size: 12px;
 }
  
 #cosmetic-category #cosmetic-big-category, #cosmetic-middle-category, #category-btn, .middle-category{
-   float: left;
+	float: left;
 }
 
 #ranking-list {
-   display: inline-flex;
+	display: inline-flex;
     border-block-end: 1px solid #ccc;
 }
 
 #ranking-list div {
-   display: inline-block;
-   height: 170px;
-   text-align: center;
+	display: inline-block;
+	height: 170px;
+	text-align: center;
 }
 
 #ranking-list>#cos-rank {
-   width: 80px;
+	width: 80px;
     padding-top: 30px;
 }
 #ranking-list>#cos-img {
-   width: 150px;
+	width: 150px;
 }
 #ranking-list>#cos-detail {
-   text-align: left;
-   width: 270px;
+	text-align: left;
+	width: 270px;
 }
 #ranking-list>#cos-score {
-   width: 200px;
-   padding-top: 70px;
+	width: 200px;
+	padding-top: 70px;
 }
 #cosmetic-category #cosmetic-big-category {
-   border: 1px solid #ccc;
+	border: 1px solid #ccc;
     background: white;
     border-radius: 5px;
     width: 150px;
@@ -165,7 +168,7 @@ input {
 }
 
 #cosmetic-category .middle-category {
-   border: 1px solid #ccc;
+	border: 1px solid #ccc;
     background: white;
     border-radius: 5px;
     width: 150px;
@@ -173,7 +176,7 @@ input {
     margin-left: 4px;
 }
 #category-btn {
-   border: 1px solid #ccc;
+	border: 1px solid #ccc;
     background: white;
     border-radius: 5px;
     width: 70px;
@@ -182,18 +185,23 @@ input {
 }
 
 #cos-img>img{
-   width: 100px;
+	width: 100px;
     height: 100px;
     margin-top: 30px;
 }
 </style>
+
+<% 
+	ArrayList<Cosmetic> list = (ArrayList<Cosmetic>) request.getAttribute("list"); 
+	String middleName = (String) request.getAttribute("middleName");
+%>
 </head>
 <body>
 	<div class="contents">
 		<%@ include file="/views/layout/header.jsp"%>
 		<hr>
 		<section id="page-name">
-			<h1>스킨 랭킹</h1>
+			<h1><%= middleName %> 랭킹</h1>
 		</section>
 		
 		<form id="filter-form" action="#">
@@ -274,20 +282,21 @@ input {
 				<br><br>
 				<section>
 					<ul>
+					<% for (int i = 0; i < list.size(); i++) { %>
 						<li>
 							<div id="ranking-list">
 								<div id="cos-rank">
-									<h3>1</h3>
+									<h3><%= i+1 %></h3>
 									<span>-</span>
 								</div>
 								<div id="cos-img">
-									<img src="https://d9vmi5fxk1gsw.cloudfront.net/home/glowmee/upload/20190802/1564712531735_160.png" />
+									<img src=<%= list.get(i).getCosmetic_img() %> />
 								</div>
 								<div id="cos-detail">
 									<br>
-									<h5>코스알엑스 (COSRX)</h5>
-									<h4><a href="<%= request.getContextPath() %>/views/cosmetic/cosmeticDetail.jsp">풀핏 프로폴리스 시너지 토너</a></h4><br><br>
-									<span>280ml</span>/<span>22,000원</span>							
+									<h6><%= list.get(i).getBrand_name() %></h6>
+									<h5><a href="<%= request.getContextPath() %>/views/cosmetic/cosmeticDetail.jsp"><%= list.get(i).getCosmetic_name() %></a></h5><br><br>
+									<span><%= list.get(i).getVolume() %></span>/<span><%= list.get(i).getPrice() %></span>							
 								</div>
 								<div id="cos-score">
 									<span>4.38</span>
@@ -296,95 +305,7 @@ input {
 								</div>
 							</div>
 						</li>
-						<li>
-							<div id="ranking-list">
-								<div id="cos-rank">
-									<h3>1</h3>
-									<span>-</span>
-								</div>
-								<div id="cos-img">
-									<img src="https://d9vmi5fxk1gsw.cloudfront.net/home/glowmee/upload/20190802/1564712531735_160.png" />
-								</div>
-								<div id="cos-detail">
-									<br>
-									<h5>코스알엑스 (COSRX)</h5>
-									<h4><a href="#">풀핏 프로폴리스 시너지 토너</a></h4><br><br>
-									<span>280ml</span>/<span>22,000원</span>							
-								</div>
-								<div id="cos-score">
-									<span>4.38</span>
-									<span>imgimgimgimg</span>
-									(<span>807</span>)
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="ranking-list">
-								<div id="cos-rank">
-									<h3>1</h3>
-									<span>-</span>
-								</div>
-								<div id="cos-img">
-									<img src="https://d9vmi5fxk1gsw.cloudfront.net/home/glowmee/upload/20190802/1564712531735_160.png" />
-								</div>
-								<div id="cos-detail">
-									<br>
-									<h5>코스알엑스 (COSRX)</h5>
-									<h4><a href="#">풀핏 프로폴리스 시너지 토너</a></h4><br><br>
-									<span>280ml</span>/<span>22,000원</span>							
-								</div>
-								<div id="cos-score">
-									<span>4.38</span>
-									<span>imgimgimgimg</span>
-									(<span>807</span>)
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="ranking-list">
-								<div id="cos-rank">
-									<h3>1</h3>
-									<span>-</span>
-								</div>
-								<div id="cos-img">
-									<img src="https://d9vmi5fxk1gsw.cloudfront.net/home/glowmee/upload/20190802/1564712531735_160.png" />
-								</div>
-								<div id="cos-detail">
-									<br>
-									<h5>코스알엑스 (COSRX)</h5>
-									<h4><a href="#">풀핏 프로폴리스 시너지 토너</a></h4><br><br>
-									<span>280ml</span>/<span>22,000원</span>							
-								</div>
-								<div id="cos-score">
-									<span>4.38</span>
-									<span>imgimgimgimg</span>
-									(<span>807</span>)
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="ranking-list">
-								<div id="cos-rank">
-									<h3>1</h3>
-									<span>-</span>
-								</div>
-								<div id="cos-img">
-									<img src="https://d9vmi5fxk1gsw.cloudfront.net/home/glowmee/upload/20190802/1564712531735_160.png" />
-								</div>
-								<div id="cos-detail">
-									<br>
-									<h5>코스알엑스 (COSRX)</h5>
-									<h4><a href="#">풀핏 프로폴리스 시너지 토너</a></h4><br><br>
-									<span>280ml</span>/<span>22,000원</span>							
-								</div>
-								<div id="cos-score">
-									<span>4.38</span>
-									<span>imgimgimgimg</span>
-									(<span>807</span>)
-								</div>
-							</div>
-						</li>
-					
+					<% } %>
 					</ul>
 				</section>
 			</section>
