@@ -230,20 +230,27 @@
             </li>
             <li><a href="<%= request.getContextPath()%>/brand.li">브랜드</a></li>
             <li><a href="<%= request.getContextPath() %>/views/review/reviewMain.jsp">리뷰</a></li>
-         <li>병원</li>
-         <li><a href="<%= request.getContextPath() %>/views/worry/worryMain.jsp">고민</a></li>
-         </ul>
-         </form>
-      </nav>
-      
-      <% if(loginUser == null) { %>
-      <span id="login" class="login"><a href="<%= request.getContextPath() %>/views/common/login.jsp">로그인</a></span>
-      <% } else { %>
-      <span id="login" class="login"><label><%= loginUser.getUser_name() %></label></span>
-      <% } %>
-      <%-- <span class="sch">
-         <button type="button"><img src="<%= request.getContextPath() %>/resources/images/search_icon.png"></button>
-         <input type="text" placeholder="검색어를 입력하세요.">
-      </span> --%>
-   </div>
+
+			<li>병원</li>
+			<li><a href="<%= request.getContextPath() %>/views/worry/worryMain.jsp">고민</a></li>
+			</ul>
+			</form>
+		</nav>
+		
+		<% if(loginUser == null) { %>
+		<span id="login" class="login"><a href="<%= request.getContextPath() %>/views/common/login.jsp">로그인</a></span>
+		<% } else if(loginUser.getUser_id().equals("admin")) { %>
+		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
+		<span id="login" class="login"><label><%= loginUser.getUser_name() %></label></span>
+		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/views/admin/admin.jsp'">관리자페이지</label></span>
+		<% } else { %>
+		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
+		<span id="login" class="login"><label><%= loginUser.getUser_name() %></label></span>
+		<% } %>
+		<%-- <span class="sch">
+			<button type="button"><img src="<%= request.getContextPath() %>/resources/images/search_icon.png"></button>
+			<input type="text" placeholder="검색어를 입력하세요.">
+		</span> --%>
+	</div>
+
 </header>
