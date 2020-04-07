@@ -39,7 +39,7 @@
 </head>
 <body>
 	<div class="top">
-		<form id="reqFrom" action="<%= request.getContextPath() %>/insert.cos" method="post" onsubmit="return validate();">
+		<form id="reqFrom" action="<%= request.getContextPath() %>/insert.cos" method="post" onsubmit="return validate();" encType="multipart/form-data">
 				<div class="content">
 				<table>
 					<tr>
@@ -300,9 +300,8 @@
 									$("#titleImg").attr("src", e.target.result);
 									break;
 								}
-							
-								reader.readAsDataURL(value.files[0]);
 							}
+							reader.readAsDataURL(value.files[0]);
 						}
 					}
 				</script>
