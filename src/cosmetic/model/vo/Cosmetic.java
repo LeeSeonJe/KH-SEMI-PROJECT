@@ -9,7 +9,7 @@ public class Cosmetic {
 	private int week_rank;
 	private int lastweek_rank;
 	private String brand_name;
-	private int middle_no;
+	private String middle_no;
 	private String cosmetic_img;
 
 	public Cosmetic() {
@@ -17,7 +17,7 @@ public class Cosmetic {
 	}
 
 	public Cosmetic(int cosmetic_no, String cosmetic_name, String cosmetic_about, String volume, String price,
-			int week_rank, int lastweek_rank, String brand_name, int middle_no, String cosmetic_img) {
+			int week_rank, int lastweek_rank, String brand_name, String middle_no, String cosmetic_img) {
 		super();
 		this.cosmetic_no = cosmetic_no;
 		this.cosmetic_name = cosmetic_name;
@@ -95,11 +95,11 @@ public class Cosmetic {
 		this.brand_name = brand_name;
 	}
 
-	public int getMiddle_no() {
+	public String getMiddle_no() {
 		return middle_no;
 	}
 
-	public void setMiddle_no(int middle_no) {
+	public void setMiddle_no(String middle_no) {
 		this.middle_no = middle_no;
 	}
 

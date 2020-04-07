@@ -42,7 +42,7 @@ public class CosmeticDAO {
 				cList.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
 						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
 						rset.getInt("WEEK_RANK"), rset.getInt("LASTWEEK_RANK"), rset.getString("BRAND_NAME"),
-						rset.getInt("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
+						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
