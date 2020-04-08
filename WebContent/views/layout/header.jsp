@@ -242,7 +242,7 @@
 		<% } else if(loginUser.getUser_id().equals("admin")) { %>
 		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
 		<span id="login" class="login"><label><%= loginUser.getUser_name() %></label></span>
-		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/views/admin/admin.jsp'">관리자페이지</label></span>
+		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/user.admin'">관리자페이지</label></span>
 		<% } else { %>
 		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
 		<span id="login" class="login"><label><%= loginUser.getUser_name() %></label></span>
