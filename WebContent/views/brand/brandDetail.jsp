@@ -295,7 +295,11 @@ input {
 									<span>-</span>
 								</div>
 								<div id="cos-img">
-									<img src=<%= list.get(i).getCosmetic_img() %> />
+									<% if(list.get(i).getCosmetic_img().contains("http")){ %>
+										<img src=<%= list.get(i).getCosmetic_img() %> />
+									<% } else {%>
+										<img src="<%= request.getContextPath() %>/cosReq_uploadFiles/<%= list.get(i).getCosmetic_img() %>"/>
+									<% } %>
 								</div>
 								<div id="cos-detail">
 									<br>

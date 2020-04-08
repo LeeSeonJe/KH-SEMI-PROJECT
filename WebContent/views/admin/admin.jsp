@@ -391,7 +391,7 @@ table#adminEnrollHospital>tbody>tr>td{
             </table>
             <br>
             <div style="margin-right: 45px" align="right">
-            	<button class="btn-standard" style="width: 100px; height: 30px; background: beige; color:black;">등록</button>
+            	<button class="btn-standard" style="width: 100px; height: 30px;" id="cosmeticReq">등록</button>
             </div>
             <br>
             <div class="paging">
@@ -700,7 +700,9 @@ table#adminEnrollHospital>tbody>tr>td{
 		
 		popup.document.write('<html><body><h2>답변 작성 팝업</h2><body><html>')
 	});
-	
+	$('#cosmeticReq').click(function(){
+		var popup = window.open("cosmeticReqPopup.jsp", "cosmeticReqPopup", "width=800, height=700");
+	});
    </script>
    <script src="../../resources/js/main.js"></script>
    
