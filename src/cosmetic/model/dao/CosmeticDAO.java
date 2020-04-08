@@ -28,14 +28,14 @@ public class CosmeticDAO {
 		}
 	}
 
-	public ArrayList<Cosmetic> selectCosmeticList(Connection conn, int cos_middle_no) {
+	public ArrayList<Cosmetic> selectCosmeticList(Connection conn, String cos_middle_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("selectCosmeticList");
 		ArrayList<Cosmetic> cList = new ArrayList<Cosmetic>();
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, cos_middle_no);
+			pstmt.setString(1, cos_middle_no);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
@@ -55,18 +55,18 @@ public class CosmeticDAO {
 		return cList;
 	}
 
-	public String cosMiddleName(Connection conn, int cos_middle_no) {
+	public String cosMiddleName(Connection conn, String cos_middle_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String middleName = null;
-		
+
 		String query = prop.getProperty("cosMiddleName");
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, cos_middle_no);
+			pstmt.setString(1, cos_middle_no);
 			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
+
+			if (rset.next()) {
 				middleName = rset.getString(1);
 			}
 		} catch (SQLException e) {
@@ -76,7 +76,59 @@ public class CosmeticDAO {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return middleName;
+	}
+
+	public Cosmetic selectCosmeticDetail(Connection conn, String cosName) {
+		// TODO Auto-generated method stub
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Cosmetic c = null;
+
+		String query = prop.getProperty("selectCosmeticDetail");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cosName);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				c = new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
+						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
+						rset.getInt("WEEK_RANK"), rset.getInt("LASTWEEK_RANK"), rset.getString("BRAND_NAME"),
+						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return c;
+	}
+
+	public String cosmeticBrand(Connection conn, String cosName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String bImg = null;
+		String query = prop.getProperty("cosmeticBrand");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cosName);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bImg = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bImg;
 	}
 }

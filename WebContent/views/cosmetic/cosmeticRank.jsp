@@ -189,6 +189,12 @@ input {
     height: 100px;
     margin-top: 30px;
 }
+
+.cos-detail-link {
+	cursor: pointer;
+	font-weight: 700;
+	display:inline-block;
+}
 </style>
 
 <% 
@@ -299,7 +305,7 @@ input {
 								<div id="cos-detail">
 									<br>
 									<h6><%= list.get(i).getBrand_name() %></h6>
-									<h5><a href="<%= request.getContextPath() %>/views/cosmetic/cosmeticDetail.jsp"><%= list.get(i).getCosmetic_name() %></a></h5><br><br>
+									<h5 class="cos-detail-link"><%= list.get(i).getCosmetic_name() %></h5><br><br>
 									<span><%= list.get(i).getVolume() %></span>/<span><%= list.get(i).getPrice() %></span>							
 								</div>
 								<div id="cos-score">
@@ -319,6 +325,10 @@ input {
 	<%@ include file="/views/layout/footer.jsp"%>
 
 	<script>
+		$('.cos-detail-link').click(function(){
+			location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + "<%= middleName%>";
+		})
+	
 		$('input[name=filter-sex]').click(function() {
 			if ($(this)[0].value == "filter-sex-all") {
 				$('input[name=filter-sex]').addClass('radioChk')
