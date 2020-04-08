@@ -134,6 +134,7 @@ input {
 
 #brand-detail-btn {
 	border: 1px solid red;
+	border-radius: 3px;
     background: white;
     font-size: 12px;
     padding: 5px;
