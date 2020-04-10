@@ -12,9 +12,9 @@ import cosmetic.model.vo.Cosmetic;
 
 public class BrandService {
 	
-	public ArrayList<Brand> selectBrnadList(String brandFilter) {
+	public ArrayList<Brand> selectBrnadList(String brandFilter, String count) {
 		Connection conn = getConnection();
-		ArrayList<Brand> list = new BrandDAO().selectBrandList(conn, brandFilter);
+		ArrayList<Brand> list = new BrandDAO().selectBrandList(conn, brandFilter, count);
 		close(conn);
 		return list;
 	}
