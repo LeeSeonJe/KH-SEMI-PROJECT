@@ -69,11 +69,13 @@ public class ReviewListServlet extends HttpServlet {
 			request.setAttribute("pi", pi);
 		} else {
 			page = "views/common/error.jsp";
-			request.setAttribute("msg", "게시판 조회에 실패했습니다.");
+			request.setAttribute("msg", "조회할 리스트가 없습니다.");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
+		
+	//	System.out.println("list : " + list);
 		
 		for(int i =0; i < list.size(); i++) {
 	         System.out.println(list.get(i));

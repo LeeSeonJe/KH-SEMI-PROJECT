@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.ArrayList" import="review.model.vo.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
+import="java.util.ArrayList" import="review.model.vo.*"%>
 <%
    ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
    
@@ -103,7 +104,7 @@
 	</div>		
 			
 			
-	<!— 작성 끝 —>
+	<!-- 작성 끝  -->
 	
 
 	<%@ include file="/views/layout/footer.jsp"%>

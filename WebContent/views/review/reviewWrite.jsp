@@ -17,9 +17,7 @@
 				width: 75px; height: 30px;
 				}
 	.label-name{margin-left: 90px; font-size: 16px; margin-bottom: 30px; text-align: center; margin-right: 40px;}
-/* 	.img-grade{width: 28px; height: 28px; margin-right: 5px;}
-	#grade1{margin-left: 25px;}
- */
+
 	#heart{font-size: 30px; display: inline-block; margin-left: 25px; margin-bottom: 0;}
 	#heart a{text-decoration: none; color: lightgray;}
 	#heart a.on{color: red;}
@@ -50,7 +48,7 @@
 	<div class="writingReview">
 	<h2> &nbsp;리뷰 작성</h2>
 	<hr>
-	<form class="reviewForm">
+	<form class="reviewForm" action="<%= request.getContextPath() %>/insert.re" method="get">
 	<div>
 	<table id="select-pro">
 		<tr>
