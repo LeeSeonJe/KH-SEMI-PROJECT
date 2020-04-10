@@ -65,7 +65,7 @@
 			<td>제품 명</td>
 		</tr>
 		<tr>
-			<td><button id="btn-select">제품 선택</button></td>
+			<td><button type="button" id="btn-select">제품 선택</button></td>
 		</tr>
 	</table>
 <hr>	
@@ -88,20 +88,7 @@
         });
 </script>
 		</div>
-		<div class="review-age">
-			<label id="label-age">연령대</label>
-			<label class="label-radio"><input type="radio" name="age" value="10"> 10대</label>
-			<label class="label-radio"><input type="radio" name="age" value="20early"> 20대 초반</label>
-			<label class="label-radio"><input type="radio" name="age" value="20late"> 20대 후반</label>
-			<label class="label-radio"><input type="radio" name="age" value="30early"> 30대 초반</label>
-			<label class="label-radio"><input type="radio" name="age" value="30late"> 30대 후반</label>
-			<label class="label-radio"><input type="radio" name="age" value="other"> 그 외 연령층</label>			
-		</div>
-		<div class="review-gender">
-			<label class="label-name">성별</label>
-			<label class="label-radio"><input type="radio" name="gender" value="M"> 남자</label>
-			<label class="label-radio"><input type="radio" name="gender" value="F"> 여자</label>
-		</div>
+
 		<div>
 			<label class="label-name">제목</label>
 			<input type="text" name="title" id="review-title"placeholder="제목을 입력해주세요" size="57" required>

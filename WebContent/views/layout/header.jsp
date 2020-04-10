@@ -6,7 +6,8 @@
 %>
 <header>
    <div>
-      <a href="<%= request.getContextPath() %>"><img class="logo" src="<%= request.getContextPath() %>/resources/images/logo2.png"></a> <!-- 로고 -->
+      <a href="<%= request.getContextPath()%>">
+      	<img class="logo" src="<%= request.getContextPath() %>/resources/images/logopink.png"></a>
       <nav class="gnb"> <!-- 글로벌네비게이션 -->
       <form action="<%= request.getContextPath() %>/cosmetic.li">
          <ul>
@@ -229,7 +230,7 @@
                </div>
             </li>
             <li><a href="<%= request.getContextPath()%>/brand.li">브랜드</a></li>
-            <li><a href="<%= request.getContextPath() %>/views/review/reviewMain.jsp">리뷰</a></li>
+            <li><a href="<%= request.getContextPath() %>/review.li">리뷰</a></li>
 
 			<li>병원</li>
 			<li><a href="<%= request.getContextPath() %>/views/worry/worryMain.jsp">고민</a></li>
@@ -238,7 +239,7 @@
 		</nav>
 		
 		<% if(loginUser == null) { %>
-		<span id="login" class="login"><a href="<%= request.getContextPath() %>/views/common/login.jsp">로그인</a></span>
+		<span id="login" class="login"><a style =  "color : #DF1758;" href="<%= request.getContextPath() %>/views/common/login.jsp">로그인</a></span>
 		<% } else if(loginUser.getUser_id().equals("admin")) { %>
 		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
 		<span id="login" class="login"><label><%= loginUser.getUser_name() %></label></span>
