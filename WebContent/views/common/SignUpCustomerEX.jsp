@@ -14,7 +14,7 @@
 }
 #CSU-form>table>tbody>tr>td:first-child {
     width: 110px;
-}
+}	
 
 #CSU-form>table>tbody>tr>td.td-center {
     text-align: center;
@@ -24,7 +24,11 @@
 	margin: 12px;
 }
 .CSU-board {
-    margin-left: 70px;
+	font-size : 30pt;
+    background-color : #DF1758;
+    color : white;
+    height : 100px;
+    
 }
 </style>
 
@@ -34,12 +38,9 @@
 <body>
 	<div class="contents">
 		<%@ include file="/views/layout/header.jsp"%>
-		<hr>
 		<div class="CSU-board">
-			<h2>회원가입</h2>
+			&nbsp;&nbsp;&nbsp;회원가입
 		</div>
-		
-		<hr>
 		<form action="<%= request.getContextPath() %>/insertC.me" method="post" id="CSU-form" onsubmit="return validate();">
 			<input type="hidden" name="category" value="C">
 			<table>
@@ -59,8 +60,7 @@
 					</tr>
 					<tr>
 						<td>비밀번호</td>
-						<td><input class="input-standard" type="password" name="userPwd" placeholder="비밀번호를 입력하세요." id = "pwd" onkeyup="test1();">
-						
+						<td><input class="input-standard" type='password' name="userPwd" placeholder="비밀번호를 입력하세요." id = "pwd" onkeyup="test1();">
 					</tr>
 					<tr>
 						<td></td>
@@ -123,6 +123,7 @@
 				</tbody>
 			</table>
 		</form>
+		
 		<script>
 		function test1(){
 

@@ -6,10 +6,14 @@
 %>
 <header>
    <div>
-      <a href="<%= request.getContextPath() %>"><img class="logo" src="<%= request.getContextPath() %>/resources/images/logo2.png"></a> <!-- 로고 -->
+      <a  href="<%= request.getContextPath() %>">
+      	<img class="logo" src="<%= request.getContextPath() %>/resources/images/logopink.png">
+      </a> <!-- 로고 -->
       <nav class="gnb"> <!-- 글로벌네비게이션 -->
       <form action="<%= request.getContextPath() %>/views/cosmetic/cosmeticRank.jsp">
          <ul>
+         	<li>
+         	</li>
             <li>
             <span >화장품</span>
                <div class="popup">
@@ -242,7 +246,9 @@
 		</nav>
 		
 		<% if(loginUser == null) { %>
-		<span id="login" class="login"><a href="<%= request.getContextPath() %>/views/common/login.jsp">로그인</a></span>
+		<span id="login" class="login">
+			<a style =  "color : #DF1758;"  href="<%= request.getContextPath() %>/views/common/login.jsp">로그인</a>
+		</span>
 		<% } else { %>
 		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
 		<span id="login" class="login"><label><%= loginUser.getUser_name() %></label></span>
