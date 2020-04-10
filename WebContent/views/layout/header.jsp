@@ -229,7 +229,7 @@
                </div>
             </li>
             <li><a href="<%= request.getContextPath()%>/brand.li">브랜드</a></li>
-            <li><a href="<%= request.getContextPath() %>/views/review/reviewMain.jsp">리뷰</a></li>
+            <li><a href="<%= request.getContextPath() %>/review.li">리뷰</a></li>
 
 			<li>병원</li>
 			<li><a href="<%= request.getContextPath() %>/views/worry/worryMain.jsp">고민</a></li>
