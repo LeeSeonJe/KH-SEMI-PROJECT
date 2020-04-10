@@ -32,7 +32,7 @@ public class UserlistServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Member> list = new MemberService().selectAll();
+		ArrayList<Member> list = new MemberService().selectCustomer();
 		
 		String page=null;
 		if(list != null) {
