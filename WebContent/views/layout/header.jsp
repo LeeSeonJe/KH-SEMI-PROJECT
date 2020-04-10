@@ -6,8 +6,8 @@
 %>
 <header>
    <div>
-      <a  href="<%= request.getContextPath() %>"></a>
-      	<img class="logo" src="<%= request.getContextPath() %>/resources/images/logopink.png">
+      <a href="<%= request.getContextPath()%>">
+      	<img class="logo" src="<%= request.getContextPath() %>/resources/images/logopink.png"></a>
       <nav class="gnb"> <!-- 글로벌네비게이션 -->
       <form action="<%= request.getContextPath() %>/cosmetic.li">
          <ul>
