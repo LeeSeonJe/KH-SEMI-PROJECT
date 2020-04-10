@@ -17,6 +17,12 @@
 				width: 75px; height: 30px;
 				}
 	.label-name{margin-left: 90px; font-size: 16px; margin-bottom: 30px; text-align: center; margin-right: 40px;}
+/* 	.img-grade{width: 28px; height: 28px; margin-right: 5px;}
+	#grade1{margin-left: 25px;}
+ */
+	#heart{font-size: 30px; display: inline-block; margin-left: 25px; margin-bottom: 0;}
+	#heart a{text-decoration: none; color: lightgray;}
+	#heart a.on{color: red;}
 	.label-radio{margin-left: 25px;}
 	#review-title{margin-left: 35px;}
 	#review-content{margin-left: 85px;}
@@ -67,6 +73,20 @@
 		<br><br>
 		<div>
 			<label class="label-name">평점</label>
+			<p id="heart">
+				<a href="#">♥</a>
+				<a href="#">♥</a>
+				<a href="#">♥</a>
+				<a href="#">♥</a>
+				<a href="#">♥</a>
+			 </p>
+<script>
+        $('#heart a').click(function(){
+            $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+            $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+            return false;
+        });
+</script>
 		</div>
 		<div class="review-age">
 			<label id="label-age">연령대</label>
@@ -114,6 +134,6 @@
 
 	<%@ include file="/views/layout/footer.jsp"%>
 
-	<script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
+	<script src="../../resources/js/main.js"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -49,6 +50,35 @@ public class CustomerDAO {
 		}
 		
 		return result;
+	}
+
+	public Customer customerDetail(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Customer c = null;
+		
+		String query = prop.getProperty("customerDetail");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				c = new Customer(rset.getInt("customer_no"),
+								rset.getString("email"),
+								rset.getString("age"),
+								rset.getString("skintype"),
+								rset.getString("gender"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return c;
 	}
 
 }

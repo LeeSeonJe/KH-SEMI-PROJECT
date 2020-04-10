@@ -1,6 +1,7 @@
-package member.controller;
+package admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,22 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class HospitalJoinServlet
  */
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/hospitalJoin.admin")
+public class HospitalJoinServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public HospitalJoinServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,25 +32,19 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		ArrayList<Member> list = new MemberService().selectHospitalJoin();
 		
-		String userId = request.getParameter("id");
-		String userPwd = request.getParameter("pwd");
-		
-		Member m = new Member(userId, userPwd);
-		
-		Member loginUser = new MemberService().loginCustomer(m);
-		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			session.setMaxInactiveInterval(600);
-			
-			response.sendRedirect(request.getContextPath());
+		String page = null;
+		if(list != null) {
+			page = "views/admin/adminHospitalJoin.jsp";
+			request.setAttribute("list", list);
 		} else {
-			request.setAttribute("msg", "�α��� ����");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "병원 회원 신청 목록 조회에 실패하였습니다.");
 		}
+		
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
 	}
 
 	/**

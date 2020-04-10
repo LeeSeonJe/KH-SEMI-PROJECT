@@ -28,4 +28,13 @@ public class CustomerService {
 		return result1;
 	}
 
+	public Customer customerDetail(int userNo) {
+		Connection conn = getConnection();
+		
+		Customer c = new CustomerDAO().customerDetail(conn, userNo);
+		
+		close(conn);
+		return c;
+	}
+
 }
