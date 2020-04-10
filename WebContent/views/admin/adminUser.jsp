@@ -202,7 +202,7 @@ table#adminEnrollHospital>tbody>tr>td{
                   </tr>
                </thead>
                <tbody>
-               <% if(list == null) { %>
+               <% if(list.isEmpty()) { %>
 				<tr>
 					<td colspan="5">조회된 리스트가 없습니다.</td>
 				</tr>

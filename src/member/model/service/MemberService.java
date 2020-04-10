@@ -86,4 +86,36 @@ public class MemberService {
 		close(conn);
 		return list;
 	}
+
+	public int hospitalAccept(int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().hospitalAccept(conn, userNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int hospitalReject(int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().hospitalReject(conn, userNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 }

@@ -201,7 +201,7 @@ table#adminEnrollHospital>tbody>tr>td{
                   </tr>
                </thead>
                <tbody>
-                 <% if(list == null) { %>
+                 <% if(list.isEmpty()) { %>
 				<tr>
 					<td colspan="6">조회된 리스트가 없습니다.</td>
 				</tr>
@@ -213,7 +213,7 @@ table#adminEnrollHospital>tbody>tr>td{
 	                     <td><%= m.getEnroll_date() %></td>
 	                     <td><label class="detail">조회</label></td>
 	                     <td><label class="grant">승인</label></td>
-	                     <td><label class="quit">탈퇴처리</label></td>
+	                     <td><label class="refuse">탈퇴처리</label></td>
 	                </tr>
 					<% } %>	
 				<% } %>	
@@ -244,8 +244,10 @@ table#adminEnrollHospital>tbody>tr>td{
 	});
 	$('.grant').click(function(){
 		var result = window.confirm('회원가입요청을 승인처리 하시겠습니까?');
+		var userNo = $(this).parent().parent().children().eq(0).text();
 		
 		if(result){
+			location.href="<%= request.getContextPath() %>/hosAccept.admin?userNo=" + userNo;
 			alert('승인 처리 완료!');
 		} else{
 			alert('취소!');
@@ -253,8 +255,10 @@ table#adminEnrollHospital>tbody>tr>td{
 	});
 	$('.refuse').click(function(){
 		var result = window.confirm('회원가입요청을 거절처리 하시겠습니까?');
+		var userNo = $(this).parent().parent().children().eq(0).text();
 		
 		if(result){
+			location.href="<%= request.getContextPath() %>/hosReject.admin?userNo=" + userNo;
 			alert('거절 처리 완료!');
 		} else{
 			alert('취소!');
