@@ -1,4 +1,4 @@
-package member.controller;
+package admin.controller;
 
 import java.io.IOException;
 
@@ -8,22 +8,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
-import member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class UserDeleteServlet
  */
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/delete.admin")
+public class UserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public UserDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +30,15 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		
-		String userId = request.getParameter("id");
-		String userPwd = request.getParameter("pwd");
+		int result = new MemberService().deleteMember(userNo);
 		
-		Member m = new Member(userId, userPwd);
-		
-		Member loginUser = new MemberService().loginCustomer(m);
-		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			session.setMaxInactiveInterval(600);
-			
-			response.sendRedirect(request.getContextPath());
+		if(result > 0) {
+			response.sendRedirect("user.admin");
 		} else {
-			request.setAttribute("msg", "�α��� ����");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.setAttribute("msg", "회원 탈퇴 처리에 실패하였습니다.");
 			view.forward(request, response);
 		}
 	}
