@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import customer.model.vo.Customer;
-import member.model.dao.MemberDAO;
 
 public class CustomerDAO {
 	

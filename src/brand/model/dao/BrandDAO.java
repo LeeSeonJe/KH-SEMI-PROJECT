@@ -32,49 +32,23 @@ public class BrandDAO {
 		}
 	}
 
-	public ArrayList<Brand> selectBrandList(Connection conn, String brandFilter) {
+	public ArrayList<Brand> selectBrandList(Connection conn, String brandFilter, String count) {
 		String last = null;
 		if (brandFilter != null) {
 			switch (brandFilter) {
-			case "가":
-				last = "나";
-				break;
-			case "나":
-				last = "다";
-				break;
-			case "다":
-				last = "라";
-				break;
-			case "라":
-				last = "마";
-				break;
-			case "마":
-				last = "바";
-				break;
-			case "바":
-				last = "사";
-				break;
-			case "사":
-				last = "아";
-				break;
-			case "아":
-				last = "자";
-				break;
-			case "자":
-				last = "차";
-				break;
-			case "차":
-				last = "카";
-				break;
-			case "카":
-				last = "타";
-				break;
-			case "타":
-				last = "파";
-				break;
-			case "파":
-				last = "하";
-				break;
+			case "가": last = "나"; break;
+			case "나": last = "다"; break;
+			case "다": last = "라"; break;
+			case "라": last = "마"; break;
+			case "마": last = "바"; break;
+			case "바": last = "사"; break;
+			case "사": last = "아"; break;
+			case "아": last = "자"; break;
+			case "자": last = "차"; break;
+			case "차": last = "카"; break;
+			case "카": last = "타"; break;
+			case "타": last = "파"; break;
+			case "파": last = "하"; break;
 			}
 		}
 		PreparedStatement pstmt = null;
@@ -84,16 +58,20 @@ public class BrandDAO {
 		try {
 			if (brandFilter == null || brandFilter.equals("all")) {
 				String query = prop.getProperty("selectBrandList");
-				stmt = conn.createStatement();
-				rset = stmt.executeQuery(query);
+				pstmt = conn.prepareStatement(query);
+//				stmt = conn.createStatement();
+				pstmt.setString(1, count);
+				rset = pstmt.executeQuery();
 
 				while (rset.next()) {
 					list.add(new Brand(rset.getString("BRAND_NAME"), rset.getString("BRAND_IMG")));
 				}
 			} else if (brandFilter.equals("etc")) {
 				String query = prop.getProperty("selectEtcList");
-				stmt = conn.createStatement();
-				rset = stmt.executeQuery(query);
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, "하");
+				pstmt.setString(2, count);
+				rset = pstmt.executeQuery();
 				while (rset.next()) {
 					list.add(new Brand(rset.getString("BRAND_NAME"), rset.getString("BRAND_IMG")));
 				}
@@ -101,6 +79,7 @@ public class BrandDAO {
 				String query = prop.getProperty("selectEndList");
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, brandFilter);
+				pstmt.setString(2, count);
 				rset = pstmt.executeQuery();
 
 				while (rset.next()) {
@@ -111,6 +90,7 @@ public class BrandDAO {
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, brandFilter);
 				pstmt.setString(2, last);
+				pstmt.setString(3, count);
 				rset = pstmt.executeQuery();
 
 				while (rset.next()) {

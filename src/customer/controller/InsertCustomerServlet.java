@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
-import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
@@ -53,7 +52,7 @@ public class InsertCustomerServlet extends HttpServlet {
 			
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			request.setAttribute("msg", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆÐÇß½À´Ï´Ù.");
+			request.setAttribute("msg", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 			view.forward(request, response);
 		}
 		

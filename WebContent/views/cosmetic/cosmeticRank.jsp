@@ -306,7 +306,7 @@ input {
 									<br>
 									<h6><%= list.get(i).getBrand_name() %></h6>
 									<h5 class="cos-detail-link"><%= list.get(i).getCosmetic_name() %></h5><br><br>
-									<span><%= list.get(i).getVolume() %></span>/<span><%= list.get(i).getPrice() %></span>							
+									<span><%= list.get(i).getVolume() %></span>&nbsp;/&nbsp;<span><%= list.get(i).getPrice() %></span>							
 								</div>
 								<div id="cos-score">
 									<span>4.38</span>
@@ -415,6 +415,7 @@ input {
 			$('input[name=filter-skinType]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
 		})
 		
+		// 화장품 셀렉트
 		$(function(){
 			$('.middle-category').css('display','none')
 			$('#skincare').css('display','block');

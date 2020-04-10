@@ -34,13 +34,20 @@ public class CosmeticDetailServlet extends HttpServlet {
 		String cosName = request.getParameter("cosName");
 		Cosmetic c = new CosmeticService().selectCosmeticDetail(cosName);
 		String bImg = new CosmeticService().cosmeticBrand(cosName);
-		System.out.println(cosName);
+		String category = request.getParameter("category");
+		String categoryNo = request.getParameter("categoryNo");
+		
 		String page = null;
 		if(c!=null && bImg!=null) {
 			page = "views/cosmetic/cosmeticDetail.jsp";
 			request.setAttribute("cosmeticInform",c);
 			request.setAttribute("bImg", bImg);
-			request.setAttribute("middleName", request.getParameter("category"));
+			if(category == null) {
+				String category2 = new CosmeticService().cosMiddleName(categoryNo);
+				request.setAttribute("middleName", category2);
+			} else {
+				request.setAttribute("middleName", category);
+			}
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "공지사항 조회에 실패하였습니다.");
