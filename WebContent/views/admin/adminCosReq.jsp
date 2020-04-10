@@ -269,6 +269,10 @@ table#adminEnrollHospital>tbody>tr>td{
 			alert('취소!');
 		}
 	});
+	
+	$('#cosmeticReq').click(function(){
+		var popup = window.open("cosmeticReqPopup.jsp", "cosmeticReqPopup", "width=800, height=700");
+	});
    </script>
    <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
    
