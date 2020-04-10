@@ -174,8 +174,8 @@ table#adminEnrollHospital>tbody>tr>td{
          <section id="nav-tab">
             <ul id="nav-tab-ul">
                <li onclick="location.href = '<%= request.getContextPath()%>/user.admin'">회원 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminHospital.jsp'">병원 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminHospitalJoin.jsp'">병원 가입 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/hospital.admin'">병원 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminReview.jsp'">리뷰 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
@@ -269,8 +269,12 @@ table#adminEnrollHospital>tbody>tr>td{
 			alert('취소!');
 		}
 	});
+	
+	$('#cosmeticReq').click(function(){
+		var popup = window.open("cosmeticReqPopup.jsp", "cosmeticReqPopup", "width=800, height=700");
+	});
    </script>
-   <script src="../../resources/js/main.js"></script>
+   <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
    
 </body>
 </html>

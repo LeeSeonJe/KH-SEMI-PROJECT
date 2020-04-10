@@ -1,4 +1,4 @@
-package member.controller;
+package admin.controller;
 
 import java.io.IOException;
 
@@ -8,22 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import customer.model.service.CustomerService;
+import customer.model.vo.Customer;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class UserDetailServlet
  */
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/userDetail.admin")
+public class UserDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public UserDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,25 +33,22 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		
-		String userId = request.getParameter("id");
-		String userPwd = request.getParameter("pwd");
+		Member m = new MemberService().memberDetail(userNo);
+		Customer c = new CustomerService().customerDetail(userNo);
 		
-		Member m = new Member(userId, userPwd);
-		
-		Member loginUser = new MemberService().loginCustomer(m);
-		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			session.setMaxInactiveInterval(600);
-			
-			response.sendRedirect(request.getContextPath());
+		String page = null;
+		if(m != null && c != null) {
+			page = "views/admin/adminUserDetail.jsp";
+			request.setAttribute("m", m);
+			request.setAttribute("c", c);
 		} else {
-			request.setAttribute("msg", "�α��� ����");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "회원 상세정보 조회에 실패하였습니다.");
 		}
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
 	}
 
 	/**

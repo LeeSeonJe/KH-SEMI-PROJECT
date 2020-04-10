@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, member.model.vo.Member" %>
+<%
+	ArrayList<Member> list = (ArrayList) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,8 +177,8 @@ table#adminEnrollHospital>tbody>tr>td{
          <section id="nav-tab">
             <ul id="nav-tab-ul">
                <li onclick="location.href = '<%= request.getContextPath()%>/user.admin'">회원 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminHospital.jsp'">병원 관리</li>
-               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminHospitalJoin.jsp'">병원 가입 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/hospital.admin'">병원 관리</li>
+               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminReview.jsp'">리뷰 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
@@ -198,30 +201,22 @@ table#adminEnrollHospital>tbody>tr>td{
                   </tr>
                </thead>
                <tbody>
-                  <tr>
-                     <td>34</td>
-                     <td>KH피부과</td>
-                     <td>2020-03-19</td>
-                     <td><label class="detail">조회</label></td>
-                     <td><label class="grant">승인</label></td>
-                     <td><label class="refuse">거절</label></td>
-                  </tr>
-                  <tr>
-                     <td>33</td>
-                     <td>제일피부과</td>
-                     <td>2020-03-19</td>
-                     <td><label class="detail">조회</label></td>
-                     <td><label class="grant">승인</label></td>
-                     <td><label class="refuse">거절</label></td>
-                  </tr>
-                  <tr>
-                     <td>32</td>
-                     <td>감동피부과</td>
-                     <td>2020-03-19</td>
-                     <td><label class="detail">조회</label></td>
-                     <td><label class="grant">승인</label></td>
-                     <td><label class="refuse">거절</label></td>
-                  </tr>
+                 <% if(list.isEmpty()) { %>
+				<tr>
+					<td colspan="6">조회된 리스트가 없습니다.</td>
+				</tr>
+				<% } else{ %>
+               		<% for (Member m : list) { %>
+					<tr>
+	                     <td><%= m.getUser_no() %></td>
+	                     <td><%= m.getUser_name() %></td>
+	                     <td><%= m.getEnroll_date() %></td>
+	                     <td><label class="detail">조회</label></td>
+	                     <td><label class="grant">승인</label></td>
+	                     <td><label class="refuse">탈퇴처리</label></td>
+	                </tr>
+					<% } %>	
+				<% } %>	
                </tbody>
             </table>
             <br><br>
@@ -243,14 +238,16 @@ table#adminEnrollHospital>tbody>tr>td{
    
    <script>
 	$('.detail').click(function(){
-		var popup = window.open("adminUserDetail.jsp", "detailPopUp", "width=500, height=300");
+		var popup = window.open("adminHospitalDetail.jsp", "detailPopUp", "width=500, height=300");
 		
 
 	});
 	$('.grant').click(function(){
 		var result = window.confirm('회원가입요청을 승인처리 하시겠습니까?');
+		var userNo = $(this).parent().parent().children().eq(0).text();
 		
 		if(result){
+			location.href="<%= request.getContextPath() %>/hosAccept.admin?userNo=" + userNo;
 			alert('승인 처리 완료!');
 		} else{
 			alert('취소!');
@@ -258,15 +255,17 @@ table#adminEnrollHospital>tbody>tr>td{
 	});
 	$('.refuse').click(function(){
 		var result = window.confirm('회원가입요청을 거절처리 하시겠습니까?');
+		var userNo = $(this).parent().parent().children().eq(0).text();
 		
 		if(result){
+			location.href="<%= request.getContextPath() %>/hosReject.admin?userNo=" + userNo;
 			alert('거절 처리 완료!');
 		} else{
 			alert('취소!');
 		}
 	});
    </script>
-   <script src="../../resources/js/main.js"></script>
+   <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
    
 </body>
 </html>

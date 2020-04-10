@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, member.model.vo.Member" %>
+<%
+	ArrayList<Member> list = (ArrayList) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,8 +177,8 @@ table#adminEnrollHospital>tbody>tr>td{
          <section id="nav-tab">
             <ul id="nav-tab-ul">
                <li onclick="location.href = '<%= request.getContextPath()%>/user.admin'">회원 관리</li>
-               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminHospital.jsp'">병원 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminHospitalJoin.jsp'">병원 가입 관리</li>
+               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/hospital.admin'">병원 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminReview.jsp'">리뷰 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
@@ -198,27 +201,21 @@ table#adminEnrollHospital>tbody>tr>td{
                   </tr>
                </thead>
                <tbody>
-                  <tr>
-                     <td>34</td>
-                     <td>KH피부과</td>
-                     <td>2020-03-19</td>
-                     <td><a href="#" style="font-weight: bold;">조회</a></td>
-                     <td><label class="quit">탈퇴처리</label></td>
-                  </tr>
-                  <tr>
-                     <td>33</td>
-                     <td>제일피부과</td>
-                     <td>2020-03-19</td>
-                     <td><a href="#" style="font-weight: bold;">조회</a></td>
-                     <td><label class="quit">탈퇴처리</label></td>
-                  </tr>
-                  <tr>
-                     <td>32</td>
-                     <td>감동피부과</td>
-                     <td>2020-03-19</td>
-                     <td><a href="#" style="font-weight: bold;">조회</a></td>
-                     <td><label class="quit">탈퇴처리</label></td>
-                  </tr>
+                 <% if(list.isEmpty()) { %>
+				<tr>
+					<td colspan="5">조회된 리스트가 없습니다.</td>
+				</tr>
+				<% } else{ %>
+               		<% for (Member m : list) { %>
+					<tr>
+	                     <td><%= m.getUser_no() %></td>
+	                     <td><%= m.getUser_name() %></td>
+	                     <td><%= m.getEnroll_date() %></td>
+	                     <td><a href="#" style="font-weight: bold;">조회</a></td>
+	                     <td><label class="quit">탈퇴처리</label></td>
+	                </tr>
+					<% } %>	
+				<% } %>	
                </tbody>
             </table>
             <br><br>
@@ -241,15 +238,17 @@ table#adminEnrollHospital>tbody>tr>td{
    <script>
 	$('.quit').click(function(){
 		var result = window.confirm('정말로 탈퇴처리 하시겠습니까?');
+		var userNo = $(this).parent().parent().children().eq(0).text();
 		
 		if(result){
+			location.href="<%= request.getContextPath() %>/deleteH.admin?userNo=" + userNo;
 			alert('정상적으로 탈퇴처리되었습니다!');
 		} else{
 			alert('취소!');
 		}
 	});
    </script>
-   <script src="../../resources/js/main.js"></script>
+   <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
    
 </body>
 </html>

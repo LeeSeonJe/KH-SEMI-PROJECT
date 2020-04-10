@@ -176,9 +176,9 @@ table#adminEnrollHospital>tbody>tr>td{
       <div id="main-div">
          <section id="nav-tab">
             <ul id="nav-tab-ul">
-               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/user.admin">회원 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminHospital.jsp'">병원 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminHospitalJoin.jsp'">병원 가입 관리</li>
+               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/user.admin'">회원 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/hospital.admin'">병원 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminReview.jsp'">리뷰 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
@@ -202,7 +202,7 @@ table#adminEnrollHospital>tbody>tr>td{
                   </tr>
                </thead>
                <tbody>
-               <% if(list == null) { %>
+               <% if(list.isEmpty()) { %>
 				<tr>
 					<td colspan="5">조회된 리스트가 없습니다.</td>
 				</tr>
@@ -239,22 +239,24 @@ table#adminEnrollHospital>tbody>tr>td{
    
    <script>
 	$('.detail').click(function(){
-		var popup = window.open("adminUserDetail.jsp", "detailPopUp", "width=500, height=300");
+		var userNo = $(this).parent().parent().children().eq(0).text();
+		var popup = window.open('<%=request.getContextPath()%>/userDetail.admin?userNo=' + userNo, "detailPopUp", "width=500, height=300");
 		
 
 	});
 	$('.quit').click(function(){
 		var result = window.confirm('정말로 탈퇴처리 하시겠습니까?');
+		var userNo = $(this).parent().parent().children().eq(0).text();
 		
 		if(result){
-			loaction.href='<%= request.getContextPath()%>/delete.me';
+			location.href="<%= request.getContextPath() %>/delete.admin?userNo=" + userNo;
 			alert('정상적으로 탈퇴처리되었습니다!');
 		} else{
 			alert('취소!');
 		}
 	});
    </script>
-   <script src="../../resources/js/main.js"></script>
+   <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
    
 </body>
 </html>
