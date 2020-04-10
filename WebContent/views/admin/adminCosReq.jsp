@@ -268,6 +268,7 @@ table#adminEnrollHospital>tbody>tr>td{
 		} else{
 			alert('취소!');
 		}
+		
 	});
 	
 	$('#cosmeticReq').click(function(){

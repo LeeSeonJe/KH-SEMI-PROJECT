@@ -78,12 +78,12 @@
 					<tr>
 						<td>이메일</td>
 						<td><input class="input-standard" type="email" id="email" name="email" placeholder="이메일을 입력하세요.">
-						<button class="btn-standard">인증번호 전송</button></td>
+						<button class="btn-standard" id="emailCheck" type="button">인증번호 전송</button></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input class="input-standard" type="text" placeholder="인증번호를 입력하세요">
-						<button class="btn-standard">인증번호확인</button></td>
+						<td><input class="input-standard" type="text" id="emailCheckNumber" name="emailCheckNumber" placeholder="인증번호를 입력하세요">
+						<button class="btn-standard" id="emailRealCheck" type="button">인증번호확인</button></td>
 					</tr>
 					<tr>
 						<td>성별</td>
@@ -226,6 +226,38 @@
 		</script>
 	</div>
 	
+	<script>
+		$('#emailCheck').click(function(){
+			var email = $('#email').val();
+			
+			$.ajax({
+				url: '<%= request.getContextPath()%>/emailCheck.me',
+				data: {email:email},
+				success: function(data){
+					alert('인증번호 전송 완료');
+				},
+				error: function(data){
+					alert('인증번호 전송 실패');
+				}
+			});
+		});
+		
+		$('#emailRealCheck').click(function(){
+			var emailCheck =  $('#emailCheckNumber').val();
+			
+			$.ajax({
+				url: '<%= request.getContextPath()%>/emailCheckNumber.me',
+				data : {emailCheck:emailCheck},
+				success: function(data){
+					alert(data);
+				},
+				error: function(data){
+					alert('인증번호 확인 실패');
+				}
+			});
+			
+		});
+	</script>
 
 
 
