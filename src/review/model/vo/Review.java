@@ -28,7 +28,8 @@ public class Review {
 		this.category = category;
 		this.userName = userName;
 	}
-
+	
+	
 	public Review(int review_no, int thumbs_up, int heart, char del_yn, String title, String content, Date date,
 			String category, String userName) {
 		super();

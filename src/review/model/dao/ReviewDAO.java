@@ -28,6 +28,30 @@ public class ReviewDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public int getListCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("getListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return result;
+	}
+	
 	public ArrayList<Review> selectList(Connection conn, int currentPage, int boardLimit) {
 		
 		PreparedStatement pstmt = null;
@@ -56,6 +80,7 @@ public class ReviewDAO {
 									  rset.getDate("board_date"),
 									  rset.getString("board_catecory"),
 									  rset.getString("user_name"));
+				list.add(r);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,29 +89,5 @@ public class ReviewDAO {
 		
 		return list;
 	}
-
-	public int getListCount(Connection conn) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		int result = 0;
-		
-		String query = prop.getProperty("getListCount");
-		
-		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
-				result = rset.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		return result;
-	}
-
 
 }
