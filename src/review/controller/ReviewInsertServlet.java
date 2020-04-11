@@ -37,6 +37,7 @@ public class ReviewInsertServlet extends HttpServlet {
 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+//		int heart = request.getParameter("heart");
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -50,7 +51,7 @@ public class ReviewInsertServlet extends HttpServlet {
 		int result = new ReviewService().insertReview(r);
 		
 		if(result > 0) {
-			response.sendRedirect("review.li");
+			response.sendRedirect("list.re?currentPage=1");
 		} else {			
 			request.setAttribute("msg", "리뷰 등록에 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
