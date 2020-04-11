@@ -120,6 +120,7 @@ public class ReviewDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, r.getHeart());
 			
 			result2 = pstmt.executeUpdate();
 			

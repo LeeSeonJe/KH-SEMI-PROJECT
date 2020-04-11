@@ -37,7 +37,7 @@ public class ReviewInsertServlet extends HttpServlet {
 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-//		int heart = request.getParameter("heart");
+		int heart = Integer.parseInt(request.getParameter("reviewScore"));
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -46,6 +46,7 @@ public class ReviewInsertServlet extends HttpServlet {
 		Review r = new Review();
 		r.setTitle(title);
 		r.setContent(content);
+		r.setHeart(heart);
 		r.setUser_no(user_no);
 		
 		int result = new ReviewService().insertReview(r);
