@@ -68,6 +68,7 @@
 		</div>
 	<hr>
 		<div class="reviews" id="review1">
+		값이 어디갔니?
 			<table class="tb-profile">
 			<% for(int i = 0; i< list.size(); i++){ %>
 				<tr>

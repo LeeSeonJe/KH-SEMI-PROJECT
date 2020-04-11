@@ -10,14 +10,6 @@ import review.model.vo.Review;
 
 public class ReviewService {
 
-	public ArrayList<Review> selectList(int currentPage, int boardLimit) {
-		Connection conn = getConnection();
-	
-		ArrayList<Review> list = new ReviewDAO().selectList(conn, currentPage, boardLimit);
-		close(conn);
-		
-		return list;
-	}
 
 	public int getListCount() {
 		Connection conn = getConnection();
@@ -27,6 +19,14 @@ public class ReviewService {
 		
 		
 		return result;
+	}
+	public ArrayList<Review> selectList(int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new ReviewDAO().selectList(conn, currentPage, boardLimit);
+		close(conn);
+		
+		return list;
 	}
 
 }
