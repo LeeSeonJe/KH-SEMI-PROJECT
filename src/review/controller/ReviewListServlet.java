@@ -17,7 +17,7 @@ import review.model.vo.Review;
 /**
  * Servlet implementation class ReviewListServlet
  */
-@WebServlet("/review.li")
+@WebServlet("/list.re")
 public class ReviewListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,12 +38,12 @@ public class ReviewListServlet extends HttpServlet {
 		
 		int listCount = service.getListCount();
 		
-		int currentPage;
-		int pageLimit = 10;
-		int maxPage;
-		int startPage;
-		int endPage;
-		int boardLimit = 10;
+		int currentPage;		// 현재 페이지
+		int pageLimit = 10;		// 한 페이지에 표시될 페이징 수
+		int maxPage;			// 전체 페이지 중 마지막 페이지
+		int startPage;			// 페이징 된 페이지 중 시작 페이지
+		int endPage;			// 페이징 된 페이지 중 마지막 페이지
+		int boardLimit = 10;	// 한 페이지에 보일 게시글 수
 		
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
@@ -51,15 +51,17 @@ public class ReviewListServlet extends HttpServlet {
 		}
 		
 		maxPage = (int)((double)listCount / boardLimit + 0.9);
-		startPage = (((int)((double)currentPage / pageLimit + 0.9)) -1) * pageLimit +1;
-		endPage = pageLimit + startPage -1;
+		
+		startPage = (((int)((double)currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
+		
+		endPage = pageLimit + startPage - 1;
 		
 		if(maxPage < endPage) {
 			endPage = maxPage;
 		}
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
-		
+			
 		ArrayList<Review> list = service.selectList(currentPage, boardLimit);
 		
 		String page = null;
@@ -68,15 +70,16 @@ public class ReviewListServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
-			page = "views/common/error.jsp";
-			request.setAttribute("msg", "게시판 조회에 실패했습니다.");
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "조회할 리스트가 없습니다.");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
 		
+		
 		for(int i =0; i < list.size(); i++) {
-	         System.out.println(list.get(i));
+	         System.out.println("리스트) "+list.get(i));
 	      }
 	}
 
