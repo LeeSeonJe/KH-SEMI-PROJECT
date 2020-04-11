@@ -89,7 +89,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 					<td rowspan="3"><p><%=list.get(i).getDate() %></p></td>		
 				</tr>
 				<tr>				
-					<td><span class="th-comment"><img src="<%= request.getContextPath() %>/WebContent/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</span><span class="count"><%=list.get(i).getThumbs_up() %></span></td>
+					<td><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</span><span class="count"><%=list.get(i).getThumbs_up() %></span></td>
 					<td><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요</span></td>
 				</tr>
 				<% } %>
