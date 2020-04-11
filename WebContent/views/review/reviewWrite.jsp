@@ -70,22 +70,26 @@
 	</div>
 		<br><br>
 		<div>
-			<label class="label-name">평점</label>
-			<p id="heart">
-				<a href="#">♥</a>
-				<a href="#">♥</a>
-				<a href="#">♥</a>
-				<a href="#">♥</a>
-				<a href="#">♥</a>
-			 </p>
-<script>
-        $('#heart a').click(function(){
-            $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
-            $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
-            return false;
-        });
-</script>
-		</div>
+		     <label class="label-name">평점</label>
+		     <p id="heart">
+		        <a href="#" no='1'>♥</a>
+		        <a href="#" no='2'>♥</a>
+		        <a href="#" no='3'>♥</a>
+		        <a href="#" no='4'>♥</a>
+		        <a href="#" no='5'>♥</a>
+		      </p>
+		      <input id="reviewScore" name="reviewScore" type="hidden"> <!-- 히든으로 바꿔서 쓰면 될꺼 같아요 처음에는 그냥 보시다가 나중에 값넘기는거 확인하고 히든으로 바꾸셔도되구 아니면 바로 히든으로 하고 하셔도됩니다.
+		        이거 저도 검색해보니까 a 태그에는 value를 못쓰는대신에 그냥 아무 변수 쓰고 attr로 불러오면 된다고 해서 해봤는데 잘되네요 ㅎ-->
+		   <script>
+		       $('#heart a').click(function(){
+		           $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+		           $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+		           var no = $(this).attr('no');
+		           $('#reviewScore').val(no); // input 태그에 값넣어주는 jquery
+		           return false;
+		       });
+		   </script>
+		  </div>
 
 		<div>
 			<label class="label-name">제목</label>
