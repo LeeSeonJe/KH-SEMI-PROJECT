@@ -13,6 +13,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import org.apache.tomcat.dbcp.dbcp2.PStmtKey;
+
+import com.sun.org.apache.regexp.internal.REUtil;
+
 import hospital.model.vo.Hospital;
 import member.model.vo.Member;
 
@@ -266,6 +270,7 @@ public class MemberDAO {
 		
 		return result;
 	}
+  
 	public Member checkMember(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -289,12 +294,60 @@ public class MemberDAO {
 									   null);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+	      e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
 		return loginUser;
+  }
+  
+	public int pwdCheck(Connection conn, String userId, String userPwd) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("pwdCheck");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
+	}
+  
+	public int changePwd(Connection conn, String userId, String userPwd, String newPwd) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("changePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userPwd);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

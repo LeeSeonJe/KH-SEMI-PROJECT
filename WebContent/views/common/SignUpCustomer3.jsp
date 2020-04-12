@@ -115,11 +115,11 @@ div.SUII {
 	height: 400px;
 }
 
-div.SUII2{
-	width : 4%;
-	float : left;
-	font-size : 16pt;
-	height : 400px;
+div.SUII2 {
+	width: 4%;
+	float: left;
+	font-size: 16pt;
+	height: 400px;
 }
 
 div.SUChk {
@@ -130,7 +130,7 @@ div.SUChk {
 	text-align: left;
 	float: left;
 	font-size: 16pt;
-	border : 1px solid black;
+	border: 1px solid black;
 }
 
 div.SUChk2 {
@@ -154,61 +154,65 @@ div.SUB {
 	margin-left: 25%;
 }
 
-div.SUChkMain2{
-	width : 65%;
-	height : 60px;
-	font-size : 19pt;
-	float : left;
+div.SUChkMain2 {
+	width: 65%;
+	height: 60px;
+	font-size: 19pt;
+	float: left;
 }
 
-div.SUChkMain5{
-	width : 30%;
-	float : left;
-	font-size : 15pt;
+div.SUChkMain5 {
+	width: 30%;
+	float: left;
+	font-size: 15pt;
 }
 
-div.SUChkMain{
-	width : 15%;
-	height : 60px;
-	font-size : 15pt;
-	float : left;
+div.SUChkMain {
+	width: 15%;
+	height: 60px;
+	font-size: 15pt;
+	float: left;
 }
 
-div.SUChkMain3{
-	width : 75%;
-	height : 80px;
-	font-size : 15pt;
-	float : left;
+div.SUChkMain3 {
+	width: 75%;
+	height: 80px;
+	font-size: 15pt;
+	float: left;
 }
 
-div.SUChkSi{
-	width : 5%;
-	height : 100%;
-	float : left;
+div.SUChkSi {
+	width: 5%;
+	height: 100%;
+	float: left;
 }
 
-div.SUChkSi2{
-	width : 95%;
-	height : 50px;
-	float : left;
+div.SUChkSi2 {
+	width: 95%;
+	height: 50px;
+	float: left;
 }
 
-div.SUChkSi3{
-	width : 95%;
-	height : 25px;
-	float : left;
+div.SUChkSi3 {
+	width: 95%;
+	height: 25px;
+	float: left;
 }
 
-div.SUChkMainICF{
-	height : 30px;
-	width : 500px;
-	float : left;
+div.SUChkMainICF {
+	height: 30px;
+	width: 500px;
+	float: left;
 }
 
-div.SUChkMainICFE{
-	height : 30px;
-	width : 500px;
-	float : left;
+div.SUChkMainICFE {
+	height: 30px;
+	width: 500px;
+	float: left;
+}
+
+div.SUChkMainRadio {
+	margin-top: 8px;
 }
 
 input.loginInput {
@@ -308,45 +312,75 @@ input.SUBC {
 	width: 350px;
 	height: 80px;
 	font-size: 15pt;
-	float : left;
+	float: left;
 }
 
-input.SUChkMainI{
-	width : 250px;
-	height: 45px;	
+input.SUChkMainI {
+	width: 250px;
+	height: 45px;
 }
 
-input.imgAlert1{
-	width : 500px;
-	height : 50px;
-	background-color : white;
-	border : none;
+input.imgAlert1 {
+	width: 500px;
+	height: 50px;
+	background-color: white;
+	border: none;
 	background-image: url('../../resources/images/AlertIcon1_1_1.png');
 	background-repeat: no-repeat;
-	background-position:  -5px -10px;
-	font-size : 10pt;
-	color : #DF1758;
+	background-position: -5px -10px;
+	font-size: 10pt;
+	color: #595959;
 }
 
-input.imgAlert2{
-	width : 50px;
-	height : 50px;
-	background-color : white;
-	border : none;
+input.imgAlert2 {
+	width: 50px;
+	height: 50px;
+	background-color: white;
+	border: none;
 	background-image: url('../../resources/images/AlertIcon2_1_1.png');
 	background-repeat: no-repeat;
-	background-position:  -5px -10px;
+	background-position: -5px -10px;
 }
 
-input.SUChkMainIE{
-	width : 200px;
-	height : 46px;
+input.SUChkMainIE {
+	width: 200px;
+	height: 46px;
+}
+
+input.SUChkMainIE2 {
+	width: 30px;
+	height: 46px;
+}
+
+input.SUChkMainIEFront {
+	width: 150px;
+	height: 46px;
+}
+
+input.SUChkMainICFBirth {
+	width: 100px;
+	height: 46px;
+}
+
+input.SUChkMainICFBirthh {
+	width: 100px;
+	height: 46px;
+}
+
+input.SUChkMainICFBirth2 {
+	width: 50px;
+	height: 46px;
+}
+
+input.SUChkMainGender {
+	width: 50px;
+	height: 46px;
 }
 
 img.SUImg {
 	width: 220px;
 	height: 220px;
-	text-align : left;	
+	text-align: left;
 }
 
 img.SUImg2 {
@@ -354,19 +388,24 @@ img.SUImg2 {
 	height: 35px;
 }
 
-
-
 h3.SUImgI {
 	font-size: 19pt;
 	font-weight: 600;
 }
 
+/*filebox*/
 /*checkbox*/
 </style>
 <%@ include file="/views/layout/import.jsp"%>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/toggle.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/radio.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/inputFile.css"
 	type="text/css">
 </head>
 <body>
@@ -384,17 +423,12 @@ h3.SUImgI {
 		<div class="mLogin">
 			<br> <br> <br>
 			<div class="SUI">
-				<div class = "SUII2">
-				</div>	
+				<div class="SUII2"></div>
 				<div class="SUII">
 					<img class="SUImg"
 						src="<%=request.getContextPath()%>/resources/images/SUChk1_2_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					Step 1
-					<h3 class="SUImgI">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-					약관동의
-					</h3>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 1
+					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 약관동의</h3>
 				</div>
 				<div class="SUII">
 					<br> <br> <br> <img class="SUImg2"
@@ -403,8 +437,7 @@ h3.SUImgI {
 				<div class="SUII">
 					<img class="SUImg"
 						src="<%=request.getContextPath()%>/resources/images/SUChk2_2_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					Step 2
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 2
 					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;본인인증</h3>
 				</div>
 				<div class="SUII">
@@ -414,8 +447,7 @@ h3.SUImgI {
 				<div class="SUII">
 					<img class="SUImg"
 						src="<%=request.getContextPath()%>/resources/images/SUChk3_1_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-					Step 3
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 3
 					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;정보입력</h3>
 				</div>
 				<div class="SUII">
@@ -425,161 +457,222 @@ h3.SUImgI {
 				<div class="SUII">
 					<img class="SUImg"
 						src="<%=request.getContextPath()%>/resources/images/SUChk4_2_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-					Step 4
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 4
 					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가입완료</h3>
 				</div>
-				<div class = "SUII2">
-				</div>
+				<div class="SUII2"></div>
 			</div>
 			<div class="SUChk">
-				<div class = "SUChkSi">
-				</div>
-				<div class = "SUChkSi2">
-				</div>
-				<div class = "SUChkMain2">
-					회원정보 입력
-				</div>
-				<div class = "SUChkMain5">
+				<div class="SUChkSi"></div>
+				<div class="SUChkSi2"></div>
+				<div class="SUChkMain2">회원정보 입력</div>
+				<div class="SUChkMain5" id="SUChkMain5Focus">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<h3 style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top : 0%;">*</h3>
+					<h3
+						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 0%;">*</h3>
 					는 필수 입력 항목 입니다.
 				</div>
-				<div class = "SUChkSi3">
-				</div>
-				<div class = "SUChkMain">
+				<div class="SUChkSi3"></div>
+				<div class="SUChkMain">
 					아이디
-					<h3 style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top : 8%;">*</h3>
+					<h3
+						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
-				<div class = "SUChkMain3">
-					<input type = "text" class = "SUChkMainI" id = "SUChkMainIID">
-					<div style = "display : inline-block; ">
-						<div class = "SUChkMainICF" id = "IDCheckkF">
-							<input type = "button" class = "imgAlert1" value = "아이디는 8자 이상, 숫자와 영문자만 포함해야 합니다.                                    " disabled>
+				<div class="SUChkMain3">
+					<input type="text" class="SUChkMainI" id="SUChkMainIID">
+					<div style="display: inline-block;">
+						<div class="SUChkMainICF" id="IDCheckkF">
+							<input type="button" class="imgAlert1"
+								value="아이디는 8자 이상, 숫자와 영문자만 포함해야 합니다.                                    "
+								disabled>
 						</div>
-						<div class = "SUChkMainICF" id = "IDCheckkT">
-							<input type = "button" class = "imgAlert2" disabled>
-						</div>
-					</div>
-				</div>
-				<div class = "SUChkMain">
-					비밀번호 
-					<h3 style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top : 8%;">*</h3>
-				</div>
-				<div class = "SUChkMain3">
-					<input type = "password" class = "SUChkMainI" id = "SUChkMainIPwd" >
-					<div style = "display : inline-block; ">
-						<div class = "SUChkMainICF" id = "pwdCheckkF">
-							<input type = "button" class = "imgAlert1" onclick = "alert1()" value = "          비밀번호는 8자 이상, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다." disabled>
-						</div>
-						<div class = "SUChkMainICF" id = "pwdCheckkT">
-							<input type = "button" class = "imgAlert2" disabled>
+						<div class="SUChkMainICF" id="IDCheckkT">
+							<input type="button" class="imgAlert2" disabled>
 						</div>
 					</div>
 				</div>
-				<div class = "SUChkMain">
-					비밀번호 확인 
-					<h3 style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top : 8%;">*</h3>
+				<div class="SUChkMain">
+					비밀번호
+					<h3
+						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
-				<div class = "SUChkMain3">
-					<input type = "password" class = "SUChkMainI" id = "SUChkMainIPwdC" >
-					<div style = "display : inline-block;">
-						<div class = "SUChkMainICF" id = "pwdConfirmmF">
-							<input type = "button" class = "imgAlert1" onclick = "alert2()" value = "비밀번호가 일치하지 않습니다.                                                                          ">
-							
+				<div class="SUChkMain3">
+					<input type="password" class="SUChkMainI" id="SUChkMainIPwd">
+					<div style="display: inline-block;">
+						<div class="SUChkMainICF" id="pwdCheckkF">
+							<input type="button" class="imgAlert1"
+								value="      비밀번호는 8자 이상, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다."
+								disabled>
 						</div>
-						<div class = "SUChkMainICF" id = "pwdConfirmmT">
-							<input type = "button" class = "imgAlert2" disabled>
-						</div>
-					</div>
-				</div>
-				<div class = "SUChkMain">
-					이름 
-					<h3 style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top : 8%;">*</h3>
-				</div>
-				<div class = "SUChkMain3">
-					<input type = "text" class = "SUChkMainI" id = "SUChkMainINameC" >
-					<div style = "display : inline-block;">
-						<div class = "SUChkMainICF" id = "nameConfirmmF">
-							<input type = "button" class = "imgAlert1" value = "이름을 입력해 주세요.                                                                               ">
-						</div>
-						<div class = "SUChkMainICF" id = "nameConfirmmT">
-							<input type = "button" class = "imgAlert2" disabled>
+						<div class="SUChkMainICF" id="pwdCheckkT">
+							<input type="button" class="imgAlert2" disabled>
 						</div>
 					</div>
 				</div>
-				<div class = "SUChkMain">
+				<div class="SUChkMain">
+					비밀번호 확인
+					<h3
+						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
+				</div>
+				<div class="SUChkMain3">
+					<input type="password" class="SUChkMainI" id="SUChkMainIPwdC">
+					<div style="display: inline-block;">
+						<div class="SUChkMainICF" id="pwdConfirmmF">
+							<input type="button" class="imgAlert1"
+								value="비밀번호가 일치하지 않습니다.                                                                            "
+								disabled>
+						</div>
+						<div class="SUChkMainICF" id="pwdConfirmmT">
+							<input type="button" class="imgAlert2" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="SUChkMain">
+					이름
+					<h3
+						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
+				</div>
+				<div class="SUChkMain3">
+					<input type="text" class="SUChkMainI" id="SUChkMainINameC">
+					<div style="display: inline-block;">
+						<div class="SUChkMainICF" id="nameConfirmmT">
+							<input type="button" class="imgAlert2" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="SUChkMain">
 					전화번호
+					<h3
+						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
-				<div class = "SUChkMain3">
-					<input type = "text" class = "SUChkMainIE">
-					<input type = "text" class = "SUChkMainIE">
-					<input type = "text" class = "SUChkMainIE">
+				<div class="SUChkMain3">
+					<input type="text" class="SUChkMainICFBirthh" maxlength="3">
+					- <input type="text" class="SUChkMainICFBirthh" maxlength="4">
+					- <input type="text" class="SUChkMainICFBirthh" maxlength="4">
 				</div>
-				<div class = "SUChkMain">
-					이메일 
-					<h3 style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top : 0%;">*</h3>
+				<div class="SUChkMain">
+					이메일
+					<h3
+						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
-				<div class = "SUChkMain3">
-					<input type = "text" class = "SUChkMainIE" readonly value = "cosmedic">
-					<input type = "text" class = "SUChkMainIE" readonly value = "naver.com">
-					<div style = "display : inline-block;">
-						<div class = "SUChkMainICFE" id = "emailConfirmmF" style = "width : 50px;">
-							<input type = "button" class = "imgAlert2" >
+				<div class="SUChkMain3">
+					<input type="text" class="SUChkMainIE" readonly value="cosmedic">
+					<input type="text" class="SUChkMainIE" readonly value="naver.com">
+					<div style="display: inline-block;">
+						<div class="SUChkMainICFE" id="emailConfirmmF"
+							style="width: 50px;">
+							<input type="button" class="imgAlert2" disabled>
 						</div>
 					</div>
 				</div>
-				<div class = "SUChkMain">
+
+				<div class="SUChkMain">
+					주민등록번호
+					<h3
+						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
+				</div>
+				<div class="SUChkMain3">
+					<input type="text" class="SUChkMainIEFront" id="SUChkMainPID"
+						maxlength="6"
+						onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"> -
+					<input type="text" class="SUChkMainIE2" id="SUChkMainPID2"
+						maxlength="1"
+						onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+					<div style="display: inline-block;">
+						<div class="SUChkMainICF" id="personIDConfirmmF">
+							<input type="button" class="imgAlert1"
+								value="올바른 주민번호가 아닙니다.                                                                                 "
+								disabled>
+						</div>
+						<div class="SUChkMainICF" id="personIDConfirmmT">
+							<input type="button" class="imgAlert2" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="SUChkMain">
+					생년월일
+					<h3
+						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3>
+				</div>
+				<div class="SUChkMain3">
+					<div style="display: inline-block;">
+						<input class="SUChkMainICFBirth" id="customerBY" type="text"
+							readonly> <input class="SUChkMainICFBirth2"
+							id="customerBM" type="text" readonly> <input
+							class="SUChkMainICFBirth2" id="customerBD" type="text" readonly>
+						<div style="display: inline-block;">
+							<div class="SUChkMainICF" id="personIDConfirmmTTT1">
+								<input type="button" class="imgAlert2" disabled>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="SUChkMain">
 					성별
+					<h3
+						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
-				<div class = "SUChkMain3">
-					<label class="label-radio"><input type="radio" name="gender" value="M" checked> 남자</label>
-					<label class="label-radio"><input type="radio" name="gender" value="F"> 여자</label>
-					<label class="label-radio"><input type="radio" name="gender" value="N"> 선택안함</label>
+				<div class="SUChkMain3">
+					<input type="text" class="SUChkMainGender" id="customerGender"
+						readonly>
+					<div style="display: inline-block;">
+						<div class="SUChkMainICF" id="personIDConfirmmTTT2">
+							<input type="button" class="imgAlert2" disabled>
+						</div>
+					</div>
 				</div>
-				<div class = "SUChkMain">
-					연령대
-				</div>
-				<div class = "SUChkMain3">
-					<label class="label-radio"><input type="radio" name="age" value="10" checked> 10대</label>
-							<label class="label-radio"><input type="radio" name="age" value="20early"> 20대 초반</label>
-							<label class="label-radio"><input type="radio" name="age" value="20late"> 20대 후반</label>
-							<label class="label-radio"><input type="radio" name="age" value="30early"> 30대 초반</label>
-							<label class="label-radio"><input type="radio" name="age" value="30late"> 30대 후반</label>
-							<label class="label-radio"><input type="radio" name="age" value="other"> 그 외 연령층</label>
-				</div>	
-				<div class = "SUChkMain">
+				<div class="SUChkMain">
 					피부 타입
+					<h3
+						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
-				<div class = "SUChkMain3">
-					<input type="radio" name="skintype" value="건성" checked><label>건성</label>
-					<input type="radio" name="skintype" value="지성"><label>지성</label>
-					<input type="radio" name="skintype" value="중성"><label>중성</label>
-					<input type="radio" name="skintype" value="복합성"><label>복합성</label>						<input type="radio" name="skintype" value="민감성"><label>민감성</label>
-					<input type="radio" name="skintype" value="민감성"><label>민감성</label>
+				<div class="SUChkMain3">
+					<div class="SUChkMainRadio">
+						<label style="font-weight: 100;"> <input type="radio"
+							class="radio" name="skintype" value="건성" checked readonly>
+							<span class="label"> </span> 건성 &nbsp;&nbsp;
+						</label> <label style="font-weight: 100;"> <input type="radio"
+							class="radio" name="skintype" value="지성" readonly> <span
+							class="label"> </span> 지성 &nbsp;&nbsp;
+						</label> <label style="font-weight: 100;"> <input type="radio"
+							class="radio" name="skintype" value="중성" readonly> <span
+							class="label"> </span> 중성 &nbsp;&nbsp;
+						</label> <label style="font-weight: 100;"> <input type="radio"
+							class="radio" name="skintype" value="복합성" readonly> <span
+							class="label">s </span> 복합성 &nbsp;&nbsp;
+						</label> <label style="font-weight: 100;"> <input type="radio"
+							class="radio" name="skintype" value="민감성" readonly> <span
+							class="label"> </span> 민감성 &nbsp;&nbsp;
+						</label>
+					</div>
 				</div>
-				<div class = "SUChkMain">
-					사용중인 화장품
+				<div class="SUChkMain">
+					프로필 사진
+					<h3
+						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
-				<div class = "SUChkMain3">
-					<input class="input-standard" type="text" placeholder=""/><button class="btn-standard" onclick = "test4();">화장품 찾기</button>
+				<div class="SUChkMain3">
+
+					<div class="fileBox">
+						<input type="text" class="fileName" readonly="readonly" style = "height : 45px; width : 300px; font-size : 15pt"> 
+						<label for="uploadBtn" class="btn_file" style = "height : 45px; margin-top : 5px; font-weight : 100;">찾아보기</label> 
+						<input type="file" id="uploadBtn" class="uploadBtn">
+					</div>
 				</div>
 			</div>
 			<div class="SUB">
 				<div>
-					<br><br><br><br>
+					<br> <br> <br> <br>
 				</div>
-				<input class="SUBC" id = "SUBCC" type="button" value="취소"
+				<input class="SUBC" id="SUBCC" type="button" value="취소"
 					style="background-color: white; border: 1px solid black;"
-					onclick="location.href='loginedMain.jsp'"> 
-				<input
-					class="SUBC" id = "SUBCC1" type="button" value="다음단계"
-					style="background-color: #595959; border: 1px solid #595959; color: white;"
-					onclick="alert1()">
-				<input
-					class="SUBC" id = "SUBCC2" type="button" value="다음단계"
+					onclick="location.href='loginedMain.jsp'"> <input
+					class="SUBC" id="SUBCC1" type="button" value="다음단계"
+					style="background-color: #595959; border: 1px solid #595959; color: white;">
+				<input class="SUBC" id="SUBCC2" type="button" value="다음단계"
 					style="background-color: #DF1758; border: 1px solid #DF1758; color: white;"
 					onclick="location.href='SignUpCustomer4.jsp' ">
+
 			</div>
 		</div>
 	</div>
@@ -587,63 +680,229 @@ h3.SUImgI {
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
-		$(function(){
+		$(function() {
 			$(".SUChkMainICF").hide();
 			$("#SUBCC2").hide();
 			$("#SUBCC1").show();
-		});  
-	        $('input').change(function(){
-	        	var chk = false;
-				
-				var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-				var pwd = $("#SUChkMainIPwd").val();
-			    
-				var pwdConfirm = document.getElementById('pwdConfirm');
-		        var pwd1 = document.getElementById('SUChkMainIPwd');
-		        var pwd2 = document.getElementById('SUChkMainIPwdC');
-		        
-				var regi = /^(?=.*?[A-Z,a-z])(?=.*?[0-9]).{8,}$/;
-				var id = $("#SUChkMainIID").val();
- 		        if(true === reg.test(pwd)) {
- 		        	$("#pwdCheckkF").hide();
-					$("#pwdCheckkT").show();
- 					if(pwd1.value == pwd2.value){
- 						 $("#pwdConfirmmF").hide();
- 						 $("#pwdConfirmmT").show();
- 						if($("#SUChkMainINameC").val().trim().length > 0){
- 							$("#nameConfirmmF").hide();
- 							$("#nameConfirmmT").show();
- 							if(true === regi.test(id)){
- 								alert("메롱");
- 								$("#IDCheckkF").hide();
- 								$("#IDCheckkT").show();
- 								chk = true;
- 							} else {
- 								$("#IDCheckkT").hide();
- 								$("#IDCheckkF").show();
- 							}
- 						} else {
- 							$("#nameConfirmmT").hide();
- 							$("#nameConfirmmF").show();
- 						}
- 					} else {
- 						 $("#pwdConfirmmT").hide();
- 						 $("#pwdConfirmmF").show();
- 					}
- 				}else {
- 					 $("#pwdCheckkT").hide();
-					 $("#pwdCheckkF").show();
- 					chk = false;
- 				}
-	        	 if(chk === true){
-	 		        	$("#SUBCC1").hide();
-	 					$("#SUBCC2").show();
-	 				}else{
-	 					$("#SUBCC2").hide();
-	 					$("#SUBCC1").show();			
-	 				}	
-	        });
-	       
+			$("#genderConfirmmN").show();
+		});
+		var uploadFile = $('.fileBox .uploadBtn');
+		uploadFile.on('change',
+				function() {
+					if (window.FileReader) {
+						var filename = $(this)[0].files[0].name;
+					} else {
+						var filename = $(this).val().split('/').pop().split(
+								'\\').pop();
+					}
+					$(this).siblings('.fileName').val(filename);
+				});
+		$('.loginForm').keyup(
+						function() {
+							var flag1 = false;
+							var flag2 = false;
+							var flag3 = false;
+							var flag4 = false;
+							var flag5 = false;
+
+							var regi = /^(?=.*?[A-Z,a-z])(?=.*?[0-9]).{8,}$/;
+							var id = $("#SUChkMainIID").val();
+
+							var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+							var pwd = $("#SUChkMainIPwd").val();
+
+							var pwdd = $("#SUChkMainIPwdC").val();
+							var pwd1 = document.getElementById('SUChkMainIPwd');
+							var pwd2 = document
+									.getElementById('SUChkMainIPwdC');
+
+							var PID = $('#SUChkMainPID').val();
+							var PID2 = $('#SUChkMainPID2').val();
+							var yyyy = $('#SUChkMainPID').val().substr(0, 2);
+							var MM = $('#SUChkMainPID').val().substr(2, 2);
+							var dd = $('#SUChkMainPID').val().substr(4, 2);
+							var gender = $("#SUChkMainPID2").val().substr(0, 1);
+
+							var flagg1 = false;
+							var flagg2 = false;
+							var flagg3 = false;
+							var flagg4 = false;
+
+							$(".SUChkMainIEFront").keyup(function() {
+								var charLimit = $(this).attr("maxlength");
+								if (this.value.length >= charLimit) {
+									$("#SUChkMainPID2").focus();
+									return false;
+								}
+							});
+
+							$(".SUChkMainICFBirthh").keyup(
+									function() {
+										var charLimit = $(this).attr(
+												"maxlength");
+										if (this.value.length >= charLimit) {
+											$(this).next('.SUChkMainICFBirthh')
+													.focus();
+											return false;
+										}
+									});
+							if (id.length > 0) {
+								if (true === regi.test(id)) {
+									$("#IDCheckkF").hide();
+									$("#IDCheckkT").show();
+									flag1 = true;
+								} else {
+									$("#IDCheckkT").hide();
+									$("#IDCheckkF").show();
+									flag1 = false;
+								}
+							}
+
+							if (pwd.length > 0) {
+								if (true == reg.test(pwd)) {
+									$("#pwdCheckkF").hide();
+									$("#pwdCheckkT").show();
+									flag2 = true;
+								} else {
+									$("#pwdCheckkT").hide();
+									$("#pwdCheckkF").show();
+									flag2 = false;
+								}
+							} else {
+
+							}
+
+							if (pwdd.length > 0) {
+								if (pwdd.length > 0) {
+									if (true == reg.test(pwd)) {
+										if (pwd1.value == pwd2.value) {
+											$("#pwdConfirmmF").hide();
+											$("#pwdConfirmmT").show();
+											flag3 = true;
+										} else {
+											$("#pwdConfirmmT").hide();
+											$("#pwdConfirmmF").show();
+											flag3 = false;
+										}
+									} else {
+										$("#pwdConfirmmT").hide();
+										$("#pwdConfirmmF").show();
+										flag3 = false;
+									}
+								}
+							}
+
+							if ($("#SUChkMainINameC").val().length > 0) {
+								$("#nameConfirmmF").hide();
+								$("#nameConfirmmT").show();
+								flag4 = true;
+							} else {
+								$("#nameConfirmmT").hide();
+								$("#nameConfirmmF").show();
+								flag4 = false;
+							}
+
+							// 주민번호 유효성
+							if (($('#SUChkMainPID').val().length < 1)
+									|| ($('#SUChkMainPID').val().length < 6)) {
+								flagg1 = false;
+							} else {
+								flagg1 = true;
+							}
+
+							if ($('#SUChkMainPID2').val().length < 1) {
+								flagg2 = false;
+							} else {
+								flagg2 = true;
+							}
+
+							if ((dd > 0) && (dd < 32)) {
+								flagg3 = true;
+							} else {
+
+								flagg3 = false;
+							}
+
+							if ((MM > 0) && (MM < 13)) {
+								flagg4 = true;
+							} else {
+								flagg4 = false;
+							}
+
+							if ((PID.length > 0) || (PID2.lenth > 0)) {
+								if (flagg1 == true) {
+									if (flagg2 == true) {
+										if (flagg3 == true) {
+											if (flagg4 == true) {
+												$("#personIDConfirmmF").hide();
+												$("#personIDConfirmmT").show();
+
+												$("#personIDConfirmmTTF1")
+														.hide();
+												$("#personIDConfirmmTTF2")
+														.hide();
+												$("#personIDConfirmmTTT1")
+														.show();
+												$("#personIDConfirmmTTT2")
+														.show();
+												flag5 = true;
+											}
+										}
+									}
+								} else {
+									$("#personIDConfirmmT").hide();
+									$("#personIDConfirmmF").show();
+
+									$("#personIDConfirmmTTT1").hide();
+									$("#personIDConfirmmTTT2").hide();
+									$("#personIDConfirmmTTF1").show();
+									$("#personIDConfirmmTTF2").show();
+									flag5 = false;
+								}
+
+							}
+
+							if ((flag1 == true) && (flag2 == true)
+									&& (flag3 == true) && (flag4 == true)
+									&& (flag5 == true)) {
+								$("#SUBCC1").hide();
+								$("#SUBCC2").show();
+
+							} else {
+								$("#SUBCC2").hide();
+								$("#SUBCC1").show();
+
+							}
+
+							if (($('#SUChkMainPID').val().length > 0)
+									&& ($('#SUChkMainPID2').val().length > 0)
+									&& (dd > 0) && (dd < 32) && (MM > 0)
+									&& (MM < 13)) {
+								if ((gender == 1) || (gender == 2)) {
+									$('#customerBY').val("19" + yyyy);
+									$('#customerBM').val(MM);
+									$('#customerBD').val(dd);
+								} else if ((gender == 3) || (gender == 4)) {
+									$('#customerBY').val("20" + yyyy);
+									$('#customerBM').val(MM);
+									$('#customerBD').val(dd);
+								} else {
+									$('#customerBY').val("");
+									$('#customerBM').val("");
+									$('#customerBD').val("");
+								}
+							} else {
+								$('#customerBY').val("");
+								$('#customerBM').val("");
+								$('#customerBD').val("");
+							}
+
+							if ((gender == 1) || (gender == 3)) {
+								$("#customerGender").val("남성");
+							} else if ((gender == 2) || (gender == 4)) {
+								$("#customerGender").val("여성");
+							}
+						});
 	</script>
 </body>
 </html>
