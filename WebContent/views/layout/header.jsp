@@ -246,7 +246,7 @@
 		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/user.admin'">관리자페이지</label></span>
 		<% } else { %>
 		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
-		<span id="login" class="login"><label><%= loginUser.getUser_name() %></label></span>
+		<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/views/member/myPage.jsp"><%= loginUser.getUser_name() %></a></label></span>
 		<% } %>
 		<%-- <span class="sch">
 			<button type="button"><img src="<%= request.getContextPath() %>/resources/images/search_icon.png"></button>
