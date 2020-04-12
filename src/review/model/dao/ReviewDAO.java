@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import customer.model.vo.Customer;
 import review.model.vo.Review;
 
 public class ReviewDAO {
@@ -145,6 +146,7 @@ public class ReviewDAO {
 		
 		return 0;
 	}
+
 
 
 }

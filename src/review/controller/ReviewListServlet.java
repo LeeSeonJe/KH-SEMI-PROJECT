@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import customer.model.vo.Customer;
 import review.model.service.ReviewService;
 import review.model.vo.PageInfo;
 import review.model.vo.Review;

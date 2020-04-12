@@ -64,6 +64,11 @@
 		</tr>
 		<tr>
 			<td><button type="button" id="btn-select">제품 선택</button></td>
+			<script>
+				$('#btn-select').click(function(){
+					window.open('<%= request.getContextPath() %>/views/cosmetic/cosmeticFind.jsp', "findingProduct", "width=600, height=300")
+				});
+			</script>
 		</tr>
 	</table>
 <hr>	
@@ -78,8 +83,7 @@
 		        <a href="#" no='4'>♥</a>
 		        <a href="#" no='5'>♥</a>
 		      </p>
-		      <input id="reviewScore" name="reviewScore" type="hidden"> <!-- 히든으로 바꿔서 쓰면 될꺼 같아요 처음에는 그냥 보시다가 나중에 값넘기는거 확인하고 히든으로 바꾸셔도되구 아니면 바로 히든으로 하고 하셔도됩니다.
-		        이거 저도 검색해보니까 a 태그에는 value를 못쓰는대신에 그냥 아무 변수 쓰고 attr로 불러오면 된다고 해서 해봤는데 잘되네요 ㅎ-->
+		      <input id="reviewScore" name="reviewScore" type="hidden"> 
 		   <script>
 		       $('#heart a').click(function(){
 		           $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
@@ -88,6 +92,7 @@
 		           $('#reviewScore').val(no); // input 태그에 값넣어주는 jquery
 		           return false;
 		       });
+		       
 		   </script>
 		  </div>
 

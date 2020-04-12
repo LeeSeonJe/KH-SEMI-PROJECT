@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
 import="java.util.ArrayList" import="review.model.vo.*"%>
+
 <%
    ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
-   
    PageInfo pi = (PageInfo)request.getAttribute("pi");
    
    int currentPage = pi.getCurrentPage();
@@ -19,17 +19,16 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">	
 /* 슬라이드 */
-	
-
 
 /* 슬라이드 끝 */
 	#select-option{text-align: right;}
 	
-	.tb-profile{display: inline-block; padding: 15px; margin-left: 80px;}
+	#tb-list{width: 100%; text-align: center; border-bottom: 1px solid black;}
+	#reviewTitle{font-size: 15px; font-weight: bold;}
+	#reviewTitle p{margin-top: 30px;}
 	.icon-p{width: 50px; height: 50px; margin-top: 10px;}
 	.p-nick{margin-top: 10px;}
 	
-	.tb-content{display: inline-block; margin-left: 50px; margin-bottom: 20px;}
 	.p-content{margin-bottom: 10px; margin-top: 10px;}
 	.icon-h{width: 25px; height: 25px;}
 	
@@ -68,33 +67,27 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 		</select>
 		</div>
 	<hr>
-		<div class="reviews" id="review1">
-			<table class="tb-profile">
+		 <div class="reviews" id="review1"> 
+			<table id="tb-list" border=1>
 			<% for(int i = 0; i< list.size(); i++){ %>
 				<tr>
-					<td rowspan="2"><img src="<%= request.getContextPath() %>/resources/images/프사.png" class="icon-p"></td>
-					<td><p class="p-nick"><!-- 닉네임 --><%=list.get(i).getUserName() %></p></td>
+					<td><img src="<%= request.getContextPath() %>/resources/images/프사.png" class="icon-p"></td>
+					<td id="reviewTitle"><!-- 리뷰제목 --><p><%=list.get(i).getTitle() %></p></td>
+					<td><img src="<%= request.getContextPath() %>/resources/images/makeup.png" class="icon-product"></td>
+					<td rowspan="2"><p><%=list.get(i).getDate() %></p></td>		
+					<td rowspan="2" width="25%">
+					♥<span class="star-prototype" id="review-star"><%=list.get(i).getHeart() %></span>
+					</td>
 				</tr>
 				<tr>	
-					<td><!-- 리뷰제목 --><%=list.get(i).getTitle() %></td>
-					<td><p class="p-content"><!-- 리뷰내용간략 --><%=list.get(i).getContent() %></p></td>
-					<td>연령대 / 피부타입 / 성별 &nbsp;&nbsp; 
-					<span class="star-prototype" id="review-star"><%=list.get(i).getHeart() %></span></td>
-				</tr>
-				<tr>	
-					<td rowspan="2"><img src="<%= request.getContextPath() %>/resources/images/makeup.png" class="icon-product"></td>
+					<td class="td1"><p class="p-nick"><!-- 닉네임 --><%=list.get(i).getUserName() %></p></td>
+					<%-- <td><p class="p-content"><!-- 리뷰내용간략 --><%=list.get(i).getContent() %></p></td> --%>
+					<td>나이 / 스킨타입 / 성별&nbsp;&nbsp;</td>
 					<td><p class="pro-name">제품명1</p></td>
-				</tr>
-				<tr>
-					<td rowspan="3"><p><%=list.get(i).getDate() %></p></td>		
-				</tr>
-				<tr>				
-					<td><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</span><span class="count"><%=list.get(i).getThumbs_up() %></span></td>
-					<td><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요</span></td>
 				</tr>
 				<% } %>
 			</table> 
-		</div>
+		 </div> 
 	<hr>	
 		</div>
 		
