@@ -29,4 +29,23 @@ public class ReviewService {
 		return result;
 	}
 
+	public int insertReview(Review r) {
+		Connection conn = getConnection();
+		
+		ReviewDAO dao = new ReviewDAO();
+		
+		int result1 = dao.insertBoard(conn, r);
+		int result2 = dao.insertReview(conn, r);
+	//	int result3 = dao.insertCos_review(conn, r);
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);	
+		return result1;
+	}
+
 }

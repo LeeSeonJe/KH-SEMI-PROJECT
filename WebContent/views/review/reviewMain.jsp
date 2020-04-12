@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.ArrayList" import="review.model.vo.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
+import="java.util.ArrayList" import="review.model.vo.*"%>
 <%
    ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
    
@@ -92,7 +93,7 @@
 					<td><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요</span></td>
 				</tr>
 				<% } %>
-			</table>
+			</table> 
 		</div>
 	<hr>	
 		</div>
@@ -103,7 +104,7 @@
 	</div>		
 			
 			
-	<!--  작성 끝 -->
+	<!-- 작성 끝  -->
 	
 
 	<%@ include file="/views/layout/footer.jsp"%>

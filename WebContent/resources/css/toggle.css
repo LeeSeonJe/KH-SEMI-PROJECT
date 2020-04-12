@@ -11,7 +11,7 @@
 	display : inline-block;
 	margin-right : .5rem;
 	width : 46px;
-	height : 26px;
+	height : 26px;	
 	background-color : #DF1758;
 	border-radius : 23px;
 	vertical-align : text-bottom;
@@ -50,6 +50,7 @@
 
 .form-switch:active input:checked + i::after {
 	transform : translate3d(2px, 2px, 0);
+	background-color : #fff;
 }
 
 .form-switch input {

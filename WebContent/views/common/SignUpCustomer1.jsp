@@ -266,7 +266,7 @@ h3.SUImgI {
 <%@ include file="/views/layout/import.jsp"%>
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/toggle.css"
+	href="<%=request.getContextPath()%>/resources/css/toggle2.css"
 	type="text/css">
 </head>
 <body>
