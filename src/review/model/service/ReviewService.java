@@ -5,6 +5,7 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import customer.model.vo.Customer;
 import review.model.dao.ReviewDAO;
 import review.model.vo.Review;
 
@@ -47,5 +48,7 @@ public class ReviewService {
 		close(conn);	
 		return result1;
 	}
+
+
 
 }
