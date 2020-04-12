@@ -237,12 +237,11 @@ input {
 				success: function(data){
 					$('#ul-area').html("");
 					for(var i in data){	
-						console.log(data[i]);
 						var $li = $('<li class="brand-list-li"></li>');
 						var $div1 = $('<div class="brand-list"></div>');
 						var $div2 = $('<div class="bd-img"></div>');
 						var $img = $('<img>')						
-						if((data[i].cosmetic_img).indexOf("http") == -1){
+						if((data[i].brand_Img).indexOf("http") == -1){
 							$img.attr('src', "<%= request.getContextPath() %>/cosReq_uploadFiles/" + data[i].brand_Img);														
 						} else {
 							$img.attr('src', data[i].brand_Img);							
