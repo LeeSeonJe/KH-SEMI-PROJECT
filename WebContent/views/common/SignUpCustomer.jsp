@@ -15,11 +15,9 @@
 #CSU-form>table>tbody>tr>td:first-child {
     width: 110px;
 }
-
 #CSU-form>table>tbody>tr>td.td-center {
     text-align: center;
 }
-
 .td-center>button {
 	margin: 12px;
 }
@@ -125,11 +123,8 @@
 		</form>
 		<script>
 		function test1(){
-
 			var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-
 			var pwd = $("#pwd").val();
-
 			if(false === reg.test(pwd)) {
 				pwdCheck.innerHTML = '비밀번호는 8자 이상이어야 하며,<br> 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.';
 				pwdCheck.style.color = 'red';
@@ -137,7 +132,6 @@
 				pwdCheck.innerHTML = '&nbsp;사용 가능한 비밀번호입니다.'
 				pwdCheck.style.color = 'green';
 			}
-
 			}
 		 function test2(){
 	         var pwdConfirm = document.getElementById('pwdConfirm');
@@ -155,7 +149,6 @@
 		 
 		 function test3(){
 			 var reg = /^(?=.*?[A-Z,a-z])(?=.*?[0-9]).{8,}$/;
-
 			 var id = $("#id").val();
 		 if(false === reg.test(id)){
 			idCheck.innerHTML = '아이디는 8자 이상이어야 하며, 영어, 숫자만<br> 입력하여야 하고 특수문자는 사용이 불가능합니다';
@@ -177,7 +170,6 @@
 			var gender = document.getElementsByName("gender");
 			var age = document.getElementsByName('age');
 			var skintype = document.getElementsByName('skintype');
-
 			for(var i=0; i<gender.length; i++){
 				if(gender[i].checked == true)
 					found1 = gender[i];

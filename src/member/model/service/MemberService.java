@@ -118,4 +118,12 @@ public class MemberService {
 		
 		return result;
 	}
+
+	public Member checkMember(String id) {
+		Connection conn = getConnection();
+		
+		Member loginUser = new MemberDAO().checkMember(conn, id);
+		close(conn);
+		return loginUser;
+	}
 }

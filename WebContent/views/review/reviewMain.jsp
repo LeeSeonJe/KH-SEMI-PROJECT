@@ -103,7 +103,7 @@
 	</div>		
 			
 			
-	<!— 작성 끝 —>
+	<!--  작성 끝 -->
 	
 
 	<%@ include file="/views/layout/footer.jsp"%>

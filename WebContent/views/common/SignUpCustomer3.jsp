@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String id = (String) request.getAttribute("id");
+	String email = (String) request.getAttribute("email");
+	String nickname = (String) request.getAttribute("nickname");
+	String profile_image = (String) request.getAttribute("profile_image");
+	String gender = (String) request.getAttribute("gender");
+	
+	System.out.println(nickname);
+%>
 <!DOCTYPE html>
 <html>
 <head>
