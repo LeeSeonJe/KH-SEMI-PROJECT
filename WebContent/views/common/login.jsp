@@ -243,7 +243,7 @@ input.mSignUpISB {
 				<div class="bLogin2">
 					<div class="loginFont">
 						병원 로그인 <label class="form-switch"> <input class="toggle2"
-							type="checkbox" id="tgl2" checked="checked"> <i></i>
+							type="checkbox" id="tgl2"  checked="checked"> <i></i>
 						</label>
 					</div>
 					<div>
@@ -363,6 +363,17 @@ input.mSignUpISB {
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
+		$(function(){
+			var chk = $(this).is(":checked");
+            
+            if(chk){
+            	$('input[id*="tgl"]').prop('checked', true);
+            	$('input[id*="tgl2"]').prop('checked', true);
+            }else{	
+            	$('input[id*="tgl"]').prop('checked', false);
+            	$('input[id*="tgl2"]').prop('checked', false);
+            }
+		});
 		function validate() {
 			if ($('#id-input').val().trim().length == 0) {
 				alert('아이디를 입력해주세요');
@@ -385,7 +396,7 @@ input.mSignUpISB {
 				return false;
 			}
 			if ($('#pw-input2').val().trim().length == 0) {
-				alert('비밀번호를 입력해주세요');
+		   		alert('비밀번호를 입력해주세요');
 				$('#pw-input2').focus();
 
 				return false;
@@ -393,12 +404,12 @@ input.mSignUpISB {
 			return true;
 		}
 		$(function() {
-			
 			$('#HLogin2Id').hide();
 			$('#CLogin2Id').show();
 			$('#mSignUpH1').show();
 			$('#mSignUpH2').hide();
 		})
+		
 		$(document).ready(function() {
 			$('.toggle').change(function() {
 				if ($("#tgl").is(":checked")) {
@@ -410,10 +421,6 @@ input.mSignUpISB {
 				}
 			});
 		});
-		$(function() {
-			$('#HLogin2Id').css('display', 'none');
-			$('#CLogin2Id').show();
-		})
 		$(document).ready(function() {
 			$('.toggle2').change(function() {
 				if ($("#tgl2").not(":checked")) {
@@ -424,8 +431,8 @@ input.mSignUpISB {
 					$("input:checkbox[id='tgl']").prop("checked", false);
 				}
 			});
-
 		});
+		
 	</script>
 </body>
 </html>
