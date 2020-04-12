@@ -119,6 +119,14 @@ public class MemberService {
 		return result;
 	}
 
+	public Member checkMember(String id) {
+		Connection conn = getConnection();
+		
+		Member loginUser = new MemberDAO().checkMember(conn, id);
+		close(conn);
+		return loginUser;
+  }
+  
 	public int pwdCheck(String userId, String userPwd, String newPwd) {
 		// TODO Auto-generated method stub
 		Connection conn = getConnection();
@@ -136,6 +144,5 @@ public class MemberService {
 		} else {
 			return result;
 		}
-
-	}
+  }
 }
