@@ -17,6 +17,10 @@
 				width: 75px; height: 30px;
 				}
 	.label-name{margin-left: 90px; font-size: 16px; margin-bottom: 30px; text-align: center; margin-right: 40px;}
+
+	#heart{font-size: 30px; display: inline-block; margin-left: 25px; margin-bottom: 0;}
+	#heart a{text-decoration: none; color: lightgray;}
+	#heart a.on{color: red;}
 	.label-radio{margin-left: 25px;}
 	#review-title{margin-left: 35px;}
 	#review-content{margin-left: 85px;}
@@ -44,7 +48,7 @@
 	<div class="writingReview">
 	<h2> &nbsp;리뷰 작성</h2>
 	<hr>
-	<form class="reviewForm">
+	<form class="reviewForm" action="<%= request.getContextPath() %>/insert.re" method="get">
 	<div>
 	<table id="select-pro">
 		<tr>
@@ -59,29 +63,34 @@
 			<td>제품 명</td>
 		</tr>
 		<tr>
-			<td><button id="btn-select">제품 선택</button></td>
+			<td><button type="button" id="btn-select">제품 선택</button></td>
 		</tr>
 	</table>
 <hr>	
 	</div>
 		<br><br>
 		<div>
-			<label class="label-name">평점</label>
-		</div>
-		<div class="review-age">
-			<label id="label-age">연령대</label>
-			<label class="label-radio"><input type="radio" name="age" value="10"> 10대</label>
-			<label class="label-radio"><input type="radio" name="age" value="20early"> 20대 초반</label>
-			<label class="label-radio"><input type="radio" name="age" value="20late"> 20대 후반</label>
-			<label class="label-radio"><input type="radio" name="age" value="30early"> 30대 초반</label>
-			<label class="label-radio"><input type="radio" name="age" value="30late"> 30대 후반</label>
-			<label class="label-radio"><input type="radio" name="age" value="other"> 그 외 연령층</label>			
-		</div>
-		<div class="review-gender">
-			<label class="label-name">성별</label>
-			<label class="label-radio"><input type="radio" name="gender" value="M"> 남자</label>
-			<label class="label-radio"><input type="radio" name="gender" value="F"> 여자</label>
-		</div>
+		     <label class="label-name">평점</label>
+		     <p id="heart">
+		        <a href="#" no='1'>♥</a>
+		        <a href="#" no='2'>♥</a>
+		        <a href="#" no='3'>♥</a>
+		        <a href="#" no='4'>♥</a>
+		        <a href="#" no='5'>♥</a>
+		      </p>
+		      <input id="reviewScore" name="reviewScore" type="hidden"> <!-- 히든으로 바꿔서 쓰면 될꺼 같아요 처음에는 그냥 보시다가 나중에 값넘기는거 확인하고 히든으로 바꾸셔도되구 아니면 바로 히든으로 하고 하셔도됩니다.
+		        이거 저도 검색해보니까 a 태그에는 value를 못쓰는대신에 그냥 아무 변수 쓰고 attr로 불러오면 된다고 해서 해봤는데 잘되네요 ㅎ-->
+		   <script>
+		       $('#heart a').click(function(){
+		           $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+		           $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+		           var no = $(this).attr('no');
+		           $('#reviewScore').val(no); // input 태그에 값넣어주는 jquery
+		           return false;
+		       });
+		   </script>
+		  </div>
+
 		<div>
 			<label class="label-name">제목</label>
 			<input type="text" name="title" id="review-title"placeholder="제목을 입력해주세요" size="57" required>
@@ -114,6 +123,6 @@
 
 	<%@ include file="/views/layout/footer.jsp"%>
 
-	<script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
+	<script src="../../resources/js/main.js"></script>
 </body>
 </html>

@@ -1,5 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
+import="java.util.ArrayList" import="review.model.vo.*"%>
+<%
+   ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
+   
+   PageInfo pi = (PageInfo)request.getAttribute("pi");
+   
+   int currentPage = pi.getCurrentPage();
+   int maxPage = pi.getMaxPage();
+   int startPage = pi.getStartPage();
+   int endPage = pi.getEndPage();
+
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,102 +70,32 @@
 	<hr>
 		<div class="reviews" id="review1">
 			<table class="tb-profile">
+			<% for(int i = 0; i< list.size(); i++){ %>
 				<tr>
-					<td><img src="<%= request.getContextPath() %>/resources/images/프사.png" class="icon-p"></td>
+					<td rowspan="2"><img src="<%= request.getContextPath() %>/resources/images/프사.png" class="icon-p"></td>
+					<td><p class="p-nick"><!-- 닉네임 --><%=list.get(i).getUserName() %></p></td>
 				</tr>
-				<tr>
-					<td><p class="p-nick">닉네임1</p></td>
-				</tr>
-			</table>
-			<table class="tb-content">
-				<tr>
-					<td>리뷰제목</td>
-				</tr>
-				<tr>
-					<td><p class="p-content">리뷰내용간략히...</p></td>
-				</tr>
-				<tr>
+				<tr>	
+					<td><!-- 리뷰제목 --><%=list.get(i).getTitle() %></td>
+					<td><p class="p-content"><!-- 리뷰내용간략 --><%=list.get(i).getContent() %></p></td>
 					<td>연령대 / 피부타입 / 성별 &nbsp;&nbsp; 
-						<img src="<%= request.getContextPath() %>/resources/images/빈하트.png" class="icon-h">
-						<img src="<%= request.getContextPath() %>/resources/images/빈하트.png" class="icon-h">
-						<img src="<%= request.getContextPath() %>/resources/images/빈하트.png" class="icon-h">
-						<img src="<%= request.getContextPath() %>/resources/images/빈하트.png" class="icon-h">
-						<img src="<%= request.getContextPath() %>/resources/images/빈하트.png" class="icon-h">
-					</td>
+					<span class="star-prototype" id="review-star"><%=list.get(i).getHeart() %></span></td>
 				</tr>
-			</table>
-			<table class="tb-product">
-				<tr>
-					<td><img src="<%= request.getContextPath() %>/resources/images/makeup.png" class="icon-product"></td>
-				</tr>
-				<tr>
+				<tr>	
+					<td rowspan="2"><img src="<%= request.getContextPath() %>/resources/images/makeup.png" class="icon-product"></td>
 					<td><p class="pro-name">제품명1</p></td>
 				</tr>
-			</table>
-			<table class="timing">
 				<tr>
-					<td rowspan=2><p>1초 전</p></td>					
-					<td><p class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</p></td>
-					<td><p class="count">( 1 )</p></td>
+					<td rowspan="3"><p><%=list.get(i).getDate() %></p></td>		
 				</tr>
-				<tr>
-					<td><p class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요 &nbsp;</p></td>
-					<td><p class="count">( 1 )</p></td>
-				</tr>				
-			</table>
-			
-
+				<tr>				
+					<td><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</span><span class="count"><%=list.get(i).getThumbs_up() %></span></td>
+					<td><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요</span></td>
+				</tr>
+				<% } %>
+			</table> 
 		</div>
 	<hr>	
-		<div class="reviews" id="review2">
-			<table class="tb-profile">
-				<tr>
-					<td><img src="<%= request.getContextPath() %>/resources/images/프사.png" class="icon-p"></td>
-				</tr>
-				<tr>
-					<td><p class="p-nick">닉네임2</p></td>
-				</tr>
-			</table>	
-			<table class="tb-content">
-				<tr>
-					<td>리뷰제목</td>
-				</tr>
-				<tr>
-					<td><p class="p-content">리뷰내용간략히...</p></td>
-				</tr>
-				<tr>
-					<td>연령대 / 피부타입 / 성별 &nbsp;&nbsp; 
-						<img src="<%= request.getContextPath() %>/resources/images/빈하트.png" class="icon-h">
-						<img src="<%= request.getContextPath() %>/resources/images/빈하트.png" class="icon-h">
-						<img src="<%= request.getContextPath() %>/resources/images/빈하트.png" class="icon-h">
-						<img src="<%= request.getContextPath() %>/resources/images/빈하트.png" class="icon-h">
-						<img src="<%= request.getContextPath() %>/resources/images/빈하트.png" class="icon-h">
-					</td>
-				</tr>
-			</table>
-			<table class="tb-product">
-				<tr>
-					<td><img src="<%= request.getContextPath() %>/resources/images/makeup.png" class="icon-product"></td>
-				</tr>
-				<tr>
-					<td><p class="pro-name">제품명1</p></td>
-				</tr>
-			</table>
-			<table class="timing">
-				<tr>
-					<td rowspan=2><p>1초 전</p></td>					
-					<td><p class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</p></td>
-					<td><p class="count">( 1 )</p></td>	
-				</tr>
-				<tr>
-					<td><p class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요 &nbsp;</p></td>
-					<td><p class="count">( 1 )</p></td>
-				</tr>				
-			</table>			
-			
-			
-			
-			
 		</div>
 		
 		<div align="right">
@@ -163,8 +104,8 @@
 	</div>		
 			
 			
-	<!-- 작성 끝 -->
-	</div>
+	<!-- 작성 끝  -->
+	
 
 	<%@ include file="/views/layout/footer.jsp"%>
 

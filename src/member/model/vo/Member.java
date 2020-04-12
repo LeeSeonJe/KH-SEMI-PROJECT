@@ -6,6 +6,7 @@ public class Member {
 	private String user_id;
 	private String user_pwd;
 	private String user_category;
+	private String enroll_date;
 	private String status;
 	
 	public Member() {}
@@ -24,13 +25,15 @@ public class Member {
 		this.user_category = user_category;
 	}
 
-	public Member(int user_no, String user_name, String user_id, String user_pwd, String user_category, String status) {
+	public Member(int user_no, String user_name, String user_id, String user_pwd, String user_category,
+			String enroll_date, String status) {
 		super();
 		this.user_no = user_no;
 		this.user_name = user_name;
 		this.user_id = user_id;
 		this.user_pwd = user_pwd;
 		this.user_category = user_category;
+		this.enroll_date = enroll_date;
 		this.status = status;
 	}
 
@@ -74,6 +77,14 @@ public class Member {
 		this.user_category = user_category;
 	}
 
+	public String getEnroll_date() {
+		return enroll_date;
+	}
+
+	public void setEnroll_date(String enroll_date) {
+		this.enroll_date = enroll_date;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -85,7 +96,8 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [user_no=" + user_no + ", user_name=" + user_name + ", user_id=" + user_id + ", user_pwd="
-				+ user_pwd + ", user_category=" + user_category + ", status=" + status + "]";
+				+ user_pwd + ", user_category=" + user_category + ", enroll_date=" + enroll_date + ", status=" + status
+				+ "]";
 	}
 	
 }
