@@ -241,7 +241,12 @@ input {
 						var $li = $('<li class="brand-list-li"></li>');
 						var $div1 = $('<div class="brand-list"></div>');
 						var $div2 = $('<div class="bd-img"></div>');
-						var $img = $('<img>').attr('src', data[i].brand_Img);
+						var $img = $('<img>')						
+						if((data[i].cosmetic_img).indexOf("http") == -1){
+							$img.attr('src', "<%= request.getContextPath() %>/cosReq_uploadFiles/" + data[i].brand_Img);														
+						} else {
+							$img.attr('src', data[i].brand_Img);							
+						}
 						var $div3 = $('<div class="bd-name"></div>');
 						var $h3 = $('<h3></h3>').text(data[i].brand_Name);
 						var $div4 = $('<div class="button-div"></div>');
@@ -290,7 +295,11 @@ input {
 							div2.className = 'bd-img';
 							
 							var img = document.createElement('img');
-							img.src = data[i].brand_Img;
+							if((data[i].brand_Img).indexOf("http") == -1){
+								img.src = "<%= request.getContextPath() %>/cosReq_uploadFiles/" + data[i].brand_Img;						
+							} else {
+								img.src = data[i].brand_Img;
+							}
 							
 							var div3 = document.createElement('div');
 							div3.className = 'bd-name';

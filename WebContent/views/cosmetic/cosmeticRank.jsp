@@ -132,29 +132,29 @@ input {
 	float: left;
 }
 
-#ranking-list {
+.ranking-list {
 	display: inline-flex;
     border-block-end: 1px solid #ccc;
 }
 
-#ranking-list div {
+.ranking-list div {
 	display: inline-block;
 	height: 170px;
 	text-align: center;
 }
 
-#ranking-list>#cos-rank {
+.ranking-list>.cos-rank {
 	width: 80px;
     padding-top: 30px;
 }
-#ranking-list>#cos-img {
+.ranking-list>.cos-img {
 	width: 150px;
 }
-#ranking-list>#cos-detail {
+.ranking-list>.cos-detail {
 	text-align: left;
 	width: 270px;
 }
-#ranking-list>#cos-score {
+.ranking-list>.cos-score {
 	width: 200px;
 	padding-top: 70px;
 }
@@ -184,7 +184,7 @@ input {
     margin-left: 4px;
 }
 
-#cos-img>img{
+.cos-img>img{
 	width: 100px;
     height: 100px;
     margin-top: 30px;
@@ -290,25 +290,25 @@ input {
 					<ul>
 					<% for (int i = 0; i < list.size(); i++) { %>
 						<li>
-							<div id="ranking-list">
-								<div id="cos-rank">
+							<div class="ranking-list">
+								<div class="cos-rank">
 									<h3><%= i+1 %></h3>
 									<span>-</span>
 								</div>
-								<div id="cos-img">
+								<div class="cos-img">
 									<% if(list.get(i).getCosmetic_img().contains("http")){ %>
 										<img src=<%= list.get(i).getCosmetic_img() %> />
 									<% } else {%>
 										<img src="<%= request.getContextPath() %>/cosReq_uploadFiles/<%= list.get(i).getCosmetic_img() %>"/>
 									<% } %>
 								</div>
-								<div id="cos-detail">
+								<div class="cos-detail">
 									<br>
 									<h6><%= list.get(i).getBrand_name() %></h6>
 									<h5 class="cos-detail-link"><%= list.get(i).getCosmetic_name() %></h5><br><br>
 									<span><%= list.get(i).getVolume() %></span>&nbsp;/&nbsp;<span><%= list.get(i).getPrice() %></span>							
 								</div>
-								<div id="cos-score">
+								<div class="cos-score">
 									<span>4.38</span>
 									<span>imgimgimgimg</span>
 									(<span>807</span>)
