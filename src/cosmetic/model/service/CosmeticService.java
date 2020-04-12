@@ -42,4 +42,17 @@ public class CosmeticService {
 		return bImg;
 	}
 
+	public ArrayList<Cosmetic> selectCosmeticCategory(String middleCategory, String findInput) {
+		Connection conn = getConnection();
+		CosmeticDAO c = new CosmeticDAO();
+		String result = c.selectCosmeticCategory(conn, middleCategory);
+		ArrayList<Cosmetic> list = null;
+		if(!result.equals("0") && findInput.equals("all")) {
+			list = c.selectCosmeticList(conn, result);
+		} else {
+			list = c.selectCosmeticSearchList(conn, result, findInput);
+		}
+		return list;
+	}
+
 }

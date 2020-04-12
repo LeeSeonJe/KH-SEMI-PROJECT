@@ -131,4 +131,60 @@ public class CosmeticDAO {
 		}
 		return bImg;
 	}
+
+	public String selectCosmeticCategory(Connection conn, String middleCategory) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String result = "";
+		
+		String query = prop.getProperty("selectCosmeticCategor");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, middleCategory);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<Cosmetic> selectCosmeticSearchList(Connection conn, String result, String findInput) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Cosmetic> list = new ArrayList<Cosmetic>();
+		
+		String query = prop.getProperty("selectCosmeticSearchList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, result);
+			pstmt.setString(2, findInput);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
+						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
+						rset.getInt("WEEK_RANK"), rset.getInt("LASTWEEK_RANK"), rset.getString("BRAND_NAME"),
+						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 }
