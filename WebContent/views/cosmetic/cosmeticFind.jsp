@@ -186,6 +186,7 @@ select, input {
 					}
 					$('.ranking-list').click(function(){
 						var tt = $(this).find('img').attr('src').indexOf("http");
+						console.log($(this).find('input').val())
 						opener.document.reviewForm.cosmetic_no.value = $(this).find('input').val();
 						opener.document.reviewForm.brand_name.value = $(this).find('h6').text();
 						opener.document.reviewForm.cosmetic_name.value = $(this).find('h5').text();
