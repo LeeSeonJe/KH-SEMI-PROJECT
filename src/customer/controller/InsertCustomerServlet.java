@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 import member.model.vo.Member;
@@ -32,28 +36,39 @@ public class InsertCustomerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		request.setCharacterEncoding("UTF-8");
+//		
+//		String category = request.getParameter("category");
+//		String userId = request.getParameter("userId");
+//		String userName = request.getParameter("userName");
+//		String userPwd = request.getParameter("userPwd");
+//		String email = request.getParameter("email");
+//		String gender = request.getParameter("gender");
+//		String age = request.getParameter("age");
+//		String skintype = request.getParameter("skintype");
+//		
+//		Member m = new Member(userName, userId, userPwd, category);
+//		Customer c = new Customer(0, email, age, skintype, gender);
+//		int result = new CustomerService().insertCustomer(m, c);
+//		
+//		if(result > 0) {
+//			response.sendRedirect("views/common/loginedMain.jsp");
+//			
+//		} else {
+//			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+//			request.setAttribute("msg", "ȸ�����Կ� �����߽��ϴ�.");
+//			view.forward(request, response);
+//		}
+		
+//		===================================================================================위에는 
 		request.setCharacterEncoding("UTF-8");
 		
-		String category = request.getParameter("category");
-		String userId = request.getParameter("userId");
-		String userName = request.getParameter("userName");
-		String userPwd = request.getParameter("userPwd");
-		String email = request.getParameter("email");
-		String gender = request.getParameter("gender");
-		String age = request.getParameter("age");
-		String skintype = request.getParameter("skintype");
-		
-		Member m = new Member(userName, userId, userPwd, category);
-		Customer c = new Customer(0, email, age, skintype, gender);
-		int result = new CustomerService().insertCustomer(m, c);
-		
-		if(result > 0) {
-			response.sendRedirect("views/common/loginedMain.jsp");
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10; // 10MByte로 전송파일 용량 제한
+			String root = request.getSession().getServletContext().getRealPath("/"); //웹 서버 컨테이너 경로 추출
+			String savePath = root + "resources/images/member_profile";
 			
-		} else {
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			request.setAttribute("msg", "ȸ�����Կ� �����߽��ϴ�.");
-			view.forward(request, response);
+//			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, new my)
 		}
 		
 	}
