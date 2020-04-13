@@ -8,11 +8,12 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">
 	#select-pro{border: none; width: 600px; height: 170px;
-				margin-left: 150px;
-				}
+				margin-left: 150px;}
 	#pro-img{background: lightgray; border-radius: 5px; border: none; 
-			width: 100px; height: 100px; text-align: center;
+			width: 160px; height: 160px; text-align: center;
 			}
+	#pro-img>img{width: 160px; height: 160px;}
+	
 	#btn-select{background: darkgray; color: white; border: none; border-radius: 3px;
 				width: 75px; height: 30px;
 				}
@@ -54,11 +55,10 @@
 		<tr>
 			<td rowspan=3>
 			<div id="pro-img">
-				제품선택하면 사진이 뿅~
 				<img name="cosmetic_img">
 			</div>
 			</td>
-			<td>브랜드 명 <input type="text" name="brand_name" /></td>
+			<td>브랜드 명 <input type="text" name="brand_name"/></td>
 		</tr>
 		<tr>
 			<td>제품 명 <input type="text" name="cosmetic_name"/></td>
