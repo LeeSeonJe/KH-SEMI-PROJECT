@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList" import="worry.model.vo.*" %>
+<%
+	ArrayList<Worry> list = (ArrayList<Worry>)request.getAttribute("list");
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+
+
+%>	
+	
+	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +27,10 @@
 	a:link{color: black;text-decoration: none;}
 	a:visited{color: black; text-decoration: none;}
 	a:hover{color: green; text-decoration: none;}
+	
+	.worry-table td:link{color: black;text-decoration: none;}
+	.worry-table td:visited{color: black; text-decoration: none;}
+	.worry-table td:hover{color: green; text-decoration: none;}
 
 /*고민게시판*/
 	.worry-board{padding: 0 20px;}
@@ -94,6 +113,8 @@
 					   justify-content:center;}
 					   
 	#worry-list-select{margin:36px 8px;}	
+	
+	#numBtn{}
  
 </style>
 
@@ -154,25 +175,70 @@
                     <table class="worry-table">
                     	<thead>
                         <tr>
-                            <th width="10%;" height="40px;">게시글 번호</th>
-                            <th width="60%;">게시글 제목</th>
+                            <th width="10%;" height="40px;">글 번호</th>
+                            <th width="50%;">게시글 제목</th>
                             <th width="10%;">글쓴이</th>
                             <th width="10%;">작성일</th>
                             <th width="10%;">추천수</th>
+                            <th width="10%;">조회수</th>
                         </tr>
                         </thead>
                         <tbody>
+                        	<% for(int i = 0; i< list.size(); i++){ %>
                         	<tr>
-                        		<td>1</td>
-                        		<td><a href="<%= request.getContextPath() %>/views/worry/worryRead.jsp">얼굴에 좁쌀 여드름이 자꾸 나요</a></td>
-                        		<td><a href="#">노홍철</a></td>
-                        		<td>2020.03.28</td>
-                        		<td>1</td>
+                        		<td><%= list.get(i).getWorryNo() %></td>
+                        		<td><%=list.get(i).getTitle() %></td>
+                        		<td><%=list.get(i).getUserName() %></td>
+                        		<td><%= list.get(i).getDate() %></td>
+                        		<td><%= list.get(i).getWorryThumbUp() %></td>
+                        		<td><%= list.get(i).getHit() %></td>
                         	</tr>
+                        	<%} %>
                         </tbody>
                     </table>
+                    				
+                    
+                    
+                   	<div class="pagingArea" align="center">
+	                   	<%if(!list.isEmpty()){ %>
+							<!-- 맨 처음으로 -->
+							<button class="btn-standard" onclick="location.href='<%= request.getContextPath() %>/worryList.bo?currentPage=1'">&lt;&lt;</button>
+						
+							<!-- 이전 페이지로 -->
+							<button class="btn-standard" onclick="location.href='<%= request.getContextPath() %>/worryList.bo?currentPage=<%=currentPage - 1 %>'" id="beforeBtn">&lt;</button>
+							
+							<script>
+								if(<%= currentPage %> <= 1){
+									$('#beforeBtn').attr('disabled', 'ture');
+								}
+							</script>
+							
+							<!-- 10개 페이지 목록 -->
+							<% for(int p = startPage; p <= endPage;p++){ %>
+								<% if(p == currentPage){ %>
+									<button id="choosen"  class="btn-standard" disabled><%= p %></button>		
+								<%} else{ %>
+									<button id="numBtn"  class="btn-standard" onclick="location.href='<%=request.getContextPath() %>/worryList.bo?currentPage=<%=p%>'"><%= p %></button>
+								<%} %>
+							<%} %>
+							
+							<!-- 다음 페이지로 -->
+							<button id="afterBtn"  class="btn-standard" onclick="location.href='<%= request.getContextPath()%>/worryList.bo?currentPage=<%= currentPage +1%>'">&gt;</button>
+							<script>
+								if(<%= currentPage %> >= <%= maxPage %>){
+									$('#afterBtn').attr('disabled', 'ture');
+								}
+							</script>
+							
+							<!-- 맨 끝으로 -->
+							<button class="btn-standard" onclick="location.href='<%=request.getContextPath()%>/worryList.bo?currentPage=<%=maxPage %>'">&gt;&gt;</button>
+						<%} %>
+                   	</div>
+                   	
+                   	
+	
+			
                     <button id="write-btn" class="btn-standard" type="button" value="글쓰기" onclick="location.href='<%= request.getContextPath() %>/views/worry/worryWrite.jsp'">글쓰기</button>
-               	 	<button id="worry-table-btn" class="btn-standard" type="button" value="1">1</button>
                 </section>
                 <form class="worry-list-filter" name="worry-board-form">
                     <div class="worry-list-filter-wrap">
@@ -200,9 +266,19 @@
 			$('.wait-comment-wrap').css('display','block');
 			$('.board-best-wrap').css('display','none');
 		});
+		
+		$('.worry-table td').click(function(){
+			var worryNo = $(this).parent().children().eq(0).text();
+			location.href='<%=request.getContextPath() %>/worryDetail.bo?worryNo=' + worryNo;
+			
+		});
+		$('.worry-table td').mouseenter(function(){
+			$('.worry-table td').css('cursor', 'pointer');
+		});
+
 	});
 	</script>
-	<%@ include file="/views/layout/footer.jsp"%>
+	<%@ include file="/views/layout/footer.jsp" %>
 
 	<script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
 	

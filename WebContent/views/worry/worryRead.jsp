@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="worry.model.vo.* , java.util.ArrayList" %>
+<%
+	Worry w = (Worry)request.getAttribute("w");
+	ArrayList<Comments> list = (ArrayList<Comments>)request.getAttribute("list");
+	Member m = ((Member)request.getSession().getAttribute("loginUser"));
+	ArrayList<AddFile> fList = (ArrayList<AddFile>)request.getAttribute("fList");
+%>	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +64,7 @@
 	.comment-write{border-bottom: 2px solid #666;
 				   padding: 10px;
 				   position: relative;}
-	#comment-area{margin: 5px; display:inline-block;}  
+	#comment-area{margin: 5px; display:inline-block; resize: none;}  
 	#upload-btn{position:absolute;
 				top:80px;
 				width:50px;
@@ -69,15 +76,19 @@
 	.comment-list-wrap>li:last-of-type{border-bottom: 2px solid #666;}
 	
 	.comment-writer{display:inline-block;
-					width: 150px; 
+					width: 200px; 
 					text-align:center; 
-					vertical-align:top;}
+					vertical-align:top;
+					font-size: 1.1em;}
 	.comment-text{display:inline-block;
-				  width: 750px;}
+				  width: 850px;}
 	.comment-time{display:inline-block;
-				  width:150px;
+				  width:200px;
 				  text-align:center;
 				  vertical-align:top}
+	#mainCase{ margin-left:10px; width:900px;}
+	.case{width: 250px; height:250px; display: inline-block; float:left;}
+
 
 </style>
 
@@ -89,51 +100,102 @@
 		<hr>
             <h2>고민 게시판</h2>
 			<hr>
+			<Form action="views/worry/worryUpdate.jsp">
 			<div class="worry-read-wrap">
                 <article class="worry-head">
-                    <h3>얼굴에 좁쌀 여드름이 자꾸 나요</h3>
-                    <span><a href="#">노홍철</a></span>
-                    <time datetime="2020-03-28T19:43:20">2020.03.28</time>
+                    <h3><%= w.getTitle() %></h3>
+                    <input type="hidden" name="title" value="<%= w.getTitle() %>">
+                    <input type="hidden" name="worryNo" value="<%= w.getWorryNo() %>">
+                    <span><%= w.getUserName() %></span>
+                    <input type="hidden" name="userName" value="<%= w.getUserName() %>">
+                    <time datetime="2020-03-28T19:43:20"><%= w.getDate() %></time>
+                    <input type="hidden" name="date" value="<%= w.getDate() %>">
                     <div class="count-reading">
-                        <span class="count-title">조회수</span>
-                        <span class="read-count">5</span>
+                        <span class="count-title"> 조회수 : <%= w.getHit() %></span>
+                        <input type="hidden" name="hit" value="<%= w.getHit() %>">
                     </div>
                 </article>
                 <article class="content-body">
                     <p class="content-text">
-                    턱 밑에 자꾸 좁쌀 여드름이 작게 올라와요 화장품을 바꿔봐도 효과가 없는데 어떻게 해야하나요?
-                    피부과는 가기 너무 무서워요!!
+			        	<%= w.getContent() %>           
                     </p>
+                    <input type="hidden" name="content" value="<%= w.getContent() %>">
                     <div class="vote-btn">
                         <button id="like-btn" class="btn-standard" value="좋아요">좋아요</button>
-                        <span id="like-count" class="counting">2</span>
+                        <span id="like-count" class="counting"><%= w.getWorryThumbUp() %></span>
+                        <input type="hidden" name="like" value="<%= w.getWorryThumbUp() %>">
                         <button id="hate-btn" class="btn-standard" value="싫어요">싫어요</button>
                         <span id="hate-count" class="counting">0</span>
                     </div>
-                    <div class="edit-btn">
-                        <button id="change-btn" class="btn-standard" value="수정">수정</button>
-                        <button id="delete-btn" class="btn-standard" value="삭제">삭제</button>
-                        <button id="write-btn" class="btn-standard" value="글쓰기" onclick="location.href='worryWrite.jsp'">글쓰기</button>
-                    </div>
+                    
+                    <% if(fList != null){ %>
+                    	<%for(int i = 0 ; i < fList.size(); i++){ %>
+		                    <div id="mainCase">
+			                    <div id="img-case1" class="case"><img src="<%= request.getContextPath()%>/AddFile/<%= fList.get(i).getChangeName() %>" width="250px" height="250px"></div>
+		              		</div>
+              			<%} %>
+                   	<%} %>
                 </article>
+                 
+                
+                
                   	<div class="worry-btn-wrap">
-                        <button class="btn-standard" type="button" value="목록" onclick="location.href='worryBoard.jsp'">목록</button>
-                        <button id="prev-worry" class="btn-standard" type="button" value="이전글">이전글</button>
-                        <button id="next-worry" class="btn-standard" type="button" value="다음글">다음글</button>
+	                  	
+		                    <div class="edit-btn">
+		                        <button type="submit" id="change-btn" class="btn-standard" >수정</button>
+		                        <button id="delete-btn" class="btn-standard" onclick="location.href='worryDelete.bo'">삭제</button>
+		<!--                         <button id="write-btn" class="btn-standard" value="글쓰기" onclick="location.href='worryWrite.jsp'">글쓰기</button> -->
+	                   		</div>
+	                    <% if(w.getUserNo() == m.getUser_no() ){ %>
+                        <button class="btn-standard" type="submit" id="change-btn" onclick="location.href='worryList.bo'">수정</button>
+                        <button id="delete-btn" class="btn-standard" onclick="location.href='worryDelete.bo'">삭제</button>
+                        <% } %>
+                        <button class="btn-standard" type="button" value="목록" onclick="location.href='worryList.bo'">목록</button>
+                        <button id="prev-worry" class="btn-standard" type="button" value="이전글" onclick="location.href='<%=request.getContextPath()%>/worryDetail.bo?worryNo=<%= w.getWorryNo() - 1%>'">이전글</button>
+                        <button id="next-worry" class="btn-standard" type="button" value="다음글" onclick="location.href='<%=request.getContextPath()%>/worryDetail.bo?worryNo=<%= w.getWorryNo() + 1%>'">다음글</button>
                     </div>
+                
+                
+                
+                </Form>    
+                
+                
+                
+                <form>
                 <div class="comment-write">
-                    <form>
-                        <textarea id="comment-area" cols="120" rows="5">댓글을 남겨주세요.</textarea>
+                    
+                        <textarea id="comment-area" cols="120" rows="5" placeholder="댓글을 남겨주세요."></textarea>
                         <button id="upload-btn" class="btn-standard" value="등록">등록</button>
-                    </form>
+                        <input type="hidden" name='worryNo' value='<%=w.getWorryNo() %>'>
+                    
                 </div>
-                <ul class="comment-list-wrap">
-                    <li><span class="comment-writer"><a href="#">깨끗한 피부의원</a></span><span class="comment-text">여러 환경적 요인으로 발생 할 수 있습니다. 피부과 진료를 받아보시면 좀 더 정확한 원인을 알 수 있습니다.s.kfe.kafjewklsfne.gk/kas.gjsb,jkba</span><span class="comment-time"><time datetime="2020-03-28T20:05:10">30분전</time></span></li>
-                    <li><span class="comment-writer"><a href="#">리뷰 작성자</a></span><span class="comment-text">리뷰 내용</span><span class="comment-time"><time>작성 시간</time></span></li>
-                </ul>
-            </div>
-				
+				</form>
+ 				
+ 				
+ 				
+ 		
+                
+                <div id="replySelectArea">
+			<table id="replySelectTable">
+				<% if(list.isEmpty()){ %>
+					<tr><td colspan=3>댓글이 없습니다.</td></tr>
+				<%} else{ %>
+					<% for (int i = 0 ; i < list.size(); i++){ %>
+					<tr>
+						<td width="200px"><%= list.get(i).getUserName() %></td>
+						<td width="800px"><%= list.get(i).getCommentsText() %></td>
+						<td width="200px"><%= list.get(i).getCommentsDate() %></td>
+					</tr>
+					<% } %>
+				<% } %>	
+
+			</table>
+		</div>
 	</div>
+                
+        	    
+
+				
 
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
@@ -161,6 +223,41 @@
 				
 			});
 		});
+		
+		
+		$('#upload-btn').click(function(){
+			var userNo = <%= loginUser.getUser_no() %>;
+			var worryNo = '<%= w.getWorryNo()%>';
+			var content = $('#comment-area').val();
+			
+			$.ajax({
+				url: 'insertComments.bo',
+				data: {userNo:userNo, worryNo:worryNo, content:content},
+				success: function(data){
+					
+					$replyTable = $('#replySelectTable');
+					$replyTable.html("");
+					
+					for(var key in data){
+						var $tr = $('<tr>');
+						var $writerTd = $('<td>').text(data[key].userName).css('width', '200px');
+						var $contentTd = $('<td>').text(data[key].commentsText).css('width', '800px');
+						var $dataTd = $('<td>').text(data[key].commentsDate).css('width', '200px');
+						
+						$tr.append($writerTd);
+						$tr.append($contentTd);
+						$tr.append($dataTd);
+						$replyTable.append($tr);
+					}
+					$('#comment-area').val("");
+					
+				}
+			});
+			
+		});
+		
+		
+		
 		
 	</script>
 </body>
