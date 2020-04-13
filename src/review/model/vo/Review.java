@@ -14,8 +14,16 @@ public class Review {
 	private String category;
 	private String userName;
 	private int user_no;
+	private int cosmetic_no;
 	
 	public Review () {}
+
+	public Review(int review_no, int thumbs_up, String title) {
+		super();
+		this.review_no = review_no;
+		this.thumbs_up = thumbs_up;
+		this.title = title;
+	}
 
 	public Review(int review_no, int thumbs_up, int heart, String title, String content, Date date, String category,
 			String userName) {
@@ -126,16 +134,20 @@ public class Review {
 		this.user_no = user_no;
 	}
 
+	public int getCosmetic_no() {
+		return cosmetic_no;
+	}
+
+	public void setCosmetic_no(int cosmetic_no) {
+		this.cosmetic_no = cosmetic_no;
+	}
+
 	@Override
 	public String toString() {
 		return "Review [review_no=" + review_no + ", thumbs_up=" + thumbs_up + ", heart=" + heart + ", del_yn=" + del_yn
 				+ ", title=" + title + ", content=" + content + ", date=" + date + ", category=" + category
-				+ ", userName=" + userName + ", user_no=" + user_no + "]";
+				+ ", userName=" + userName + ", user_no=" + user_no + ", cosmetic_no=" + cosmetic_no + "]";
 	}
-
-	
-
-	
 	
 	
 }

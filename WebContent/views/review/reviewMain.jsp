@@ -4,6 +4,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 <%
    ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
    PageInfo pi = (PageInfo)request.getAttribute("pi");
+   ArrayList<Review> bestReview = (ArrayList<Review>)request.getAttribute("bestReview");
    
    int currentPage = pi.getCurrentPage();
    int maxPage = pi.getMaxPage();
@@ -19,7 +20,22 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">	
 /* 슬라이드 */
+#slide{width: 100%; height: 400px; background: #d1dbef; position: relative;}
 
+.btns{width: 50px; height: 50px; margin-top: 165px;}
+#next{position: absolute; margin-left: 1032px; }
+#prev{position: absolute;}
+
+
+	#div-ranklist{text-align:center;}
+	#ranking-title{padding: 20px; text-align: left;}
+	h3{margin-left: 30px;}
+	.rank-list1{display: inline-block; text-align: center; margin-top: 40px;}	
+	.rank-list2{display: inline-block; text-align: center; margin-top: 40px;}	
+	#rank2{margin-left: 80px; margin-right: 80px;}
+	#rank5{margin-left: 80px; margin-right: 80px;} 
+	
+	.review-shots{width: 180px; height: 100px;}
 /* 슬라이드 끝 */
 #select-option{text-align: right;}
 	
@@ -40,13 +56,94 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 		<%@ include file="/views/layout/header.jsp"%>
 		<hr>
 			<!-- 작성 -->
-	<div><!-- 베스트리뷰 슬라이드 -->
+	<div id="slide"><!-- 베스트리뷰 슬라이드 -->
+			<div id="div-btns">
+				<img class="btns" id="next" src="/COSMEDIC/resources/images/next.png">
+				<img class="btns" id="prev" src="/COSMEDIC/resources/images/prev.png">
+			</div>
+			
+		<div id="div-ranklist"><!-- 리스트 -->
+		<div id="ranking-title"><h3 style="color:white">지금 뜨는 리뷰</h3></div>
+
+			<ol class="rank-list1" id="rank1">
+				<li><img src="/COSMEDIC/resources/images/fabric.jpg" class="review-shots"></li>
+				<br>
+				<li>리뷰제목1</li>
+			</ol>
+			<ol class="rank-list1" id="rank2">
+				<li><img src="/COSMEDIC/resources/images/fabric.jpg" class="review-shots"></li>
+				<br>
+				<li>리뷰제목2입니다. 리뷰제목2입니다.<br>
+				제목이 길어지면 내려갑니다. 안녕하세요??</li>
+			</ol>
+			<ol class="rank-list1" id="rank3">
+				<li><img src="/COSMEDIC/resources/images/fabric.jpg" class="review-shots"></li>
+				<br>
+				<li>리뷰제목3입니다. 리뷰제목3입니다.<br>
+				제목이 넘 길어서 한줄 내려갑니다. </li>
+			</ol>
+ 			<ol class="rank-list2" id="rank4">
+				<li><img src="/COSMEDIC/resources/images/cosy.jpg" class="review-shots"></li>
+				<br>
+				<li>리뷰제목4444. 리뷰제목4444.<br>
+				제목이 길어지면 내려갑니다. 안녕하세요??</li>
+
+			</ol>
+			<ol class="rank-list2" id="rank5">
+				<li><img src="/COSMEDIC/resources/images/cosy.jpg" class="review-shots"></li>
+				<br>
+				<li>리뷰제목5555. 리뷰제목5555.<br>
+				제목이 길어지면 내려갑니다. 안녕하세요??</li>
+			</ol>
+			<ol class="rank-list2" id="rank6">
+				<li><img src="/COSMEDIC/resources/images/cosy.jpg" class="review-shots"></li>
+				<br>
+				<li>리뷰제목6666. 리뷰제목6666.<br>
+				제목이 넘 길어서 한줄 내려갑니다. </li>
+			</ol> 		
+	</div><!-- 리스트끝 -->
+<script type="text/javascript">
+
+$(function(){
+	$('.rank-list2').hide();
+	/* $('#slide2').hide(); */
+
+
+ 	var currentSlide = 1;
+	$('#next').click(function(){
+		if(currentSlide == 1){
+			$('.rank-list1').hide();
+			$('.rank-list2').fadeIn(300);
+			currentSlide = 2;		
+		}else if(currentSlide ==2){
+			$('.rank-list2').hide();
+			$('.rank-list1').fadeIn(300);
+ 			currentSlide = 3;
+		}else if(currentSlide == 3){
+			$('.rank-list1').hide();
+			$('.rank-list2').fadeIn(300);
+			currentSlide = 1; 
+		}});
 	
+ 	var currentSlide = 1;
+	$('#prev').click(function(){
+		if(currentSlide == 1){
+			$('.rank-list1').hide();
+			$('.rank-list2').fadeIn(300);
+			currentSlide = 2;		
+		}else if(currentSlide ==2){
+			$('.rank-list2').hide();
+			$('.rank-list1').fadeIn(300);
+ 			currentSlide = 3;
+		}else if(currentSlide == 3){
+			$('.rank-list1').hide();
+			$('.rank-list2').fadeIn(300);
+			currentSlide = 1; 
+		}});
+	});
+</script>	
+	</div><!-- 베리슬라이드 끝 -->	
 	
-	
-	
-	
-	</div><!-- 베리슬라이드 끝 -->		
 <hr>
 	<div><!-- 리뷰 리스트 -->
 		<div><h3>리뷰</h3></div>
@@ -86,8 +183,19 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 		</div>
 		
 		<div align="right">
-			<button onclick="location.href='<%=request.getContextPath() %>/views/review/reviewWrite.jsp'">리뷰작성</button>
+			<button onclick="loginChk();">리뷰작성</button>
 		</div>
+		<script>
+			function loginChk(){
+				if('<%= loginUser %>' != 'null'){
+					location.href='<%= request.getContextPath() %>/views/review/reviewWrite.jsp';
+				} else{
+					alert('로그인 후 이용해주세요.');
+					location.href='<%= request.getContextPath() %>/views/common/login.jsp';
+				}
+			}
+		</script>
+		
 	</div>		
 			
 			

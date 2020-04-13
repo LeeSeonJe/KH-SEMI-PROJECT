@@ -34,9 +34,8 @@ public class ReviewListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		ReviewService service = new ReviewService();
-		
+
 		int listCount = service.getListCount();
 		
 		int currentPage;		// 현재 페이지
@@ -79,9 +78,9 @@ public class ReviewListServlet extends HttpServlet {
 		view.forward(request, response);
 		
 		
-		for(int i =0; i < list.size(); i++) {
-	         System.out.println("리스트) "+list.get(i));
-	      }
+//		for(int i =0; i < list.size(); i++) {
+//	         System.out.println("리스트) "+list.get(i));
+//	      }
 	}
 
 	/**
