@@ -6,7 +6,7 @@
 	String nickname = (String) request.getAttribute("nickname");
 	String profile_image = (String) request.getAttribute("profile_image");
 	String gender = (String) request.getAttribute("gender");
-	
+
 	System.out.println(nickname);
 %>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">
-div.loginForm {
+form.loginForm {
 	width: 100%;
 	height: 2200px;
 	background-color: #DDDDDD;
@@ -249,7 +249,8 @@ input.loginFBtnN {
 	color: white;
 	font-size: 12pt;
 	border: none;
-	background-image: url('../../resources/images/naver.png');
+	background-image:
+		url('<%=request.getContextPath()%>/resources/images/naver.png');
 	background-repeat: no-repeat;
 	background-position: 28px 28px;
 }
@@ -261,7 +262,8 @@ input.loginFBtnF {
 	font-size: 12pt;
 	color: white;
 	border: none;
-	background-image: url('../../resources/images/facebook.png');
+	background-image:
+		url('<%=request.getContextPath()%>/resources/images/facebook.png');
 	background-repeat: no-repeat;
 	background-position: 28px 28px;
 }
@@ -273,7 +275,8 @@ input.loginFBtnK {
 	font-size: 12pt;
 	color: #3b1c1c;
 	border: none;
-	background-image: url('../../resources/images/kakao3.png');
+	background-image:
+		url('<%=request.getContextPath()%>/resources/images/kakao3.png');
 	background-repeat: no-repeat;
 	background-position: 28px 28px;
 }
@@ -286,7 +289,8 @@ input.mSignUpISB {
 	border-radius: 30px;
 	border: 2px solid #DF1758;
 	font-size: 15pt;
-	background-image: url('../../resources/images/signup2.jpg');
+	background-image:
+		url('<%=request.getContextPath()%>/resources/images/signup2.jpg');
 	background-repeat: no-repeat;
 	background-position: 45px 5px;
 }
@@ -325,7 +329,8 @@ input.imgAlert1 {
 	height: 50px;
 	background-color: white;
 	border: none;
-	background-image: url('../../resources/images/AlertIcon1_1_1.png');
+	background-image:
+		url('<%=request.getContextPath()%>/resources/images/AlertIcon1_1_1.png');
 	background-repeat: no-repeat;
 	background-position: -5px -10px;
 	font-size: 10pt;
@@ -337,7 +342,8 @@ input.imgAlert2 {
 	height: 50px;
 	background-color: white;
 	border: none;
-	background-image: url('../../resources/images/AlertIcon2_1_1.png');
+	background-image:
+		url('<%=request.getContextPath()%>/resources/images/AlertIcon2_1_1.png');
 	background-repeat: no-repeat;
 	background-position: -5px -10px;
 }
@@ -412,10 +418,9 @@ h3.SUImgI {
 	<div class="contents">
 		<%@ include file="/views/layout/header.jsp"%>
 		<!-- 작성 -->
-
 	</div>
 
-	<div class="loginForm">
+	<form class="loginForm" action="/insertC.me" encType="multipart/form-data">
 
 		<div>
 			<br> <br> <br> <br>
@@ -479,7 +484,8 @@ h3.SUImgI {
 						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainI" id="SUChkMainIID">
+					<input type="text" class="SUChkMainI" id="SUChkMainIID"
+						name="userId">
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="IDCheckkF">
 							<input type="button" class="imgAlert1"
@@ -497,7 +503,7 @@ h3.SUImgI {
 						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="password" class="SUChkMainI" id="SUChkMainIPwd">
+					<input type="password" class="SUChkMainI" id="SUChkMainIPwd" name="userPwd">
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="pwdCheckkF">
 							<input type="button" class="imgAlert1"
@@ -533,7 +539,8 @@ h3.SUImgI {
 						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainI" id="SUChkMainINameC">
+					<input type="text" class="SUChkMainI" id="SUChkMainINameC"
+						name="userName">
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="nameConfirmmT">
 							<input type="button" class="imgAlert2" disabled>
@@ -541,30 +548,27 @@ h3.SUImgI {
 					</div>
 				</div>
 				<div class="SUChkMain">
-					전화번호
-					<h3
-						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3>
-				</div>
-				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainICFBirthh" maxlength="3">
-					- <input type="text" class="SUChkMainICFBirthh" maxlength="4">
-					- <input type="text" class="SUChkMainICFBirthh" maxlength="4">
-				</div>
-				<div class="SUChkMain">
 					이메일
 					<h3
 						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainIE" readonly value="cosmedic">
-					<input type="text" class="SUChkMainIE" readonly value="naver.com">
+					<input type="email" class="SUChkMainIE" name="userEmail">
 					<div style="display: inline-block;">
-						<div class="SUChkMainICFE" id="emailConfirmmF"
+						<div class="SUChkMainICF" id="emailConfirmmF"
 							style="width: 50px;">
 							<input type="button" class="imgAlert2" disabled>
 						</div>
 					</div>
 				</div>
+<!-- 				<div class="SUChkMain"> -->
+<!-- 					이메일확인 -->
+<!-- 					<h3 -->
+<!-- 						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3> -->
+<!-- 				</div> -->
+<!-- 				<div class="SUChkMain3"> -->
+<!-- 					<input type="text" class="SUChkMainICFBirthh"> -->
+<!-- 				</div> -->
 
 				<div class="SUChkMain">
 					주민등록번호
@@ -574,9 +578,9 @@ h3.SUImgI {
 				<div class="SUChkMain3">
 					<input type="text" class="SUChkMainIEFront" id="SUChkMainPID"
 						maxlength="6"
-						onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"> -
-					<input type="text" class="SUChkMainIE2" id="SUChkMainPID2"
-						maxlength="1"
+						onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+						name="userBirth"> - <input type="text"
+						class="SUChkMainIE2" id="SUChkMainPID2" maxlength="1"
 						onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="personIDConfirmmF">
@@ -614,7 +618,7 @@ h3.SUImgI {
 				</div>
 				<div class="SUChkMain3">
 					<input type="text" class="SUChkMainGender" id="customerGender"
-						readonly>
+						name="userGender" readonly>
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="personIDConfirmmTTT2">
 							<input type="button" class="imgAlert2" disabled>
@@ -654,9 +658,12 @@ h3.SUImgI {
 				<div class="SUChkMain3">
 
 					<div class="fileBox">
-						<input type="text" class="fileName" readonly="readonly" style = "height : 45px; width : 300px; font-size : 15pt"> 
-						<label for="uploadBtn" class="btn_file" style = "height : 45px; margin-top : 5px; font-weight : 100;">찾아보기</label> 
-						<input type="file" id="uploadBtn" class="uploadBtn">
+						<input type="text" class="fileName" readonly="readonly"
+							style="height: 45px; width: 300px; font-size: 15pt"> <label
+							for="uploadBtn" class="btn_file"
+							style="height: 45px; margin-top: 5px; font-weight: 100;">찾아보기</label>
+						<input type="file" id="uploadBtn" class="uploadBtn"
+							name="userProfileImg">
 					</div>
 				</div>
 			</div>
@@ -675,7 +682,7 @@ h3.SUImgI {
 
 			</div>
 		</div>
-	</div>
+	</form>
 
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
@@ -697,7 +704,8 @@ h3.SUImgI {
 					}
 					$(this).siblings('.fileName').val(filename);
 				});
-		$('.loginForm').keyup(
+		$('.loginForm')
+				.keyup(
 						function() {
 							var flag1 = false;
 							var flag2 = false;
@@ -904,5 +912,7 @@ h3.SUImgI {
 							}
 						});
 	</script>
+
+
 </body>
 </html>
