@@ -86,8 +86,19 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 		</div>
 		
 		<div align="right">
-			<button onclick="location.href='<%=request.getContextPath() %>/views/review/reviewWrite.jsp'">리뷰작성</button>
+			<button onclick="loginChk();">리뷰작성</button>
 		</div>
+		<script>
+			function loginChk(){
+				if('<%= loginUser %>' != 'null'){
+					location.href='<%= request.getContextPath() %>/views/review/reviewWrite.jsp';
+				} else{
+					alert('로그인 후 이용해주세요.');
+					location.href='<%= request.getContextPath() %>/views/common/login.jsp';
+				}
+			}
+		</script>
+		
 	</div>		
 			
 			
