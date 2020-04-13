@@ -235,34 +235,34 @@ input.mSignUpISB {
 }
 
 input.SUBC {
-	width: 350px;
-	height: 80px;
-	font-size: 15pt;
+	width: 300px;
+	height: 65px;
+	font-size: 12pt;
 }
 
 input.imgAlert1 {
-   width: 500px;
-   height: 50px;
-   background-color: white;
-   border: none;
-   background-image:
-      url('<%=request.getContextPath()%>/resources/images/AlertIcon1_1_1.png');
-   background-repeat: no-repeat;
-   background-position: -5px -10px;
-   font-size: 10pt;
-   color: #595959;
+	width: 500px;
+	height: 50px;
+	background-color: white;
+	border: none;
+	background-image:
+		url('<%=request.getContextPath()%>/resources/images/AlertIcon1_1_1.png');
+	background-repeat: no-repeat;
+	background-position: -5px -10px;
+	font-size: 10pt;
+	color: #595959;
 }
 
 input.imgAlert2 {
-   width: 50px;
-   height: 50px;
-   background-color: white;
-   border: none;
-   background-image:
-      url('<%=request.getContextPath()%>/resources/images/AlertIcon2_1_1.png');
-   background-repeat: no-repeat;
-   background-position: -5px -10px;
-   float : left;
+	width: 50px;
+	height: 50px;
+	background-color: white;
+	border: none;
+	background-image:
+		url('<%=request.getContextPath()%>/resources/images/AlertIcon2_1_1.png');
+	background-repeat: no-repeat;
+	background-position: -5px -10px;
+	float: left;
 }
 
 /* ios */
@@ -288,17 +288,21 @@ input.imgAlert2 {
 			<div>
 				<br> <br> <br>
 			</div>
-			<div class="mLogin">
+			<div class="mLogin" id = "mLogin1">
 				<div class="logoDiv">
 					<br> <br> <br> <br> <br>
 				</div>
 				<div class="sideDiv1"></div>
-				<div class="bLogin" id="foundId">
-					<div class="titlebox">아이디 찾기</div>
+				<div class="bLogin" id="foundId" >
+					<div class="titlebox">
+						아이디 찾기
+					</div>
 					<br> <br>
 				</div>
-				<div class="fLogin" id="foundPw">
-					<div class="titlebox">비밀번호 찾기</div>
+				<div class="fLogin" id="foundPw" style = "cursor : pointer;">
+					<div class="titlebox">
+						비밀번호 찾기
+					</div>
 				</div>
 				<div class="sideDiv2"></div>
 				<div class="foundIdF">
@@ -324,29 +328,29 @@ input.imgAlert2 {
 								</div>
 								<div class="rightBox">
 									<input type="text" id="nameBox"
-										style="width: 179px; height: 40px; font-size: 12pt; float : left">
-									<input type="button" class="imgAlert1" id = "imgAlert1"
+										style="width: 179px; height: 40px; font-size: 12pt; float: left">
+									<input type="button" class="imgAlert1" id="imgAlert1"
 										value="      비밀번호는 8자 이상, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다."
-										disabled>
-									<input type="button" class="imgAlert2" id = "imgAlert2" disabled>
+										disabled> <input type="button" class="imgAlert2"
+										id="imgAlert2" disabled>
 								</div>
 								<div class="leftBox">
 									<div style="margin-top: 8px; margin-left: 35%;">주민번호</div>
 								</div>
 								<div class="rightBox">
 									<input type="text" class="PID" id="PID1"
-										style="width: 135px; height: 40px; font-size: 12pt; float : left;"
+										style="width: 135px; height: 40px; font-size: 12pt; float: left;"
 										maxlength="6"
 										onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
-									<div style = "float : left">&nbsp;-&nbsp; </div>
+									<div style="float: left">&nbsp;-&nbsp;</div>
 									<input type="text" class="PID" id="PID2"
-										style="width: 28px; height: 40px; font-size: 12pt; float : left"
+										style="width: 28px; height: 40px; font-size: 12pt; float: left"
 										maxlength="1"
 										onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
-										<input type="button" class="imgAlert1" id = "imgAlert3"
+									<input type="button" class="imgAlert1" id="imgAlert3"
 										value="      비밀번호는 8자 이상, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다."
-										disabled>
-									<input type="button" class="imgAlert2" id = "imgAlert4" style = "float:left; " disabled>
+										disabled> <input type="button" class="imgAlert2"
+										id="imgAlert4" style="float: left;" disabled>
 								</div>
 								<div class="leftBox">
 									<br>
@@ -361,7 +365,7 @@ input.imgAlert2 {
 								class="radio" id="radioId2" name="radioId" readonly> <span
 								class="label"> </span> 본인인증으로 찾기
 							</label>
-							<div class="SUB" style="margin-left: 30%; margin-top: 150px;">
+							<div class="SUB" style="margin-left: 33%; margin-top: 150px;">
 								<input name="nextAfter" class="SUBC" type="button"
 									value="아이디 찾기" onclick="location.href='SignUpCustomer3.jsp' "
 									id="submit1"
@@ -372,7 +376,7 @@ input.imgAlert2 {
 									style="background-color: #DF1758; color: white; border: none;">
 							</div>
 						</div>
-
+	
 
 						<div class="foundIdFF2" id="foundIdFF2">
 							<label style="font-weight: 100;"> <input type="radio"
@@ -394,7 +398,7 @@ input.imgAlert2 {
 								<img class="SUImg" id="SUImgg2"
 									src="<%=request.getContextPath()%>/resources/images/SUEmail1-1.png">
 							</div>
-							<div class="SUB" style="margin-top: 100px; margin-left: 30%;">
+							<div class="SUB" style="margin-top: 80px; margin-left: 33%;">
 								<input name="nextAfter" class="SUBC" type="button"
 									value="아이디 찾기" onclick="location.href='SignUpCustomer3.jsp' "
 									disabled
@@ -409,36 +413,107 @@ input.imgAlert2 {
 					</div>
 				</div>
 			</div>
+			<div class="mLogin" id = "mLogin2">
+				<div class="logoDiv">
+					<br> <br> <br> <br> <br>
+				</div>
+				<div class="sideDiv1"></div>
+				<div class="bLogin" id="foundId2" style = "border-top : none; border-left : none; border-bottom : 1px solid black; background-color : lightgray ;cursor : pointer;">
+					<div class="titlebox">
+						아이디 찾기
+					</div>
+					<br> <br>
+				</div>
+				<div class="fLogin" id="foundPw2" style = "border-top : 1px solid black; border-right : 1px solid black; background-color : white; border-bottom : none; ">
+					<div class="titlebox">
+						비밀번호 찾기
+					</div>
+				</div>
+				<div class="sideDiv2"></div>
+				<div class="foundIdF" id = "foundIdFEC1">
+					<br> <br> <br> <br>
+					<div class="foundIdI">
+						비밀번호를 찾고자 하는 아이디를 입력해 주세요.<br> <br>
+						<div class="foundIdFF" style = "height : 160px;">
+							<div style = "float : left; width : 15%; margin-left : 25%; margin-top : 17px; font-size : 12pt;" >
+								아이디
+							</div>
+							<div style = "float : left; width : 30%;  margin-top : 6px; " >
+								<input type = "text" id = "foundIdPw" style = "height : 45px; width : 280px; border: 1px solid black;">
+							</div>
+							
+						</div>
+						<div>
+							<br><br>
+						</div>
+						<div>
+								<input type = "button"  class = "SUBC" id = "next1" value = "다음" style = "background-color : #595959; color : white; border:none;">
+						</div>
+						<div>
+								<input type = "button"  class = "SUBC" id = "next2" value = "다음" style = "background-color : #DF1758; color : white; border:none;">
+						</div>
+					</div>
+				</div>
+				<div class="foundIdF" id = "foundIdFEC2">
+					<br> <br> 
+					<div class="foundIdI">
+						<div class="foundIdFF" style = "height : 350px;">
+							<div style = "float : left; width : 50%; margin-left : 30%; margin-top : -15px; font-size : 13pt;" >
+								본인인증을 통해 비밀번호를 재설정하실 수 있습니다.
+							</div>
+							<div style = "width : 100%; height : 30px;">
+								<br>
+							</div>
+							<div class="SUIdenI" onmouseover="iconChange3()"
+								onmouseout="iconChange4()" onclick="openEmailIden()"
+								style="cursor: pointer; margin-left: 39%;">
+								<img class="SUImg" id="SUImggg1"
+									src="<%=request.getContextPath()%>/resources/images/SUEmail2-1.png">
+								<img class="SUImg" id="SUImggg2"
+									src="<%=request.getContextPath()%>/resources/images/SUEmail1-1.png">
+							</div>	
+						</div>
+						<div>
+							<br><br>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
 		$(function() {
+			$("#mLogin2").hide();
 			$("#foundIdFF2").hide();
 			$("#foundIdFF1").show();
 			$("#submit2").hide();
 			$("#submitt2").hide();
 			$(".imgAlert1").hide();
 			$(".imgAlert2").hide();
+			$("#next2").hide();
+			$("#foundIdFEC2").hide();
 		});
 
 		$("#radioId2").click(function() {
 			$("#foundIdFF1").hide();
 			$("#foundIdFF2").show();
 			$("#radioIdd2").prop("checked", true);
+			$(".mLogin").height("920px");
 		});
 
 		$("#radioIdd1").click(function() {
 			$("#foundIdFF2").hide();
 			$("#foundIdFF1").show();
 			$("#radioId1").prop("checked", true);
+			$(".mLogin").height("1000px");
 		});
 
 		$(".PID").keyup(function() {
-			var charLimit = $(this).attr("maxlength");
+			var charLimit = $("#PID1").attr("maxlength");
 			if (this.value.length >= charLimit) {
-				$(this).next('.PID').focus();
+				$("#PID2").focus();
 				return false;
 			}
 		});
@@ -458,33 +533,43 @@ input.imgAlert2 {
 			$('#SUImgg1').show();
 		}
 
-
 		$('input').keyup(function() {
 			var name = $("#nameBox").val();
 
 			var PID = $("#PID1").val();
+			var PID2 = $("#PID2").val();
 
 			var flag1 = false;
 			var flag3 = false;
 
-			if (name.length > 0) {
+			if (name.length < 1) {
 				$("#imgAlert1").hide();
-				$("#imgAlert2").show();
-				flag1 = true;
-			} else {
-				flag1 = false;
 				$("#imgAlert2").hide();
-				$("#imgAlert1").show();
+			} else {
+				if (name.length > 0) {
+					$("#imgAlert1").hide();
+					$("#imgAlert2").show();
+					flag1 = true;
+				} else {
+					flag1 = false;
+					$("#imgAlert2").hide();
+					$("#imgAlert1").show();
+				}
 			}
 
-			if ((PID.length == 6) && ($('#PID2').val().trim().length == 1)) {
+			if ((PID.length < 6) || (PID2.length < 1)) {
 				$("#imgAlert3").hide();
-				$("#imgAlert4").show();
-				flag3 = true;
-			} else {
 				$("#imgAlert4").hide();
-				$("#imgAlert3").show();
-				flag3 = false;
+			} else {
+				if ((PID.length == 6) && (PID2.length == 1)) {
+					$("#imgAlert3").hide();
+					$("#imgAlert4").show();
+					flag3 = true;
+				} else {
+					$("#imgAlert4").hide();
+					$("#imgAlert3").show();
+					flag3 = false;
+				}
 			}
 
 			if ((flag1 == true) && (flag3 == true)) {
@@ -496,6 +581,73 @@ input.imgAlert2 {
 			}
 
 		});
+		
+		$("#foundPw").click(function(){
+			$("#mLogin1").hide();
+			$("#mLogin2").show();
+			$(".mLogin").height("650px");
+			$("#foundIdFEC2").hide();
+			$("#foundIdFEC1").show();
+		});
+		
+		$("#foundId2").click(function(){
+			$("#mLogin2").hide();
+			$("#mLogin1").show();
+			if($("#radioId1").prop("checked") == true){
+				$(".mLogin").height("1000px");
+			}else if ($("#radioIdd2").prop("checked") == true){
+				$(".mLogin").height("920px");
+			}
+		});
+		
+		$("#mLogin2").keyup(function(){
+			var id = $("#foundIdPw").val();
+			
+			var flag1 = false;
+			var flag2 = false;
+			
+			if(id.length > 0){
+				flag1 = true;
+			}else{
+				flag1 = false;
+			}
+			
+			if(id.length <8){
+				flag2 = false;
+			}else{
+				flag2 = true;
+			}
+			
+			if((flag1 == true)&&(flag2 == true)){
+				$("#next1").hide();
+				$("#next2").show();
+			}else{
+				$("#next2").hide();
+				$("#next1").show();
+			}
+			
+		});
+		
+		$("#next2").click(function(){
+			$("#foundIdFEC1").hide();
+			$("#foundIdFEC2").show();
+		});
+		
+		$(function() {
+			$('#SUImggg2').hide();
+			$('#SUImggg1').show();
+		});
+		function iconChange3() {
+			$('#SUImggg1').hide();
+			$('#SUImggg2').show();
+			style = "cursor : pointer";
+		}
+
+		function iconChange4() {
+			$('#SUImggg2').hide();
+			$('#SUImggg1').show();
+		}
+	
 	</script>
 </body>
 </html>
