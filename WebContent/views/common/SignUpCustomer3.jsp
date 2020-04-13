@@ -687,232 +687,224 @@ h3.SUImgI {
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
-		$(function() {
-			$(".SUChkMainICF").hide();
-			$("#SUBCC2").hide();
-			$("#SUBCC1").show();
-			$("#genderConfirmmN").show();
-		});
-		var uploadFile = $('.fileBox .uploadBtn');
-		uploadFile.on('change',
-				function() {
-					if (window.FileReader) {
-						var filename = $(this)[0].files[0].name;
-					} else {
-						var filename = $(this).val().split('/').pop().split(
-								'\\').pop();
-					}
-					$(this).siblings('.fileName').val(filename);
-				});
-		$('.loginForm')
-				.keyup(
-						function() {
-							var flag1 = false;
-							var flag2 = false;
-							var flag3 = false;
-							var flag4 = false;
-							var flag5 = false;
+	$(function() {
+		$(".SUChkMainICF").hide();
+		$("#SUBCC2").hide();
+		$("#SUBCC1").show();
+		$("#genderConfirmmN").show();
+	});
+	var uploadFile = $('.fileBox .uploadBtn');
+	uploadFile.on('change',
+			function() {
+				if (window.FileReader) {
+					var filename = $(this)[0].files[0].name;
+				} else {
+					var filename = $(this).val().split('/').pop().split(
+							'\\').pop();
+				}
+				$(this).siblings('.fileName').val(filename);
+			});
+	$('.loginForm').keyup(
+					function() {
+						var flag1 = false;
+						var flag2 = false;
+						var flag3 = false;
+						var flag4 = false;
+						var flag5 = false;
 
-							var regi = /^(?=.*?[A-Z,a-z])(?=.*?[0-9]).{8,}$/;
-							var id = $("#SUChkMainIID").val();
+						var regi = /^(?=.*?[A-Z,a-z])(?=.*?[0-9]).{8,}$/;
+						var id = $("#SUChkMainIID").val();
 
-							var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-							var pwd = $("#SUChkMainIPwd").val();
+						var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+						var pwd = $("#SUChkMainIPwd").val();
 
-							var pwdd = $("#SUChkMainIPwdC").val();
-							var pwd1 = document.getElementById('SUChkMainIPwd');
-							var pwd2 = document
-									.getElementById('SUChkMainIPwdC');
+						var pwdd = $("#SUChkMainIPwdC").val();
+						var pwd1 = document.getElementById('SUChkMainIPwd');
+						var pwd2 = document
+								.getElementById('SUChkMainIPwdC');
 
-							var PID = $('#SUChkMainPID').val();
-							var PID2 = $('#SUChkMainPID2').val();
-							var yyyy = $('#SUChkMainPID').val().substr(0, 2);
-							var MM = $('#SUChkMainPID').val().substr(2, 2);
-							var dd = $('#SUChkMainPID').val().substr(4, 2);
-							var gender = $("#SUChkMainPID2").val().substr(0, 1);
+						var PID = $('#SUChkMainPID').val();
+						var PID2 = $('#SUChkMainPID2').val().substr(0,1);
+						var yyyy = $('#SUChkMainPID').val().substr(0, 2);
+						var MM = $('#SUChkMainPID').val().substr(2, 2);
+						var dd = $('#SUChkMainPID').val().substr(4, 2);
+						var gender = $("#SUChkMainPID2").val().substr(0, 1);
 
-							var flagg1 = false;
-							var flagg2 = false;
-							var flagg3 = false;
-							var flagg4 = false;
+						var flagg1 = false;
+						var flagg2 = false;
+						var flagg3 = false;
+						var flagg4 = false;
 
-							$(".SUChkMainIEFront").keyup(function() {
-								var charLimit = $(this).attr("maxlength");
-								if (this.value.length >= charLimit) {
-									$("#SUChkMainPID2").focus();
-									return false;
-								}
-							});
-
-							$(".SUChkMainICFBirthh").keyup(
-									function() {
-										var charLimit = $(this).attr(
-												"maxlength");
-										if (this.value.length >= charLimit) {
-											$(this).next('.SUChkMainICFBirthh')
-													.focus();
-											return false;
-										}
-									});
-							if (id.length > 0) {
-								if (true === regi.test(id)) {
-									$("#IDCheckkF").hide();
-									$("#IDCheckkT").show();
-									flag1 = true;
-								} else {
-									$("#IDCheckkT").hide();
-									$("#IDCheckkF").show();
-									flag1 = false;
-								}
+						$(".SUChkMainIEFront").keyup(function() {
+							var charLimit = $(this).attr("maxlength");
+							if (this.value.length >= charLimit) {
+								$("#SUChkMainPID2").focus();
+								return false;
 							}
+						});
 
-							if (pwd.length > 0) {
-								if (true == reg.test(pwd)) {
-									$("#pwdCheckkF").hide();
-									$("#pwdCheckkT").show();
-									flag2 = true;
-								} else {
-									$("#pwdCheckkT").hide();
-									$("#pwdCheckkF").show();
-									flag2 = false;
-								}
+						$(".SUChkMainICFBirthh").keyup(
+								function() {
+									var charLimit = $(this).attr(
+											"maxlength");
+									if (this.value.length >= charLimit) {
+										$(this).next('.SUChkMainICFBirthh')
+												.focus();
+										return false;
+									}
+								});
+						if (id.length > 0) {
+							if (true === regi.test(id)) {
+								$("#IDCheckkF").hide();
+								$("#IDCheckkT").show();
+								flag1 = true;
 							} else {
-
+								$("#IDCheckkT").hide();
+								$("#IDCheckkF").show();
+								flag1 = false;
 							}
+						}
 
-							if (pwdd.length > 0) {
-								if (pwdd.length > 0) {
-									if (true == reg.test(pwd)) {
-										if (pwd1.value == pwd2.value) {
-											$("#pwdConfirmmF").hide();
-											$("#pwdConfirmmT").show();
-											flag3 = true;
-										} else {
-											$("#pwdConfirmmT").hide();
-											$("#pwdConfirmmF").show();
-											flag3 = false;
-										}
+						if (pwd.length > 0) {
+							if (true == reg.test(pwd)) {
+								$("#pwdCheckkF").hide();
+								$("#pwdCheckkT").show();
+								flag2 = true;
+							} else {
+								$("#pwdCheckkT").hide();
+								$("#pwdCheckkF").show();
+								flag2 = false;
+							}
+						} 
+	
+						if ((pwd.length > 0)&&(pwdd.length > 0)) {
+								if (true == reg.test(pwd)) {
+									if (pwd1.value == pwd2.value) {
+										$("#pwdConfirmmF").hide();
+										$("#pwdConfirmmT").show();
+										flag3 = true;
 									} else {
 										$("#pwdConfirmmT").hide();
 										$("#pwdConfirmmF").show();
 										flag3 = false;
 									}
-								}
-							}
-
-							if ($("#SUChkMainINameC").val().length > 0) {
-								$("#nameConfirmmF").hide();
-								$("#nameConfirmmT").show();
-								flag4 = true;
-							} else {
-								$("#nameConfirmmT").hide();
-								$("#nameConfirmmF").show();
-								flag4 = false;
-							}
-
-							// 주민번호 유효성
-							if (($('#SUChkMainPID').val().length < 1)
-									|| ($('#SUChkMainPID').val().length < 6)) {
-								flagg1 = false;
-							} else {
-								flagg1 = true;
-							}
-
-							if ($('#SUChkMainPID2').val().length < 1) {
-								flagg2 = false;
-							} else {
-								flagg2 = true;
-							}
-
-							if ((dd > 0) && (dd < 32)) {
-								flagg3 = true;
-							} else {
-
-								flagg3 = false;
-							}
-
-							if ((MM > 0) && (MM < 13)) {
-								flagg4 = true;
-							} else {
-								flagg4 = false;
-							}
-
-							if ((PID.length > 0) || (PID2.lenth > 0)) {
-								if (flagg1 == true) {
-									if (flagg2 == true) {
-										if (flagg3 == true) {
-											if (flagg4 == true) {
-												$("#personIDConfirmmF").hide();
-												$("#personIDConfirmmT").show();
-
-												$("#personIDConfirmmTTF1")
-														.hide();
-												$("#personIDConfirmmTTF2")
-														.hide();
-												$("#personIDConfirmmTTT1")
-														.show();
-												$("#personIDConfirmmTTT2")
-														.show();
-												flag5 = true;
-											}
-										}
-									}
 								} else {
-									$("#personIDConfirmmT").hide();
-									$("#personIDConfirmmF").show();
-
-									$("#personIDConfirmmTTT1").hide();
-									$("#personIDConfirmmTTT2").hide();
-									$("#personIDConfirmmTTF1").show();
-									$("#personIDConfirmmTTF2").show();
-									flag5 = false;
+									$("#pwdConfirmmT").hide();
+									$("#pwdConfirmmF").hide();
+									flag3 = false;
 								}
-
 							}
 
-							if ((flag1 == true) && (flag2 == true)
-									&& (flag3 == true) && (flag4 == true)
-									&& (flag5 == true)) {
-								$("#SUBCC1").hide();
-								$("#SUBCC2").show();
+						if ($("#SUChkMainINameC").val().length > 0) {
+							$("#nameConfirmmF").hide();
+							$("#nameConfirmmT").show();
+							flag4 = true;
+						} else {
+							$("#nameConfirmmT").hide();
+							$("#nameConfirmmF").show();
+							flag4 = false;
+						}
 
-							} else {
-								$("#SUBCC2").hide();
-								$("#SUBCC1").show();
+						// 주민번호 유효성
+						if (($('#SUChkMainPID').val().length < 1)
+								|| ($('#SUChkMainPID').val().length < 6)) {
+							flagg1 = false;
+						} else {
+							flagg1 = true;
+						}
 
+						if (($('#SUChkMainPID2').val().length < 1) ||(PID2 < 1)||(PID2 > 4)) {
+							
+							flagg2 = false;
+							
+						} else {
+							flagg2 = true;
+						}
+
+						if ((dd > 0) && (dd < 32)) {
+							flagg3 = true;
+						} else {
+
+							flagg3 = false;
+						}
+
+						if ((MM > 0) && (MM < 13)) {
+							flagg4 = true;
+						} else {
+							flagg4 = false;
+						}
+
+						if ((PID.length > 0) && (PID2.length > 0)) {
+							if ((flagg1 == true)&&(flagg2 == true)&&(flagg3 == true)&&(flagg4 == true)) {
+								$("#personIDConfirmmF").hide();
+								$("#personIDConfirmmTTF1").hide();
+								$("#personIDConfirmmTTF2").hide();
+								$("#personIDConfirmmT").show();
+								$("#personIDConfirmmTTT1").show();
+								$("#personIDConfirmmTTT2").show();
+								flag5 = true;
+							} else if(PID2.length == 0) {
+								$("#personIDConfirmmT").hide();
+								$("#personIDConfirmmTTT1").hide();
+								$("#personIDConfirmmTTT2").hide();
+								$("#personIDConfirmmF").show();
+								$("#personIDConfirmmTTF1").show();
+								$("#personIDConfirmmTTF2").show();
+								flag5 = false;
+							} else{
+								$("#personIDConfirmmT").hide();
+								$("#personIDConfirmmTTT1").hide();
+								$("#personIDConfirmmTTT2").hide();
+								$("#personIDConfirmmF").show();
+								$("#personIDConfirmmTTF1").show();
+								$("#personIDConfirmmTTF2").show();
+								flag5 = false;
 							}
 
-							if (($('#SUChkMainPID').val().length > 0)
-									&& ($('#SUChkMainPID2').val().length > 0)
-									&& (dd > 0) && (dd < 32) && (MM > 0)
-									&& (MM < 13)) {
-								if ((gender == 1) || (gender == 2)) {
-									$('#customerBY').val("19" + yyyy);
-									$('#customerBM').val(MM);
-									$('#customerBD').val(dd);
-								} else if ((gender == 3) || (gender == 4)) {
-									$('#customerBY').val("20" + yyyy);
-									$('#customerBM').val(MM);
-									$('#customerBD').val(dd);
-								} else {
-									$('#customerBY').val("");
-									$('#customerBM').val("");
-									$('#customerBD').val("");
-								}
+						}
+						// 회원가입 버튼 show hide
+
+						if ((flag1 == true) && (flag2 == true)
+								&& (flag3 == true) && (flag4 == true)
+								&& (flag5 == true)) {
+							$("#SUBCC1").hide();
+							$("#SUBCC2").show();
+
+						} else {
+							$("#SUBCC2").hide();
+							$("#SUBCC1").show();
+
+						}
+
+						if (($('#SUChkMainPID').val().length > 0)
+								&& ($('#SUChkMainPID2').val().length > 0)
+								&& (dd > 0) && (dd < 32) && (MM > 0)
+								&& (MM < 13)) {
+							if ((gender == 1) || (gender == 2)) {
+								$('#customerBY').val("19" + yyyy);
+								$('#customerBM').val(MM);
+								$('#customerBD').val(dd);
+							} else if ((gender == 3) || (gender == 4)) {
+								$('#customerBY').val("20" + yyyy);
+								$('#customerBM').val(MM);
+								$('#customerBD').val(dd);
 							} else {
 								$('#customerBY').val("");
 								$('#customerBM').val("");
 								$('#customerBD').val("");
 							}
+						} else {
+							$('#customerBY').val("");
+							$('#customerBM').val("");
+							$('#customerBD').val("");
+						}
 
-							if ((gender == 1) || (gender == 3)) {
-								$("#customerGender").val("남성");
-							} else if ((gender == 2) || (gender == 4)) {
-								$("#customerGender").val("여성");
-							}
-						});
+						if ((gender == 1) || (gender == 3)) {
+							$("#customerGender").val("남성");
+						} else if ((gender == 2) || (gender == 4)) {
+							$("#customerGender").val("여성");
+						}
+					});
 	</script>
-
-
 </body>
 </html>
