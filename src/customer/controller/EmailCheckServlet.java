@@ -93,6 +93,7 @@ public class EmailCheckServlet extends HttpServlet {
 		
 		HttpSession saveKey = request.getSession();
 		saveKey.setAttribute("AuthenticationKey", AuthenticationKey);
+		saveKey.setAttribute("emailNoSNS", email);
 	}
 
 	/**

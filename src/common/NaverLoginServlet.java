@@ -70,25 +70,7 @@ public class NaverLoginServlet extends HttpServlet {
             
             String id = (String)((JSONObject)result.get("response")).get("id");
             String email = (String)((JSONObject)result.get("response")).get("email");            
-            String name = (String)((JSONObject)result.get("response")).get("name");
-            String profile_image = (String)((JSONObject)result.get("response")).get("profile_image");
-            String age = (String)((JSONObject)result.get("response")).get("age");
-            String gender = (String)((JSONObject)result.get("response")).get("gender");
             String nickname = (String)((JSONObject)result.get("response")).get("nickname");
-            
-            session.setAttribute("id", id);
-            session.setAttribute("email", email);
-            session.setAttribute("nickname", nickname);
-            session.setAttribute("profile_image", profile_image);
-            session.setAttribute("gender", gender);
-            
-            System.out.println("id"+ id);
-            System.out.println("email" + email);
-            System.out.println("nickname" + nickname);
-            System.out.println("profile_image" + profile_image);
-            System.out.println("gender" + gender);
-            
-            System.out.println(res.toString());
             
             Member loginUser = new MemberService().checkMember(id);
             
@@ -99,17 +81,14 @@ public class NaverLoginServlet extends HttpServlet {
     			response.sendRedirect(request.getContextPath());
             } else {
             	request.setAttribute("id", id);
-            	request.setAttribute("email", email);
+            	request.setAttribute("emailSNS", email);
             	request.setAttribute("nickname", nickname);
-            	request.setAttribute("profile_image", profile_image);
-            	request.setAttribute("gender", gender);
             	RequestDispatcher view = request.getRequestDispatcher("views/common/SignUpCustomer3.jsp");
     			view.forward(request, response);
             }
         } catch (Exception e) {
             System.out.println(e);
         }
-        
         
 	}
 

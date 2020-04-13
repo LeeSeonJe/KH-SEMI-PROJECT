@@ -138,9 +138,13 @@ button {
 					data : {emailCheck:emailCheck},
 					success: function(data){
 						alert(data);
-						opener.document.loginForm.nextAfter.className = 'SUBC SUBCBefore';
-						opener.document.loginForm.nextAfter.disabled = false;
-						self.close();
+						if(data.trim() == '인증번호 불일치'){
+							$('#emailCheckNumber').focus();
+						} else{
+							opener.document.loginForm.nextAfter.className = 'SUBC SUBCBefore';
+							opener.document.loginForm.nextAfter.disabled = false;
+							self.close();
+						}
 					},
 					error: function(data){
 						alert('인증번호 확인 실패');

@@ -41,6 +41,7 @@ public class CustomerDAO {
 			pstmt.setString(2, c.getAge());
 			pstmt.setString(3, c.getSkintype());
 			pstmt.setString(4, c.getGender());
+			pstmt.setString(5, c.getProfile_image());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -69,7 +70,8 @@ public class CustomerDAO {
 								rset.getString("email"),
 								rset.getString("age"),
 								rset.getString("skintype"),
-								rset.getString("gender"));
+								rset.getString("gender"),
+								rset.getString("profile_image"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
