@@ -842,7 +842,7 @@ h3.SUImgI {
 								$("#personIDConfirmmT").show();
 								$("#personIDConfirmmTTT1").show();
 								$("#personIDConfirmmTTT2").show();
-								flag5 = true;
+								flag5 = true; 
 							} else if(PID2.length == 0) {
 								$("#personIDConfirmmT").hide();
 								$("#personIDConfirmmTTT1").hide();
