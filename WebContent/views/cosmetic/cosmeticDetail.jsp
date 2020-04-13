@@ -159,7 +159,7 @@
 						<table>
 							<tr>
 								<td id="td-contents">설명</td>
-								<td style="width: 760px"><%= c.getCosmetic_about() %></td>
+								<td><%= c.getCosmetic_about() %></td>
 								<td style="width: 180px"></td>
 							</tr>
 						</table>

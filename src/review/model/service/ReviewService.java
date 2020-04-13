@@ -37,9 +37,9 @@ public class ReviewService {
 		
 		int result1 = dao.insertBoard(conn, r);
 		int result2 = dao.insertReview(conn, r);
-	//	int result3 = dao.insertCos_review(conn, r);
+		int result3 = dao.insertCos_review(conn, r);
 		
-		if(result1 > 0 && result2 > 0) {
+		if(result1 > 0 && result2 > 0 && result3 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
