@@ -233,7 +233,7 @@
             <li><a href="<%= request.getContextPath() %>/list.re">리뷰</a></li>
 
 			<li>병원</li>
-			<li><a href="<%= request.getContextPath() %>/views/worry/worryMain.jsp">고민</a></li>
+			<li><a href="<%= request.getContextPath() %>/worryList.bo">고민</a></li>
 			</ul>
 			</form>
 		</nav>
