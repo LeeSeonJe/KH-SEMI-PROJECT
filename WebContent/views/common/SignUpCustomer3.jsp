@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+	String emailNoSNS = (String) session.getAttribute("emailNoSNS");
+	// 소셜로그인용
 	String id = (String) request.getAttribute("id");
-	String email = (String) request.getAttribute("email");
+	String emailSNS = (String) request.getAttribute("emailSNS");
 	String nickname = (String) request.getAttribute("nickname");
-	String profile_image = (String) request.getAttribute("profile_image");
-	String gender = (String) request.getAttribute("gender");
-
-	System.out.println(nickname);
 %>
 <!DOCTYPE html>
 <html>
@@ -349,7 +347,7 @@ input.imgAlert2 {
 }
 
 input.SUChkMainIE {
-	width: 200px;
+	width: 250px;
 	height: 46px;
 }
 
@@ -420,7 +418,7 @@ h3.SUImgI {
 		<!-- 작성 -->
 	</div>
 
-	<form class="loginForm" action="/insertC.me" encType="multipart/form-data">
+	<form class="loginForm" action="<%= request.getContextPath() %>/insertC.me" method="post" encType="multipart/form-data">
 
 		<div>
 			<br> <br> <br> <br>
@@ -467,7 +465,11 @@ h3.SUImgI {
 				</div>
 				<div class="SUII2"></div>
 			</div>
-			<div class="SUChk">
+			<div class="SUChk" 
+				<% if(emailSNS != null) { %>
+				style="height: 800px"
+				<% } %>
+				>
 				<div class="SUChkSi"></div>
 				<div class="SUChkSi2"></div>
 				<div class="SUChkMain2">회원정보 입력</div>
@@ -478,6 +480,7 @@ h3.SUImgI {
 					는 필수 입력 항목 입니다.
 				</div>
 				<div class="SUChkSi3"></div>
+				<% if(emailSNS == null) { %>
 				<div class="SUChkMain">
 					아이디
 					<h3
@@ -485,7 +488,11 @@ h3.SUImgI {
 				</div>
 				<div class="SUChkMain3">
 					<input type="text" class="SUChkMainI" id="SUChkMainIID"
-						name="userId">
+						name="userId" 
+						<% if(emailSNS != null) { %>
+							value="<%= id %>" readonly
+						<% } %>
+						>
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="IDCheckkF">
 							<input type="button" class="imgAlert1"
@@ -503,7 +510,11 @@ h3.SUImgI {
 						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="password" class="SUChkMainI" id="SUChkMainIPwd" name="userPwd">
+					<input type="password" class="SUChkMainI" id="SUChkMainIPwd" name="userPwd"
+					<% if(emailSNS != null) { %>
+							readonly
+					<% } %>
+					>
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="pwdCheckkF">
 							<input type="button" class="imgAlert1"
@@ -521,7 +532,11 @@ h3.SUImgI {
 						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="password" class="SUChkMainI" id="SUChkMainIPwdC">
+					<input type="password" class="SUChkMainI" id="SUChkMainIPwdC"
+					<% if(emailSNS != null) { %>
+							readonly
+					<% } %>
+					>
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="pwdConfirmmF">
 							<input type="button" class="imgAlert1"
@@ -533,6 +548,14 @@ h3.SUImgI {
 						</div>
 					</div>
 				</div>
+				<% } else {%>
+				<input type="hidden" class="SUChkMainI" id="SUChkMainIID"
+						name="userId" 
+						<% if(emailSNS != null) { %>
+							value="<%= id %>" readonly 
+						<% } %>
+						>
+				<% } %>
 				<div class="SUChkMain">
 					이름
 					<h3
@@ -540,7 +563,11 @@ h3.SUImgI {
 				</div>
 				<div class="SUChkMain3">
 					<input type="text" class="SUChkMainI" id="SUChkMainINameC"
-						name="userName">
+						name="userName"
+					<% if(emailSNS != null) { %>
+						value="<%= nickname %>" readonly
+					<% } %>	
+					>
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="nameConfirmmT">
 							<input type="button" class="imgAlert2" disabled>
@@ -553,22 +580,14 @@ h3.SUImgI {
 						style="font-size: 13pt; color: #DF1758; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="email" class="SUChkMainIE" name="userEmail">
-					<div style="display: inline-block;">
-						<div class="SUChkMainICF" id="emailConfirmmF"
-							style="width: 50px;">
-							<input type="button" class="imgAlert2" disabled>
-						</div>
-					</div>
+					<input type="email" class="SUChkMainIE" name="email" 
+					<% if(emailSNS != null) { %>
+						value="<%= emailSNS %>" readonly 
+					<% } else { %>
+						value="<%= emailNoSNS %>" readonly 
+					<% } %>
+					>
 				</div>
-<!-- 				<div class="SUChkMain"> -->
-<!-- 					이메일확인 -->
-<!-- 					<h3 -->
-<!-- 						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3> -->
-<!-- 				</div> -->
-<!-- 				<div class="SUChkMain3"> -->
-<!-- 					<input type="text" class="SUChkMainICFBirthh"> -->
-<!-- 				</div> -->
 
 				<div class="SUChkMain">
 					주민등록번호
@@ -618,7 +637,7 @@ h3.SUImgI {
 				</div>
 				<div class="SUChkMain3">
 					<input type="text" class="SUChkMainGender" id="customerGender"
-						name="userGender" readonly>
+						name="gender" readonly>
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="personIDConfirmmTTT2">
 							<input type="button" class="imgAlert2" disabled>
@@ -656,16 +675,39 @@ h3.SUImgI {
 						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-
-					<div class="fileBox">
-						<input type="text" class="fileName" readonly="readonly"
-							style="height: 45px; width: 300px; font-size: 15pt"> <label
-							for="uploadBtn" class="btn_file"
-							style="height: 45px; margin-top: 5px; font-weight: 100;">찾아보기</label>
-						<input type="file" id="uploadBtn" class="uploadBtn"
-							name="userProfileImg">
+					<div id="titleImgArea">
+						<img id="titleImg" width="200" height="150"
+								src ="<%= request.getContextPath() %>/member_images/icon.png">
+						<button class="btn-standard" type="button" id="selectBtn">파일 선택</button>
+					</div>
+					<div id="fileArea">
+					<input type="file" id="thumbnailImg1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)">
 					</div>
 				</div>
+				
+				<script>
+					$(function(){
+						$("#fileArea").hide();
+						
+						$("#selectBtn").click(function(){
+							$("#thumbnailImg1").click();
+						});
+					});
+					function LoadImg(value, num){
+						if(value.files && value.files[0]){
+							var reader = new FileReader();
+							
+							reader.onload = function(e){								
+								switch(num){
+								case 1: 
+									$("#titleImg").attr("src", e.target.result);
+									break;
+								}
+							}
+							reader.readAsDataURL(value.files[0]);
+						}
+					}
+				</script>
 			</div>
 			<div class="SUB">
 				<div>
@@ -676,9 +718,8 @@ h3.SUImgI {
 					onclick="location.href='loginedMain.jsp'"> <input
 					class="SUBC" id="SUBCC1" type="button" value="다음단계"
 					style="background-color: #595959; border: 1px solid #595959; color: white;">
-				<input class="SUBC" id="SUBCC2" type="button" value="다음단계"
-					style="background-color: #DF1758; border: 1px solid #DF1758; color: white;"
-					onclick="location.href='SignUpCustomer4.jsp' ">
+				<input type="submit" class="SUBC" id="SUBCC2" value="다음단계"
+					style="background-color: #DF1758; border: 1px solid #DF1758; color: white;">
 
 			</div>
 		</div>
@@ -687,23 +728,14 @@ h3.SUImgI {
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
+	var email = "<%= emailSNS %>";
 	$(function() {
 		$(".SUChkMainICF").hide();
 		$("#SUBCC2").hide();
 		$("#SUBCC1").show();
 		$("#genderConfirmmN").show();
 	});
-	var uploadFile = $('.fileBox .uploadBtn');
-	uploadFile.on('change',
-			function() {
-				if (window.FileReader) {
-					var filename = $(this)[0].files[0].name;
-				} else {
-					var filename = $(this).val().split('/').pop().split(
-							'\\').pop();
-				}
-				$(this).siblings('.fileName').val(filename);
-			});
+
 	$('.loginForm').keyup(
 					function() {
 						var flag1 = false;
@@ -753,58 +785,61 @@ h3.SUImgI {
 										return false;
 									}
 								});
-						if (id.length > 0) {
-							if (true === regi.test(id)) {
-								$("#IDCheckkF").hide();
-								$("#IDCheckkT").show();
-								flag1 = true;
-							} else {
-								$("#IDCheckkT").hide();
-								$("#IDCheckkF").show();
-								flag1 = false;
-							}
-						}
-
-						if (pwd.length > 0) {
-							if (true == reg.test(pwd)) {
-								$("#pwdCheckkF").hide();
-								$("#pwdCheckkT").show();
-								flag2 = true;
-							} else {
-								$("#pwdCheckkT").hide();
-								$("#pwdCheckkF").show();
-								flag2 = false;
-							}
-						} 
-	
-						if ((pwd.length > 0)&&(pwdd.length > 0)) {
-								if (true == reg.test(pwd)) {
-									if (pwd1.value == pwd2.value) {
-										$("#pwdConfirmmF").hide();
-										$("#pwdConfirmmT").show();
-										flag3 = true;
-									} else {
-										$("#pwdConfirmmT").hide();
-										$("#pwdConfirmmF").show();
-										flag3 = false;
-									}
+						
+						if(email == "null"){
+							if (id.length > 0) {
+								if (true === regi.test(id)) {
+									$("#IDCheckkF").hide();
+									$("#IDCheckkT").show();
+									flag1 = true;
 								} else {
-									$("#pwdConfirmmT").hide();
-									$("#pwdConfirmmF").hide();
-									flag3 = false;
+									$("#IDCheckkT").hide();
+									$("#IDCheckkF").show();
+									flag1 = false;
 								}
 							}
-
-						if ($("#SUChkMainINameC").val().length > 0) {
-							$("#nameConfirmmF").hide();
-							$("#nameConfirmmT").show();
-							flag4 = true;
-						} else {
-							$("#nameConfirmmT").hide();
-							$("#nameConfirmmF").show();
-							flag4 = false;
+	
+							if (pwd.length > 0) {
+								if (true == reg.test(pwd)) {
+									$("#pwdCheckkF").hide();
+									$("#pwdCheckkT").show();
+									flag2 = true;
+								} else {
+									$("#pwdCheckkT").hide();
+									$("#pwdCheckkF").show();
+									flag2 = false;
+								}
+							} 
+		
+							if ((pwd.length > 0)&&(pwdd.length > 0)) {
+									if (true == reg.test(pwd)) {
+										if (pwd1.value == pwd2.value) {
+											$("#pwdConfirmmF").hide();
+											$("#pwdConfirmmT").show();
+											flag3 = true;
+										} else {
+											$("#pwdConfirmmT").hide();
+											$("#pwdConfirmmF").show();
+											flag3 = false;
+										}
+									} else {
+										$("#pwdConfirmmT").hide();
+										$("#pwdConfirmmF").hide();
+										flag3 = false;
+									}
+								}
+	
+							if ($("#SUChkMainINameC").val().length > 0) {
+								$("#nameConfirmmF").hide();
+								$("#nameConfirmmT").show();
+								flag4 = true;
+							} else {
+								$("#nameConfirmmT").hide();
+								$("#nameConfirmmF").show();
+								flag4 = false;
+							}
 						}
-
+						
 						// 주민번호 유효성
 						if (($('#SUChkMainPID').val().length < 1)
 								|| ($('#SUChkMainPID').val().length < 6)) {
@@ -861,9 +896,15 @@ h3.SUImgI {
 								flag5 = false;
 							}
 
-						}
+						}			
 						// 회원가입 버튼 show hide
 
+						if(email != null){
+							flag1 = true;
+							flag2 = true;
+							flag3 = true;
+							flag4 = true;
+						}
 						if ((flag1 == true) && (flag2 == true)
 								&& (flag3 == true) && (flag4 == true)
 								&& (flag5 == true)) {
