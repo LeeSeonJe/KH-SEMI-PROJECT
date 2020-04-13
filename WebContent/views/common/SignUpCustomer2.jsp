@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">
-div.loginForm {
+form.loginForm {
 	width: 100%;
 	height: 1250px;
 	background-color: #DDDDDD;
@@ -273,6 +273,18 @@ input.SUBC {
 	font-size: 15pt;
 }
 
+input.SUBCAfter {
+	background-color: #595959; 
+	border: 1px solid #595959; 
+	color: white;
+}
+
+input.SUBCBefore {
+	background-color: #DF1758; 
+	border: 1px solid #DF1758; 
+	color: white;
+}
+
 img.SUImg {
 	width: 220px;
 	height: 220px;
@@ -316,7 +328,7 @@ h3.SUImgI {
 
 	</div>
 
-	<div class="loginForm">
+	<form name="loginForm" class="loginForm">
 
 		<div>
 			<br> <br> <br> <br>
@@ -377,21 +389,18 @@ h3.SUImgI {
 						<div>
 							<br><br><br><br><br><br><br><br><br>
 						</div>
-						<input class="SUBC" id = "SUBCC" type="button" value="취소"
-						style="background-color: white; border: 1px solid black;"
-						onclick="location.href='loginedMain.jsp'"> <input
-						class="SUBC" type="button" value="다음단계"
-						style="background-color: #DF1758; border: 1px solid #DF1758; color: white;"
-						onclick="location.href='SignUpCustomer3.jsp' ">
+						<input class="SUBC" id = "SUBCC" type="button" value="취소" style="background-color: white; border: 1px solid black;" onclick="location.href='loginedMain.jsp'"> 
+						<input id="nextAfter" name="nextAfter" class="SUBC" type="button" value="다음단계" onclick="location.href='SignUpCustomer3.jsp' ">
 					</div>
 				</div>	
 			</div>
 		</div>
-	</div>
+	</form>
 
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
+		var flag = false;
 		$(function(){
 			$('#SUImgg2').hide();
 			$('#SUImgg1').show();
@@ -406,9 +415,15 @@ h3.SUImgI {
 			$('#SUImgg2').hide();
 			$('#SUImgg1').show();	
 		}
+		
+		$(function(){
+			if(flag == false){
+				$('#nextAfter').addClass('SUBCAfter').attr("disabled",true);
+			}
+		})
 	
 		function openEmailIden(){
-			window.open("<%=request.getContextPath()%>/views/common/SignUpIdentifyEX.jsp", "구현어떻게하지씨발ㅋㅋ", "height = 700 , width = 700, left = 300, top = 50");
+			window.open("<%=request.getContextPath()%>/views/common/SignUpIdentifyEX.jsp", "이메일 인증", "height = 450 , width = 500, left = 300, top = 50");
 		}
 		
 		$(document).ready(function(){
