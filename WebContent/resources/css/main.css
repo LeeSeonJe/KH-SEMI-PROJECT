@@ -18,9 +18,10 @@ html,body {
 body {
    margin: 0 auto !important;
    width: 100%;
-   padding-bottom:200px;
+   padding-bottom:150px;
    height: 100%;
    position:relative;
+   background-color : darkgray;
 } /* 리셋 */
 nav.gnb {
    display: inline-block;
@@ -32,8 +33,8 @@ nav.gnb>form>ul {
 }
 
 nav.gnb>form>ul>li {
-   padding: 15px;
-   font-size: 17px;
+   padding: 40px;
+   font-size: 24px;
    list-style: none;
    display: inline-block;
    position: relative;
@@ -41,15 +42,12 @@ nav.gnb>form>ul>li {
 }
 
 img.logo {
-	width: 160px;
-	height: 120px;
-	/* margin: 20px; */
-	margin-left: 20px;
-	margin-top: 10px;
+   width: 160px;
 }
 
-header {
+header{
    width: 100%;
+   height : 140px;
 }
 
 span.sch {
@@ -70,14 +68,14 @@ span.sch>button {
 }
 
 span#login {
-	float: right;
-	margin-top: 53px;
-	width: 100px;
-	text-align: right;
+   float: right;
+   margin-top: 60px;
+   width: 100px;
+   text-align: right;
 }
 
 span#login>a {
-   font-size: 17px;
+   font-size: 15pt;
    text-decoration: none;
    color: black;
 }
@@ -151,14 +149,15 @@ span#login>a {
 }
 
 .contents{
-   padding: 0 300px;
+   padding: 20px 275px;
+   background-color : white;
 }
 
 footer>div{
    position:absolute;
    bottom: 0;
    left: 0;
-   background-color: #f8ecec; 
+   background-color: #DF1758; 
    width: 100%;
    height: 150px;
 }
