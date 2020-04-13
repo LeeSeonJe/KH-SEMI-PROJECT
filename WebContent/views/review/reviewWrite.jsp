@@ -48,27 +48,25 @@
 	<div class="writingReview">
 	<h2> &nbsp;리뷰 작성</h2>
 	<hr>
-	<form class="reviewForm" action="<%= request.getContextPath() %>/insert.re" method="get">
+	<form name="reviewForm" class="reviewForm" action="<%= request.getContextPath() %>/insert.re" method="get">
 	<div>
 	<table id="select-pro">
 		<tr>
 			<td rowspan=3>
 			<div id="pro-img">
 				제품선택하면 사진이 뿅~
+				<img name="cosmetic_img">
 			</div>
 			</td>
-			<td>브랜드 명</td>
+			<td>브랜드 명 <input type="text" name="brand_name" /></td>
 		</tr>
 		<tr>
-			<td>제품 명</td>
+			<td>제품 명 <input type="text" name="cosmetic_name"/></td>
+			<td><input type="hidden" name="cosmetic_no"/></td>
 		</tr>
 		<tr>
 			<td><button type="button" id="btn-select">제품 선택</button></td>
-			<script>
-				$('#btn-select').click(function(){
-					window.open('<%= request.getContextPath() %>/views/cosmetic/cosmeticFind.jsp', "findingProduct", "width=600, height=300")
-				});
-			</script>
+			
 		</tr>
 	</table>
 <hr>	
@@ -127,7 +125,11 @@
 	</div>
 
 	<%@ include file="/views/layout/footer.jsp"%>
-
+	<script>
+		$('#btn-select').click(function(){
+			window.open('<%= request.getContextPath() %>/views/cosmetic/cosmeticFind.jsp', "findingProduct", "width=600, height=300")
+		});
+	</script>
 	<script src="../../resources/js/main.js"></script>
 </body>
 </html>
