@@ -96,7 +96,7 @@ public class ReviewDAO {
 		// insert into board values(seq_board_no.nextval, ?, ?, sysdate, 리뷰게시판, ?)
 		
 		PreparedStatement pstmt = null;
-		int result = 0;
+		int result1 = 0;
 		
 		String query = prop.getProperty("insertBoard");
 		
@@ -106,12 +106,12 @@ public class ReviewDAO {
 			pstmt.setString(2, r.getContent());
 			pstmt.setInt(3, r.getUser_no());
 			
-			result = pstmt.executeUpdate();
+			result1 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return result;
+		return result1;
 	}
 	public int insertReview(Connection conn, Review r) {
 		PreparedStatement pstmt = null;
@@ -138,13 +138,14 @@ public class ReviewDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, r.getCosmetic_no());
 			
 			result3 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return 0;
+		return result3;
 	}
 
 
