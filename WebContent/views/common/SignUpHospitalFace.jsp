@@ -178,7 +178,7 @@ input.mSignUpISB {
 
 /* ios */
 </style>
-<%@ include file="/views/layout/import2.jsp"%>
+<%@ include file="/views/layout/import.jsp"%>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/toggle.css"
