@@ -1,6 +1,7 @@
-package customer.controller;
+package hospital.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
@@ -14,23 +15,22 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 
-import common.CosReqFileRenamePolicy;
 import common.CustomerFileRenamePolicy;
-import customer.model.service.CustomerService;
-import customer.model.vo.Customer;
+import hospital.model.service.HospitalService;
+import hospital.model.vo.Hospital;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class InsertCustomerServlet
+ * Servlet implementation class InsertHospitalServlet
  */
-@WebServlet("/insertC.me")
-public class InsertCustomerServlet extends HttpServlet {
+@WebServlet("/insertH.me")
+public class InsertHospitalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertCustomerServlet() {
+    public InsertHospitalServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,61 +44,64 @@ public class InsertCustomerServlet extends HttpServlet {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 10;
 			String root = request.getSession().getServletContext().getRealPath("/");
-			String savePath = root + "member_images/";
+			String savePath = root + "hospital_images/";
 			
 			MultipartRequest multiRequest
 				= new MultipartRequest(request, savePath, maxSize, "UTF-8", new CustomerFileRenamePolicy());
-			String saveFile = null;
+			
+			ArrayList<String> saveFiles = new ArrayList<String>();
+			ArrayList<String> originFiles = new ArrayList<String>();
+			
 			Enumeration<String> files = multiRequest.getFileNames();
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
 				
 				if(multiRequest.getFilesystemName(name) != null) {
-					saveFile = multiRequest.getFilesystemName(name);
+					saveFiles.add(multiRequest.getFilesystemName(name));
+					originFiles.add(multiRequest.getOriginalFileName(name));
 				}
 			}
 		
-			String userId = multiRequest.getParameter("userId");
-			String userName = multiRequest.getParameter("userName");
-			String userPwd = multiRequest.getParameter("userPwd");
+			String id = multiRequest.getParameter("id");
+			String name = multiRequest.getParameter("name");
+			String pwd = multiRequest.getParameter("pwd");
 			String email = multiRequest.getParameter("email");
-			String gender = multiRequest.getParameter("gender");
-			String userBirth = multiRequest.getParameter("userBirth");
-			String skintype = multiRequest.getParameter("skintype");
-		
-			Member m = new Member(userName, userId, userPwd, "C");
-			Customer c = new Customer(0, email, userBirth, skintype, gender, saveFile);
-			int result = new CustomerService().insertCustomer(m, c);
+			String tel1 = multiRequest.getParameter("tel1");
+			String tel2 = multiRequest.getParameter("tel2");
+			String tel3 = multiRequest.getParameter("tel3");
+			String addressBasic = multiRequest.getParameter("addressBasic");
+			String addressDetail = multiRequest.getParameter("addressDetail");
+			String about = multiRequest.getParameter("about");
+			String tel = tel1 + "-" + tel2 + "-" + tel3;
+			String address = addressBasic + addressDetail;
+			
+			String images = "";
+			
+			Member m = new Member(name, id, pwd, "H");
+			Hospital h = new Hospital(0, about, tel, address, null, 0, email);
+			
+			for(int i=originFiles.size()-1; i>=0; i--) {
+				if(i==originFiles.size()-1) {
+					h.setRegi(saveFiles.get(i));
+				} else if (i==originFiles.size()-2){
+					images += saveFiles.get(i);
+				} else {
+					images += "," + saveFiles.get(i);
+				}
+			}
+			
+			h.setHospital_img(images);
+			
+			int result = new HospitalService().insertHospital(m, h);
 			if(result > 0) {
-				response.sendRedirect("views/common/SignUpCustomer4.jsp");
+				response.sendRedirect("views/common/SignUpHospital4.jsp");
 				
 			} else {
 				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 				request.setAttribute("msg", "회원가입에 실패하였습니다.");
 				view.forward(request, response);
 			}
-		} else {
-			String userId = request.getParameter("userId");
-			String userName = request.getParameter("userName");
-			String userPwd = request.getParameter("userPwd");
-			String email = request.getParameter("email");
-			String gender = request.getParameter("gender");
-			String userBirth = request.getParameter("userBirth");
-			String skintype = request.getParameter("skintype");
-		
-			Member m = new Member(userName, userId, userPwd, "C");
-			Customer c = new Customer(0, email, userBirth, skintype, gender, "icon_png");
-			int result = new CustomerService().insertCustomer(m, c);
-			if(result > 0) {
-				response.sendRedirect("views/common/SignUpCustomer4.jsp");
-				
-			} else {
-				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-				request.setAttribute("msg", "회원가입에 실패하였습니다.");
-				view.forward(request, response);
-			}
-		}
-		
+		} 
 	}
 
 	/**

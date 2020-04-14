@@ -17,6 +17,7 @@
     margin-top: 60px;
 }
 
+/* 필터 css */
 #cosmetic-beauty-filter {
 	display: inline-block;
     border: 1px solid #ccc;
@@ -127,11 +128,36 @@ input {
 	margin-left: 30px;
 	font-size: 12px;
 }
- 
 #cosmetic-category #cosmetic-big-category, #cosmetic-middle-category, #category-btn, .middle-category{
 	float: left;
 }
 
+#cosmetic-category #cosmetic-big-category {
+	border: 1px solid #ccc;
+    background: white;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    margin-left: 30px;
+}
+
+#cosmetic-category .middle-category {
+	border: 1px solid #ccc;
+    background: white;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    margin-left: 4px;
+}
+#category-btn {
+	border: 1px solid #ccc;
+    background: white;
+    border-radius: 5px;
+    width: 70px;
+    height: 30px;
+    margin-left: 4px;
+}
+/* 필터 css 마지막 */
 .ranking-list {
 	display: inline-flex;
     border-block-end: 1px solid #ccc;
@@ -157,31 +183,6 @@ input {
 .ranking-list>.cos-score {
 	width: 200px;
 	padding-top: 70px;
-}
-#cosmetic-category #cosmetic-big-category {
-	border: 1px solid #ccc;
-    background: white;
-    border-radius: 5px;
-    width: 150px;
-    height: 30px;
-    margin-left: 30px;
-}
-
-#cosmetic-category .middle-category {
-	border: 1px solid #ccc;
-    background: white;
-    border-radius: 5px;
-    width: 150px;
-    height: 30px;
-    margin-left: 4px;
-}
-#category-btn {
-	border: 1px solid #ccc;
-    background: white;
-    border-radius: 5px;
-    width: 70px;
-    height: 30px;
-    margin-left: 4px;
 }
 
 .cos-img>img{
@@ -210,7 +211,7 @@ input {
 			<h1><%= middleName %> 랭킹</h1>
 		</section>
 		
-		<form id="filter-form" action="#">
+		<form id="filter-form" action="#" onsubmit="return false">
 			<section id="cosmetic-filter">
 				<div id="cosmetic-beauty-filter">
 					<div id="cosmetic-beauty-filter-header">

@@ -18,6 +18,13 @@ public class Review {
 	
 	public Review () {}
 
+	public Review(int review_no, int thumbs_up, String title) {
+		super();
+		this.review_no = review_no;
+		this.thumbs_up = thumbs_up;
+		this.title = title;
+	}
+
 	public Review(int review_no, int thumbs_up, int heart, String title, String content, Date date, String category,
 			String userName) {
 		super();
