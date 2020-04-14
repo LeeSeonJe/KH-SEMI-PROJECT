@@ -16,7 +16,7 @@ div.loginForm {
 div.logoDiv {
 	text-align: center;
 	top: 0%;
-}  
+}
 
 img.logoImg {
 	width: 250px;
@@ -328,7 +328,7 @@ input.imgAlert2 {
 	height: 50px;
 	background-color: white;
 	border: none;
-	background-image: url('../../resources/images/AlertIcon2_1.png');
+	background-image: url('../../resources/images/AlertIcon2_1_12.png');
 	background-repeat: no-repeat;
 	background-position: -5px -10px;
 }
@@ -532,26 +532,26 @@ h3.SUImgI {
 				<div class="SUChkMain">
 					병원 전화번호
 					<h3
-						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3>
-				</div>
-				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainICFBirthh" maxlength="3">
-					- <input type="text" class="SUChkMainICFBirthh" maxlength="4">
-					- <input type="text" class="SUChkMainICFBirthh" maxlength="4">
-				</div>
-				<div class="SUChkMain">
-					이메일
-					<h3
 						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainIE" readonly value="cosmedic">
-					<input type="text" class="SUChkMainIE" readonly value="naver.com">
-					<div style="display: inline-block;">
-						<div class="SUChkMainICFE" id="emailConfirmmF"
-							style="width: 50px;">
-							<input type="button" class="imgAlert2" disabled>
-						</div>
+					<input type="text" class="SUChkMainICFBirthh" maxlength="3"
+						style="float: left" id="phoneCF1" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+					<h3 style="float: left; margin-top: 10px; font-size: 16pt;">&nbsp;-&nbsp;</h3>
+					<input type="text" class="SUChkMainICFBirthh" maxlength="4"
+						style="float: left" id="phoneCF2" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+					<h3 style="float: left; margin-top: 10px; font-size: 16pt;">&nbsp;-&nbsp;</h3>
+					<input type="text" class="SUChkMainICFBirthh" maxlength="4"
+						style="float: left" id="phoneCF3" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+					<div class="SUChkMainICF" id="phoneCheckkF"
+						style="margin-top: 3px; margin-left: 3px;">
+						<input type="button" class="imgAlert1"
+							value="전화번호를 모두 입력해 주세요.                                                                            "
+							disabled>
+					</div>
+					<div class="SUChkMainICF" id="phoneCheckkT"
+						style="margin-top: 3px; margin-left: 3px;">
+						<input type="button" class="imgAlert2" disabled>
 					</div>
 				</div>
 				<div class="SUChkMain">
@@ -561,9 +561,11 @@ h3.SUImgI {
 				</div>
 				<div class="SUChkMain3">
 
-					<div class="fileBox" id = "fileBox1">
-						<input type="text" class="fileName" id = "hospitalLicense"readonly="readonly" style = "height : 45px; width : 300px; font-size : 15pt">  
-						<input type="file" id="uploadBtn1" class="uploadBtn">
+					<div class="fileBox" id="fileBox1">
+						<input type="text" class="fileName" id="hospitalLicense"
+							readonly="readonly"
+							style="height: 45px; width: 300px; font-size: 15pt"> <input
+							type="file" id="uploadBtn1" class="uploadBtn">
 					</div>
 				</div>
 				<div class="SUChkMain">
@@ -573,9 +575,11 @@ h3.SUImgI {
 				</div>
 				<div class="SUChkMain3">
 
-					<div class="fileBox" id = "fileBox">
-						<input type="text" class="fileName" id = "hospitalPhoto"readonly="readonly" style = "height : 45px; width : 300px; font-size : 15pt">  
-						<input type="file" id="uploadBtn2" class="uploadBtn">
+					<div class="fileBox" id="fileBox">
+						<input type="text" class="fileName" id="hospitalPhoto"
+							readonly="readonly"
+							style="height: 45px; width: 300px; font-size: 15pt"> <input
+							type="file" id="uploadBtn2" class="uploadBtn">
 					</div>
 				</div>
 				<div class="SUChkMain">
@@ -586,11 +590,12 @@ h3.SUImgI {
 				<div class="SUChkMain3">
 
 					<div class="	">
-						<input type="text" class="fileNameee" id="hospitalIntroduce"style = "height : 300px; width : 700px; font-size : 15pt; margin-top : 10px ; padding-top : 5px;"> 
-						
+						<input type="text" class="fileNameee" id="hospitalIntroduce"
+							style="height: 300px; width: 700px; font-size: 15pt; margin-top: 10px; padding-top: 5px;">
+
 					</div>
 				</div>
-				
+
 			</div>
 			<div class="SUB">
 				<div>
@@ -618,49 +623,55 @@ h3.SUImgI {
 			$("#SUBCC1").show();
 			$("#genderConfirmmN").show();
 		});
+		
+		$("#phoneCF1").keyup(function() {
+			var charLimit = $("#phoneCF1").attr("maxlength");
+			if (this.value.length >= charLimit) {
+				$('#phoneCF2').focus();
+				return false;
+			}
+		});
+		$("#phoneCF2").keyup(function() {
+			var charLimit = $("#phoneCF2").attr("maxlength");
+			if (this.value.length >= charLimit) {
+				$('#phoneCF3').focus();
+				return false;
+			}
+		});
+
+		
 		var uploadFile = $('.fileBox .uploadBtn');
-	
-		$('.loginForm').keyup(
+
+		$('.loginForm')
+				.keyup(
 						function() {
 							var flag1 = false;
 							var flag2 = false;
 							var flag3 = false;
 							var flag4 = false;
 							var flag5 = false;
+							var flag6 = false;
 
 							var regi = /^(?=.*?[A-Z,a-z])(?=.*?[0-9]).{8,}$/;
 							var id = $("#SUChkMainIID").val();
 
 							var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 							var pwd = $("#SUChkMainIPwd").val();
-
+							
 							var pwdd = $("#SUChkMainIPwdC").val();
 							var pwd1 = document.getElementById('SUChkMainIPwd');
 							var pwd2 = document.getElementById('SUChkMainIPwdC');
+
+							var p1 = $("#phoneCF1").val();
+							var p2 = $("#phoneCF2").val();
+							var p3 = $("#phoneCF3").val();
 
 							var flagg1 = false;
 							var flagg2 = false;
 							var flagg3 = false;
 							var flagg4 = false;
 
-							$(".SUChkMainIEFront").keyup(function() {
-								var charLimit = $(this).attr("maxlength");
-								if (this.value.length >= charLimit) {
-									$("#SUChkMainPID2").focus();
-									return false;
-								}
-							});
-
-							$(".SUChkMainICFBirthh").keyup(
-									function() {
-										var charLimit = $(this).attr(
-												"maxlength");
-										if (this.value.length >= charLimit) {
-											$(this).next('.SUChkMainICFBirthh')
-													.focus();
-											return false;
-										}
-									});
+							
 							if (id.length > 0) {
 								if (true === regi.test(id)) {
 									$("#IDCheckkF").hide();
@@ -673,35 +684,19 @@ h3.SUImgI {
 								}
 							}
 
-							if (pwd.length > 0) {
-								if (true == reg.test(pwd)) {
-									$("#pwdCheckkF").hide();
-									$("#pwdCheckkT").show();
-									flag2 = true;
+							if (p1.length < 1) {
+								$("#phoneCheckkF").hide();
+								$("#phoneCheckkT").hide();
+							} else {
+								if ((p1.length > 0) && (p2.length > 0)
+										&& (p3.length > 0)) {
+									$("#phoneCheckkF").hide();
+									$("#phoneCheckkT").show();
+									flag3 = true;
 								} else {
-									$("#pwdCheckkT").hide();
-									$("#pwdCheckkF").show();
-									flag2 = false;
-								}
-							} 
-		
-							if (pwdd.length > 0) {
-								if (pwdd.length > 7) {
-									if (true == reg.test(pwd)) {
-										if (pwd1.value == pwd2.value) {
-											$("#pwdConfirmmF").hide();
-											$("#pwdConfirmmT").show();
-											flag3 = true;
-										} else {
-											$("#pwdConfirmmT").hide();
-											$("#pwdConfirmmF").show();
-											flag3 = false;
-										}
-									} else {
-										$("#pwdConfirmmT").hide();
-										$("#pwdConfirmmF").hide();
-										flag3 = false;
-									}
+									$("#phoneCheckkT").hide();
+									$("#phoneCheckkF").show();
+									flag3 = false;
 								}
 							}
 
@@ -715,22 +710,56 @@ h3.SUImgI {
 								flag4 = false;
 							}
 							
-							if(($("#uploadBtn1").val().length > 0)&&($("#uploadBtn2").val().length >0)&&($("#hospitalIntroduce").val().length)){
+							if (pwd.length > 0) {
+								if (true == reg.test(pwd)) {
+									$("#pwdCheckkF").hide();
+									$("#pwdCheckkT").show();
+									flag6 = true;
+								} else {
+									$("#pwdCheckkT").hide();
+									$("#pwdCheckkF").show();
+									flag6 = false;
+								}
+							} 
+
+							if ((pwd.length > 0) && (pwdd.length > 0)) {
+								if (true == reg.test(pwd)) {
+									if (pwd1.value == pwd2.value) {
+										$("#pwdConfirmmF").hide();
+										$("#pwdConfirmmT").show();
+										flag2 = true;
+									} else {
+										$("#pwdConfirmmT").hide();
+										$("#pwdConfirmmF").show();
+										flag2 = false;
+									}
+								} else {
+									$("#pwdConfirmmT").hide();
+									$("#pwdConfirmmF").hide();
+									flag2 = false;
+								}
+							}
+
+							if (($("#uploadBtn1").val().length > 0)
+									&& ($("#uploadBtn2").val().length > 0)
+									&& ($("#hospitalIntroduce").val().length)) {
 								flag5 = true;
-							}else{
+							} else {
 								flag5 = false;
 							}
-							
-							if((flag1 == true)&&(flag2==true)&&(flag3 == true)&&(flag4 == true)&&(flag5 == true)){
+
+							if ((flag1 == true) && (flag2 == true)
+									&& (flag3 == true) && (flag4 == true)
+									&& (flag5 == true) && (flag6 == true)) {
 								$("#SUBCC1").hide();
 								$("#SUBCC2").show();
-							}else{
+							} else {
 								$("#SUBCC2").hide();
 								$("#SUBCC1").show();
 							}
 						});
 
-							// 주민번호 유효성
+		// 주민번호 유효성
 	</script>
 </body>
 </html>
