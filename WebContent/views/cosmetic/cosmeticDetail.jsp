@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link href="<%= request.getContextPath()%>/resources/css/filter.css" rel="stylesheet">
 <%@ include file="/views/layout/import.jsp"%>
 
 <style>
@@ -14,6 +15,7 @@
 #cos-section{
     display: inline-flex;
     margin-top: 100px;
+    margin-bottom: 100px;
 }
 
 #cos-img {
@@ -118,6 +120,8 @@
 	vertical-align: top;
 	color: #936890;
 }
+
+
 </style>
 <%
 	Cosmetic c = (Cosmetic) request.getAttribute("cosmeticInform");
@@ -159,13 +163,82 @@
 						<table>
 							<tr>
 								<td id="td-contents">설명</td>
-								<td><%= c.getCosmetic_about() %></td>
+								<td style="width: 550px"><%= c.getCosmetic_about() %></td>
 								<td style="width: 180px"></td>
 							</tr>
 						</table>
 					</div>
 				</section>
 			</div>
+		</section>
+		<hr>
+		<section id="cosReview_section">
+			<form id="filter-form" action="#" onsubmit="return false">
+				<section id="cosmetic-filter">
+					<div id="cosmetic-beauty-filter">
+						<div id="cosmetic-beauty-filter-header">
+							<h3>필터</h3>
+							<button id="reset-btn" type="reset">초기화</button>
+						</div>
+						<br>
+						<div id="cosmetic-beauty-filter-select">
+							<fieldset id="sex-fieldset">
+								<legend>
+									<h4>성별</h4>
+								</legend>
+								<input type="radio" id="filter-sex-all" class="radioChkActive" name="filter-sex" value="filter-sex-all" checked="checked"/> <label for="filter-sex-all">전체</label>
+								<input type="radio" id="filter-sex-female" class="radioChk" name="filter-sex" value="filter-sex-female"/> <label for="filter-sex-female">여자</label>
+								<input type="radio" id="filter-sex-male" class="radioChk" name="filter-sex" value="filter-sex-male"/> <label for="filter-sex-male">남자</label>						
+							</fieldset>
+							<br>
+							<fieldset>
+								<legend>
+									<h4>연령대</h4>
+								</legend>
+								<input type="checkbox" id="filter-age-all" class="chkboxChkActive" name="filter-age-all" value="filter-age-all" checked="checked" /> <label for="filter-age-all">전체</label>
+								<input type="checkbox" id="filter-age-10" class="chkboxChk" name="filter-age" value="filter-age-10" /> <label for="filter-age-10">10대</label>
+								<input type="checkbox" id="filter-age-20u" class="chkboxChk" name="filter-age" value="filter-age-20u" /> <label for="filter-age-20u">20대 초반</label>	
+								<br><br>
+								<input type="checkbox" id="filter-age-20d" class="chkboxChk" name="filter-age" value="filter-age-20d" /> <label for="filter-age-20d">20대 후반</label>	
+								<input type="checkbox" id="filter-age-30" class="chkboxChk" name="filter-age" value="filter-age-30" /> <label for="filter-age-30">30대 초반</label>	
+								<input type="checkbox" id="filter-age-30u" class="chkboxChk" name="filter-age" value="filter-age-30u" /> <label for="filter-age-30u">30대 후반</label>	
+							</fieldset>
+							<br>
+							<fieldset>
+								<legend>
+									<h4>피부타입</h4>
+								</legend>
+								<input type="checkbox" id="filter-skinType-all" class="chkboxChkActive" name="filter-skinType-all" value="filter-skinType-all"/> <label for="filter-skinType-all">전체</label>
+								<input type="checkbox" id="filter-skinType-dry" class="chkboxChk" name="filter-skinType" value="filter-skinType-dry"/> <label for="filter-skinType-dry">건성</label>
+								<input type="checkbox" id="filter-skinType-oily" class="chkboxChk" name="filter-skinType" value="filter-skinType-oily"/> <label for="filter-skinType-oily">지성</label>	
+								<br><br>
+								<input type="checkbox" id="filter-skinType-neutral" class="chkboxChk" name="filter-skinType" value="filter-skinType-neutral"/> <label for="filter-skinType-neutral">중성</label>	
+								<input type="checkbox" id="filter-skinType-combi" class="chkboxChk" name="filter-skinType" value="filter-skinType-combi"/> <label for="filter-skinType-combi">복합성</label>	
+								<input type="checkbox" id="filter-skinType-sensitive" class="chkboxChk" name="filter-skinType" value="filter-skinType-sensitive"/> <label for="filter-skinType-sensitive">민감성</label>	
+							</fieldset>
+								<br><br>
+							<div id="select-btn-center">
+								<button id="select-btn" type="submit">필터적용</button>
+							</div>
+							<br><br><br>
+							<h1 id="keyword_search">키워드 검색</h1>
+							<input id="search_input" type="search" placeholder="리뷰 키워드를 입력하세요" />
+							<button id="search_btn_span">
+								<img src="<%= request.getContextPath()%>/resources/images/search_icon.png">
+							</button>
+						</div>
+						<br><br>
+					</div>
+				</section>
+				<section id="cosmetic-category" >
+					<br><br>
+					<section>
+						<ul>
+						
+						</ul>
+					</section>
+				</section>
+			</form>
 		</section>
 	</div>
 
@@ -268,5 +341,6 @@
 
 
 	<script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
+	<script src="<%= request.getContextPath() %>/resources/js/filter.js"></script>
 </body>
 </html>

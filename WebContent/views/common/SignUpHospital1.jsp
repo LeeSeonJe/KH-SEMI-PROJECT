@@ -9,7 +9,7 @@
 <style type="text/css">
 div.loginForm {
 	width: 100%;
-	height: 1700px;
+	height: 1550px;
 	background-color: #DDDDDD;
 }
 
@@ -24,7 +24,7 @@ img.logoImg {
 }
 
 div.mLogin {
-	width: 75%;
+	width: 65%;
 	height: 90%;
 	background: white;
 }
@@ -120,7 +120,7 @@ div.SUChk {
 	height: 160px;
 	text-align: left;
 	float: left;
-	font-size: 16pt;
+	font-size: 14pt;
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 }
@@ -132,7 +132,7 @@ div.SUChk2 {
 	height: 180px;
 	text-align: left;
 	float: left;
-	font-size: 16pt;
+	font-size: 14pt;
 	border-bottom: 1px solid black;
 }
 
@@ -230,7 +230,7 @@ input.SUChkC {
 }
 
 input.SUChkBt {
-	font-size: 13pt;
+	font-size: 11pt;
 	background-color: #DF1758;
 	border: none;
 	color: white;
@@ -240,9 +240,9 @@ input.SUChkBt {
 }
 
 input.SUBC {
-	width: 350px;
-	height: 80px;
-	font-size: 15pt;
+	width: 300px;
+    height: 70px;
+    font-size: 14pt;
 }
 
 img.SUImg {
@@ -257,13 +257,13 @@ img.SUImg2 {
 }
 
 h3.SUImgI {
-	font-size: 19pt;
+	font-size: 17pt;
 	font-weight: 600;
 }
 
 /*checkbox*/
 </style>
-<%@ include file="/views/layout/import2.jsp"%>
+<%@ include file="/views/layout/import.jsp"%>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/toggle3.css"
@@ -350,7 +350,7 @@ h3.SUImgI {
 				</label> 
 				&nbsp;&nbsp; 
 				코스메딕 사이트 이용약관 
-				<h3 style="font-size: 15pt; color: #4BD763; display: inline-block;">
+				<h3 style="font-size: 13pt; color: #4BD763; display: inline-block;">
 				(필수)
 				</h3>
 				<div class="SUChkBF">
@@ -366,7 +366,7 @@ h3.SUImgI {
 				</label>
 				&nbsp;&nbsp; 
 				개인정보 수집 및 이용동의 
-				<h3 style="font-size: 15pt; color: #4BD763; display: inline-block;">
+				<h3 style="font-size: 13pt; color: #4BD763; display: inline-block;">
 				(필수)
 				</h3>
 				<div class="SUChkBF">
@@ -381,7 +381,7 @@ h3.SUImgI {
 				</label>
 				&nbsp;&nbsp; 
 				이벤트 및 프로모션 알림 메일 수신
-				<h3 style="font-size: 15pt; color: #4BD763; display: inline-block;">
+				<h3 style="font-size: 13pt; color: #4BD763; display: inline-block;">
 				(선택)
 				</h3>
 				<div class="SUChkBF">
@@ -389,7 +389,7 @@ h3.SUImgI {
 				</div>
 			</div>
 			<div class="SUB">
-				<br> <br> <br> <br> <br> <br> 
+				<br> <br> <br> <br>
 				<input
 					class="SUBC" type="button" value="비동의"
 					style="background-color: white; border: 1px solid black;" 

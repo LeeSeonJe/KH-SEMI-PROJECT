@@ -485,7 +485,8 @@ input.imgAlert2 {
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
 		$(function() {
-			$("#mLogin2").hide();
+			$("#mLogin1").hide();
+			$("#mLogin2").show();
 			$("#foundIdFF2").hide();
 			$("#foundIdFF1").show();
 			$("#submit2").hide();
@@ -494,6 +495,7 @@ input.imgAlert2 {
 			$(".imgAlert2").hide();
 			$("#next2").hide();
 			$("#foundIdFEC2").hide();
+			$(".mLogin").height("650px");
 		});
 
 		$("#radioId2").click(function() {
