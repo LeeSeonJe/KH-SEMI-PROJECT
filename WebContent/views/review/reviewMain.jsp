@@ -45,7 +45,12 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 	.icon-product{width: 80px; height: 70px; margin-top: 10px;}
 	.thumb{width: 25px; height: 25px;}
 	
-	.best-rivew{display:inline-block; width:100px; height:110px; text-align:center;}
+	.best-rivew{display:inline-block; width:150px; height:110px; text-align:center; vertical-align: middle;}
+	.best-rivew-title{overflow: hidden; width:140px; display:inline-block; max-height:2.7em;}
+	.review-title{white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+	.content{white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 570px; display:inline-block; min-height:20px;}
+	.hiddenSpan{min-height:20px; margin:0; text-align:left}
+	#write-date{float:right;}
 
 </style>
 <%@ include file="/views/layout/import.jsp"%>
@@ -156,30 +161,64 @@ $(function(){
 		</select>
 		</div>
 	<hr>
-<div class="reviews" id="review1">
+		<div class="reviews" id="review1">	
 			<table class="tb-profile" width="100%">
 			<% for(int i = 0; i< list.size(); i++){ %>
 				<tr>
 					<td rowspan="2" width="10%" align="center"><img src="<%= request.getContextPath() %>/resources/images/프사.png" class="icon-p"></td>
-					<td colspan="2" width="60%"><!-- 리뷰제목 --><%=list.get(i).getTitle() %></td>
+					<td colspan="2" width="60%" class="review-title" height="40px"><!-- 리뷰제목 --><%=list.get(i).getTitle() %></td>
 					<td rowspan="2" width="15%" align="center"><img src="<%= request.getContextPath() %>/resources/images/makeup.png" class="icon-product"></td>
-					<td rowspan="3" width="15%" align="center"><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</span>
-					<span class="count"><%=list.get(i).getThumbs_up() %></span><br><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요</span></td>
+					<td rowspan="3" width="15%" align="center"><span class="comment-like"><a href="#"><img src="<%= request.getContextPath() %>/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</a></span>
+					<span class="like-count"><%=list.get(i).getThumbs_up() %></span><br><span class="comment-hate"><a href="#"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요</a></span><span class="hate-count"><%=list.get(i).getThumbs_up() %></span></td>
 				</tr>
 				<tr>
-					<td><p class="p-content"> <!-- 리뷰내용간략 --> <%=list.get(i).getContent() %></p></td>
-					<td><p><%=list.get(i).getDate() %></p></td>		
+					<td colspan="2"><span class="content"><!-- 리뷰내용간략 --><%=list.get(i).getContent() %></span><span class="hiddenSpan"><!-- 리뷰내용간략 --><%=list.get(i).getContent() %></span></td>
+					
 				</tr>
 				<tr>
-					<td><p class="p-nick" align="center"><!-- 닉네임 --> <%=list.get(i).getUserName() %></p></td>
-					<td colspan="2">연령대 / 피부타입 / 성별 &nbsp;&nbsp;<span class="star-prototype" id="review-star"><%=list.get(i).getHeart() %></span></td>
+					<td><p class="p-nick" align="center"><!-- 닉네임 --><%=list.get(i).getUserName() %></p></td>
+					<td colspan="2">연령대 / 피부타입 / 성별 &nbsp;&nbsp;<span class="star-prototype" id="review-star"><%=list.get(i).getHeart() %></span><span id="write-date"><%=list.get(i).getDate() %></span></td>
 					<td><p class="pro-name" align="center">제품명1</p></td>
-				
 				</tr>
 				<% } %>
 			</table> 
-		</div> 
+		</div>
 	<hr>	
+		</div>
+		
+		<!-- 페이징  -->
+		<div class="pagingArea" align="center">
+		<% if(!list.isEmpty()){ %>
+			<!-- 맨 처음으로 -->
+			<button onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=1'">&lt;&lt;</button>
+			
+			<!-- 이전 페이지로 -->
+			<button onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=<%= currentPage-1 %>'" id="beforeBtn">&lt;</button>
+			<script>
+				if(<%= currentPage %> <= 1){
+					$('#beforeBtn').attr('disabled', 'true');
+				}
+			</script>
+			<button onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=1'">1</button>
+			<!-- 10개 페이지 목록 -->
+			<% for(int p = startPage; p<= endPage; p++){%>
+				<% if(p==currentPage){ %>
+					<button id="choosen" disabled><%= p %></button>
+				<% } else { %>
+					<button id="numBtn" onclick="location.href='<%= request.getContextPath()%>/list.re?currentPage=<%= p %>'"><%= p %></button> 
+				<% } %>				
+			<% } %>
+			
+			<!-- 다음 페이지로 -->
+			<button id="afterBtn" onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=<%= currentPage+1 %>'">&gt;</button>
+			<script>
+				if(<%= currentPage %> >= <%= maxPage %>){
+					$('#afterBtn').attr('disabled', 'true');
+				}
+			</script>
+			<!-- 맨 뒤로 -->
+			<button onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=<%= maxPage %>'">&gt;&gt;</button>
+		<% } %>
 		</div>
 		
 		<div align="right">
@@ -194,6 +233,41 @@ $(function(){
 					location.href='<%= request.getContextPath() %>/views/common/login.jsp';
 				}
 			}
+			
+			var likeCount = Number($(".like-count").text());	
+			var hateCount = Number($(".hate-count").text());
+			var count = 0;
+			var result = 0;
+			$(function(){
+				$('.comment-like').on('click', function(){
+					if(count == 1){
+						count--;
+					} else if(count == 0){
+					count++;
+					}
+					$(".like-count").text(likeCount + count);
+					
+				});
+				$('.comment-hate').on('click', function(){
+					if(count == 1){
+						count--;
+					} else if(count == 0){
+					count++;
+					}
+					$(".hate-count").text(hateCount + count);
+				});
+			});
+			$(function(){
+				$('.hiddenSpan').css('display','none');
+				$('.content').click(function(){
+					$(this).css('display','none');
+			        $(this).next().css('display', 'block');
+				});
+				$('.hiddenSpan').click(function(){
+					$(this).css('display','none');
+					$(this).prev().css('display', 'block');
+				});	
+			});
 		</script>
 		
 	</div>		
