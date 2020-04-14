@@ -9,7 +9,7 @@
 <style type="text/css">
 div.loginForm {
 	width: 100%;
-	height: 2200px;
+	height: 2500px;
 	background-color: #DDDDDD;
 }
 
@@ -25,7 +25,7 @@ img.logoImg {
 
 div.mLogin {
 	width: 75%;
-	height: 90%;
+	height: 94%;
 	background: white;
 }
 
@@ -117,7 +117,7 @@ div.SUChk {
 	margin-left: 10%;
 	background-color: white;
 	width: 80%;
-	height: 1200px;
+	height: 1665px;
 	text-align: left;
 	float: left;
 	font-size: 16pt;
@@ -168,6 +168,19 @@ div.SUChkMain {
 div.SUChkMain3 {
 	width: 75%;
 	height: 80px;
+	font-size: 15pt;
+	float: left;
+}
+
+div.SUChkMainReg{
+	width: 75%;
+	height: 236px;
+	font-size: 15pt;
+	float: left;
+}
+div.SUChkMainAddress {
+	width: 75%;
+	height: 192px;
 	font-size: 15pt;
 	float: left;
 }
@@ -334,7 +347,7 @@ input.imgAlert2 {
 }
 
 input.SUChkMainIE {
-	width: 200px;
+	width: 320px;
 	height: 46px;
 }
 
@@ -403,7 +416,7 @@ h3.SUImgI {
 		<!-- 작성 -->
 
 	</div>
-
+	<form action="<%= request.getContextPath() %>/insertH.me" method="post" encType="multipart/form-data">
 	<div class="loginForm">
 
 		<div>
@@ -468,7 +481,7 @@ h3.SUImgI {
 						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainI" id="SUChkMainIID">
+					<input type="text" class="SUChkMainI" id="SUChkMainIID" name="id">
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="IDCheckkF">
 							<input type="button" class="imgAlert1"
@@ -486,7 +499,7 @@ h3.SUImgI {
 						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="password" class="SUChkMainI" id="SUChkMainIPwd">
+					<input type="password" class="SUChkMainI" id="SUChkMainIPwd" name="pwd">
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="pwdCheckkF">
 							<input type="button" class="imgAlert1"
@@ -522,7 +535,7 @@ h3.SUImgI {
 						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainI" id="SUChkMainINameC">
+					<input type="text" class="SUChkMainI" id="SUChkMainINameC" name="name">
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="nameConfirmmT">
 							<input type="button" class="imgAlert2" disabled>
@@ -535,35 +548,54 @@ h3.SUImgI {
 						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainICFBirthh" maxlength="3">
-					- <input type="text" class="SUChkMainICFBirthh" maxlength="4">
-					- <input type="text" class="SUChkMainICFBirthh" maxlength="4">
+					<input type="text" class="SUChkMainICFBirthh" maxlength="3" name="tel1">
+					- <input type="text" class="SUChkMainICFBirthh" maxlength="4" name="tel2">
+					- <input type="text" class="SUChkMainICFBirthh" maxlength="4" name="tel3">
 				</div>
-				<div class="SUChkMain">
+				<div class="SUChkMain">	
 					이메일
 					<h3
 						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainIE" readonly value="cosmedic">
-					<input type="text" class="SUChkMainIE" readonly value="naver.com">
+					<input type="email" class="SUChkMainIE" name="email"> 
+					
 					<div style="display: inline-block;">
 						<div class="SUChkMainICFE" id="emailConfirmmF"
 							style="width: 50px;">
+							
 							<input type="button" class="imgAlert2" disabled>
 						</div>
 					</div>
+				</div>		
+				<div class="SUChkMain">
+					병원 주소
+					<h3
+						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
+				<div class="SUChkMainAddress">
+					<input style="margin-bottom: 10px;"class="postcodify_postcode5 SUChkMainIE" type="text" readonly placeholder="검색버튼을 눌러 주소를 작성해주세요"/>
+					<button id="postcodify_search_button" type="button" class="input-standard">검색</button><br>
+					<input style="margin-bottom: 10px;" type="text" name="addressBasic" class="postcodify_address SUChkMainIE" value="" placeholder="기본주소" readonly/><br>
+					<input style="margin-bottom: 10px;" type="text" name="addressDetail" class="postcodify_details SUChkMainIE" value="" placeholder="상세주소" />
+				</div>
+				<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+				<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+				<!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
+				<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
+				
 				<div class="SUChkMain">
 					사업자등록증 사진
 					<h3
 						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
-				<div class="SUChkMain3">
-
-					<div class="fileBox" id = "fileBox1">
-						<input type="text" class="fileName" id = "hospitalLicense"readonly="readonly" style = "height : 45px; width : 300px; font-size : 15pt">  
-						<input type="file" id="uploadBtn1" class="uploadBtn">
+				<div class="SUChkMainReg">
+					<div id="titleImgArea">
+						<img id="titleImg" width="200" height="200">
+						<button class="uploadBtn" type="button" id="selectBtn">파일 선택</button>
+					</div>
+					<div id="fileArea">
+					<input type="file" id="thumbnailImg1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)">
 					</div>
 				</div>
 				<div class="SUChkMain">
@@ -571,13 +603,71 @@ h3.SUImgI {
 					<h3
 						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
-				<div class="SUChkMain3">
-
-					<div class="fileBox" id = "fileBox">
-						<input type="text" class="fileName" id = "hospitalPhoto"readonly="readonly" style = "height : 45px; width : 300px; font-size : 15pt">  
-						<input type="file" id="uploadBtn2" class="uploadBtn">
+				<div class="SUChkMainReg">
+					<div id="titleImgArea">
+						<div id="contentImgArea1" style="float: left; margin-right: 20px">
+							<img id="contentImg1" width="200" height="200"> 
+						</div>
+						<span>&nbsp;&nbsp;</span>
+						<div id="contentImgArea2" style="float: left; margin-right: 20px">
+							<img id="contentImg2" width="200" height="200"> 
+						</div>
+						<span>&nbsp;&nbsp;</span>
+						<div id="contentImgArea3" style="float: left;">
+							<img id="contentImg3" width="200" height="200"> 
+						</div>
+					</div>
+					<div id="fileArea2">
+					<input type="file" id="thumbnailImg2" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,2)">
+					<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,3)">
+					<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg4" onchange="LoadImg(this,4)">
 					</div>
 				</div>
+				<script>
+					$(function(){
+						$("#fileArea").hide();
+						$("#fileArea2").hide();
+						
+						$("#titleImgArea").click(function(){
+							$("#thumbnailImg1").click();
+						});
+						$("#contentImgArea1").click(function(){
+							$("#thumbnailImg2").click();
+						});
+						$("#contentImgArea2").click(function(){
+							$("#thumbnailImg3").click();
+						});
+						$("#contentImgArea3").click(function(){
+							$("#thumbnailImg4").click();
+						});
+					});
+					
+					// 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
+					function LoadImg(value, num){
+						if(value.files && value.files[0]){
+							var reader = new FileReader();
+							
+							reader.onload = function(e){								
+								switch(num){
+								case 1: 
+									$("#titleImg").attr("src", e.target.result);
+									break;
+								case 2:
+									$("#contentImg1").attr("src", e.target.result);
+									break;
+								case 3: 
+									$("#contentImg2").attr("src", e.target.result);
+									break;
+								case 4:
+									$("#contentImg3").attr("src", e.target.result);
+									break;
+								}
+							}
+							
+							reader.readAsDataURL(value.files[0]);
+						}
+					}
+				</script>
 				<div class="SUChkMain">
 					병원 설명
 					<h3
@@ -585,10 +675,33 @@ h3.SUImgI {
 				</div>
 				<div class="SUChkMain3">
 
-					<div class="	">
-						<input type="text" class="fileNameee" id="hospitalIntroduce"style = "height : 300px; width : 700px; font-size : 15pt; margin-top : 10px ; padding-top : 5px;"> 
+					<div>
+						<textarea class="fileNameee" id="hospitalIntroduce"style = "height : 300px; width : 700px; font-size : 15pt; margin-top : 10px ; padding-top : 5px;" name="about"></textarea> 
 						
 					</div>
+					<span id="counter">0</span>/1500<br>
+					<script>
+					$(function(){
+						// textarea에 입력된 글자수가 카운트되면서 만일 150글자가 넘어가면 빨간색으로 숫자가 바뀌게 하기
+						$('#hospitalIntroduce').keyup(function(e){
+							$('#counter').text($('#hospitalIntroduce')[0].textLength);
+							
+							if($('#counter').text() >= 1500){
+								$('#counter').css('color','red');
+							} else{
+								$('#counter').css('color','black');
+							}
+						}).keydown(function(e){
+							$('#counter').text($('#hospitalIntroduce')[0].textLength);
+							
+							if($('#counter').text() >= 1500){
+								$('#counter').css('color','red');
+							} else{
+								$('#counter').css('color','black');
+							}
+						});
+					});
+					</script>
 				</div>
 				
 			</div>
@@ -601,14 +714,12 @@ h3.SUImgI {
 					onclick="location.href='loginedMain.jsp'"> <input
 					class="SUBC" id="SUBCC1" type="button" value="다음단계"
 					style="background-color: #595959; border: 1px solid #595959; color: white;">
-				<input class="SUBC" id="SUBCC2" type="button" value="다음단계"
-					style="background-color: #4BD763; border: 1px solid #4BD763; color: white;"
-					onclick="location.href='SignUpHospital4.jsp' ">
-
+				<input class="SUBC" id="SUBCC2" type="submit" value="다음단계"
+					style="background-color: #4BD763; border: 1px solid #4BD763; color: white;">
 			</div>
 		</div>
 	</div>
-
+	</form>
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
@@ -715,13 +826,13 @@ h3.SUImgI {
 								flag4 = false;
 							}
 							
-							if(($("#uploadBtn1").val().length > 0)&&($("#uploadBtn2").val().length >0)&&($("#hospitalIntroduce").val().length)){
+							/* if(($("#uploadBtn1").val().length > 0)&&($("#uploadBtn2").val().length >0)&&($("#hospitalIntroduce").val().length)){
 								flag5 = true;
 							}else{
 								flag5 = false;
-							}
+							} */
 							
-							if((flag1 == true)&&(flag2==true)&&(flag3 == true)&&(flag4 == true)&&(flag5 == true)){
+							if((flag1 == true)&&(flag2==true)&&(flag3 == true)&&(flag4 == true)/* &&(flag5 == true) */){
 								$("#SUBCC1").hide();
 								$("#SUBCC2").show();
 							}else{

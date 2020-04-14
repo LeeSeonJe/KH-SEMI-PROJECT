@@ -40,7 +40,7 @@ public class EmailCheckServlet extends HttpServlet {
 		
 		String host = "smtp.naver.com";
 		String user = "kleg26315@naver.com";
-		String password = "12rudtjq!!";
+		String password = "12rnstn!!";
 		
 		String to_email = email;
 		
