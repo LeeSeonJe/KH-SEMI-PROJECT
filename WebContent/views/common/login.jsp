@@ -22,12 +22,12 @@ div.logoDiv {
 }
 
 img.logoImg {
-	width: 250px;
-	height: 250px;
+	width: 200px;
+	height: 200px;
 }
 
 div.mLogin {
-	width: 92%;
+	width: 65%;
 	height: 90%;
 	background: white;
 }
@@ -62,7 +62,7 @@ div.loginFont {
 
 div.loginCB {
 	font-size: 13pt;
-	margin-left: 212px;
+	margin-left: 132px;
 }
 
 div.mSignUp {
@@ -92,20 +92,20 @@ div.mSignUpIS {
 }
 
 div.mSignUpISI {
-	font-size: 13pt;
+	font-size: 12pt;
 	color: slategray;
 	font-weight: 100;
 }
 
 input.loginInput {
-	width: 610px;
-	height: 50px;
+	width: 450px;
+	height: 45px;
 	font-size: 14pt;
 }
 
 input.loginPBtn {
-	width: 610px;
-	height: 76px;
+	width: 450px;
+	height: 65px;
 	background-color: #DF1758;
 	color: white;
 	border: none;
@@ -125,39 +125,39 @@ input.loginPBtnF {
 }
 
 input.loginFBtnN {
-	width: 610px;
-	height: 84px;
+	width: 450px;
+	height: 70px;
 	background-color: #2DB400;
 	color: white;
 	font-size: 12pt;
 	border: none;
 	background-image: url('../../resources/images/naver.png');
 	background-repeat: no-repeat;
-	background-position: 28px 28px;
+	background-position: 22px 22px;
 }
 
 input.loginFBtnF {
-	width: 610px;
-	height: 84px;
+	width: 450px;
+	height: 70px;
 	background-color: #3b5998;
 	font-size: 12pt;
 	color: white;
 	border: none;
 	background-image: url('../../resources/images/facebook.png');
 	background-repeat: no-repeat;
-	background-position: 28px 28px;
+	background-position: 22px 22px;
 }
 
 input.loginFBtnK {
-	width: 610px;
-	height: 84px;
+	width: 450px;
+	height: 70px;
 	background-color: #f9df00;
 	font-size: 12pt;
 	color: #3b1c1c;
 	border: none;
 	background-image: url('../../resources/images/kakao3.png');
 	background-repeat: no-repeat;
-	background-position: 28px 28px;
+	background-position: 22px 22px;
 }
 
 input.mSignUpISB {
@@ -194,9 +194,13 @@ input.mSignUpISB {
 			<br> <br> <br>
 		</div>
 		<div class="mLogin">
-			<div class="logoDiv">
+			<div class="logoDiv" id = "logoNomal">
 				<img class="logoImg"
 					src="<%=request.getContextPath()%>/resources/images/logopink.png">
+			</div>
+			<div class="logoDiv" id = "logoHospital">
+				<img class="logoImg"
+					src="<%=request.getContextPath()%>/resources/images/logopink_2.png">
 			</div>
 			<form action="<%=request.getContextPath()%>/login.me" method="post"
 				onsubmit="return validate();">
@@ -329,7 +333,7 @@ input.mSignUpISB {
 			</div>
 			<div class="mSignUp" id="mSignUpH1">
 				<div>
-					<br> <br>
+					<br> <br> <br>
 				</div>
 				<div class="mSignUpI">
 					<div class="mSignUpII">
@@ -337,21 +341,21 @@ input.mSignUpISB {
 						<h3
 							style="font-size: 25pt; color: #DF1758; display: inline-block;">&nbsp;코스메딕</h3>
 						<br> 회원이 아니신가요?
-						<div style="font-size: 40pt; color: #DF1758;">_</div>
+						<div style="font-size: 30pt; color: #DF1758;">_</div>
 					</div>
 					<div class="mSignUpIS">
 						<div>
-							<br> <br>
+							<br> <br> 
 						</div>
 						<div class="mSignUpISI">
 							지금
 							<h3
-								style="font-size: 13pt; color: #DF1758; display: inline-block;">회원가입</h3>
+								style="font-size: 12pt; color: #DF1758; display: inline-block;">회원가입</h3>
 							을 하시면 코스메딕의 다양한 이벤트 및 프로모션에 <br> 참여가 가능하며 특별 할인 혜택을 받아보실 수
 							있습니다.
 						</div>
 						<div>
-							<br> <br>
+							<br> <br> 
 						</div>
 						<input type="button" class="mSignUpISB" value="  코스메딕 회원가입"
 							onclick="location.href='SignUpCustomerFace.jsp' ">
@@ -360,7 +364,7 @@ input.mSignUpISB {
 			</div>
 			<div class="mSignUp" id="mSignUpH2">
 				<div>
-					<br> <br>
+					<br> <br> <br>
 				</div>
 				<div class="mSignUpI">
 					<div class="mSignUpII">
@@ -368,7 +372,7 @@ input.mSignUpISB {
 						<h3
 							style="font-size: 25pt; color: #4BD763; display: inline-block;">&nbsp;코스메딕</h3>
 						<br> 회원이 아니신가요?
-						<div style="font-size: 40pt; color: #4BD763;">_</div>
+						<div style="font-size: 30pt; color: #4BD763;">_</div>
 					</div>
 					<div class="mSignUpIS">
 						<div>
@@ -377,7 +381,7 @@ input.mSignUpISB {
 						<div class="mSignUpISI">
 							지금
 							<h3
-								style="font-size: 13pt; color: #4BD763; display: inline-block;">회원가입</h3>
+								style="font-size: 12pt; color: #4BD763; display: inline-block;">회원가입</h3>
 							을 하시면 병원 맞춤 고객 정보 제공이 가능하며 <br>세제 혜택을 받아보실 수 있습니다.
 						</div>
 						<div>
@@ -436,6 +440,8 @@ input.mSignUpISB {
 			return true;
 		}
 		$(function() {
+			$("#logoHospital").hide();
+			$("#logoNomal").show();
 			$('#HLogin2Id').hide();
 			$('#CLogin2Id').show();
 			$('#mSignUpH1').show();
@@ -449,7 +455,18 @@ input.mSignUpISB {
 					$('#HLogin2Id').show();
 					$('#mSignUpH2').show();
 					$('#mSignUpH1').hide();
+					$("#logoHospital").show();
+					$("#logoNomal").show();
 					$("input:checkbox[id='tgl2']").prop("checked", true);
+				}
+			});
+			$('.toggle').change(function() {
+				if ($("#tgl").not(":checked")) {
+					$('#CLogin1Id').hide();
+					$('#HLogin1Id').show();
+					$("#logoNomal").hide();
+					$("#logoHospital").show();
+					$("input:checkbox[id='tgl']").prop("checked", false);
 				}
 			});
 		});
@@ -460,7 +477,19 @@ input.mSignUpISB {
 					$('#CLogin2Id').show();
 					$('#mSignUpH1').show();
 					$('#mSignUpH2').hide();
+					$("#logoHospital").hide();
+					$("#logoNomal").show();
 					$("input:checkbox[id='tgl']").prop("checked", false);
+				}
+			});
+			
+			$('.toggle2').change(function() {
+				if ($("#tgl2").is(":checked")) {
+					$('#HLogin1Id').hide();
+					$('#CLogin1Id').show();
+					$("#logoNomal").hide();
+					$("#logoHospital").show();
+					$("input:checkbox[id='tgl2']").prop("checked", true);
 				}
 			});
 		});
