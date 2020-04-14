@@ -9,7 +9,7 @@
 <style type="text/css">
 div.loginForm {
 	width: 100%;
-	height: 2200px;
+	height: 1400px;
 	background-color: #DDDDDD;
 }
 
@@ -24,7 +24,7 @@ img.logoImg {
 }
 
 div.mLogin {
-	width: 75%;
+	width: 65%;
 	height: 90%;
 	background: white;
 }
@@ -117,7 +117,7 @@ div.SUChk {
 	margin-left: 10%;
 	background-color: white;
 	width: 80%;
-	height: 700px;
+	height: 670px;
 	text-align: left;
 	float: left;
 	font-size: 16pt;
@@ -202,7 +202,7 @@ div.SUChkConfirm1{
 }
 
 div.SUChkConfirm1_1{
-	font-size : 32pt;
+	font-size : 30pt;
 	text-align : center;
 }
 
@@ -220,7 +220,7 @@ div.SUChkConfirm2_1{
 div.SUChkConfirm3{
 	width : 100%;
 	height : 100px;
-	margin-left : 35%;
+	margin-left : 32%;
 }
 
 
@@ -364,10 +364,9 @@ img.SUImg2 {
 }
 
 
-
 h3.SUImgI {
-	font-size: 19pt;
-	font-weight: 600;
+	font-size: 17pt;
+    font-weight: 600;
 }
 
 /*checkbox*/
@@ -447,7 +446,8 @@ h3.SUImgI {
 				<div class = "SUChkConfirm1">
 					<div class = "SUChkConfirm1_1">
 					코스메딕
-					<h3 style="font-size: 31pt; color: black; font-weight : 600; display: inline-block;">회원가입</h3>이 완료되었습니다.
+					<h3 style="font-size: 29pt; color: black; font-weight : 600; display: inline-block;">회원가입</h3>
+					이 완료되었습니다.
 					</div>
 				</div>
 				<div class = "SUChkConfirm2">

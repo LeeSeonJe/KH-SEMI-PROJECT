@@ -24,7 +24,7 @@ img.logoImg {
 }
 
 div.mLogin {
-	width: 75%;
+	width: 65%;
 	height: 90%;
 	background: white;
 }
@@ -268,9 +268,9 @@ input.SUChkBt {
 }
 
 input.SUBC {
-	width: 350px;
-	height: 80px;
-	font-size: 15pt;
+	width: 300px;
+    height: 70px;
+    font-size: 14pt;
 }
 
 input.SUBCAfter {
@@ -309,8 +309,8 @@ img.SUImg3 {
 }
 
 h3.SUImgI {
-	font-size: 19pt;
-	font-weight: 600;
+	font-size: 17pt;
+    font-weight: 600;
 }
 
 /*checkbox*/
