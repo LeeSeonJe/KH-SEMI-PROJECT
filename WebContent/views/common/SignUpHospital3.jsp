@@ -24,8 +24,9 @@ img.logoImg {
 }
 
 div.mLogin {
-	width: 75%;
+	width: 65%;
 	height: 94%;
+	background-color : white;
 }
 
 div.bLogin {
@@ -204,7 +205,7 @@ div.SUChkSi3 {
 
 div.SUChkMainICF {
 	height: 30px;
-	width: 500px;
+	width: 450px;
 	float: left;
 }
 
@@ -527,13 +528,13 @@ h3.SUImgI {
 						</div>
 					</div>
 				</div>
-				<div class="SUChkMain">
+				<div class="SUChkMain" >
 					병원 상호명
 					<h3
 						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainI" id="SUChkMainINameC" name="name">
+					<input type="text" class="SUChkMainI" id="SUChkMainINameC" name="name" style = "border:1px solid gray">
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="nameConfirmmT">
 							<input type="button" class="imgAlert2" disabled>
@@ -546,9 +547,9 @@ h3.SUImgI {
 						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="text" class="SUChkMainICFBirthh" maxlength="3" name="tel1">
-					- <input type="text" class="SUChkMainICFBirthh" maxlength="4" name="tel2">
-					- <input type="text" class="SUChkMainICFBirthh" maxlength="4" name="tel3">
+					<input type="text" class="SUChkMainICFBirthh" id="phoneCF1" maxlength="3" name="tel1" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+					- <input type="text" class="SUChkMainICFBirthh" id="phoneCF2" maxlength="4" name="tel2" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+					- <input type="text" class="SUChkMainICFBirthh" id="phoneCF3" maxlength="4" name="tel3" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 				</div>
 				<div class="SUChkMain">	
 					이메일
@@ -784,7 +785,7 @@ h3.SUImgI {
 								}
 							}
 
-							if (p1.length < 1) {
+							if ( p1.length < 1) {
 								$("#phoneCheckkF").hide();
 								$("#phoneCheckkT").hide();
 							} else {
