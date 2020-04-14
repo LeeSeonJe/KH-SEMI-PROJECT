@@ -12,7 +12,7 @@ public class Worry {
 	private String category;
 	private String userName;
 	private int userNo;
-
+	private int worryThumbDown;
 	
 	public int getUserNo() {
 		return userNo;
@@ -34,6 +34,29 @@ public class Worry {
 		this.category = category;
 		this.userName = userName;
 		this.userNo = userNo;
+	}
+
+	public Worry(int worryNo, int worryThumbUp, int hit, String title, String content, Date date, String category,
+			String userName, int userNo, int worryThumbDown) {
+		super();
+		this.worryNo = worryNo;
+		this.worryThumbUp = worryThumbUp;
+		this.hit = hit;
+		this.title = title;
+		this.content = content;
+		this.date = date;
+		this.category = category;
+		this.userName = userName;
+		this.userNo = userNo;
+		this.worryThumbDown = worryThumbDown;
+	}
+
+	public int getWorryThumbDown() {
+		return worryThumbDown;
+	}
+
+	public void setWorryThumbDown(int worryThumbDown) {
+		this.worryThumbDown = worryThumbDown;
 	}
 
 	public Worry() {}
@@ -118,10 +141,12 @@ public class Worry {
 
 	
 
+
 	@Override
 	public String toString() {
 		return "Worry [worryNo=" + worryNo + ", worryThumbUp=" + worryThumbUp + ", hit=" + hit + ", title=" + title
-				+ ", content=" + content + ", date=" + date + ", category=" + category + ", userName=" + userName + "]";
+				+ ", content=" + content + ", date=" + date + ", category=" + category + ", userName=" + userName
+				+ ", userNo=" + userNo + ", worryThumbDown=" + worryThumbDown + "]";
 	}
 
 	public int getWorryNo() {
