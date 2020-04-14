@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8" import="java.util.ArrayList" import="worry.model.vo.*" %>
 <%
 	ArrayList<Worry> list = (ArrayList<Worry>)request.getAttribute("list");
+	ArrayList<Worry> topList = (ArrayList<Worry>)request.getAttribute("topList");
+	ArrayList<Worry> hitList = (ArrayList<Worry>)request.getAttribute("hitList");
+	ArrayList<Worry> lowList = (ArrayList<Worry>)request.getAttribute("lowList");
 	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
@@ -13,7 +16,7 @@
 
 %>	
 	
-	
+
 	
 <!DOCTYPE html>
 <html>
@@ -114,8 +117,11 @@
 					   
 	#worry-list-select{margin:36px 8px;}	
 	
-	#numBtn{}
- 
+	#rank1{width:30px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap}
+	#rank2{width:350px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap}
+	#rank3{width:30px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap}
+  	#topListNum{display: none;} 
+ 	
 </style>
 
 
@@ -131,47 +137,46 @@
 					<section class="board-best">
 						<div class="board-best-wrap">
 	                    <h3>베스트 고민글</h3>
+	                    	
 		                    <ol id="rank10">
-		                        <li><span class="rank-num">01</span><a href="#">미백에 좋다는 화장품 다 써봤는데 효과가 없어요 도와주세요 제발제발</a><span>(1000)</span></li>
-		                        <li><span class="rank-num">02</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-num">03</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-num">04</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-num">05</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-num">06</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-num">07</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-num">08</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-num">09</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-num">10</span><a href="#">제목</a><span>(조회수)</span></li>
-		                    </ol>
-	                    </div>
+		                    	<% for(int i = 0; i < 10; i++){ %>
+		                    		<%if (i < topList.size()){ %> 	
+		                    			<li><div id="topListNum"><%= topList.get(i).getWorryNo() %></div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2"><%= topList.get(i).getTitle() %></div><div class="rank-num" id="rank3"><%= topList.get(i).getWorryThumbUp() %></div></li>                    						
+		                    		<%} else{ %>
+		                        		<li><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2">조회된 게시글이 없습니다.</div><div class="rank-num" id="rank3"> - </div></li>	
+									<%} %>
+								<%} %>	
+							</ol>
+	                    </div> 
 	                </section>
 					<section class="wait-comment">
 						<div class="wait-comment-wrap">
 	                    <h3>답글을 기다리는 고민</h3>
-		                    <ul id="old-list">
-		                        <li><span class="rank-dash">-</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-dash">-</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-dash">-</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-dash">-</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-dash">-</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-dash">-</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-dash">-</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-dash">-</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-dash">-</span><a href="#">제목</a><span>(조회수)</span></li>
-		                        <li><span class="rank-dash">-</span><a href="#">제목</a><span>(조회수)</span></li>
-		                    </ul>
+		                    <ol id="rank10">
+		                    	<% for(int i = 0; i < 10; i++){ %>
+		                    		<%if (i < lowList.size()){ %> 
+		                    				
+		                    			<li><div id="topListNum"><%= topList.get(i).getWorryNo() %></div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2"><%= lowList.get(i).getTitle() %></div><div class="rank-num" id="rank3"><%= topList.get(i).getWorryThumbUp() %></div></li>                    						
+		                    		<%} else{ %>
+		                        		<li><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2">조회된 게시글이 없습니다.</div><div class="rank-num" id="rank3"> - </div></li>	
+									<%} %>
+								<%} %>	
+							</ol>
 	                    </div>
 	                </section>
 	                <button id="worry-btn1" class="btn-standard" type="button" value="1">1</button>
 	                <button id="worry-btn2" class="btn-standard" type="button" value="2">2</button>
 	               </div>
+	            <form></form>   
                 <section class="worry-list">
                 	<div class="list-order">
-	                    <select name="select-view">
-	                        <option value="new">최신순</option>
-	                        <option value="popular">인기순</option>
+	                    <select name="select-view" onchange="window.open(value,'_self');">
+	                        <option value="worryList.bo">최신순</option>
+	                        <option value="worryList2.bo">인기순</option>
 	                    </select>
                     </div>
+                    
+  
                     <table class="worry-table">
                     	<thead>
                         <tr>
@@ -275,8 +280,24 @@
 		$('.worry-table td').mouseenter(function(){
 			$('.worry-table td').css('cursor', 'pointer');
 		});
+		
+		$('#rank10 div').click(function(){
+			var worryNo = $(this).parent().children().eq(0).text();
+			location.href='<%=request.getContextPath() %>/worryDetail.bo?worryNo=' + worryNo;
+			
+		});
+		$('#rank10 div').mouseenter(function(){
+			$('#rank10 li').css('cursor', 'pointer');
+		});
 
 	});
+	
+	
+	
+	
+	
+	
+	
 	</script>
 	<%@ include file="/views/layout/footer.jsp" %>
 
