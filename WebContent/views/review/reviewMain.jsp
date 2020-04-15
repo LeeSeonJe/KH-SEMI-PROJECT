@@ -56,7 +56,6 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 	.hiddenSpan{min-height:20px; margin:0; text-align:left}
 	#write-date{float:right;}
 	
-	
 </style>
 <%@ include file="/views/layout/import.jsp"%>
 
@@ -209,6 +208,8 @@ $(function(){
 				</tr>
 				<% } %>
 			</table> 
+			</div>
+	<hr>
 		</div>
 	<hr>	
 			</div>
