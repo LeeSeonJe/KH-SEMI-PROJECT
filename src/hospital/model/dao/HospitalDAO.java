@@ -7,7 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import customer.model.dao.CustomerDAO;
@@ -52,6 +55,40 @@ public class HospitalDAO {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Hospital> selectHospitalList(Connection conn, String hospitalFilter, String count) {
+		if(hospitalFilter != null) {
+			
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Hospital> list = new ArrayList<Hospital>();
+		
+		try {
+			if(hospitalFilter == null) {
+				String query = prop.getProperty("selectHospitalList");
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, count);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Hospital(rset.getString("user_name"),
+										rset.getString("hospital_about"),
+										rset.getString("address"),
+										rset.getString("hospital_img"),
+										rset.getDouble("hospital_heart"),
+										rset.getDouble("review_count")));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }
