@@ -15,8 +15,31 @@ public class Review {
 	private String userName;
 	private int user_no;
 	private int cosmetic_no;
+	private String cosmetic_name;
+	private String cosmetic_img;
 	
 	public Review () {}
+
+	
+	public Review(String title, String cosmetic_name, String cosmetic_img) {
+		super();
+		this.title = title;
+		this.cosmetic_name = cosmetic_name;
+		this.cosmetic_img = cosmetic_img;
+	}
+
+
+	public Review(String title, int cosmetic_no) {
+		super();
+		this.title = title;
+		this.cosmetic_no = cosmetic_no;
+	}
+
+	public Review(int thumbs_up, String title) {
+		super();
+		this.thumbs_up = thumbs_up;
+		this.title = title;
+	}
 
 	public Review(int review_no, int thumbs_up, String title) {
 		super();
@@ -38,6 +61,21 @@ public class Review {
 		this.userName = userName;
 	}
 
+
+	public Review(int review_no, int thumbs_up, int heart, String title, String content, Date date, String category,
+			String userName, int user_no, int cosmetic_no) {
+		super();
+		this.review_no = review_no;
+		this.thumbs_up = thumbs_up;
+		this.heart = heart;
+		this.title = title;
+		this.content = content;
+		this.date = date;
+		this.category = category;
+		this.userName = userName;
+		this.user_no = user_no;
+		this.cosmetic_no = cosmetic_no;
+	}
 
 	public Review(int review_no, int thumbs_up, int heart, char del_yn, String title, String content, Date date,
 			String category, String userName, int user_no) {
@@ -141,6 +179,28 @@ public class Review {
 	public void setCosmetic_no(int cosmetic_no) {
 		this.cosmetic_no = cosmetic_no;
 	}
+
+	
+	
+	public String getCosmetic_name() {
+		return cosmetic_name;
+	}
+
+
+	public void setCosmetic_name(String cosmetic_name) {
+		this.cosmetic_name = cosmetic_name;
+	}
+
+
+	public String getCosmetic_img() {
+		return cosmetic_img;
+	}
+
+
+	public void setCosmetic_img(String cosmetic_img) {
+		this.cosmetic_img = cosmetic_img;
+	}
+
 
 	@Override
 	public String toString() {

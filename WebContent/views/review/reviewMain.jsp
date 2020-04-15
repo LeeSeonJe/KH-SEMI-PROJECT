@@ -4,7 +4,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 <%
    ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
    PageInfo pi = (PageInfo)request.getAttribute("pi");
-   ArrayList<Review> bestReview = (ArrayList<Review>)request.getAttribute("bestReview");
+   ArrayList<Review> slideList = (ArrayList<Review>)request.getAttribute("slideList");
    
    int currentPage = pi.getCurrentPage();
    int maxPage = pi.getMaxPage();
@@ -20,22 +20,26 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">	
 /* 슬라이드 */
-#slide{width: 100%; height: 400px; background: #d1dbef; position: relative;}
+#slide{width: 100%; height: 400px; background: none;}
 
 .btns{width: 50px; height: 50px; margin-top: 165px;}
-#next{position: absolute; margin-left: 1032px; }
-#prev{position: absolute;}
+#next{display: none;}
+#prev{display: none;}
 
 
-	#div-ranklist{text-align:center;}
+	#div-ranklist{text-align:center; display: inline-block; width: 100%; padding: 20px;}
 	#ranking-title{padding: 20px; text-align: left;}
 	h3{margin-left: 30px;}
-	.rank-list1{display: inline-block; text-align: center; margin-top: 40px;}	
-	.rank-list2{display: inline-block; text-align: center; margin-top: 40px;}	
+	.rank-list1>td{display: inline-block; text-align: center; margin-top: 40px;}	
+	.rank-list2>td{display: inline-block; text-align: center; margin-top: 40px;}	
 	#rank2{margin-left: 80px; margin-right: 80px;}
 	#rank5{margin-left: 80px; margin-right: 80px;} 
 	
 	.review-shots{width: 180px; height: 100px;}
+	
+	#rTitle{width: 450px; padding: 20px;}
+	#slideTable{width: 100px; height: 50px; display: inline-block;}
+	.img>img{width: 160px;}
 /* 슬라이드 끝 */
 #select-option{text-align: right;}
 	
@@ -46,7 +50,10 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 	.thumb{width: 25px; height: 25px;}
 	
 	.best-rivew{display:inline-block; width:100px; height:110px; text-align:center;}
-
+	.img{}
+	.title{}
+	
+	
 </style>
 <%@ include file="/views/layout/import.jsp"%>
 
@@ -56,135 +63,119 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 		<%@ include file="/views/layout/header.jsp"%>
 		<hr>
 			<!-- 작성 -->
-	<div id="slide"><!-- 베스트리뷰 슬라이드 -->
+		<div id="slide"><!-- 베스트리뷰 슬라이드 -->
 			<div id="div-btns">
-				<img class="btns" id="next" src="/COSMEDIC/resources/images/next.png">
 				<img class="btns" id="prev" src="/COSMEDIC/resources/images/prev.png">
+					<div id="ranking-title"><h3 style="color:gray">지금 뜨는 리뷰</h3></div>
+				<div id="div-ranklist"><!-- 리스트 -->
+					<table>
+							<tr>
+							<% for(int i = 0; i<slideList.size(); i++){ 
+								Review r = slideList.get(i); %>
+								<%if(i<3){ %>
+								<td class="img">
+								<img src="<%= r.getCosmetic_img() %>">
+								</td>
+							<% } }%>
+							</tr>
+							<tr>
+							<% for(int j = 0; j<slideList.size(); j++){
+								Review r = slideList.get(j);%>
+								<%if(j<3){ %>
+								<td id="rTitle" class="title"><%= r.getTitle() %></td>
+							<% } } %>
+							</tr>
+						</table>
+				</div><!-- 리스트끝 -->
+				<img class="btns" id="next" src="/COSMEDIC/resources/images/next.png">
 			</div>
-			
-		<div id="div-ranklist"><!-- 리스트 -->
-		<div id="ranking-title"><h3 style="color:white">지금 뜨는 리뷰</h3></div>
-
-			<ol class="rank-list1" id="rank1">
-				<li><img src="/COSMEDIC/resources/images/fabric.jpg" class="review-shots"></li>
-				<br>
-				<li>리뷰제목1</li>
-			</ol>
-			<ol class="rank-list1" id="rank2">
-				<li><img src="/COSMEDIC/resources/images/fabric.jpg" class="review-shots"></li>
-				<br>
-				<li>리뷰제목2입니다. 리뷰제목2입니다.<br>
-				제목이 길어지면 내려갑니다. 안녕하세요??</li>
-			</ol>
-			<ol class="rank-list1" id="rank3">
-				<li><img src="/COSMEDIC/resources/images/fabric.jpg" class="review-shots"></li>
-				<br>
-				<li>리뷰제목3입니다. 리뷰제목3입니다.<br>
-				제목이 넘 길어서 한줄 내려갑니다. </li>
-			</ol>
- 			<ol class="rank-list2" id="rank4">
-				<li><img src="/COSMEDIC/resources/images/cosy.jpg" class="review-shots"></li>
-				<br>
-				<li>리뷰제목4444. 리뷰제목4444.<br>
-				제목이 길어지면 내려갑니다. 안녕하세요??</li>
-
-			</ol>
-			<ol class="rank-list2" id="rank5">
-				<li><img src="/COSMEDIC/resources/images/cosy.jpg" class="review-shots"></li>
-				<br>
-				<li>리뷰제목5555. 리뷰제목5555.<br>
-				제목이 길어지면 내려갑니다. 안녕하세요??</li>
-			</ol>
-			<ol class="rank-list2" id="rank6">
-				<li><img src="/COSMEDIC/resources/images/cosy.jpg" class="review-shots"></li>
-				<br>
-				<li>리뷰제목6666. 리뷰제목6666.<br>
-				제목이 넘 길어서 한줄 내려갑니다. </li>
-			</ol> 		
-	</div><!-- 리스트끝 -->
-<script type="text/javascript">
-
-$(function(){
-	$('.rank-list2').hide();
-	/* $('#slide2').hide(); */
-
-
- 	var currentSlide = 1;
-	$('#next').click(function(){
-		if(currentSlide == 1){
-			$('.rank-list1').hide();
-			$('.rank-list2').fadeIn(300);
-			currentSlide = 2;		
-		}else if(currentSlide ==2){
-			$('.rank-list2').hide();
-			$('.rank-list1').fadeIn(300);
- 			currentSlide = 3;
-		}else if(currentSlide == 3){
-			$('.rank-list1').hide();
-			$('.rank-list2').fadeIn(300);
-			currentSlide = 1; 
-		}});
-	
- 	var currentSlide = 1;
-	$('#prev').click(function(){
-		if(currentSlide == 1){
-			$('.rank-list1').hide();
-			$('.rank-list2').fadeIn(300);
-			currentSlide = 2;		
-		}else if(currentSlide ==2){
-			$('.rank-list2').hide();
-			$('.rank-list1').fadeIn(300);
- 			currentSlide = 3;
-		}else if(currentSlide == 3){
-			$('.rank-list1').hide();
-			$('.rank-list2').fadeIn(300);
-			currentSlide = 1; 
-		}});
-	});
-</script>	
-	</div><!-- 베리슬라이드 끝 -->	
-	
-<hr>
-	<div><!-- 리뷰 리스트 -->
-		<div><h3>리뷰</h3></div>
-		<div id="select-option">
-		<select name="filter">
-			<option value="latest">최신순</option>
-			<option value="oldest">오래된 순</option>
-			<option value="loved">좋아요 많은 순</option>
-			<option value="unloved">좋아요 적은 순</option>
-		</select>
-		</div>
-	<hr>
-<div class="reviews" id="review1">
-			<table class="tb-profile" width="100%">
-			<% for(int i = 0; i< list.size(); i++){ %>
-				<tr>
-					<td rowspan="2" width="10%" align="center"><img src="<%= request.getContextPath() %>/resources/images/프사.png" class="icon-p"></td>
-					<td colspan="2" width="60%"><!-- 리뷰제목 --><%=list.get(i).getTitle() %></td>
-					<td rowspan="2" width="15%" align="center"><img src="<%= request.getContextPath() %>/resources/images/makeup.png" class="icon-product"></td>
-					<td rowspan="3" width="15%" align="center"><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</span>
-					<span class="count"><%=list.get(i).getThumbs_up() %></span><br><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요</span></td>
-				</tr>
-				<tr>
-					<td><p class="p-content"> <!-- 리뷰내용간략 --> <%=list.get(i).getContent() %></p></td>
-					<td><p><%=list.get(i).getDate() %></p></td>		
-				</tr>
-				<tr>
-					<td><p class="p-nick" align="center"><!-- 닉네임 --> <%=list.get(i).getUserName() %></p></td>
-					<td colspan="2">연령대 / 피부타입 / 성별 &nbsp;&nbsp;<span class="star-prototype" id="review-star"><%=list.get(i).getHeart() %></span></td>
-					<td><p class="pro-name" align="center">제품명1</p></td>
 				
-				</tr>
-				<% } %>
-			</table> 
-		</div> 
-	<hr>	
+			<div>
+			</div>
+		</div><!-- 베리슬라이드 끝 -->	
+	
+		<hr>
+		<div><!-- 리뷰 리스트 -->
+			<!-- <div><h3>리뷰</h3></div> -->
+			<div id="select-option">
+				<select name="filter">
+					<option value="latest">최신순</option>
+					<option value="oldest">오래된 순</option>
+					<option value="loved">좋아요 많은 순</option>
+					<option value="unloved">좋아요 적은 순</option>
+				</select>
+			</div>
+			<hr>
+			<div class="reviews" id="review1">
+				<table class="tb-profile" width="100%">
+				<% for(int i = 0; i< list.size(); i++){ %>
+					<tr>
+						<td rowspan="2" width="10%" align="center"><img src="<%= request.getContextPath() %>/resources/images/프사.png" class="icon-p"></td>
+						<td colspan="2" width="60%"><!-- 리뷰제목 --><%=list.get(i).getTitle() %></td>
+						<td rowspan="2" width="15%" align="center"><img src="<%= request.getContextPath() %>/resources/images/makeup.png" class="icon-product"></td>
+						<td rowspan="3" width="15%" align="center"><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</span>
+						<span class="count"><%=list.get(i).getThumbs_up() %></span><br><span class="th-comment"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요</span></td>
+					</tr>
+					<tr>
+						<td><p class="p-content"> <!-- 리뷰내용간략 --> <%= list.get(i).getContent() %></p></td>
+						<td><p><%= list.get(i).getDate() %></p></td>		
+					</tr>
+					<tr>
+						<td><p class="p-nick" align="center"><!-- 닉네임 --> <%=list.get(i).getUserName() %></p></td>
+						<td colspan="2">연령대 / 피부타입 / 성별 &nbsp;&nbsp;<span class="star-prototype" id="review-star"><%=list.get(i).getHeart() %></span></td>
+						<td><p class="pro-name" align="center">제품명1</p></td>
+					
+					</tr>
+					<% } %>
+				</table> 
+			</div> 
+			<hr>	
 		</div>
 		
 		<div align="right">
 			<button onclick="loginChk();">리뷰작성</button>
 		</div>
+		
+	<script type="text/javascript">
+
+		$(function(){
+			$('.rank-list2').hide();
+			/* $('#slide2').hide(); */
+		
+		
+		 	var currentSlide = 1;
+			$('#next').click(function(){
+				if(currentSlide == 1){
+					$('.rank-list1').hide();
+					$('.rank-list2').fadeIn(300);
+					currentSlide = 2;		
+				}else if(currentSlide ==2){
+					$('.rank-list2').hide();
+					$('.rank-list1').fadeIn(300);
+		 			currentSlide = 3;
+				}else if(currentSlide == 3){
+					$('.rank-list1').hide();
+					$('.rank-list2').fadeIn(300);
+					currentSlide = 1; 
+				}});
+			
+		 	var currentSlide = 1;
+			$('#prev').click(function(){
+				if(currentSlide == 1){
+					$('.rank-list1').hide();
+					$('.rank-list2').fadeIn(300);
+					currentSlide = 2;		
+				}else if(currentSlide ==2){
+					$('.rank-list2').hide();
+					$('.rank-list1').fadeIn(300);
+		 			currentSlide = 3;
+				}else if(currentSlide == 3){
+					$('.rank-list1').hide();
+					$('.rank-list2').fadeIn(300);
+					currentSlide = 1; 
+				}});
+			});
+		</script>	
 		<script>
 			function loginChk(){
 				if('<%= loginUser %>' != 'null'){

@@ -36,6 +36,8 @@ public class ReviewListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ReviewService service = new ReviewService();
 
+		ArrayList<Review> slideList = service.selectSList();
+		
 		int listCount = service.getListCount();
 		
 		int currentPage;		// 현재 페이지
@@ -65,10 +67,11 @@ public class ReviewListServlet extends HttpServlet {
 		ArrayList<Review> list = service.selectList(currentPage, boardLimit);
 		
 		String page = null;
-		if(list != null) {
+		if(list != null && slideList != null) {
 			page = "views/review/reviewMain.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
+			request.setAttribute("slideList", slideList);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "조회할 리스트가 없습니다.");
