@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import cosmetic.model.dao.CosmeticDAO;
 import cosmetic.model.vo.Cosmetic;
+import cosmetic.model.vo.CosmeticReviewList;
 
 public class CosmeticService {
 
@@ -52,7 +53,16 @@ public class CosmeticService {
 		} else {
 			list = c.selectCosmeticSearchList(conn, result, findInput);
 		}
+		close(conn);
 		return list;
+	}
+
+	public ArrayList<CosmeticReviewList> cosmeticReviewList(String cosName) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		ArrayList<CosmeticReviewList> rList = new CosmeticDAO().cosmeticReviewList(conn, cosName);
+		close(conn);
+		return rList;
 	}
 
 }
