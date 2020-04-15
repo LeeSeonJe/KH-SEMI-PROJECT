@@ -36,13 +36,11 @@ public class HospitalRankListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String hospitalFilter = request.getParameter("hospital_filter");
-		String count = request.getParameter("count");
 		ArrayList<Hospital> list = null;
 		
-		if(count == null) {
-			count = "20";
+		if(hospitalFilter == null) {
 			String page = null;
-			list = new HospitalService().selectHospitalList(hospitalFilter, count);
+			list = new HospitalService().selectHospitalList(hospitalFilter);
 			if(list != null) {
 				page="views/hospital/hospitalRank.jsp";
 				request.setAttribute("list", list);
@@ -53,11 +51,10 @@ public class HospitalRankListServlet extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher(page);
 			view.forward(request, response);
 		} else {
-			list = new HospitalService().selectHospitalList(hospitalFilter, count);
+			list = new HospitalService().selectHospitalList(hospitalFilter);
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(list, response.getWriter());
 		}
-		
 	}
 
 	/**

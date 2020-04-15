@@ -34,9 +34,9 @@ public class HospitalService {
 		return result1;
 	}
 
-	public ArrayList<Hospital> selectHospitalList(String hospitalFilter, String count) {
+	public ArrayList<Hospital> selectHospitalList(String hospitalFilter) {
 		Connection conn = getConnection();
-		ArrayList<Hospital> list = new HospitalDAO().selectHospitalList(conn, hospitalFilter, count);
+		ArrayList<Hospital> list = new HospitalDAO().selectHospitalList(conn, hospitalFilter);
 		close(conn);
 		return list;
 	}

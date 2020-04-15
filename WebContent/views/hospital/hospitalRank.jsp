@@ -1,4 +1,4 @@
-<%@page import="brand.model.vo.Brand"%>
+<%@page import="hospital.model.vo.Hospital"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -21,7 +21,7 @@
     border: 1px solid #ccc;
     padding-left: 18px;
     background-color: #F8F8F8;
-    height: 535px;
+    height: 396px;
     width: 350px;
 }
 
@@ -36,7 +36,7 @@ input {
 .radioChk+label {
 	display: inline-block;
 	margin: -2px;
-	padding: 8px 19px;
+	padding: 8px 13px;
 	background-color: white;
 	border: 1px solid #ccc;
 	font-size: 13px !important;
@@ -49,7 +49,7 @@ input {
 .radioChkActive+label {
 	display: inline-block;
 	margin: -2px;
-	padding: 8px 19px;
+	padding: 8px 13px;
 	background-color: white;
 	border: 1px solid red;
 	font-size: 13px !important;
@@ -95,62 +95,103 @@ input {
 	display: inline-flex;
 }
 
-#filter-form>section#brand-list-section {
-	display: block;
-	margin-left: 30px;
-	font-size: 12px;
-}
- 
-#brand-list-section {
-	float: left;
-}
-
 
 /* 여기부터 리스트 css */
-.brand-list {
+.ranking-list {
 	display: inline-flex;
     border-block-end: 1px solid #ccc;
+    margin-left: 30px;
 }
 
-.brand-list div {
+.ranking-list div {
 	display: inline-block;
-	height: 120px;
+	height: 170px;
 	text-align: center;
 }
 
-.brand-list>.bd-name {
-	width: 450px;
-    padding-top: 26px;
+.ranking-list>.cos-rank {
+	width: 80px;
+    padding-top: 30px;
 }
-.brand-list>.bd-img {
+.ranking-list>.cos-img {
 	width: 150px;
 }
+.ranking-list>.cos-detail {
+	text-align: left;
+	width: 270px;
+}
+.ranking-list>.cos-score {
+	width: 200px;
+	padding-top: 70px;
+}
 
-.bd-img>img{
-	width: 110px;
-    height: 55px;
+.cos-img>img{
+	width: 100px;
+    height: 100px;
     margin-top: 30px;
 }
 
-.brand-detail-btn {
-	border: 1px solid red;
-	border-radius: 3px;
-    background: white;
-    font-size: 12px;
-    padding: 5px;
-    margin-top: 43px;
+.cos-detail-link {
+	cursor: pointer;
+	font-weight: 700;
+	display:inline-block;
 }
 
-.bd-name>h3{
-	text-align: left;
-    margin-left: 10px;
-    font-size: 20px;
+.hospital-detail-link{
+	cursor: pointer;
+}
+
+.cos-rank h3{
+	margin-top: 35px;
+}
+
+
+#filter-form>section#cosmetic-category {
+	display: block;
+	font-size: 12px;
+	margin-right: 225px;
+}
+
+#cosmetic-category #cosmetic-big-category, #cosmetic-middle-category, #category-btn, .middle-category{
+	float: left;
+}
+
+#cosmetic-category #cosmetic-big-category {
+	border: 1px solid #ccc;
+    background: white;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    margin-left: 30px;
+}
+
+#cosmetic-category .middle-category {
+	border: 1px solid #ccc;
+    background: white;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    margin-left: 4px;
+} 
+
+#category-btn {    
+	border: 1px solid #ccc;
+    background: white;
+    border-radius: 5px;
+    width: 70px;
+    height: 30px;
+    margin-left: 4px;
+    float: right;
+}
+
+.srch-select, .input-text{
+	float: right;
 }
 </style>
 
 <% 
-	ArrayList<Brand> list = (ArrayList<Brand>) request.getAttribute("list"); 
-// 	int count = 20;
+	ArrayList<Hospital> list = (ArrayList<Hospital>) request.getAttribute("list"); 
+	
 %>
 </head>
 <body>
@@ -158,7 +199,7 @@ input {
 		<%@ include file="/views/layout/header.jsp"%>
 		<hr>
 		<section id="page-name">
-			<h1>브랜드 찾기</h1>
+			<h1>병원 랭킹</h1>
 		</section>
 		
 		<form id="filter-form">
@@ -170,28 +211,19 @@ input {
 					</div>
 					<br>
 					<div id="cosmetic-beauty-filter-select">
-					<fieldset id="brand-fieldset">
+					<fieldset id="hospital-fieldset">
 						<legend>
-							<h4>가나다순</h4>
+							<h4>기준</h4>
 						</legend>
-							<input type="radio" id="brand-all" class="radioChkActive" name="brand_filter" value="all" checked="checked"/> <label for="brand-all">전체</label>
-							<input type="radio" id="brand-r" class="radioChk" name="brand_filter" value="가"/> <label for="brand-r">ㄱ</label>
-							<input type="radio" id="brand-s" class="radioChk" name="brand_filter" value="나"/> <label for="brand-s">ㄴ</label><br><br>					
-							<input type="radio" id="brand-e" class="radioChk" name="brand_filter" value="다"/> <label for="brand-e">ㄷ</label>						
-							<input type="radio" id="brand-f" class="radioChk" name="brand_filter" value="라"/> <label for="brand-f">ㄹ</label>						
-							<input type="radio" id="brand-a" class="radioChk" name="brand_filter" value="마"/> <label for="brand-a">ㅁ</label><br><br>						
-							<input type="radio" id="brand-q" class="radioChk" name="brand_filter" value="바"/> <label for="brand-q">ㅂ</label>						
-							<input type="radio" id="brand-t" class="radioChk" name="brand_filter" value="사"/> <label for="brand-t">ㅅ</label>						
-							<input type="radio" id="brand-d" class="radioChk" name="brand_filter" value="아"/> <label for="brand-d">ㅇ</label><br><br>						
-							<input type="radio" id="brand-w" class="radioChk" name="brand_filter" value="자"/> <label for="brand-w">ㅈ</label>				
-							<input type="radio" id="brand-c" class="radioChk" name="brand_filter" value="차"/> <label for="brand-c">ㅊ</label>						
-							<input type="radio" id="brand-z" class="radioChk" name="brand_filter" value="카"/> <label for="brand-z">ㅋ</label><br><br>					
-							<input type="radio" id="brand-x" class="radioChk" name="brand_filter" value="타"/> <label for="brand-x">ㅌ</label>				
-							<input type="radio" id="brand-v" class="radioChk" name="brand_filter" value="파"/> <label for="brand-v">ㅍ</label>						
-							<input type="radio" id="brand-g" class="radioChk" name="brand_filter" value="하"/> <label for="brand-g">ㅎ</label><br><br>						
-							<input type="radio" id="brand-etc" class="radioChk" name="brand_filter" value="etc"/> <label for="brand-etc">기타</label>						
+							<input type="radio" id="ranking" class="radioChkActive" name="hospital_filter" value="랭킹순" checked="checked"/> <label for="ranking">랭킹순</label>
+							<input type="radio" id="reviewH" class="radioChk" name="hospital_filter" value="리뷰 많은 순"/> <label for="reviewH">리뷰 많은 순</label>
+							<input type="radio" id="reviewL" class="radioChk" name="hospital_filter" value="리뷰 적은 순"/> <label for="reviewL">리뷰 적은 순</label><br><br>					
+							<input type="radio" id="heartH" class="radioChk" name="hospital_filter" value="평점 높은 순"/> <label for="heartH">평점 높은 순</label>						
+							<input type="radio" id="heartL" class="radioChk" name="hospital_filter" value="평점 낮은 순"/> <label for="heartL">평점 낮은 순</label>						
+							<input type="radio" id="replyH" class="radioChk" name="hospital_filter" value="답변 많은 순"/> <label for="replyH">답변 많은 순</label><br><br>						
+							<input type="radio" id="replyL" class="radioChk" name="hospital_filter" value="답변 적은 순"/> <label for="replyL">답변 적은 순</label>						
 					</fieldset>
-					<br>
+					<br><br>
 					<div id="select-btn-center">
 						<button id="select-btn" type="button" onclick="filter_apply()">필터적용</button>
 					</div>
@@ -199,25 +231,58 @@ input {
 					</div>
 				</div>
 			</section>
-			<section id="brand-list-section" >
-				<section id="brand-section">
-					<ul id='ul-area'>
-					<% for (int i = 0; i < list.size(); i++) { %>
-						<li class="brand-list-li">
-							<div class="brand-list">
-								<div class="bd-img">
-									<img src="<%=list.get(i).getBrand_Img() %>" />
-								</div>
-								<div class="bd-name">
-									<h3><%=list.get(i).getBrand_Name() %></h3>
-								</div>
-								<div class="button-div">
-									<button class="brand-detail-btn" type="button" value="<%=list.get(i).getBrand_Name() %>">바로가기</button>
-								</div>
+			<section id="cosmetic-category" >
+				<button id="category-btn" type="submit">검색</button>
+				<input type="text" id="yadmNm" name="yadmNm" style="ime-mode: active;" value="읍/면/동 또는 도로명을 입력해주세요" title="도로명 입력" class="input-text" />
+				<select name="sgguCd" id="sgguCd" title="시/군/구 선택" class="srch-select" style="width: 111px;">
+				    <option value="">시/군/구 선택</option>
+				</select>
+				<select name="sidoCd" id="sidoCd" title="시/도 선택" class="srch-select" style="width: 93px;">
+				    <option value="">시/도 선택</option>
+				    <option value="서울">서울</option>
+				    <option value="부산">부산</option>
+				    <option value="인천">인천</option>
+				    <option value="대구">대구</option>
+				    <option value="광주">광주</option>
+				    <option value="대전">대전</option>
+				    <option value="울산">울산</option>
+				    <option value="경기">경기</option>
+				    <option value="강원">강원</option>
+				    <option value="충북">충북</option>
+				    <option value="충남">충남</option>
+				    <option value="전북">전북</option>
+				    <option value="전남">전남</option>
+				    <option value="경북">경북</option>
+				    <option value="경남">경남</option>
+				    <option value="제주">제주</option>
+				    <option value="세종">세종</option>
+				</select>
+			<section>
+				<ul id='ul-area'>
+				<% for (int i = 0; i < list.size(); i++) { %>
+					<li>
+						<div class="ranking-list">
+							<div class="cos-rank">
+								<h3><%= i+1 %></h3>
 							</div>
-						</li>
-					<% } %>		
-					</ul>
+							<div class="cos-img">
+									<span><%= list.get(i).getHospital_img() %></span>
+									<%-- <img src="<%= request.getContextPath() %>/hospital_images/<%= list.get(i).getHospital_img() %>"/> --%>
+							</div>
+							<div class="cos-detail hospital-detail-link">
+								<br>
+								<h6><%= list.get(i).getUser_name() %></h6>
+								<h5><%= list.get(i).getHospital_about() %></h5><br><br>
+							</div>
+							<div class="cos-score">
+								<span><%= list.get(i).getHospital_heart()%></span>
+								<span>imgimgimgimg</span>
+								<span>(<%= (int)list.get(i).getReview_count() %>)</span>
+							</div>
+						</div>
+					</li>
+				<% } %>
+				</ul>
 				</section>
 			</section>
 		</form>
@@ -226,201 +291,92 @@ input {
 	<%@ include file="/views/layout/footer.jsp"%>
 
 	<script>
-		var count = 20;
-		function filter_apply() {
-			count = 20;
-			var brand_filter = $('#brand-fieldset>input[name]:checked').val();
-			console.log(brand_filter);
-			$.ajax ({
-				url: 'brand.li',
-				data: {brand_filter:brand_filter, count:count},
-				success: function(data){
-					$('#ul-area').html("");
-					for(var i in data){	
-						console.log(data[i]);
-						var $li = $('<li class="brand-list-li"></li>');
-						var $div1 = $('<div class="brand-list"></div>');
-						var $div2 = $('<div class="bd-img"></div>');
-						var $img = $('<img>')						
-						if((data[i].cosmetic_img).indexOf("http") == -1){
-							$img.attr('src', "<%= request.getContextPath() %>/cosReq_uploadFiles/" + data[i].brand_Img);														
-						} else {
-							$img.attr('src', data[i].brand_Img);							
-						}
-						var $div3 = $('<div class="bd-name"></div>');
-						var $h3 = $('<h3></h3>').text(data[i].brand_Name);
-						var $div4 = $('<div class="button-div"></div>');
-						var $button = $('<button class="brand-detail-btn" class="brand-detail-btn" type="button">바로가기</button>').val(data[i].brand_name);
-						
-						$div2.append($img);
-						$div3.append($h3);
-						$div4.append($button);
-						$div1.append($div2);
-						$div1.append($div3);
-						$div1.append($div4);
-						
-						$li.append($div1);
-						$('#ul-area').append($li);
-					}
-				}
-			})				
-		}
-		//스크롤 바닥 감지
-		window.onscroll = function(e) {
-			//추가되는 임시 콘텐츠
-			//window height + window scrollY 값이 document height보다 클 경우,
-			var parent = document.getElementById('brand-section');
-			var child = document.getElementById('ul-area');
-			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-				//실행할 로직 (콘텐츠 추가)
-				var brand_filter = $('#brand-fieldset>input[name]:checked').val();
-				console.log(brand_filter);
-				count = count + 20;
-				$.ajax({
-					url: "brand.li",
-					data: {count:count, brand_filter:brand_filter},
-					success: function(data){
-						console.log(data);
-						parent.removeChild(child);
-						var ul = document.createElement('ul');
-						ul.id = 'ul-area';
-						for(var i in data){
-							var li = document.createElement('li');
-							li.className = 'brand-list-li';
-							
-							var div1 = document.createElement('div');
-							div1.className = 'brand-list';
-							
-							var div2 = document.createElement('div');
-							div2.className = 'bd-img';
-							
-							var img = document.createElement('img');
-							if((data[i].brand_Img).indexOf("http") == -1){
-								img.src = "<%= request.getContextPath() %>/cosReq_uploadFiles/" + data[i].brand_Img;						
-							} else {
-								img.src = data[i].brand_Img;
-							}
-							
-							var div3 = document.createElement('div');
-							div3.className = 'bd-name';
-							
-							var h3 = document.createElement('h3');
-							var h3Text = document.createTextNode(data[i].brand_Name);
-							h3.appendChild(h3Text);
-							
-							var div4 = document.createElement('div');
-							div4.className = 'button-div';
-
-							var button1 = document.createElement('button');
-							button1.className = 'brand-detail-btn';
-							button1.setAttribute("type", "button");
-							button1.value = data[i].brand_Name;
-							var buttonText = document.createTextNode('바로가기');
-							button1.appendChild(buttonText);
-							
-							ul.appendChild(li);
-							li.appendChild(div1);
-							div1.appendChild(div2);
-							div2.appendChild(img);
-							div1.appendChild(div3);
-							div3.appendChild(h3);
-							div1.appendChild(div4);
-							div4.appendChild(button1);
-							button1.addEventListener("click", cosDetail);
-						}
-						document.getElementById('brand-section').appendChild(ul);
-					}
-				})
-			};
-		}
-		function cosDetail() {
-			var bname = $(this).val();
-			console.log(bname);
-			location.href="<%= request.getContextPath()%>/detail.br?bname=" + bname;
-		}
+		$('.hospital-detail-link').click(function(){
+			location.href="<%= request.getContextPath()%>/detail.hos?hosName=" + encodeURIComponent($(this).children('h6').text());
+		})
 		
-		$(function() {
-			$('.brand-detail-btn').click(function(){
-				var bname = $(this).val();
-				console.log(bname);
-				location.href="<%= request.getContextPath()%>/detail.br?bname=" + bname;
-			})
-		}) 
-
-		$('input[name=brand_filter]').click(function() {
-
-			if ($(this)[0].value == "all") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
+		$('input[name=hospital_filter]').click(function() {
+			if ($(this)[0].value == "랭킹순") {
+				$('input[name=hospital_filter]').addClass('radioChk')
+				$('input[name=hospital_filter]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "가") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
+			} else if ($(this)[0].value == "리뷰 많은 순") {
+				$('input[name=hospital_filter]').addClass('radioChk')
+				$('input[name=hospital_filter]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "나") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
+			} else if ($(this)[0].value == "리뷰 적은 순") {
+				$('input[name=hospital_filter]').addClass('radioChk')
+				$('input[name=hospital_filter]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "다") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
+			} else if ($(this)[0].value == "평점 높은 순") {
+				$('input[name=hospital_filter]').addClass('radioChk')
+				$('input[name=hospital_filter]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "라") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
+			} else if ($(this)[0].value == "평점 낮은 순") {
+				$('input[name=hospital_filter]').addClass('radioChk')
+				$('input[name=hospital_filter]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "마") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
+			} else if ($(this)[0].value == "답변 많은 순") {
+				$('input[name=hospital_filter]').addClass('radioChk')
+				$('input[name=hospital_filter]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "바") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
-				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "사") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
-				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "아") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
-				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "자") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
-				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "차") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
-				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "카") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
-				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "타") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
-				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "파") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
-				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "하") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
-				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "etc") {
-				$('input[name=brand_filter]').addClass('radioChk')
-				$('input[name=brand_filter]').removeClass('radioChkActive')
+			} else if ($(this)[0].value == "답변 적은 순") {
+				$('input[name=hospital_filter]').addClass('radioChk')
+				$('input[name=hospital_filter]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
 			}
 		})
-
-		$('#reset-btn').click(
-				function() {
-					$('input[name=brand_filter]').addClass('radioChk').removeClass("radioChkActive");
-					$("#brand-all").prop("checked", true).addClass("radioChkActive");
-				})
+		
+		$('#reset-btn').click(function() {
+			$('input[name=hospital_filter]').addClass('radioChk').removeClass("radioChkActive");
+			$("#ranking").prop("checked", true).addClass("radioChkActive");
+		})
+		
+		function filter_apply() {
+			var hospital_filter = $('#hospital-fieldset>input[name]:checked').val();
+			$.ajax({
+				url: 'hospital.li',
+				data: {hospital_filter:hospital_filter},
+				success: function(data){
+					var count = 0;
+					$('#ul-area').html("");
+					for(var i in data){
+						count += 1;
+						var $div1 = $('<div class="ranking-list"></div>');
+						var $div2 = $('<div class="cos-rank"></div>');
+						var $h3 = $('<h3></h3>').text(count);
+						var $div3 = $('<div class="cos-img"></div>');
+						var $img = $('<img>')						
+						$img.attr('src', "<%= request.getContextPath() %>/hospital_images/" + data[i].hospital_img);														
+						var $div4 = $('<div class="cos-detail hospital-detail-link"></div>');
+						var $br = $('<br>');
+						var $h6 = $('<h6></h6>').text(data[i].user_name);
+						var $h5 = $('<h5></h5>').text(data[i].hospital_about);
+						var $div5 = $('<div class="cos-score"></div>');
+						var $span1 = $('<span></span>').text(data[i].hospital_heart);
+						var $span2 = $('<span></span>').text('imgimgimgimg');
+						var $span3 = $('<span></span>').text('('+data[i].review_count+')');
+						
+						$div2.append($h3);
+						$div3.append($img);
+						$div4.append($br);
+						$div4.append($h6);
+						$div4.append($h5);
+						$div5.append($span1);
+						$div5.append($span2);
+						$div5.append($span3);
+						
+						$div1.append($div2);
+						$div1.append($div3);
+						$div1.append($div4);
+						$div1.append($div5);
+						
+						$('#ul-area').append($div1);
+					}
+				}
+			})
+		}
+		
 	</script>
 	<script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
 </body>
