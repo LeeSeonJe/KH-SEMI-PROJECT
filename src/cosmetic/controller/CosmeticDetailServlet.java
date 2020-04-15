@@ -45,6 +45,8 @@ public class CosmeticDetailServlet extends HttpServlet {
 		ArrayList<CosmeticReviewList> rList = cs.cosmeticReviewList(cosName);
 		System.out.println(cosName);
 		
+		// 리뷰 수와 평균 평점
+		double[] rca = cs.ReviewCountAvg(cosName);
 		
 		String page = null;
 		if(c!=null && bImg!=null) {
@@ -60,6 +62,7 @@ public class CosmeticDetailServlet extends HttpServlet {
 				request.setAttribute("middleName", category);
 			}
 			request.setAttribute("rList", rList);
+			request.setAttribute("rca", rca);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "공지사항 조회에 실패하였습니다.");

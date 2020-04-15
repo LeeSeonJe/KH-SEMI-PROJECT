@@ -182,12 +182,32 @@ div>.wDate {
     margin-bottom: 40px;
 }
 
+span.star-prototype, span.star-prototype > * {
+		height: 16px; 
+		background: url(<%= request.getContextPath()%>/resources/images/heartAvg.png) 0 -16px repeat-x;
+		width: 80px;
+		display: inline-block;
+}
+
+span.star-prototype > * {
+	background-position: 0 0;
+	max-width:80px; 
+}
+
+.heartPosition {
+	display: inline-block;
+	vertical-align: middle;
+}
+
 </style>
 <%
 	Cosmetic c = (Cosmetic) request.getAttribute("cosmeticInform");
 	String bImg = (String) request.getAttribute("bImg");
 	String middleName = (String) request.getAttribute("middleName");
 	ArrayList<CosmeticReviewList> rList = (ArrayList<CosmeticReviewList>) request.getAttribute("rList");
+	double[] rca = (double[]) request.getAttribute("rca");
+	System.out.println(rca[0]);
+	System.out.println(rca[1]);
 %>
 </head>
 <body>
@@ -206,9 +226,11 @@ div>.wDate {
 						<span><%= c.getVolume() %></span> /
 						<span><%= c.getPrice() %></span>
 						<div id="score-count">
-							<span>1.@@</span>
-							<span>♥♥♥♥</span>
-							<span>(count하기)</span>
+							<span><%= rca[1] %></span>
+							<div class="heartPosition">
+								<span class="star-prototype"><%= rca[1] %></span>
+							</div>
+							<span>(<%= (int) rca[0] %>)</span>
 						</div>
 					</div>
 					<div id="cos-brand">
@@ -334,6 +356,14 @@ div>.wDate {
 
 	<%@ include file="/views/layout/footer.jsp"%>
 		<script> 
+		$.fn.generateStars = function() {
+			return this.each(function(i,e){
+				$(e).html($('<span/>').width($(e).text()*16));
+			});
+		};
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$('.star-prototype').generateStars();
+		
 		$(function(){
 			function xSize(e) {
 				var t;

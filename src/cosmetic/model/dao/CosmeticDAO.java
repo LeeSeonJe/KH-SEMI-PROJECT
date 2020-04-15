@@ -121,8 +121,8 @@ public class CosmeticDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, cosName);
 			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
+
+			if (rset.next()) {
 				bImg = rset.getString(1);
 			}
 		} catch (SQLException e) {
@@ -139,15 +139,15 @@ public class CosmeticDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String result = "";
-		
+
 		String query = prop.getProperty("selectCosmeticCategor");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, middleCategory);
 			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
+
+			if (rset.next()) {
 				result = rset.getString(1);
 			}
 		} catch (SQLException e) {
@@ -164,22 +164,22 @@ public class CosmeticDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Cosmetic> list = new ArrayList<Cosmetic>();
-		
+
 		String query = prop.getProperty("selectCosmeticSearchList");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, result);
 			pstmt.setString(2, findInput);
-			
+
 			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
+
+			while (rset.next()) {
 				list.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
 						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
 						rset.getInt("WEEK_RANK"), rset.getInt("LASTWEEK_RANK"), rset.getString("BRAND_NAME"),
 						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
-				}
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -187,7 +187,7 @@ public class CosmeticDAO {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return list;
 	}
 
@@ -198,7 +198,7 @@ public class CosmeticDAO {
 //		JOIN BOARD ON (BOARD_NO = COS_REVIEW_NO)
 //		JOIN MEMBER USING (USER_NO)
 //		WHERE COSMETIC_NAME = ?;
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<CosmeticReviewList> rList = new ArrayList<CosmeticReviewList>();
@@ -208,7 +208,7 @@ public class CosmeticDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, cosName);
 			rset = pstmt.executeQuery();
-			while(rset.next()) {
+			while (rset.next()) {
 				String profile_image = rset.getString("PROFILE_IMAGE");
 				String user_name = rset.getString("USER_NAME");
 				String age = rset.getString("AGE");
@@ -218,7 +218,8 @@ public class CosmeticDAO {
 				String board_title = rset.getString("BOARD_TITLE");
 				String board_content = rset.getString("BOARD_CONTENT");
 				Date board_date = rset.getDate("BOARD_DATE");
-				rList.add(new CosmeticReviewList(profile_image, user_name, age, skinType, gender, board_title, board_content, board_date));
+				rList.add(new CosmeticReviewList(profile_image, user_name, age, skinType, gender, board_title,
+						board_content, board_date));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -227,7 +228,47 @@ public class CosmeticDAO {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return rList;
+	}
+
+	public double[] ReviewCountAvg(Connection conn, String cosName) {
+//		SELECT COUNT(*) AS REVIEW_COUNT, ROUND(AVG(REVIEW_HEART),2) AS REVIEW_AVG
+//		FROM COSMETIC
+//		JOIN COSMETIC_REVIEW USING (COSMETIC_NO)
+//		JOIN REVIEW ON (COS_REVIEW_NO = REVIEW_NO)
+//		WHERE COSMETIC_NAME = ?;
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("ReviewCountAvg");
+		double[] rca = new double[2];
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cosName);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				String count = rset.getString("REVIEW_COUNT");
+				String avg = rset.getString("REVIEW_AVG");
+				System.out.println(avg);
+				rca[0] = Integer.parseInt(count);
+				if (avg == null) {
+					rca[1] = 0;
+				} else {
+					rca[1] = Double.parseDouble(avg);
+					System.out.println(rca[1]);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return rca;
 	}
 }
