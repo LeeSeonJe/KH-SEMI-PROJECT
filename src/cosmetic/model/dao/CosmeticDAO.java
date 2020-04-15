@@ -44,7 +44,7 @@ public class CosmeticDAO {
 			while (rset.next()) {
 				cList.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
 						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
-						rset.getInt("WEEK_RANK"), rset.getInt("LASTWEEK_RANK"), rset.getString("BRAND_NAME"),
+						rset.getInt("COUNT"), rset.getInt("AVG"), rset.getString("BRAND_NAME"),
 						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
 			}
 		} catch (SQLException e) {
@@ -99,7 +99,7 @@ public class CosmeticDAO {
 			if (rset.next()) {
 				c = new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
 						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
-						rset.getInt("WEEK_RANK"), rset.getInt("LASTWEEK_RANK"), rset.getString("BRAND_NAME"),
+						rset.getInt("COUNT"), rset.getInt("AVG"), rset.getString("BRAND_NAME"),
 						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG"));
 			}
 		} catch (SQLException e) {
@@ -177,7 +177,7 @@ public class CosmeticDAO {
 			while (rset.next()) {
 				list.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
 						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
-						rset.getInt("WEEK_RANK"), rset.getInt("LASTWEEK_RANK"), rset.getString("BRAND_NAME"),
+						rset.getInt("COUNT"), rset.getInt("AVG"), rset.getString("BRAND_NAME"),
 						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
 			}
 		} catch (SQLException e) {
