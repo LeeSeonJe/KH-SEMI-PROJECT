@@ -211,6 +211,8 @@ $(function(){
 		</div>
 	<hr>
 		</div>
+	<hr>
+		</div>
 	<hr>	
 			</div>
 		
@@ -248,6 +250,7 @@ $(function(){
 			<button onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=<%= maxPage %>'">&gt;&gt;</button>
 		<% } %>
 		</div>
+		
 		<div align="right">
 			<button onclick="loginChk();">리뷰작성</button>
 		</div>
