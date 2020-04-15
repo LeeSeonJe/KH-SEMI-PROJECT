@@ -17,6 +17,7 @@ public class Review {
 	private int cosmetic_no;
 	private String cosmetic_name;
 	private String cosmetic_img;
+	private int thumbs_down;
 	
 	public Review () {}
 
@@ -49,7 +50,7 @@ public class Review {
 	}
 
 	public Review(int review_no, int thumbs_up, int heart, String title, String content, Date date, String category,
-			String userName) {
+			String userName, int thumbs_down) {
 		super();
 		this.review_no = review_no;
 		this.thumbs_up = thumbs_up;
@@ -59,6 +60,7 @@ public class Review {
 		this.date = date;
 		this.category = category;
 		this.userName = userName;
+		this.thumbs_down = thumbs_down;
 	}
 
 
@@ -91,6 +93,28 @@ public class Review {
 		this.userName = userName;
 		this.user_no = user_no;
 	}
+	
+
+	public Review(String title, int user_no, String content, String cosmetic_name, int review_no, int thumbs_up,
+			String cosmetic_img, int cosmetic_no, String category, Date date, int heart, char del_yn, String userName,
+			int thumbs_down) {
+		super();
+		this.title = title;
+		this.user_no = user_no;
+		this.content = content;
+		this.cosmetic_name = cosmetic_name;
+		this.review_no = review_no;
+		this.thumbs_up = thumbs_up;
+		this.cosmetic_img = cosmetic_img;
+		this.cosmetic_no = cosmetic_no;
+		this.category = category;
+		this.date = date;
+		this.heart = heart;
+		this.del_yn = del_yn;
+		this.userName = userName;
+		this.thumbs_down = thumbs_down;
+	}
+
 
 	public int getReview_no() {
 		return review_no;
@@ -202,12 +226,26 @@ public class Review {
 	}
 
 
+	public int getThumbs_down() {
+		return thumbs_down;
+	}
+
+
+	public void setThumbs_down(int thumbs_down) {
+		this.thumbs_down = thumbs_down;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Review [review_no=" + review_no + ", thumbs_up=" + thumbs_up + ", heart=" + heart + ", del_yn=" + del_yn
 				+ ", title=" + title + ", content=" + content + ", date=" + date + ", category=" + category
-				+ ", userName=" + userName + ", user_no=" + user_no + ", cosmetic_no=" + cosmetic_no + "]";
+				+ ", userName=" + userName + ", user_no=" + user_no + ", cosmetic_no=" + cosmetic_no
+				+ ", cosmetic_name=" + cosmetic_name + ", cosmetic_img=" + cosmetic_img + ", thumbs_down=" + thumbs_down
+				+ "]";
 	}
+
+
 	
 	
 }

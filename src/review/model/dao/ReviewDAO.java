@@ -56,7 +56,8 @@ public class ReviewDAO {
 									  rset.getString("board_content"),
 									  rset.getDate("board_date"),
 									  rset.getString("board_category"),
-									  rset.getString("user_name"));
+									  rset.getString("user_name"),
+									  rset.getInt("review_thumbs_down"));
 				list.add(r);
 			}
 		} catch (SQLException e) {
@@ -109,11 +110,15 @@ public class ReviewDAO {
 			result1 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
-		
+				
 		return result1;
 	}
 	public int insertReview(Connection conn, Review r) {
+//		 insert into review values(seq_board_no.currval, default, default, ?, default)
+
 		PreparedStatement pstmt = null;
 		int result2 = 0;
 		
@@ -127,10 +132,14 @@ public class ReviewDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result2;
 	}
 	public int insertCos_review(Connection conn, Review r) {
+//		insert into cosmetic_review values(seq_board_no.currval, ?)
+
 		PreparedStatement pstmt = null;
 		int result3 = 0;
 		
@@ -143,11 +152,20 @@ public class ReviewDAO {
 			result3 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		
 		return result3;
 	}
 	public ArrayList selectSList(Connection conn) {
+//		select board_title, cosmetic_name, cosmetic_img 
+//		from review 
+//			 join board on(review_no = board_no) 
+//			 join cosmetic_review on(review_no = cos_review_no) 
+//			 join cosmetic using(cosmetic_no) 
+//		order by review_thumbs_up desc
+
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> slideList = null;
@@ -164,7 +182,6 @@ public class ReviewDAO {
 				Review r = new Review(rset.getString("board_title"),
 										rset.getString("cosmetic_name"),
 										rset.getString("cosmetic_img"));
-				
 				slideList.add(r);
 			}
 		} catch (SQLException e) {
@@ -174,26 +191,10 @@ public class ReviewDAO {
 			close(stmt);
 		}
 		
-		
 		return slideList;
-	}
-	public int updateCosHeart(Connection conn, Review r) {
-		PreparedStatement pstmt = null;
-		int result4 = 0;
 		
-		String query = prop.getProperty("updateCosHeart");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, r.getCosmetic_no());
-			pstmt.setInt(2, r.getCosmetic_no());
-			
-			result4 = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result4;
 	}
+
 
 
 
