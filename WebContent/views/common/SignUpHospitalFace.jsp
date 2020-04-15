@@ -24,7 +24,7 @@ img.logoImg {
 }	
 
 div.mLogin {
-	width: 92%;
+	width: 65%;
 	height: 90%;
 	background: white;
 }
@@ -107,8 +107,8 @@ input.loginInput {
 }
 
 input.loginPBtn {
-	width: 610px;
-	height: 76px;
+	width: 450px;
+	height: 65px;
 	background-color: #DF1758;
 	color: white;
 	border: none;
@@ -178,7 +178,7 @@ input.mSignUpISB {
 
 /* ios */
 </style>
-<%@ include file="/views/layout/import2.jsp"%>
+<%@ include file="/views/layout/import.jsp"%>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/toggle.css"

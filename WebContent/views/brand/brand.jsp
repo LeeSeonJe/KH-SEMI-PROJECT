@@ -242,7 +242,7 @@ input {
 						var $div1 = $('<div class="brand-list"></div>');
 						var $div2 = $('<div class="bd-img"></div>');
 						var $img = $('<img>')						
-						if((data[i].cosmetic_img).indexOf("http") == -1){
+						if((data[i].brand_Img).indexOf("http") == -1){
 							$img.attr('src', "<%= request.getContextPath() %>/cosReq_uploadFiles/" + data[i].brand_Img);														
 						} else {
 							$img.attr('src', data[i].brand_Img);							
@@ -250,7 +250,7 @@ input {
 						var $div3 = $('<div class="bd-name"></div>');
 						var $h3 = $('<h3></h3>').text(data[i].brand_Name);
 						var $div4 = $('<div class="button-div"></div>');
-						var $button = $('<button class="brand-detail-btn" class="brand-detail-btn" type="button">바로가기</button>').val(data[i].brand_name);
+						var $button = $('<button class="brand-detail-btn" type="button">바로가기</button>').val(data[i].brand_Name);
 						
 						$div2.append($img);
 						$div3.append($h3);
@@ -262,6 +262,11 @@ input {
 						$li.append($div1);
 						$('#ul-area').append($li);
 					}
+					$('.brand-detail-btn').click(function(){
+						var bname = $(this).val();
+						console.log(bname);
+						location.href="<%= request.getContextPath()%>/detail.br?bname=" + bname;
+					})
 				}
 			})				
 		}

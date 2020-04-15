@@ -27,6 +27,7 @@ public class EmailCheckNumberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String AuthenticationKey = (String) request.getSession().getAttribute("AuthenticationKey");
+		
 		String emailCheck = request.getParameter("emailCheck");
 		response.setCharacterEncoding("UTF-8");
 		

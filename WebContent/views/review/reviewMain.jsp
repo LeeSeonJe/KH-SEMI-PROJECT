@@ -300,6 +300,41 @@ $(function(){
 					location.href='<%= request.getContextPath() %>/views/common/login.jsp';
 				}
 			}
+			
+			var likeCount = Number($(".like-count").text());	
+			var hateCount = Number($(".hate-count").text());
+			var count = 0;
+			var result = 0;
+			$(function(){
+				$('.comment-like').on('click', function(){
+					if(count == 1){
+						count--;
+					} else if(count == 0){
+					count++;
+					}
+					$(".like-count").text(likeCount + count);
+					
+				});
+				$('.comment-hate').on('click', function(){
+					if(count == 1){
+						count--;
+					} else if(count == 0){
+					count++;
+					}
+					$(".hate-count").text(hateCount + count);
+				});
+			});
+			$(function(){
+				$('.hiddenSpan').css('display','none');
+				$('.content').click(function(){
+					$(this).css('display','none');
+			        $(this).next().css('display', 'block');
+				});
+				$('.hiddenSpan').click(function(){
+					$(this).css('display','none');
+					$(this).prev().css('display', 'block');
+				});	
+			});
 		</script>
 		
 	</div>		

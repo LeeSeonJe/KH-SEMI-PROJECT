@@ -1,0 +1,179 @@
+@charset "UTF-8";
+
+/* 필터 css */
+#cosmetic-beauty-filter {
+	display: inline-block;
+    border: 1px solid #ccc;
+    padding-left: 18px;
+    background-color: #F8F8F8;
+    height: 645px;
+    width: 350px;
+}
+
+#cosmetic-beauty-filter-header>h3 {
+	display: inline-block;
+}
+
+input {
+	position: relative;
+}
+
+.radioChk+label {
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid #ccc;
+	font-size: 13px !important;
+	width: 94px	;
+	text-align: center;
+	position: relative;
+	left: -14px;
+}
+
+.radioChkActive+label {
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid red;
+	font-size: 13px !important;
+	width: 94px;
+	text-align: center;
+	position: relative;
+	left: -14px;
+}
+
+.chkboxChk+label {
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid #ccc;
+	font-size: 13px !important;
+	width: 94px;
+	text-align: center;
+	position: relative;
+	left: -14px;
+}
+
+.chkboxChkActive+label {
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid red;
+	font-size: 13px !important;
+	width: 94px;
+	text-align: center;
+	position: relative;
+	left: -14px;
+}
+
+
+#select-btn-center {
+	margin-right: 15px;
+    text-align: center;
+}
+
+#reset-btn {
+    margin-left: 218px;
+    border: 0;
+    background-color: #F8F8F8;
+}
+
+#select-btn {
+    width: 144px;
+    height: 58px;
+    background: red;
+    color: white;
+    font-size: 16px;
+    font-weight: 900;
+    border-radius: 6px;
+    border: 1px solid red;
+}
+/* #test {
+	display: inline-flex;
+	width: 500px;
+} */
+
+#filter-form {
+	display: inline-flex;
+	margin-top: 50px;
+    min-height: 800px;
+}
+
+#filter-form>section#cosmetic-filter {
+	display: inline-flex;
+}
+
+#filter-form>section#cosmetic-category {
+	display: block;
+	margin-left: 30px;
+	font-size: 12px;
+}
+#cosmetic-category #cosmetic-big-category, #cosmetic-middle-category, #category-btn, .middle-category{
+	float: left;
+}
+
+#cosmetic-category #cosmetic-big-category {
+	border: 1px solid #ccc;
+    background: white;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    margin-left: 30px;
+}
+
+#cosmetic-category .middle-category {
+	border: 1px solid #ccc;
+    background: white;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    margin-left: 4px;
+}
+#category-btn {
+	border: 1px solid #ccc;
+    background: white;
+    border-radius: 5px;
+    width: 70px;
+    height: 30px;
+    margin-left: 4px;
+}
+/* 필터 css 마지막 */
+
+#keyword_search {
+	font-size: 18px;
+	font-weight: 500;
+	padding: 0;
+	margin-bottom: 16px;	
+}
+
+#search_input {
+	border:1px solid white;
+	border-bottom: 2px solid red;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 3px;
+	width: 265px;
+}
+
+#search_input:focus {
+	outline:none;
+}
+
+#search_btn_span {
+    margin-left: 10px;
+    border: 0;
+    background: white;
+}
+
+#search_btn_span:focus {
+   outline:none;
+}
+
+#search_btn_span>img {
+	margin-top: 5px;
+	cursor: pointer;
+}

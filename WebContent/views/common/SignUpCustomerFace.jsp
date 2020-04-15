@@ -24,7 +24,7 @@ img.logoImg {
 }	
 
 div.mLogin {
-	width: 92%;
+	width: 65%;
 	height: 90%;
 	background: white;
 }
@@ -107,12 +107,12 @@ input.loginInput {
 }
 
 input.loginPBtn {
-	width: 610px;
-	height: 76px;
+	width: 450px;
+	height: 65px;
 	background-color: #DF1758;
 	color: white;
 	border: none;
-	font-size: 14pt;
+	font-size: 12pt;
 }
 
 input.loginPBtnC {
@@ -128,39 +128,39 @@ input.loginPBtnF {
 }
 
 input.loginFBtnN {
-	width: 610px;
-	height: 84px;
+	width: 450px;
+	height: 70px;
 	background-color: #2DB400;
 	color: white;
-	font-size: 14pt;
+	font-size: 12pt;
 	border: none;
 	background-image: url('../../resources/images/naver.png');
 	background-repeat: no-repeat;
-	background-position: 28px 28px;
+	background-position: 22px 22px;
 }
 
 input.loginFBtnF {
-	width: 610px;
-	height: 84px;
+	width: 450px;
+	height: 70px;
 	background-color: #3b5998;
-	font-size: 14pt;
+	font-size: 12pt;
 	color: white;
 	border: none;
 	background-image: url('../../resources/images/facebook.png');
 	background-repeat: no-repeat;
-	background-position: 28px 28px;
+	background-position: 22px 22px;
 }
 
 input.loginFBtnK {
-	width: 610px;
-	height: 84px;
+	width: 450px;
+	height: 70px;
 	background-color: #f9df00;
-	font-size: 14pt;
+	font-size: 12pt;
 	color: #3b1c1c;
 	border: none;
 	background-image: url('../../resources/images/kakao3.png');
 	background-repeat: no-repeat;
-	background-position: 28px 28px;
+	background-position: 22px 22px;
 }
 
 input.mSignUpISB {

@@ -34,6 +34,9 @@ public class worryListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+		
 		WorryService service = new WorryService();
 		int listCount = service.getListCount();
 		
@@ -60,13 +63,20 @@ public class worryListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 		
 		ArrayList<Worry> list = service.selectList(currentPage, boardLimit);
-		
+		ArrayList<Worry> topList = new WorryService().selectTopList();
+		ArrayList<Worry> lowList = new WorryService().selectLowList();
+		ArrayList<Worry> hitList = new WorryService().selectHitList();
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/worry/worryMain.jsp");
 		request.setAttribute("list", list);
+		request.setAttribute("topList", topList);
+		request.setAttribute("lowList", lowList);
+		request.setAttribute("hitList", hitList);
 		request.setAttribute("pi", pi);
+		
 		view.forward(request, response);
 		
+		System.out.println("타나");
 	}
 
 	/**

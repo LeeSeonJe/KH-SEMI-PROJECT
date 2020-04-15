@@ -52,7 +52,6 @@ public class BrandDAO {
 			}
 		}
 		PreparedStatement pstmt = null;
-		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Brand> list = new ArrayList<Brand>();
 		try {
@@ -102,7 +101,7 @@ public class BrandDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		return list;
 	}

@@ -91,7 +91,9 @@ public class WorryDAO {
 									rset.getString("BOARD_CONTENT"),
 									rset.getDate("BOARD_DATE"),
 									rset.getString("BOARD_CATEGORY"),
-									rset.getString("USER_NAME")
+									rset.getString("USER_NAME"),
+									rset.getInt("USER_NO"),
+									rset.getInt("WORRY_THUMBS_DOWN")
 						);
 				list.add(w);
 			}
@@ -104,7 +106,47 @@ public class WorryDAO {
 
 		return list;
 	}
+	
+	public ArrayList selectList2(int currentPage, int boardLimit, Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Worry> list = new ArrayList<Worry>();
+		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
+		
+		String query = prop.getProperty("selectList2");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Worry w = new Worry(rset.getInt("worry_no"),
+									rset.getInt("WORRY_THUMBS_UP"),
+									rset.getInt("WORRY_HITS"),
+									rset.getString("BOARD_TITLE"),
+									rset.getString("BOARD_CONTENT"),
+									rset.getDate("BOARD_DATE"),
+									rset.getString("BOARD_CATEGORY"),
+									rset.getString("USER_NAME"),
+									rset.getInt("USER_NO"),
+									rset.getInt("WORRY_THUMBS_DOWN")
+						);
+				list.add(w);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 
+		return list;
+	}
 
 
 
@@ -131,7 +173,8 @@ public class WorryDAO {
 						rset.getDate("BOARD_DATE"),
 						rset.getString("BOARD_CATEGORY"),
 						rset.getString("USER_NAME"),
-						rset.getInt("USER_NO"));
+						rset.getInt("USER_NO"),
+						rset.getInt("WORRY_THUMBS_DOWN"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -139,10 +182,30 @@ public class WorryDAO {
 			close(rset);
 			close(pstmt);
 		}
+		
+		PreparedStatement pstmt2 = null;
+		int result = 0;
+		
+		String query2 = prop.getProperty("hitPlus");
+		
+		
+		
+		try {
+			pstmt2 = conn.prepareStatement(query2);
+			pstmt2.setInt(1, worryNo);
+			
+			result = pstmt2.executeUpdate();
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt2);
+		}
 
 		return w;
 	}
-
+		
 
 
 
@@ -338,7 +401,6 @@ public class WorryDAO {
 								 rset.getString("STATUS"),
 								 rset.getInt("BOARD_NO")
 						);
-				System.out.println(af);
 				fList.add(af);
 			}
 			
@@ -351,8 +413,198 @@ public class WorryDAO {
 		}
 		return fList;
 	}
+
+
+
+
+
+	public int likeUp(Connection conn, int worryNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
 		
+		String query = prop.getProperty("likeUp");
+
+		
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, worryNo);
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		
+		
+		
+		
+		
+		
+		
+		return result;
+	}
+
+
+
+
+
+	public int hateUp(Connection conn, int worryNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("hateUp");
+
+		
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, worryNo);
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+
+
+	public ArrayList<Worry> selectTopList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		Worry w = new Worry();
+		ArrayList<Worry> topList = new ArrayList<Worry>();
+		
+		
+		String query = prop.getProperty("selectTopList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				w = new Worry(rset.getInt("WORRY_NO"),
+								 rset.getInt("WORRY_THUMBS_UP"),
+								 rset.getInt("WORRY_HITS"),	
+								 rset.getString("BOARD_TITLE"),	
+								 rset.getString("BOARD_CONTENT"),	
+								 rset.getDate("BOARD_DATE"),	
+								 rset.getString("BOARD_CATEGORY"),	
+								 rset.getString("USER_NAME"),	
+								 rset.getInt("USER_NO"),	
+								 rset.getInt("WORRY_THUMBS_DOWN"));
+				
+				topList.add(w);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return topList;
+	}
+
+
+
+
+
+	public ArrayList<Worry> selectHitList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		Worry w = new Worry();
+		ArrayList<Worry> hitList = new ArrayList<Worry>();
+		
+		
+		String query = prop.getProperty("selectHitList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				w = new Worry(rset.getInt("WORRY_NO"),
+								 rset.getInt("WORRY_THUMBS_UP"),
+								 rset.getInt("WORRY_HITS"),	
+								 rset.getString("BOARD_TITLE"),	
+								 rset.getString("BOARD_CONTENT"),	
+								 rset.getDate("BOARD_DATE"),	
+								 rset.getString("BOARD_CATEGORY"),	
+								 rset.getString("USER_NAME"),	
+								 rset.getInt("USER_NO"),	
+								 rset.getInt("WORRY_THUMBS_DOWN"));
+				
+				hitList.add(w);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return hitList;
+	}
+
+
+
+
+
+	public ArrayList<Worry> selectLowList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		Worry w = new Worry();
+		ArrayList<Worry> lowList = new ArrayList<Worry>();
+		
+		
+		String query = prop.getProperty("selectLowList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				w = new Worry(rset.getInt("WORRY_NO"),
+								 rset.getInt("WORRY_THUMBS_UP"),
+								 rset.getInt("WORRY_HITS"),	
+								 rset.getString("BOARD_TITLE"),	
+								 rset.getString("BOARD_CONTENT"),	
+								 rset.getDate("BOARD_DATE"),	
+								 rset.getString("BOARD_CATEGORY"),	
+								 rset.getString("USER_NAME"),	
+								 rset.getInt("USER_NO"),	
+								 rset.getInt("WORRY_THUMBS_DOWN"));
+				
+				lowList.add(w);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return lowList;
+	}
 }
+		
+
 
 
 

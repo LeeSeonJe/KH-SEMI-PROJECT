@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import member.model.vo.Member;
 import worry.model.service.WorryService;
 import worry.model.vo.Comments;
 
@@ -36,6 +37,7 @@ public class insertCommentsServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		userNo = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
 		String content = request.getParameter("content");
 		int worryNo = Integer.parseInt(request.getParameter("worryNo"));
 		
