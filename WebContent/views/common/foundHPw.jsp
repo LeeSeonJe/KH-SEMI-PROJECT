@@ -259,7 +259,7 @@ input.imgAlert2 {
 	background-color: white;
 	border: none;
 	background-image:
-		url('<%=request.getContextPath()%>/resources/images/AlertIcon2_1_1.png');
+		url('<%=request.getContextPath()%>/resources/images/AlertIcon2_1_12.png');
 	background-repeat: no-repeat;
 	background-position: -5px -10px;
 	float: left;
@@ -278,7 +278,7 @@ input.imgAlert2 {
 </head>
 <body>
 	<div class="contents">
-		<%@ include file="/views/layout/header.jsp"%>
+		<%@ include file="/views/layout/header2.jsp"%>
 		<!-- 작성 -->
 
 	</div>
@@ -288,21 +288,17 @@ input.imgAlert2 {
 			<div>
 				<br> <br> <br>
 			</div>
-			<div class="mLogin" id = "mLogin1">
+			<div class="mLogin" id="mLogin1">
 				<div class="logoDiv">
 					<br> <br> <br> <br> <br>
 				</div>
 				<div class="sideDiv1"></div>
-				<div class="bLogin" id="foundId" >
-					<div class="titlebox">
-						아이디 찾기
-					</div>
+				<div class="bLogin" id="foundId">
+					<div class="titlebox">아이디 찾기</div>
 					<br> <br>
 				</div>
-				<div class="fLogin" id="foundPw" style = "cursor : pointer;">
-					<div class="titlebox">
-						비밀번호 찾기
-					</div>
+				<div class="fLogin" id="foundPw" style="cursor: pointer;">
+					<div class="titlebox">비밀번호 찾기</div>
 				</div>
 				<div class="sideDiv2"></div>
 				<div class="foundIdF">
@@ -317,46 +313,57 @@ input.imgAlert2 {
 							<div class="foundIdFFS">
 								<br>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								· 회원정보에 등록된 이름, 주민번호가 일치해야만 아이디를 확인할 수 있습니다. <br>
+								· 회원정보에 등록된 병원 상호명, 이메일이 일치해야만 아이디를 확인할 수 있습니다. <br>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								· 조회된 아이디는 일부 마스킹처리되어 표시되며, 전체 아이디를 확인하시려면 본인인증을 진행해주세요.
 							</div>
 							<br>
 							<div>
 								<div class="leftBox">
-									<div style="margin-top: 8px; margin-left: 35%;">이름</div>
+									<div style="margin-top: 8px; margin-left: 35%;">병원 상호명</div>
 								</div>
 								<div class="rightBox">
 									<input type="text" id="nameBox"
 										style="width: 179px; height: 40px; font-size: 12pt; float: left">
-									<input type="button" class="imgAlert1" id="imgAlert1"
-										value="      비밀번호는 8자 이상, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다."
-										disabled> <input type="button" class="imgAlert2"
+									<input type="button" class="imgAlert2" style = "margin-left : 18px; margin-top : 5px;"
 										id="imgAlert2" disabled>
 								</div>
 								<div class="leftBox">
-									<div style="margin-top: 8px; margin-left: 35%;">주민번호</div>
+									<div style="margin-top: 8px; margin-left: 35%;">이메일</div>
 								</div>
 								<div class="rightBox">
-									<input type="text" class="PID" id="PID1"
-										style="width: 135px; height: 40px; font-size: 12pt; float: left;"
-										maxlength="6"
-										onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
-									<div style="float: left">&nbsp;-&nbsp;</div>
-									<input type="text" class="PID" id="PID2"
-										style="width: 28px; height: 40px; font-size: 12pt; float: left"
-										maxlength="1"
-										onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
-									<input type="button" class="imgAlert1" id="imgAlert3"
-										value="      비밀번호는 8자 이상, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다."
-										disabled> <input type="button" class="imgAlert2"
-										id="imgAlert4" style="float: left;" disabled>
+									<input type="text" name="	" id="str_email01"
+										style="width: 150px; height : 40px; font-size : 13pt;"> @ <input type="text"
+										name="str_email02" id="str_email02" 
+										style="width: 150px; height : 40px; font-size : 13pt;"
+										disabled value="naver.com"> <select
+										style="width: 150px; height : 40px; margin-right: 10px; font-size : 13pt;" 
+										name="selectEmail"
+										id="selectEmail">
+										<option value="1">직접입력</option>
+										<option value="naver.com" selected>naver.com</option>
+										<option value="hanmail.net">hanmail.net</option>
+										<option value="hotmail.com">hotmail.com</option>
+										<option value="nate.com">nate.com</option>
+										<option value="yahoo.co.kr">yahoo.co.kr</option>
+										<option value="empas.com">empas.com</option>
+										<option value="dreamwiz.com">dreamwiz.com</option>
+										<option value="freechal.com">freechal.com</option>
+										<option value="lycos.co.kr">lycos.co.kr</option>
+										<option value="korea.com">korea.com</option>
+										<option value="gmail.com">gmail.com</option>
+										<option value="hanmir.com">hanmir.com</option>
+										<option value="paran.com">paran.com</option>
+									</select>
+									<input type="button" class="imgAlert2" style = "float : right; margin-right : 23%; margin-top : 5px;"
+										id="imgAlert4" disabled>
 								</div>
 								<div class="leftBox">
 									<br>
 								</div>
 								<div class="rightBox" style="font-size: 12pt; color: gray">
-									주민번호 앞자리, 뒤 첫번째 자리 입력. ex) 000213 - 3</div>
+									회원가입 당시 입력했던 이메일을 작성해 주세요.
+								</div>
 							</div>
 							<div style="width: 100%; height: 1px; float: left;">
 								<br>
@@ -373,10 +380,10 @@ input.imgAlert2 {
 									disabled> <input name="nextAfter" class="SUBC"
 									type="button" value="아이디 찾기"
 									onclick="location.href='SignUpCustomer3.jsp' " id="submit2"
-									style="background-color: #DF1758; color: white; border: none;">
+									style="background-color: #4BD763; color: white; border: none;">
 							</div>
 						</div>
-	
+
 
 						<div class="foundIdFF2" id="foundIdFF2">
 							<label style="font-weight: 100;"> <input type="radio"
@@ -394,9 +401,9 @@ input.imgAlert2 {
 								onmouseout="iconChange2()" onclick="openEmailIden()"
 								style="cursor: pointer; margin-left: 39%;">
 								<img class="SUImg" id="SUImgg1"
-									src="<%=request.getContextPath()%>/resources/images/SUEmail2-1.png">
+									src="<%=request.getContextPath()%>/resources/images/SUHChkE_1-1_1.png">
 								<img class="SUImg" id="SUImgg2"
-									src="<%=request.getContextPath()%>/resources/images/SUEmail1-1.png">
+									src="<%=request.getContextPath()%>/resources/images/SUHChkE_2-1_1.png">
 							</div>
 							<div class="SUB" style="margin-top: 80px; margin-left: 33%;">
 								<input name="nextAfter" class="SUBC" type="button"
@@ -406,75 +413,76 @@ input.imgAlert2 {
 									id="submitt1"> <input name="nextAfter" class="SUBC"
 									type="button" value="아이디 찾기"
 									onclick="location.href='SignUpCustomer3.jsp' "
-									style="background-color: #DF1758; color: white; border: none;"
+									style="background-color: #4BD763; color: white; border: none;"
 									id="submitt2">
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="mLogin" id = "mLogin2">
+			<div class="mLogin" id="mLogin2">
 				<div class="logoDiv">
 					<br> <br> <br> <br> <br>
 				</div>
 				<div class="sideDiv1"></div>
-				<div class="bLogin" id="foundId2" style = "border-top : none; border-left : none; border-bottom : 1px solid black; background-color : lightgray ;cursor : pointer;">
-					<div class="titlebox">
-						아이디 찾기
-					</div>
+				<div class="bLogin" id="foundId2"
+					style="border-top: none; border-left: none; border-bottom: 1px solid black; background-color: lightgray; cursor: pointer;">
+					<div class="titlebox">아이디 찾기</div>
 					<br> <br>
 				</div>
-				<div class="fLogin" id="foundPw2" style = "border-top : 1px solid black; border-right : 1px solid black; background-color : white; border-bottom : none; ">
-					<div class="titlebox">
-						비밀번호 찾기
-					</div>
+				<div class="fLogin" id="foundPw2"
+					style="border-top: 1px solid black; border-right: 1px solid black; background-color: white; border-bottom: none;">
+					<div class="titlebox">비밀번호 찾기</div>
 				</div>
 				<div class="sideDiv2"></div>
-				<div class="foundIdF" id = "foundIdFEC1">
+				<div class="foundIdF" id="foundIdFEC1">
 					<br> <br> <br> <br>
 					<div class="foundIdI">
 						비밀번호를 찾고자 하는 아이디를 입력해 주세요.<br> <br>
-						<div class="foundIdFF" style = "height : 160px;">
-							<div style = "float : left; width : 15%; margin-left : 25%; margin-top : 17px; font-size : 12pt;" >
-								아이디
+						<div class="foundIdFF" style="height: 160px;">
+							<div
+								style="float: left; width: 15%; margin-left: 25%; margin-top: 17px; font-size: 12pt;">
+								아이디</div>
+							<div style="float: left; width: 30%; margin-top: 6px;">
+								<input type="text" id="foundIdPw"
+									style="height: 45px; width: 280px; border: 1px solid black;">
 							</div>
-							<div style = "float : left; width : 30%;  margin-top : 6px; " >
-								<input type = "text" id = "foundIdPw" style = "height : 45px; width : 280px; border: 1px solid black;">
-							</div>
-							
+
 						</div>
 						<div>
-							<br><br>
+							<br> <br>
 						</div>
 						<div>
-								<input type = "button"  class = "SUBC" id = "next1" value = "다음" style = "background-color : #595959; color : white; border:none;">
+							<input type="button" class="SUBC" id="next1" value="다음"
+								style="background-color: #595959; color: white; border: none;">
 						</div>
 						<div>
-								<input type = "button"  class = "SUBC" id = "next2" value = "다음" style = "background-color : #DF1758; color : white; border:none;">
+							<input type="button" class="SUBC" id="next2" value="다음"
+								style="background-color: #4BD763; color: white; border: none;">
 						</div>
 					</div>
 				</div>
-				<div class="foundIdF" id = "foundIdFEC2">
-					<br> <br> 
+				<div class="foundIdF" id="foundIdFEC2">
+					<br> <br>
 					<div class="foundIdI">
-						<div class="foundIdFF" style = "height : 350px;">
-							<div style = "float : left; width : 50%; margin-left : 30%; margin-top : -15px; font-size : 13pt;" >
-								본인인증을 통해 비밀번호를 재설정하실 수 있습니다.
-							</div>
-							<div style = "width : 100%; height : 30px;">
+						<div class="foundIdFF" style="height: 350px;">
+							<div
+								style="float: left; width: 50%; margin-left: 30%; margin-top: -15px; font-size: 13pt;">
+								본인인증을 통해 비밀번호를 재설정하실 수 있습니다.</div>
+							<div style="width: 100%; height: 30px;">
 								<br>
 							</div>
 							<div class="SUIdenI" onmouseover="iconChange3()"
-								onmouseout="iconChange4()" onclick="openEmailIden()"
+								onmouseout="iconChange4()" 
 								style="cursor: pointer; margin-left: 39%;">
 								<img class="SUImg" id="SUImggg1"
-									src="<%=request.getContextPath()%>/resources/images/SUEmail2-1.png">
+									src="<%=request.getContextPath()%>/resources/images/SUHChkE_1-1_1.png">
 								<img class="SUImg" id="SUImggg2"
-									src="<%=request.getContextPath()%>/resources/images/SUEmail1-1.png">
-							</div>	
+									src="<%=request.getContextPath()%>/resources/images/SUHChkE_2-1_1.png">
+							</div>
 						</div>
 						<div>
-							<br><br>
+							<br> <br>
 						</div>
 					</div>
 				</div>
@@ -484,6 +492,18 @@ input.imgAlert2 {
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
+		$('#selectEmail').change(function(){ 
+			$("#selectEmail option:selected").each(function () { 
+				if($(this).val()== '1'){ //직접입력일 경우 
+					$("#str_email02").val(''); //값 초기화
+					$("#str_email02").attr("disabled",false); //활성화 
+					}else{ //직접입력이 아닐경우 
+						$("#str_email02").val($(this).text()); //선택값 입력 
+						$("#str_email02").attr("disabled",true); //비활성화 
+						} 
+				}); 
+			});
+
 		$(function() {
 			$("#mLogin2").hide();
 			$("#foundIdFF2").hide();
@@ -536,8 +556,8 @@ input.imgAlert2 {
 		$('input').keyup(function() {
 			var name = $("#nameBox").val();
 
-			var PID = $("#PID1").val();
-			var PID2 = $("#PID2").val();
+			var PID = $("#str_email01").val();
+			var PID2 = $("#str_email02").val();
 
 			var flag1 = false;
 			var flag3 = false;
@@ -557,11 +577,11 @@ input.imgAlert2 {
 				}
 			}
 
-			if ((PID.length < 6) || (PID2.length < 1)) {
+			if ((PID.length < 1) || (PID2.length < 1)) {
 				$("#imgAlert3").hide();
 				$("#imgAlert4").hide();
 			} else {
-				if ((PID.length == 6) && (PID2.length == 1)) {
+				if ((PID.length > 0) && (PID2.length > 0)) {
 					$("#imgAlert3").hide();
 					$("#imgAlert4").show();
 					flag3 = true;
@@ -581,58 +601,58 @@ input.imgAlert2 {
 			}
 
 		});
-		
-		$("#foundPw").click(function(){
+
+		$("#foundPw").click(function() {
 			$("#mLogin1").hide();
 			$("#mLogin2").show();
 			$(".mLogin").height("650px");
 			$("#foundIdFEC2").hide();
 			$("#foundIdFEC1").show();
 		});
-		
-		$("#foundId2").click(function(){
+
+		$("#foundId2").click(function() {
 			$("#mLogin2").hide();
 			$("#mLogin1").show();
-			if($("#radioId1").prop("checked") == true){
+			if ($("#radioId1").prop("checked") == true) {
 				$(".mLogin").height("1000px");
-			}else if ($("#radioIdd2").prop("checked") == true){
+			} else if ($("#radioIdd2").prop("checked") == true) {
 				$(".mLogin").height("920px");
 			}
 		});
-		
-		$("#mLogin2").keyup(function(){
+
+		$("#mLogin2").keyup(function() {
 			var id = $("#foundIdPw").val();
-			
+
 			var flag1 = false;
 			var flag2 = false;
-			
-			if(id.length > 0){
+
+			if (id.length > 0) {
 				flag1 = true;
-			}else{
+			} else {
 				flag1 = false;
 			}
-			
-			if(id.length <8){
+
+			if (id.length < 8) {
 				flag2 = false;
-			}else{
+			} else {
 				flag2 = true;
 			}
-			
-			if((flag1 == true)&&(flag2 == true)){
+
+			if ((flag1 == true) && (flag2 == true)) {
 				$("#next1").hide();
 				$("#next2").show();
-			}else{
+			} else {
 				$("#next2").hide();
 				$("#next1").show();
 			}
-			
+
 		});
-		
-		$("#next2").click(function(){
+
+		$("#next2").click(function() {
 			$("#foundIdFEC1").hide();
 			$("#foundIdFEC2").show();
 		});
-		
+
 		$(function() {
 			$('#SUImggg2').hide();
 			$('#SUImggg1').show();
@@ -647,7 +667,6 @@ input.imgAlert2 {
 			$('#SUImggg2').hide();
 			$('#SUImggg1').show();
 		}
-	
 	</script>
 </body>
 </html>
