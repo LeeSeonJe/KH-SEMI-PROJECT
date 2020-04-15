@@ -211,6 +211,42 @@ $(function(){
 			</table> 
 		</div>
 	<hr>	
+			</div>
+		
+		<!-- 페이징  -->
+		<div class="pagingArea" align="center">
+		<% if(!list.isEmpty()){ %>
+			<!-- 맨 처음으로 -->
+			<button onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=1'">&lt;&lt;</button>
+			
+			<!-- 이전 페이지로 -->
+			<button onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=<%= currentPage-1 %>'" id="beforeBtn">&lt;</button>
+			<script>
+				if(<%= currentPage %> <= 1){
+					$('#beforeBtn').attr('disabled', 'true');
+				}
+			</script>
+			<button onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=1'">1</button>
+			<!-- 10개 페이지 목록 -->
+			<% for(int p = startPage; p<= endPage; p++){%>
+				<% if(p==currentPage){ %>
+					<button id="choosen" disabled><%= p %></button>
+				<% } else { %>
+					<button id="numBtn" onclick="location.href='<%= request.getContextPath()%>/list.re?currentPage=<%= p %>'"><%= p %></button> 
+				<% } %>				
+			<% } %>
+			
+			<!-- 다음 페이지로 -->
+			<button id="afterBtn" onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=<%= currentPage+1 %>'">&gt;</button>
+			<script>
+				if(<%= currentPage %> >= <%= maxPage %>){
+					$('#afterBtn').attr('disabled', 'true');
+				}
+			</script>
+			<!-- 맨 뒤로 -->
+			<button onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=<%= maxPage %>'">&gt;&gt;</button>
+		<% } %>
+		</div>
 		<div align="right">
 			<button onclick="loginChk();">리뷰작성</button>
 		</div>
