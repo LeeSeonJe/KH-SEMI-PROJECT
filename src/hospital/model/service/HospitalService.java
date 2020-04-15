@@ -6,6 +6,7 @@ import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import static common.JDBCTemplate.*;
 import customer.model.dao.CustomerDAO;
@@ -31,6 +32,13 @@ public class HospitalService {
 		close(conn);
 		
 		return result1;
+	}
+
+	public ArrayList<Hospital> selectHospitalList(String hospitalFilter, String count) {
+		Connection conn = getConnection();
+		ArrayList<Hospital> list = new HospitalDAO().selectHospitalList(conn, hospitalFilter, count);
+		close(conn);
+		return list;
 	}
 
 }
