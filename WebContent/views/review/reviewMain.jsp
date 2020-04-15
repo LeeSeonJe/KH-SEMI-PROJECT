@@ -55,7 +55,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 	.content{white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 570px; display:inline-block; min-height:20px;}
 	.hiddenSpan{min-height:20px; margin:0; text-align:left}
 	#write-date{float:right;}
-	
+
 </style>
 <%@ include file="/views/layout/import.jsp"%>
 
@@ -208,7 +208,7 @@ $(function(){
 				</tr>
 				<% } %>
 			</table> 
-			</div>
+		</div>
 	<hr>
 		</div>
 	<hr>	
