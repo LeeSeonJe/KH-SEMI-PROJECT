@@ -6,13 +6,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import common.AgeCalculator;
 import cosmetic.model.vo.Cosmetic;
+import cosmetic.model.vo.CosmeticReviewList;
 
 public class CosmeticDAO {
 	Properties prop = new Properties();
@@ -186,5 +189,45 @@ public class CosmeticDAO {
 		}
 		
 		return list;
+	}
+
+	public ArrayList<CosmeticReviewList> cosmeticReviewList(Connection conn, String cosName) {
+//		SELECT USER_NAME, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE, 
+//		FROM COSMETIC
+//		JOIN COSMETIC_REVIEW USING (COSMETIC_NO)
+//		JOIN BOARD ON (BOARD_NO = COS_REVIEW_NO)
+//		JOIN MEMBER USING (USER_NO)
+//		WHERE COSMETIC_NAME = ?;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<CosmeticReviewList> rList = new ArrayList<CosmeticReviewList>();
+		String query = prop.getProperty("CosmeticReviewList");
+		AgeCalculator ac = new AgeCalculator();
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cosName);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				String profile_image = rset.getString("PROFILE_IMAGE");
+				String user_name = rset.getString("USER_NAME");
+				String age = rset.getString("AGE");
+				age = ac.ageCal(age);
+				String skinType = rset.getString("SKINTYPE");
+				String gender = rset.getString("GENDER");
+				String board_title = rset.getString("BOARD_TITLE");
+				String board_content = rset.getString("BOARD_CONTENT");
+				Date board_date = rset.getDate("BOARD_DATE");
+				rList.add(new CosmeticReviewList(profile_image, user_name, age, skinType, gender, board_title, board_content, board_date));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return rList;
 	}
 }
