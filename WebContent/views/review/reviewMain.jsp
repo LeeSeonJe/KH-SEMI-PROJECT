@@ -209,12 +209,8 @@ $(function(){
 				<% } %>
 			</table> 
 		</div>
-	<hr>
-		</div>
-	<hr>
-		</div>
 	<hr>	
-			</div>
+		</div>
 		
 		<!-- 페이징  -->
 		<div class="pagingArea" align="center">
