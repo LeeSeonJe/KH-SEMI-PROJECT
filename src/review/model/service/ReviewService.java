@@ -38,8 +38,9 @@ public class ReviewService {
 		int result1 = dao.insertBoard(conn, r);
 		int result2 = dao.insertReview(conn, r);
 		int result3 = dao.insertCos_review(conn, r);
+		int result4 = dao.updateCosHeart(conn, r);
 		
-		if(result1 > 0 && result2 > 0 && result3 > 0) {
+		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -47,6 +48,16 @@ public class ReviewService {
 		
 		close(conn);	
 		return result1;
+	}
+
+	public ArrayList<Review> selectSList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> slideList = new ReviewDAO().selectSList(conn);
+		
+		close(conn);
+		
+		return slideList;
 	}
 
 

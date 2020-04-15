@@ -147,6 +147,53 @@ public class ReviewDAO {
 		
 		return result3;
 	}
+	public ArrayList selectSList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> slideList = null;
+		
+		String query = prop.getProperty("selectSList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			slideList = new ArrayList<Review>();
+			
+			while(rset.next()) {
+				Review r = new Review(rset.getString("board_title"),
+										rset.getString("cosmetic_name"),
+										rset.getString("cosmetic_img"));
+				
+				slideList.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return slideList;
+	}
+	public int updateCosHeart(Connection conn, Review r) {
+		PreparedStatement pstmt = null;
+		int result4 = 0;
+		
+		String query = prop.getProperty("updateCosHeart");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, r.getCosmetic_no());
+			pstmt.setInt(2, r.getCosmetic_no());
+			
+			result4 = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result4;
+	}
 
 
 
