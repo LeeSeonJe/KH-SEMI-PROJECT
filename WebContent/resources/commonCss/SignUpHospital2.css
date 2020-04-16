@@ -93,17 +93,54 @@ div.SUI {
 }
 
 div.SUII {
-	width: 12%;
+	width: 200px;
 	float: left;
 	font-size: 16pt;
-	height: 380px;
+	height: 200px;
 }
 
-div.SUII2 {
-	width: 4%;
-	float: left;
-	font-size: 16pt;
-	height: 400px;
+div.SUIIDB{
+	width : 25%;
+	height : 50px;
+	float : left;
+	
+}
+div.SUIIDBD{
+	
+	float : left;
+}
+
+div.SUIIDBI{
+	margin-left: 50px;
+	font-size : 17pt;
+
+}
+
+div.SUIIDBI2{
+	margin-left: 50px;
+	font-size : 14pt;
+	font-weight : bold;
+
+}
+
+div.SUIIDBN{
+	float:left;
+	width : 3%;
+	height : 50px;
+}
+
+div.SUII2{
+	width : 4%;
+	float : left;
+	font-size : 16pt;
+	height : 200px;
+}
+
+div.SUII3{
+	width : 7%;
+	float : left;
+	height : 200px;
+	
 }
 
 div.SUChk {
@@ -136,25 +173,26 @@ div.SUChkBF {
 div.SUB {
 	float: left;
 	width: 70%;
-	margin-left: 15%;
+	margin-left: 20%;
 }
 
 div.SUIden {
 	float: left;
 	width: 80%;
 	height: 400px;
-	margin-left: 5%;
+	margin-left: 10%;
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 }
 
 div.SUIdenF {
 	font-size: 22px;
+	margin-left : 40%;
 }
 
 div.SUIdenI {
 	width: 20%;
-	margin-left: 39%;
+	margin-left: 41%;
 }
 
 div.SUBB {
@@ -279,8 +317,8 @@ input.SUBCBefore {
 }
 
 img.SUImg {
-	width: 220px;
-	height: 220px;
+	width: 200px;
+	height: 200px;
 	text-align: left;
 	float: left;
 }
@@ -293,6 +331,7 @@ img.SUImg1 {
 img.SUImg2 {
 	width: 35px;
 	height: 35px;
+	margin-top : 24px;
 }
 
 img.SUImg3 {
