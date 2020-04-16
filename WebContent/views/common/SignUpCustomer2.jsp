@@ -30,46 +30,103 @@
 			<br> <br> <br> <br>
 		</div>
 		<div class="mLogin">
-			<br> <br> <br>
+			<br> <br> 
 			<div class="SUI">
-				<div class="SUII2"></div>
+				<div class = "SUII2">
+				</div>	
 				<div class="SUII">
 					<img class="SUImg"
 						src="<%=request.getContextPath()%>/resources/images/SUChk1_2_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 1
-					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 약관동의</h3>
 				</div>
-				<div class="SUII">
+				<div class="SUII3">
 					<br> <br> <br> <img class="SUImg2"
 						src="<%=request.getContextPath()%>/resources/images/SUChkK.png">
 				</div>
 				<div class="SUII">
 					<img class="SUImg"
 						src="<%=request.getContextPath()%>/resources/images/SUChk2_1_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 2
-					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;본인인증</h3>
 				</div>
-				<div class="SUII">
+				<div class="SUII3">
 					<br> <br> <br> <img class="SUImg2"
 						src="<%=request.getContextPath()%>/resources/images/SUChkK.png">
 				</div>
 				<div class="SUII">
 					<img class="SUImg"
 						src="<%=request.getContextPath()%>/resources/images/SUChk3_2_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 3
-					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;정보입력</h3>
 				</div>
-				<div class="SUII">
+				<div class="SUII3">
 					<br> <br> <br> <img class="SUImg2"
 						src="<%=request.getContextPath()%>/resources/images/SUChkK.png">
 				</div>
 				<div class="SUII">
 					<img class="SUImg"
 						src="<%=request.getContextPath()%>/resources/images/SUChk4_2_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 4
-					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가입완료</h3>
 				</div>
-				<div class="SUIden">
+			</div>
+			<div style = "width : 80%; height : 50px; float : left; margin-left : 10%;">
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI">
+						Step 1
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI">
+						Step 2
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI">
+						Step 3
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB"  style = "width : 14%;">
+					<div class = "SUIIDBI">
+						Step 4
+					</div>
+				</div>
+			</div>
+			<div style = "width : 80%; height : 100px; float : left; margin-left : 10%;">
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI2">
+						약관동의
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI2">
+						본인인증
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI2">
+						정보입력
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB"  style = "width : 14%;">
+					<div class = "SUIIDBI2">
+						가입완료
+					</div>
+				</div>
+				
+			</div>				
+			<div class="SUIden">
 					<br> <br> <br> <br> 
 					<div class="SUIdenF">본인인증을 진행해주세요.</div>
 

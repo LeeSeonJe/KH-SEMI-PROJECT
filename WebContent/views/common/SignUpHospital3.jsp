@@ -39,46 +39,100 @@
 			<br> <br> <br> <br>
 		</div>
 		<div class="mLogin">
-			<br> <br> <br>
+			<br> <br> 
 			<div class="SUI">
-				<div class="SUII2"></div>
-				<div class="SUII">
-					<img class="SUImg"
-						src="<%=request.getContextPath()%>/resources/images/SUHChk1_1_2.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 1
-					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 약관동의</h3>
+					<div class="SUII2"></div>
+					<div class="SUII">
+						<img class="SUImg"
+							src="<%=request.getContextPath()%>/resources/images/SUHChk1_1_2.png">
+					</div>
+					<div class="SUII3">
+						<br> <br> <br> <img class="SUImg2"
+							src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+					</div>
+					<div class="SUII">
+						<img class="SUImg"
+							src="<%=request.getContextPath()%>/resources/images/SUHChk2_2_1.png">
+					</div>
+					<div class="SUII3">
+						<br> <br> <br> <img class="SUImg2"
+							src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+					</div>
+					<div class="SUII">
+						<img class="SUImg"
+							src="<%=request.getContextPath()%>/resources/images/SUHChk3_1_1.png">
+					</div>
+					<div class="SUII3">
+						<br> <br> <br> <img class="SUImg2"
+							src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+					</div>
+					<div class="SUII">
+						<img class="SUImg"
+							src="<%=request.getContextPath()%>/resources/images/SUHChk4_2_1.png">
+					</div>
 				</div>
-				<div class="SUII">
-					<br> <br> <br> <img class="SUImg2"
-						src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+			<div style = "width : 80%; height : 50px; float : left; margin-left : 10%;">
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI">
+						Step 1
+					</div>
 				</div>
-				<div class="SUII">
-					<img class="SUImg"
-						src="<%=request.getContextPath()%>/resources/images/SUHChk2_2_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 2
-					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;본인인증</h3>
+				<div class = "SUIIDBN">
+				
 				</div>
-				<div class="SUII">
-					<br> <br> <br> <img class="SUImg2"
-						src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI">
+						Step 2
+					</div>
 				</div>
-				<div class="SUII">
-					<img class="SUImg"
-						src="<%=request.getContextPath()%>/resources/images/SUHChk3_1_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 3
-					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;정보입력</h3>
+				<div class = "SUIIDBN">
+				
 				</div>
-				<div class="SUII">
-					<br> <br> <br> <img class="SUImg2"
-						src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI">
+						Step 3
+					</div>
 				</div>
-				<div class="SUII">
-					<img class="SUImg"
-						src="<%=request.getContextPath()%>/resources/images/SUHChk4_2_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 4
-					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가입완료</h3>
+				<div class = "SUIIDBN">
+				
 				</div>
-				<div class="SUII2"></div>
+				<div class = "SUIIDB"  style = "width : 14%;">
+					<div class = "SUIIDBI">
+						Step 4
+					</div>
+				</div>
+			</div>
+			<div style = "width : 80%; height : 80px; float : left; margin-left : 10%;">
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI2">
+						약관동의
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI2">
+						본인인증
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI2">
+						정보입력
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB"  style = "width : 14%;">
+					<div class = "SUIIDBI2">
+						가입완료
+					</div>
+				</div>
+				
 			</div>
 			<div class="SUChk">
 				<div class="SUChkSi"></div>
@@ -101,7 +155,7 @@
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="IDCheckkF">
 							<input type="button" class="imgAlert1"
-								value="아이디는 8자 이상, 숫자와 영문자만 포함해야 합니다.                                    "
+								value="              아이디는 8자 이상, 숫자와 영문자만 포함해야 합니다.                                    "
 								disabled>
 						</div>
 						<div class="SUChkMainICF" id="IDCheckkT">
@@ -119,7 +173,7 @@
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="pwdCheckkF">
 							<input type="button" class="imgAlert1"
-								value="      비밀번호는 8자 이상, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다."
+								value="                비밀번호는 8자 이상, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다."
 								disabled>
 						</div>
 						<div class="SUChkMainICF" id="pwdCheckkT">
@@ -161,12 +215,22 @@
 				<div class="SUChkMain">
 					병원 전화번호
 					<h3
-						style="font-size: 13pt; color: white; display: inline-block; margin-top: 8%;">*</h3>
+						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
 					<input type="text" class="SUChkMainICFBirthh" id="phoneCF1" maxlength="3" name="tel1" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 					- <input type="text" class="SUChkMainICFBirthh" id="phoneCF2" maxlength="4" name="tel2" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 					- <input type="text" class="SUChkMainICFBirthh" id="phoneCF3" maxlength="4" name="tel3" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+					<div style="display: inline-block;">
+						<div class="SUChkMainICF" id="phoneCheckkF">
+							<input type="button" class="imgAlert1" style = "width : 450px;"
+								value="전화번호를 정확히 입력해 주세요.                                                         "
+								disabled>
+						</div>
+						<div class="SUChkMainICF" id="phoneCheckkT">
+							<input type="button" class="imgAlert2" disabled>
+						</div>
+					</div>
 				</div>
 				<div class="SUChkMain">	
 					이메일
@@ -183,13 +247,6 @@
 					> 
 					<div style="display: inline-block;">
 						<div class="SUChkMainICF" id="nameConfirmmTT">
-							<input type="button" class="imgAlert2" disabled>
-						</div>
-					</div>
-					<div style="display: inline-block;">
-						<div class="SUChkMainICFE" id="emailConfirmmF"
-							style="width: 50px;">
-							
 							<input type="button" class="imgAlert2" disabled>
 						</div>
 					</div>
@@ -380,11 +437,12 @@
 							var flag4 = false;
 							var flag5 = false;
 							var flag6 = false;
+							var flag7 = false;
 
 							var regi = /^[A-Za-z0-9]{8,}$/;
 							var id = $("#SUChkMainIID").val();
 
-							var reg = /^[A-Za-z0-9#?!@$%^&*-]{8,}$/;
+							var reg =  /(?=.*\d{1,})(?=.*[~`!@#$%\^&*()-+=]{1,})(?=.*[a-z]{1,})(?=.*[A-Z]{1,}).{8,}$/;
 							var pwd = $("#SUChkMainIPwd").val();
 							
 							var pwdd = $("#SUChkMainIPwdC").val();
@@ -399,6 +457,8 @@
 							var flagg2 = false;
 							var flagg3 = false;
 							var flagg4 = false;
+							
+							
 
 							
 							if (id.length > 0) {

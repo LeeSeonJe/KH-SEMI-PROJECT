@@ -2,7 +2,7 @@
 
 form.loginForm {
 	width: 100%;
-	height: 2200px;
+	height: 2025px;
 	background-color: #DDDDDD;
 }
 
@@ -93,17 +93,55 @@ div.SUI {
 }
 
 div.SUII {
-	width: 12%;
+	width: 200px;
 	float: left;
 	font-size: 16pt;
-	height: 400px;
+	height: 200px;
 }
 
-div.SUII2 {
-	width: 4%;
-	float: left;
-	font-size: 16pt;
-	height: 400px;
+
+div.SUIIDB{
+	width : 25%;
+	height : 50px;
+	float : left;
+	
+}
+div.SUIIDBD{
+	
+	float : left;
+}
+
+div.SUIIDBI{
+	margin-left: 50px;
+	font-size : 17pt;
+
+}
+
+div.SUIIDBI2{
+	margin-left: 50px;
+	font-size : 14pt;
+	font-weight : bold;
+
+}
+
+div.SUIIDBN{
+	float:left;
+	width : 3%;
+	height : 50px;
+}
+
+div.SUII2{
+	width : 4%;
+	float : left;
+	font-size : 16pt;
+	height : 200px;
+}
+
+div.SUII3{
+	width : 7%;
+	float : left;
+	height : 200px;
+	
 }
 
 div.SUChk {
@@ -312,8 +350,7 @@ input.imgAlert1 {
 	height: 50px;
 	background-color: white;
 	border: none;
-	background-image:
-		url('<%=request.getContextPath()%>/resources/images/AlertIcon1_1_1.png');
+	background-image: url(../images/AlertIcon1_1_1.png);
 	background-repeat: no-repeat;
 	background-position: -5px -10px;
 	font-size: 10pt;
@@ -325,8 +362,7 @@ input.imgAlert2 {
 	height: 50px;
 	background-color: white;
 	border: none;
-	background-image:
-		url('<%=request.getContextPath()%>/resources/images/AlertIcon2_1_1.png');
+	background-image: url(../images/AlertIcon2_1_1.png);
 	background-repeat: no-repeat;
 	background-position: -5px -10px;
 }
@@ -367,14 +403,15 @@ input.SUChkMainGender {
 }
 
 img.SUImg {
-	width: 220px;
-	height: 220px;
+	width: 200px;
+	height: 200px;
 	text-align: left;
 }
 
 img.SUImg2 {
 	width: 35px;
 	height: 35px;
+	margin-top : 24px;
 }
 
 

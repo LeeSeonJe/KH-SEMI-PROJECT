@@ -26,59 +26,104 @@
 
 	<div class="loginForm">
 
-		<div>
+				<div>
 			<br> <br> <br> <br>
 		</div>
 		<div class="mLogin">
-			<br> <br> <br>
+			<br> <br> 
 			<div class="SUI">
-				<div class = "SUII2">
-				</div>	
-				<div class="SUII">
-					<img class="SUImg"
-						src="<%=request.getContextPath()%>/resources/images/SUHChk1_1_2.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					Step 1
-					<h3 class="SUImgI">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-					약관동의
-					</h3>
+					<div class="SUII2"></div>
+					<div class="SUII">
+						<img class="SUImg"
+							src="<%=request.getContextPath()%>/resources/images/SUHChk1_1_2.png">
+					</div>
+					<div class="SUII3">
+						<br> <br> <br> <img class="SUImg2"
+							src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+					</div>
+					<div class="SUII">
+						<img class="SUImg"
+							src="<%=request.getContextPath()%>/resources/images/SUHChk2_2_1.png">
+					</div>
+					<div class="SUII3">
+						<br> <br> <br> <img class="SUImg2"
+							src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+					</div>
+					<div class="SUII">
+						<img class="SUImg"
+							src="<%=request.getContextPath()%>/resources/images/SUHChk3_2_1.png">
+					</div>
+					<div class="SUII3">
+						<br> <br> <br> <img class="SUImg2"
+							src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+					</div>
+					<div class="SUII">
+						<img class="SUImg"
+							src="<%=request.getContextPath()%>/resources/images/SUHChk4_1_1.png">
+					</div>
 				</div>
-				<div class="SUII">
-					<br> <br> <br> <img class="SUImg2"
-						src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+			<div style = "width : 80%; height : 50px; float : left; margin-left : 10%;">
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI">
+						Step 1
+					</div>
 				</div>
-				<div class="SUII">
-					<img class="SUImg"
-						src="<%=request.getContextPath()%>/resources/images/SUHChk2_2_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					Step 2
-					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;본인인증</h3>
+				<div class = "SUIIDBN">
+				
 				</div>
-				<div class="SUII">
-					<br> <br> <br> <img class="SUImg2"
-						src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI">
+						Step 2
+					</div>
 				</div>
-				<div class="SUII">
-					<img class="SUImg"
-						src="<%=request.getContextPath()%>/resources/images/SUHChk3_2_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-					Step 3
-					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;정보입력</h3>
+				<div class = "SUIIDBN">
+				
 				</div>
-				<div class="SUII">
-					<br> <br> <br> <img class="SUImg2"
-						src="<%=request.getContextPath()%>/resources/images/SUChkKK_1.png">
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI">
+						Step 3
+					</div>
 				</div>
-				<div class="SUII">
-					<img class="SUImg"
-						src="<%=request.getContextPath()%>/resources/images/SUHChk4_1_1.png">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-					Step 4
-					<h3 class="SUImgI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가입완료</h3>
+				<div class = "SUIIDBN">
+				
 				</div>
-				<div class = "SUII2">
+				<div class = "SUIIDB"  style = "width : 14%;">
+					<div class = "SUIIDBI">
+						Step 4
+					</div>
 				</div>
+			</div>
+			<div style = "width : 80%; height : 80px; float : left; margin-left : 10%;">
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI2">
+						약관동의
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI2">
+						본인인증
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB">
+					<div class = "SUIIDBI2">
+						정보입력
+					</div>
+				</div>
+				<div class = "SUIIDBN">
+				
+				</div>
+				<div class = "SUIIDB"  style = "width : 14%;">
+					<div class = "SUIIDBI2">
+						가입완료
+					</div>
+				</div>
+				
 			</div>
 			<div class="SUChk">
 				<div class = "SUChkConfirm1">
