@@ -41,4 +41,11 @@ public class HospitalService {
 		return list;
 	}
 
+	public ArrayList<Hospital> searchAddress(String sidoCd, String sggu, String dong) {
+		Connection conn = getConnection();
+		ArrayList<Hospital> list = new HospitalDAO().searchAddress(conn, sidoCd, sggu, dong);
+		close(conn);
+		return list;
+	}
+
 }
