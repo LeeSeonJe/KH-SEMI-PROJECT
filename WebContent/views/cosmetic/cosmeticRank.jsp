@@ -161,11 +161,12 @@ input {
 .ranking-list {
 	display: inline-flex;
     border-block-end: 1px solid #ccc;
+    padding-bottom: 25px;
 }
 
 .ranking-list div {
 	display: inline-block;
-	height: 170px;
+/* 	height: 170px; */
 	text-align: center;
 }
 
@@ -196,11 +197,31 @@ input {
 	font-weight: 700;
 	display:inline-block;
 }
+
+/* 별점 CSS */
+span.star-prototype, span.star-prototype > * {
+		height: 16px; 
+		background: url(<%= request.getContextPath()%>/resources/images/heartAvg.png) 0 -16px repeat-x;
+		width: 80px;
+		display: inline-block;
+		text-align: left;
+}
+
+span.star-prototype > * {
+	background-position: 0 0;
+	max-width:80px; 
+}
+
+.heartPosition {
+	display: inline-block;
+	vertical-align: middle;
+}
 </style>
 
 <% 
 	ArrayList<Cosmetic> list = (ArrayList<Cosmetic>) request.getAttribute("list"); 
 	String middleName = (String) request.getAttribute("middleName");
+	final int MAX = 100;
 %>
 </head>
 <body>
@@ -293,8 +314,11 @@ input {
 						<li>
 							<div class="ranking-list">
 								<div class="cos-rank">
+									<%if(list.get(i).getCount() > 0) { %>
 									<h3><%= i+1 %></h3>
-									<span>-</span>
+									<% } else { %>
+									<h3> - </h3>
+									<% } %>
 								</div>
 								<div class="cos-img">
 									<% if(list.get(i).getCosmetic_img().contains("http")){ %>
@@ -310,13 +334,15 @@ input {
 									<span><%= list.get(i).getVolume() %></span>&nbsp;/&nbsp;<span><%= list.get(i).getPrice() %></span>							
 								</div>
 								<div class="cos-score">
-									<span>4.38</span>
-									<span>imgimgimgimg</span>
-									(<span>807</span>)
+									<span><%= list.get(i).getAvg() %></span>
+									<div class="heartPosition">
+										<span class="star-prototype"><%= list.get(i).getAvg() %></span>
+									</div>
+									<span>(<%= list.get(i).getCount() %>)</span>
 								</div>
 							</div>
 						</li>
-					<% } %>
+					<%  if(i == MAX) { break; } } %>
 					</ul>
 				</section>
 			</section>
@@ -326,6 +352,15 @@ input {
 	<%@ include file="/views/layout/footer.jsp"%>
 
 	<script>
+		/* 별점 스크립트 */
+		$.fn.generateStars = function() {
+			return this.each(function(i,e){
+				$(e).html($('<span/>').width($(e).text()*16));
+			});
+		};
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$('.star-prototype').generateStars();
+	
 		$('.cos-detail-link').click(function(){
 			location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + "<%= middleName%>";
 		})

@@ -34,6 +34,8 @@ public class CosmeticListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cos_middle_no = request.getParameter("cos_middle_no");
 		ArrayList<Cosmetic> list = new CosmeticService().selectCosmeticList(cos_middle_no);
+		
+		// 화장품 테이블에 중분류가 숫자이므로 카테고리 테이블에서 조인해서 중분류 이름 가져옴
 		String middleName = new CosmeticService().cosMiddleName(cos_middle_no);
 		
 		

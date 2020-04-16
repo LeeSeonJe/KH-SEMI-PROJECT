@@ -332,7 +332,7 @@ span.star-prototype > * {
 									</div>
 								<div class="userDetail">
 									<span>
-										<%= rList.get(i).getAge() %>세 ㆍ <%= rList.get(i).getSkinType() %> ㆍ <% if(rList.get(i).getGender().equalsIgnoreCase("m")) { %> 
+										<%= rList.get(i).getAge() %>세 ㆍ <%= rList.get(i).getSkinType() %> ㆍ <% if(rList.get(i).getGender().equalsIgnoreCase("남성")) { %> 
 											<img src="<%= request.getContextPath() %>/resources/images/male.png" alt="남자" /> 
 										<% } else { %> 
 											<img src="<%= request.getContextPath() %>/resources/images/female.png" alt="여자" /> 
