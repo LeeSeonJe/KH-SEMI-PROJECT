@@ -14,8 +14,11 @@ public class CosmeticService {
 
 	public ArrayList<Cosmetic> selectCosmeticList(String cos_middle_no) {
 		Connection conn = getConnection();
-		ArrayList<Cosmetic> list = new CosmeticDAO().selectCosmeticList(conn, cos_middle_no);
-
+		ArrayList<Cosmetic> rlist = new CosmeticDAO().rSelectCosmeticList(conn, cos_middle_no);
+		ArrayList<Cosmetic> nrlist = new CosmeticDAO().nrSelectCosmeticList(conn, cos_middle_no);
+		ArrayList<Cosmetic> list = new ArrayList<Cosmetic>();
+		list.addAll(rlist);
+		list.addAll(nrlist);
 		close(conn);
 		return list;
 	}

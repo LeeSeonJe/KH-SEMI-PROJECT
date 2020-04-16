@@ -6,8 +6,8 @@ public class Cosmetic {
 	private String cosmetic_about;
 	private String volume;
 	private String price;
-	private int week_rank;
-	private int lastweek_rank;
+	private int count;
+	private double avg;
 	private String brand_name;
 	private String middle_no;
 	private String cosmetic_img;
@@ -17,15 +17,15 @@ public class Cosmetic {
 	}
 
 	public Cosmetic(int cosmetic_no, String cosmetic_name, String cosmetic_about, String volume, String price,
-			int week_rank, int lastweek_rank, String brand_name, String middle_no, String cosmetic_img) {
+			int count, double avg, String brand_name, String middle_no, String cosmetic_img) {
 		super();
 		this.cosmetic_no = cosmetic_no;
 		this.cosmetic_name = cosmetic_name;
 		this.cosmetic_about = cosmetic_about;
 		this.volume = volume;
 		this.price = price;
-		this.week_rank = week_rank;
-		this.lastweek_rank = lastweek_rank;
+		this.count = count;
+		this.avg = avg;
 		this.brand_name = brand_name;
 		this.middle_no = middle_no;
 		this.cosmetic_img = cosmetic_img;
@@ -71,20 +71,20 @@ public class Cosmetic {
 		this.price = price;
 	}
 
-	public int getWeek_rank() {
-		return week_rank;
+	public int getCount() {
+		return count;
 	}
 
-	public void setWeek_rank(int week_rank) {
-		this.week_rank = week_rank;
+	public void setCount(int count) {
+		this.count = count;
 	}
 
-	public int getLastweek_rank() {
-		return lastweek_rank;
+	public double getAvg() {
+		return avg;
 	}
 
-	public void setLastweek_rank(int lastweek_rank) {
-		this.lastweek_rank = lastweek_rank;
+	public void setAvg(double avg) {
+		this.avg = avg;
 	}
 
 	public String getBrand_name() {
@@ -114,9 +114,8 @@ public class Cosmetic {
 	@Override
 	public String toString() {
 		return "Cosmetic [cosmetic_no=" + cosmetic_no + ", cosmetic_name=" + cosmetic_name + ", cosmetic_about="
-				+ cosmetic_about + ", volume=" + volume + ", price=" + price + ", week_rank=" + week_rank
-				+ ", lastweek_rank=" + lastweek_rank + ", brand_name=" + brand_name + ", middle_no=" + middle_no
-				+ ", cosmetic_img=" + cosmetic_img + "]";
+				+ cosmetic_about + ", volume=" + volume + ", price=" + price + ", count=" + count + ", avg=" + avg
+				+ ", brand_name=" + brand_name + ", middle_no=" + middle_no + ", cosmetic_img=" + cosmetic_img + "]";
 	}
 
 }
