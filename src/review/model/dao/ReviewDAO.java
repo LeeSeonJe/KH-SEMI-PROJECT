@@ -52,12 +52,19 @@ public class ReviewDAO {
 				Review r = new Review(rset.getInt("REVIEW_NO"),
 									  rset.getInt("REVIEW_THUMBS_UP"),
 									  rset.getInt("REVIEW_HEART"),
+									  rset.getString("REVIEW_DEL_YN"),
 									  rset.getString("board_title"),
 									  rset.getString("board_content"),
 									  rset.getDate("board_date"),
 									  rset.getString("board_category"),
 									  rset.getString("user_name"),
-									  rset.getInt("review_thumbs_down"));
+									  rset.getString("cosmetic_name"),
+									  rset.getString("cosmetic_img"),
+									  rset.getInt("review_thumbs_down"),
+									  rset.getInt("age"),
+									  rset.getString("skintype"),
+									  rset.getString("gender"),
+									  rset.getString("profile_image"));
 				list.add(r);
 			}
 		} catch (SQLException e) {
