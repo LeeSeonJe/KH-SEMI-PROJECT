@@ -33,6 +33,14 @@ public class WorryService {
 		
 		return list;
 	}
+	
+	public ArrayList<Worry> selectList2(int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Worry> list = new WorryDAO().selectList2(currentPage, boardLimit, conn);
+		
+		return list;
+	}
 
 	public Worry worryDetail(int worryNo) {
 		Connection conn = getConnection();
@@ -105,6 +113,80 @@ public class WorryService {
 		return fList;
 	}
 
+	public int likeUp(int worryNo) {
+		Connection conn = getConnection();
+		
+		int result = new WorryDAO().likeUp(conn, worryNo);
+		
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		
+		
+		
+		close(conn);
+		
+		
+		
+		
+		return result;
+	}
+
+	public int hateUp(int worryNo) {
+		Connection conn = getConnection();
+		
+		int result = new WorryDAO().hateUp(conn, worryNo);
+		
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		
+		
+		
+		close(conn);
+		
+		
+		
+		
+		return result;
+	}
+
+	public ArrayList<Worry> selectTopList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Worry> topList = new WorryDAO().selectTopList(conn);
+		
+		close(conn);
+		
+		return topList;
+	}
+
+	public ArrayList<Worry> selectHitList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Worry> hitList = new WorryDAO().selectHitList(conn);
+		
+		close(conn);
+		return hitList;
+	}
+
+	public ArrayList<Worry> selectLowList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Worry> lowList = new WorryDAO().selectLowList(conn);
+		
+		close(conn);
+		
+		return lowList;
+	}
 
 }
 

@@ -1,7 +1,6 @@
 package worry.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,24 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import member.model.vo.Member;
 import worry.model.service.WorryService;
-import worry.model.vo.Comments;
 
 /**
- * Servlet implementation class insertReplyServlet
+ * Servlet implementation class hitsUp
  */
-@WebServlet("/insertComments.bo")
-public class insertCommentsServlet extends HttpServlet {
+@WebServlet("/like.bo")
+public class likeUp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public insertCommentsServlet() {
+    public likeUp() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,28 +28,12 @@ public class insertCommentsServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		userNo = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
-		String content = request.getParameter("content");
 		int worryNo = Integer.parseInt(request.getParameter("worryNo"));
 		
-		Comments c = new Comments();
-		c.setUserNo(userNo);
-		c.setCommentsText(content);
-		c.setWorryNo(worryNo);
+		int result = new WorryService().likeUp(worryNo);
 		
-		ArrayList<Comments> list = new WorryService().insertCommnets(c);
-		
-		response.setContentType("application/json");
-
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(list, response.getWriter());
-
-		
-
-		
+		System.out.println(result);
 		
 		
 	}

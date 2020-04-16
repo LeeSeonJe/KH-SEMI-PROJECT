@@ -56,7 +56,8 @@ public class ReviewDAO {
 									  rset.getString("board_content"),
 									  rset.getDate("board_date"),
 									  rset.getString("board_category"),
-									  rset.getString("user_name"));
+									  rset.getString("user_name"),
+									  rset.getInt("review_thumbs_down"));
 				list.add(r);
 			}
 		} catch (SQLException e) {
@@ -109,11 +110,15 @@ public class ReviewDAO {
 			result1 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
-		
+				
 		return result1;
 	}
 	public int insertReview(Connection conn, Review r) {
+//		 insert into review values(seq_board_no.currval, default, default, ?, default)
+
 		PreparedStatement pstmt = null;
 		int result2 = 0;
 		
@@ -127,10 +132,14 @@ public class ReviewDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result2;
 	}
 	public int insertCos_review(Connection conn, Review r) {
+//		insert into cosmetic_review values(seq_board_no.currval, ?)
+
 		PreparedStatement pstmt = null;
 		int result3 = 0;
 		
@@ -143,10 +152,49 @@ public class ReviewDAO {
 			result3 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		
 		return result3;
 	}
+	public ArrayList selectSList(Connection conn) {
+//		select board_title, cosmetic_name, cosmetic_img 
+//		from review 
+//			 join board on(review_no = board_no) 
+//			 join cosmetic_review on(review_no = cos_review_no) 
+//			 join cosmetic using(cosmetic_no) 
+//		order by review_thumbs_up desc
+
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> slideList = null;
+		
+		String query = prop.getProperty("selectSList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			slideList = new ArrayList<Review>();
+			
+			while(rset.next()) {
+				Review r = new Review(rset.getString("board_title"),
+										rset.getString("cosmetic_name"),
+										rset.getString("cosmetic_img"));
+				slideList.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return slideList;
+		
+	}
+
 
 
 

@@ -69,6 +69,13 @@
 				top:80px;
 				width:50px;
 				height:40px;}
+	#upload-btn2{position:absolute;
+				top:15px; 
+				width:100px;
+				height:100px;
+				color:white;
+			   	background: black;}
+			
 	
 	.comment-list-wrap{font-size: 1.1em;}
 	.comment-list-wrap>li{border-bottom: 1px dotted #666;
@@ -121,11 +128,12 @@
                     </p>
                     <input type="hidden" name="content" value="<%= w.getContent() %>">
                     <div class="vote-btn">
-                        <button id="like-btn" class="btn-standard" value="좋아요">좋아요</button>
+                        <button  type="button" id="like-btn" class="btn-standard" value="좋아요">좋아요</button>
                         <span id="like-count" class="counting"><%= w.getWorryThumbUp() %></span>
                         <input type="hidden" name="like" value="<%= w.getWorryThumbUp() %>">
-                        <button id="hate-btn" class="btn-standard" value="싫어요">싫어요</button>
-                        <span id="hate-count" class="counting">0</span>
+                        <button type="button"  id="hate-btn" class="btn-standard" value="싫어요">싫어요</button>
+                        <input type="hidden" name="hate" value="<%= w.getWorryThumbDown() %>">
+                        <span id="hate-count" class="counting"><%= w.getWorryThumbDown() %></span>
                     </div>
                     
                     <% if(fList != null){ %>
@@ -146,10 +154,13 @@
 		                        <button id="delete-btn" class="btn-standard" onclick="location.href='worryDelete.bo'">삭제</button>
 		<!--                         <button id="write-btn" class="btn-standard" value="글쓰기" onclick="location.href='worryWrite.jsp'">글쓰기</button> -->
 	                   		</div>
-	                    <% if(w.getUserNo() == m.getUser_no() ){ %>
-                        <button class="btn-standard" type="submit" id="change-btn" onclick="location.href='worryList.bo'">수정</button>
-                        <button id="delete-btn" class="btn-standard" onclick="location.href='worryDelete.bo'">삭제</button>
-                        <% } %>
+	                   		
+	                    <% if(m != null ){ %>
+		                    <% if(w.getUserNo() == m.getUser_no() ){ %>
+	                        <button class="btn-standard" type="submit" id="change-btn" onclick="location.href='worryList.bo'">수정</button>
+	                        <button id="delete-btn" class="btn-standard" onclick="location.href='worryDelete.bo'">삭제</button>
+	                        <% } %>
+	                    <% } %>    
                         <button class="btn-standard" type="button" value="목록" onclick="location.href='worryList.bo'">목록</button>
                         <button id="prev-worry" class="btn-standard" type="button" value="이전글" onclick="location.href='<%=request.getContextPath()%>/worryDetail.bo?worryNo=<%= w.getWorryNo() - 1%>'">이전글</button>
                         <button id="next-worry" class="btn-standard" type="button" value="다음글" onclick="location.href='<%=request.getContextPath()%>/worryDetail.bo?worryNo=<%= w.getWorryNo() + 1%>'">다음글</button>
@@ -165,7 +176,11 @@
                 <div class="comment-write">
                     
                         <textarea id="comment-area" cols="120" rows="5" placeholder="댓글을 남겨주세요."></textarea>
+                        <%if(m != null) {%>
                         <button id="upload-btn" class="btn-standard" value="등록">등록</button>
+                        <%} else{ %>
+                        <button type="button" id="upload-btn2" class="btn-standard" value="등록"> 댓글을 달기 위해서는 로그인이 필요합니다.</button>
+                        <%} %>
                         <input type="hidden" name='worryNo' value='<%=w.getWorryNo() %>'>
                     
                 </div>
@@ -204,15 +219,15 @@
 		var hateCount = Number($("#hate-count").text());
 		var count = 0;
 		$(function(){
-			$('#like-btn').on('click', function(){
-				if(count == 1){
-					count--;
-				} else if(count == 0){
-				count++;
-				}
-				$("#like-count").text(likeCount + count);
+// 			$('#like-btn').on('click', function(){
+// 				if(count == 1){
+// 					count--;
+// 				} else if(count == 0){
+// 				count++;
+// 				}
+// 				$("#like-count").text(likeCount + count);
 				
-			});
+// 			});
 			$('#hate-btn').on('click', function(){
 				if(count == 1){
 					count--;
@@ -226,34 +241,73 @@
 		
 		
 		$('#upload-btn').click(function(){
-			var userNo = <%= loginUser.getUser_no() %>;
-			var worryNo = '<%= w.getWorryNo()%>';
-			var content = $('#comment-area').val();
+				var userNo = 21;
+				var worryNo = '<%= w.getWorryNo()%>';
+				var content = $('#comment-area').val();
 			
-			$.ajax({
-				url: 'insertComments.bo',
-				data: {userNo:userNo, worryNo:worryNo, content:content},
-				success: function(data){
-					
-					$replyTable = $('#replySelectTable');
-					$replyTable.html("");
-					
-					for(var key in data){
-						var $tr = $('<tr>');
-						var $writerTd = $('<td>').text(data[key].userName).css('width', '200px');
-						var $contentTd = $('<td>').text(data[key].commentsText).css('width', '800px');
-						var $dataTd = $('<td>').text(data[key].commentsDate).css('width', '200px');
+				$.ajax({
+					url: 'insertComments.bo',
+					data: {userNo:userNo, worryNo:worryNo, content:content},
+					success: function(data){
 						
-						$tr.append($writerTd);
-						$tr.append($contentTd);
-						$tr.append($dataTd);
-						$replyTable.append($tr);
+						$replyTable = $('#replySelectTable');
+						$replyTable.html("");
+						
+						for(var key in data){
+							var $tr = $('<tr>');
+							var $writerTd = $('<td>').text(data[key].userName).css('width', '200px');
+							var $contentTd = $('<td>').text(data[key].commentsText).css('width', '800px');
+							var $dataTd = $('<td>').text(data[key].commentsDate).css('width', '200px');
+							
+							$tr.append($writerTd);
+							$tr.append($contentTd);
+							$tr.append($dataTd);
+							$replyTable.append($tr);
+						}
+						$('#comment-area').val("");
+						
 					}
-					$('#comment-area').val("");
-					
+				});
+
+		});
+		
+		$('#like-btn').click(function(){
+			var count = $('#like-count').text();
+			count *= 1;
+			count = count + 1;
+			$.ajax({
+				url:'like.bo',
+				data: {worryNo:<%= w.getWorryNo() %>},
+				success: function(data){
+					$('#like-btn').attr('disabled', true);
+					$('#like-btn').css('background', 'lightgray');
+					$('#hate-btn').attr('disabled', true);
+					$('#like-count').text(count);
+										
+
 				}
+				
 			});
-			
+		});
+		
+		
+		$('#hate-btn').click(function(){
+			var count = $('#hate-count').text();
+			count *= 1;
+			count = count + 1;
+			$.ajax({
+				url:'hate.bo',
+				data: {worryNo:<%= w.getWorryNo() %>},
+				success: function(data){
+					$('#hate-btn').attr('disabled', true);
+					$('#hate-btn').css('background', 'lightgray');
+					$('#like-btn').attr('disabled', true);
+					$('#hate-count').text(count);
+										
+
+				}
+				
+			});
 		});
 		
 		
