@@ -1,405 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String emailNoSNS = (String) session.getAttribute("emailNoSNS");
+	// 소셜로그인용
+	String emailSNS = (String) request.getAttribute("emailSNS");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<style type="text/css">
-div.loginForm {
-	width: 100%;
-	height: 2500px;
-	background-color: #DDDDDD;
-}
 
-div.logoDiv {
-	text-align: center;
-	top: 0%;
-}
-
-img.logoImg {
-	width: 250px;
-	height: 250px;
-}
-
-div.mLogin {
-	width: 65%;
-	height: 94%;
-	background-color : white;
-}
-
-div.bLogin {
-	width: 50%;
-	height: 450px;
-	float: left;
-	border-right: 2px solid slategray;
-}
-
-div.fLogin {
-	width: 50%;
-	height: 450px;
-	float: right;
-}
-
-div.bLogin2 {
-	vertical-align: middle;
-	width: 70%;
-	height: 85%;
-}
-
-div.fLogin2 {
-	width: 70%;
-	height: 85%;
-}
-
-div.loginFont {
-	font-size: 26pt;
-}
-
-div.loginCB {
-	font-size: 13pt;
-	margin-left: 212px;
-}
-
-div.mSignUp {
-	height: 350px;
-	width: 100%;
-	float: right;
-}
-
-div.mSignUpI {
-	height: 300px;
-	width: 85%;
-	border: 1px solid slategray;
-}
-
-div.mSignUpII {
-	width: 42%;
-	height: 300px;
-	float: left;
-	margin-left: 10%;
-	font-size: 25pt;
-}
-
-div.mSignUpIS {
-	width: 42%;
-	height: 350px;
-	float: left;
-}
-
-div.mSignUpISI {
-	font-size: 13pt;
-	color: slategray;
-	font-weight: 100;
-}
-
-div.SUI {
-	width: 90%;
-	text-align: center;
-}
-
-div.SUII {
-	width: 12%;
-	float: left;
-	font-size: 16pt;
-	height: 400px;
-}
-
-div.SUII2 {
-	width: 4%;
-	float: left;
-	font-size: 16pt;
-	height: 400px;
-}
-
-div.SUChk {
-	margin-left: 10%;
-	background-color: white;
-	width: 80%;
-	height: 1665px;
-	text-align: left;
-	float: left;
-	font-size: 16pt;
-	border: 1px solid black;
-}
-
-div.SUChk2 {
-	margin-left: 10%;
-	background-color: white;
-	width: 80%;
-	height: 180px;
-	text-align: left;
-	float: left;
-	font-size: 16pt;
-	border-bottom: 1px solid black;
-}
-
-div.SUChkBF {
-	float: right;
-}
-
-div.SUB {
-	float: left;
-	width: 50%;
-	margin-left: 25%;
-}
-
-div.SUChkMain2 {
-	width: 65%;
-	height: 60px;
-	font-size: 19pt;
-	float: left;
-}
-
-div.SUChkMain5 {
-	width: 30%;
-	float: left;
-	font-size: 15pt;
-}
-
-div.SUChkMain {
-	width: 15%;
-	height: 60px;
-	font-size: 15pt;
-	float: left;
-}
-
-div.SUChkMain3 {
-	width: 75%;
-	height: 80px;
-	font-size: 15pt;
-	float: left;
-}
-
-div.SUChkMainReg{
-	width: 75%;
-	height: 236px;
-	font-size: 15pt;
-	float: left;
-}
-div.SUChkMainAddress {
-	width: 75%;
-	height: 192px;
-	font-size: 15pt;
-	float: left;
-}
-
-div.SUChkSi {
-	width: 5%;
-	height: 100%;
-	float: left;
-}
-
-div.SUChkSi2 {
-	width: 95%;
-	height: 50px;
-	float: left;
-}
-
-div.SUChkSi3 {
-	width: 95%;
-	height: 25px;
-	float: left;
-}
-
-div.SUChkMainICF {
-	height: 30px;
-	width: 450px;
-	float: left;
-}
-
-div.SUChkMainICFE {
-	height: 30px;
-	width: 500px;
-	float: left;
-}
-
-div.SUChkMainRadio {
-	margin-top: 8px;
-}
-
-input.loginInput {
-	width: 610px;
-	height: 50px;
-	font-size: 14pt;
-}
-
-input.loginPBtn {
-	width: 610px;
-	height: 76px;
-	background-color: #DF1758;
-	color: white;
-	border: none;
-	font-size: 12pt;
-}
-
-input.loginPBtnC {
-	height: 20px;
-	width: 20px;
-}
-
-input.loginPBtnF {
-	text-align: left;
-	background-color: white;
-	border: none;
-	font-size: 13pt;
-}
-
-input.loginFBtnN {
-	width: 610px;
-	height: 84px;
-	background-color: #2DB400;
-	color: white;
-	font-size: 12pt;
-	border: none;
-	background-image: url('../../resources/images/naver.png');
-	background-repeat: no-repeat;
-	background-position: 28px 28px;
-}
-
-input.loginFBtnF {
-	width: 610px;
-	height: 84px;
-	background-color: #3b5998;
-	font-size: 12pt;
-	color: white;
-	border: none;
-	background-image: url('../../resources/images/facebook.png');
-	background-repeat: no-repeat;
-	background-position: 28px 28px;
-}
-
-input.loginFBtnK {
-	width: 610px;
-	height: 84px;
-	background-color: #f9df00;
-	font-size: 12pt;
-	color: #3b1c1c;
-	border: none;
-	background-image: url('../../resources/images/kakao3.png');
-	background-repeat: no-repeat;
-	background-position: 28px 28px;
-}
-
-input.mSignUpISB {
-	width: 350px;
-	height: 60px;
-	background-color: white;
-	color: #DF1758;
-	border-radius: 30px;
-	border: 2px solid #DF1758;
-	font-size: 15pt;
-	background-image: url('../../resources/images/signup2.jpg');
-	background-repeat: no-repeat;
-	background-position: 45px 5px;
-}
-
-input.SUChkC {
-	width: 35px;
-	height: 35px;
-	background-color: white;
-	border: 1px solid black;
-}
-
-input.SUChkBt {
-	font-size: 13pt;
-	background-color: #DF1758;
-	border: none;
-	color: white;
-	width: 150px;
-	height: 60px;
-	margin-right: 0px;
-}
-
-input.SUBC {
-	width: 300px;
-    height: 70px;
-    font-size: 14pt;
-}
-
-input.SUChkMainI {
-	width: 250px;
-	height: 45px;
-}
-
-input.imgAlert1 {
-	width: 500px;
-	height: 50px;
-	background-color: white;
-	border: none;
-	background-image: url('../../resources/images/AlertIcon1_1_1.png');
-	background-repeat: no-repeat;
-	background-position: -5px -10px;
-	font-size: 10pt;
-	color: #595959;
-}
-
-input.imgAlert2 {
-	width: 50px;
-	height: 50px;
-	background-color: white;
-	border: none;
-	background-image: url('../../resources/images/AlertIcon2_1_12.png');
-	background-repeat: no-repeat;
-	background-position: -5px -10px;
-}
-
-input.SUChkMainIE {
-	width: 320px;
-	height: 46px;
-}
-
-input.SUChkMainIE2 {
-	width: 30px;
-	height: 46px;
-}
-
-input.SUChkMainIEFront {
-	width: 150px;
-	height: 46px;
-}
-
-input.SUChkMainICFBirth {
-	width: 100px;
-	height: 46px;
-}
-
-input.SUChkMainICFBirthh {
-	width: 100px;
-	height: 46px;
-}
-
-input.SUChkMainICFBirth2 {
-	width: 50px;
-	height: 46px;
-}
-
-input.SUChkMainGender {
-	width: 50px;
-	height: 46px;
-}
-
-img.SUImg {
-	width: 220px;
-	height: 220px;
-	text-align: left;
-}
-
-img.SUImg2 {
-	width: 35px;
-	height: 35px;
-}
-
-h3.SUImgI {
-	font-size: 17pt;
-    font-weight: 600;
-}
-
-/*filebox*/
-/*checkbox*/
-</style>
 <%@ include file="/views/layout/import.jsp"%>
+
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/commonCss/SignUpHospital3.css"
+	type="text/css">
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/toggle.css"
@@ -557,8 +174,18 @@ h3.SUImgI {
 						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
 				<div class="SUChkMain3">
-					<input type="email" class="SUChkMainIE" name="email"> 
-					
+					<input type="email" class="SUChkMainIE" name="email"
+					<% if(emailSNS != null) { %>
+						value="<%= emailSNS %>" readonly 
+					<% } else { %>
+						value="<%= emailNoSNS %>" readonly 
+					<% } %>
+					> 
+					<div style="display: inline-block;">
+						<div class="SUChkMainICF" id="nameConfirmmTT">
+							<input type="button" class="imgAlert2" disabled>
+						</div>
+					</div>
 					<div style="display: inline-block;">
 						<div class="SUChkMainICFE" id="emailConfirmmF"
 							style="width: 50px;">
@@ -723,6 +350,7 @@ h3.SUImgI {
 			$("#SUBCC2").hide();
 			$("#SUBCC1").show();
 			$("#genderConfirmmN").show();
+			$("#nameConfirmmTT").show();
 		});
 		
 		$("#phoneCF1").keyup(function() {
@@ -753,10 +381,10 @@ h3.SUImgI {
 							var flag5 = false;
 							var flag6 = false;
 
-							var regi = /^(?=.*?[A-Z,a-z])(?=.*?[0-9]).{8,}$/;
+							var regi = /^[A-Za-z0-9]{8,}$/;
 							var id = $("#SUChkMainIID").val();
 
-							var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+							var reg = /^[A-Za-z0-9#?!@$%^&*-]{8,}$/;
 							var pwd = $("#SUChkMainIPwd").val();
 							
 							var pwdd = $("#SUChkMainIPwdC").val();
