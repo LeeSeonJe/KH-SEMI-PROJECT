@@ -7,7 +7,7 @@ public class Review {
 	private int review_no;
 	private int thumbs_up;
 	private int heart;
-	private char del_yn;
+	private String del_yn;
 	private String title;
 	private String content;
 	private Date date;
@@ -19,9 +19,41 @@ public class Review {
 	private String cosmetic_img;
 	private int thumbs_down;
 	
+	private int age;
+	private String skintype;
+	private String gender;
+	private String profile_image;
+	
 	public Review () {}
 
 	
+	public Review(int review_no, int thumbs_up, int heart, String del_yn, String title, String content, Date date,
+			String category, String userName, String cosmetic_name, String cosmetic_img, int thumbs_down, int age,
+			String skintype, String gender, String profile_image) {
+		super();
+		this.review_no = review_no;
+		this.thumbs_up = thumbs_up;
+		this.heart = heart;
+		this.del_yn = del_yn;
+		this.title = title;
+		this.content = content;
+		this.date = date;
+		this.category = category;
+		this.userName = userName;
+		this.cosmetic_name = cosmetic_name;
+		this.cosmetic_img = cosmetic_img;
+		this.thumbs_down = thumbs_down;
+		this.age = age;
+		this.skintype = skintype;
+		this.gender = gender;
+		this.profile_image = profile_image;
+	}
+
+
+
+
+
+
 	public Review(String title, String cosmetic_name, String cosmetic_img) {
 		super();
 		this.title = title;
@@ -79,7 +111,7 @@ public class Review {
 		this.cosmetic_no = cosmetic_no;
 	}
 
-	public Review(int review_no, int thumbs_up, int heart, char del_yn, String title, String content, Date date,
+	public Review(int review_no, int thumbs_up, int heart, String del_yn, String title, String content, Date date,
 			String category, String userName, int user_no) {
 		super();
 		this.review_no = review_no;
@@ -96,7 +128,7 @@ public class Review {
 	
 
 	public Review(String title, int user_no, String content, String cosmetic_name, int review_no, int thumbs_up,
-			String cosmetic_img, int cosmetic_no, String category, Date date, int heart, char del_yn, String userName,
+			String cosmetic_img, int cosmetic_no, String category, Date date, int heart, String del_yn, String userName,
 			int thumbs_down) {
 		super();
 		this.title = title;
@@ -140,11 +172,11 @@ public class Review {
 		this.heart = heart;
 	}
 
-	public char getDel_yn() {
+	public String getDel_yn() {
 		return del_yn;
 	}
 
-	public void setDel_yn(char del_yn) {
+	public void setDel_yn(String del_yn) {
 		this.del_yn = del_yn;
 	}
 
@@ -236,14 +268,58 @@ public class Review {
 	}
 
 
+	public int getAge() {
+		return age;
+	}
+
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+
+	public String getSkintype() {
+		return skintype;
+	}
+
+
+	public void setSkintype(String skintype) {
+		this.skintype = skintype;
+	}
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+	public String getProfile_image() {
+		return profile_image;
+	}
+
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Review [review_no=" + review_no + ", thumbs_up=" + thumbs_up + ", heart=" + heart + ", del_yn=" + del_yn
 				+ ", title=" + title + ", content=" + content + ", date=" + date + ", category=" + category
 				+ ", userName=" + userName + ", user_no=" + user_no + ", cosmetic_no=" + cosmetic_no
 				+ ", cosmetic_name=" + cosmetic_name + ", cosmetic_img=" + cosmetic_img + ", thumbs_down=" + thumbs_down
+				+ ", age=" + age + ", skintype=" + skintype + ", gender=" + gender + ", profile_image=" + profile_image
 				+ "]";
 	}
+
+
+
 
 
 	

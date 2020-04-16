@@ -39,6 +39,7 @@ public class ReviewListServlet extends HttpServlet {
 		ArrayList<Review> slideList = service.selectSList();
 		
 		int listCount = service.getListCount();
+		System.out.println(listCount);
 		
 		int currentPage;		// 현재 페이지
 		int pageLimit = 10;		// 한 페이지에 표시될 페이징 수
@@ -46,7 +47,7 @@ public class ReviewListServlet extends HttpServlet {
 		int startPage;			// 페이징 된 페이지 중 시작 페이지
 		int endPage;			// 페이징 된 페이지 중 마지막 페이지
 		int boardLimit = 10;	// 한 페이지에 보일 게시글 수
-		
+
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -62,7 +63,7 @@ public class ReviewListServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
+		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);		
 			
 		ArrayList<Review> list = service.selectList(currentPage, boardLimit);
 		
