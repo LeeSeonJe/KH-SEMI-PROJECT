@@ -52,7 +52,6 @@ public class BrandDAO {
 			}
 		}
 		PreparedStatement pstmt = null;
-		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Brand> list = new ArrayList<Brand>();
 		try {
@@ -102,7 +101,7 @@ public class BrandDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		return list;
 	}
@@ -122,7 +121,7 @@ public class BrandDAO {
 			while (rset.next()) {
 				cList.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
 						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
-						rset.getInt("WEEK_RANK"), rset.getInt("LASTWEEK_RANK"), rset.getString("BRAND_NAME"),
+						rset.getInt("COUNT"), rset.getInt("AVG"), rset.getString("BRAND_NAME"),
 						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
 			}
 

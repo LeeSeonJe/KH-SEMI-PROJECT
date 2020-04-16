@@ -70,12 +70,11 @@ h3 {
       <hr>
          <!-- 작성 -->
    <div id="slide"><!-- 슬라이드 -->
-   <button class="btn-direction"><img id="prev" src="<%= request.getContextPath() %>/resources/images/prev.png"></button>
-   <img class="slides" id="slide1" src="<%= request.getContextPath() %>/resources/images/manbw-1000x400.jpg">
-   <img class="slides" id="slide2" src="<%= request.getContextPath() %>/resources/images/mountain4-1000x400.jpg">
-   <img class="slides" id="slide3" src="<%= request.getContextPath() %>/resources/images/galaxy-1000x400.jpg">
-   <button class="btn-direction"><img id="next" src="<%= request.getContextPath() %>/resources/images/next.png"></button>
-
+	   <button class="btn-direction"><img id="prev" src="<%= request.getContextPath() %>/resources/images/prev.png"></button>
+	   <img class="slides" id="slide1" src="<%= request.getContextPath() %>/resources/images/manbw-1000x400.jpg">
+	   <img class="slides" id="slide2" src="<%= request.getContextPath() %>/resources/images/mountain4-1000x400.jpg">
+	   <img class="slides" id="slide3" src="<%= request.getContextPath() %>/resources/images/galaxy-1000x400.jpg">
+	   <button class="btn-direction"><img id="next" src="<%= request.getContextPath() %>/resources/images/next.png"></button>
    </div><!-- 슬라이드 끝 -->      
  
 <script type="text/javascript">

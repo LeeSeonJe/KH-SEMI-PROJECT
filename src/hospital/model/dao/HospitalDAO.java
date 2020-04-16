@@ -7,7 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import customer.model.dao.CustomerDAO;
@@ -52,6 +55,109 @@ public class HospitalDAO {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Hospital> selectHospitalList(Connection conn, String hospitalFilter) {
+		PreparedStatement pstmt = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Hospital> list = new ArrayList<Hospital>();
+		
+		try {
+			if(hospitalFilter == null || hospitalFilter.equals("랭킹순")) {
+				String query = prop.getProperty("selectHospitalList");
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				while(rset.next()) {
+					list.add(new Hospital(rset.getString("user_name"),
+										rset.getString("hospital_about"),
+										rset.getString("address"),
+										rset.getString("hospital_img"),
+										rset.getDouble("hospital_heart"),
+										rset.getDouble("review_count")));
+				}
+			} else if(hospitalFilter.equals("리뷰 많은 순")) {
+				String query = prop.getProperty("selectReviewH");
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				while(rset.next()) {
+					list.add(new Hospital(rset.getString("user_name"),
+										rset.getString("hospital_about"),
+										rset.getString("address"),
+										rset.getString("hospital_img"),
+										rset.getDouble("hospital_heart"),
+										rset.getDouble("review_count")));
+				}
+			} else if(hospitalFilter.equals("리뷰 적은 순")) {
+				String query = prop.getProperty("selectReviewL");
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				while(rset.next()) {
+					list.add(new Hospital(rset.getString("user_name"),
+										rset.getString("hospital_about"),
+										rset.getString("address"),
+										rset.getString("hospital_img"),
+										rset.getDouble("hospital_heart"),
+										rset.getDouble("review_count")));
+				}
+			} else if(hospitalFilter.equals("평점 높은 순")) {
+				String query = prop.getProperty("selectHeartH");
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				while(rset.next()) {
+					list.add(new Hospital(rset.getString("user_name"),
+										rset.getString("hospital_about"),
+										rset.getString("address"),
+										rset.getString("hospital_img"),
+										rset.getDouble("hospital_heart"),
+										rset.getDouble("review_count")));
+				}
+			} else if(hospitalFilter.equals("평점 낮은 순")) {
+				String query = prop.getProperty("selectHeartL");
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				while(rset.next()) {
+					list.add(new Hospital(rset.getString("user_name"),
+										rset.getString("hospital_about"),
+										rset.getString("address"),
+										rset.getString("hospital_img"),
+										rset.getDouble("hospital_heart"),
+										rset.getDouble("review_count")));
+				}
+			} else if(hospitalFilter.equals("답변 많은 순")) {
+				String query = prop.getProperty("selectReplyH");
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				while(rset.next()) {
+					list.add(new Hospital(rset.getString("user_name"),
+										rset.getString("hospital_about"),
+										rset.getString("address"),
+										rset.getString("hospital_img"),
+										rset.getDouble("hospital_heart"),
+										rset.getDouble("review_count")));
+				}
+			} else if(hospitalFilter.equals("답변 적은 순")) {
+				String query = prop.getProperty("selectReplyL");
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				while(rset.next()) {
+					list.add(new Hospital(rset.getString("user_name"),
+										rset.getString("hospital_about"),
+										rset.getString("address"),
+										rset.getString("hospital_img"),
+										rset.getDouble("hospital_heart"),
+										rset.getDouble("review_count")));
+				}
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }

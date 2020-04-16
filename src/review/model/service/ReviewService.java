@@ -49,6 +49,16 @@ public class ReviewService {
 		return result1;
 	}
 
+	public ArrayList<Review> selectSList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> slideList = new ReviewDAO().selectSList(conn);
+		
+		close(conn);
+		
+		return slideList;
+	}
+
 
 
 

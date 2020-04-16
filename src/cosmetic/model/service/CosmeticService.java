@@ -8,13 +8,17 @@ import java.util.ArrayList;
 
 import cosmetic.model.dao.CosmeticDAO;
 import cosmetic.model.vo.Cosmetic;
+import cosmetic.model.vo.CosmeticReviewList;
 
 public class CosmeticService {
 
 	public ArrayList<Cosmetic> selectCosmeticList(String cos_middle_no) {
 		Connection conn = getConnection();
-		ArrayList<Cosmetic> list = new CosmeticDAO().selectCosmeticList(conn, cos_middle_no);
-		
+		ArrayList<Cosmetic> rlist = new CosmeticDAO().rSelectCosmeticList(conn, cos_middle_no);
+		ArrayList<Cosmetic> nrlist = new CosmeticDAO().nrSelectCosmeticList(conn, cos_middle_no);
+		ArrayList<Cosmetic> list = new ArrayList<Cosmetic>();
+		list.addAll(rlist);
+		list.addAll(nrlist);
 		close(conn);
 		return list;
 	}
@@ -47,12 +51,29 @@ public class CosmeticService {
 		CosmeticDAO c = new CosmeticDAO();
 		String result = c.selectCosmeticCategory(conn, middleCategory);
 		ArrayList<Cosmetic> list = null;
-		if(!result.equals("0") && findInput.equals("all")) {
+		if (!result.equals("0") && findInput.equals("all")) {
 			list = c.selectCosmeticList(conn, result);
 		} else {
 			list = c.selectCosmeticSearchList(conn, result, findInput);
 		}
+		close(conn);
 		return list;
+	}
+
+	public ArrayList<CosmeticReviewList> cosmeticReviewList(String cosName) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		ArrayList<CosmeticReviewList> rList = new CosmeticDAO().cosmeticReviewList(conn, cosName);
+		close(conn);
+		return rList;
+	}
+
+	public double[] ReviewCountAvg(String cosName) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		double[] rca = new CosmeticDAO().ReviewCountAvg(conn, cosName);
+		close(conn);
+		return rca;
 	}
 
 }

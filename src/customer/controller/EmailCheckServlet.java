@@ -82,9 +82,9 @@ public class EmailCheckServlet extends HttpServlet {
 			msg.setFrom(new InternetAddress(user, "COSMEDIC"));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
 			
-			msg.setSubject("안녕하세요 COSMEDIC 인증 메일입니다.");
+			msg.setSubject("안녕하세요 COSMEDIC 인증메일입니다.	");
 			
-			msg.setText("인증 번호 : " +temp);
+			msg.setText("인증번호 : " +temp);
 			
 			Transport.send(msg);
 		} catch(Exception e) {
