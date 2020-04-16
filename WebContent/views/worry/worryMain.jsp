@@ -6,6 +6,8 @@
 	ArrayList<Worry> hitList = (ArrayList<Worry>)request.getAttribute("hitList");
 	ArrayList<Worry> lowList = (ArrayList<Worry>)request.getAttribute("lowList");
 	
+	String value = (String)request.getAttribute("value");
+	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 	int currentPage = pi.getCurrentPage();
@@ -69,11 +71,6 @@
 	    
 	.worry-board-top{position: relative;}
 	    
-	#worry-btn1, #worry-btn2{position: absolute;
-							 bottom: -32px;}
-	#worry-btn1{left:490px;}
-	#worry-btn2{right:497px;}
-	
 	
 	
 	/*게시글*/
@@ -121,7 +118,10 @@
 	#rank2{width:350px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap}
 	#rank3{width:30px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap}
   	#topListNum{display: none;} 
- 	
+ 	#fail{text-align:center;}
+ 	.best{display: inline-block; font-size:2em;} 
+ 	.reply{display: inline-block; cursor:pointer;}
+ 	.reply:hover{text-decoration: underline;}
 </style>
 
 
@@ -136,7 +136,7 @@
 				<div class="worry-board-top">
 					<section class="board-best">
 						<div class="board-best-wrap">
-	                    <h3>베스트 고민글</h3>
+	                    <div class ="best">베스트 고민글</div>&nbsp;&nbsp;&nbsp;&nbsp; <div id="worry-btn2" class="reply">답글을 기다리는 고민</div>
 	                    	
 		                    <ol id="rank10">
 		                    	<% for(int i = 0; i < 10; i++){ %>
@@ -151,7 +151,7 @@
 	                </section>
 					<section class="wait-comment">
 						<div class="wait-comment-wrap">
-	                    <h3>답글을 기다리는 고민</h3>
+	                    <div class ="best">답글을 기다리는 고민</div>&nbsp;&nbsp;&nbsp;&nbsp; <div class="reply" id="worry-btn1">베스트 고민글</div> 
 		                    <ol id="rank10">
 		                    	<% for(int i = 0; i < 10; i++){ %>
 		                    		<%if (i < lowList.size()){ %> 
@@ -164,16 +164,22 @@
 							</ol>
 	                    </div>
 	                </section>
-	                <button id="worry-btn1" class="btn-standard" type="button" value="1">1</button>
-	                <button id="worry-btn2" class="btn-standard" type="button" value="2">2</button>
+	               
 	               </div>
 	            <form></form>   
                 <section class="worry-list">
                 	<div class="list-order">
-	                    <select name="select-view" onchange="window.open(value,'_self');">
-	                        <option value="worryList.bo">최신순</option>
-	                        <option value="worryList2.bo">인기순</option>
+                	<% if(value.equals("hit")){ %>
+	                    <select id ="select" name="select-view" onchange="change()">
+	                        <option value="hit" selected>최신순</option>
+	                        <option value="thumb">인기순</option>
 	                    </select>
+	                    <%} else { %>
+	                    	<select id ="select" name="select-view" onchange="change()">
+	                        <option value="hit">최신순</option>
+	                        <option value="thumb" selected>인기순</option>
+	                    </select>
+	                    <%} %>
                     </div>
                     
   
@@ -188,18 +194,26 @@
                             <th width="10%;">조회수</th>
                         </tr>
                         </thead>
+                        
                         <tbody>
-                        	<% for(int i = 0; i< list.size(); i++){ %>
-                        	<tr>
-                        		<td><%= list.get(i).getWorryNo() %></td>
-                        		<td><%=list.get(i).getTitle() %></td>
-                        		<td><%=list.get(i).getUserName() %></td>
-                        		<td><%= list.get(i).getDate() %></td>
-                        		<td><%= list.get(i).getWorryThumbUp() %></td>
-                        		<td><%= list.get(i).getHit() %></td>
-                        	</tr>
-                        	<%} %>
+                        	<% if(list.size() == 0){ %>
+	                        	<tr>
+	                        		<th colspan = "6" id="fail">조회 결과가 없습니다.</th>
+	                        	</tr>
+                        	<% } else{ %>
+	                        		<% for(int i = 0; i< list.size(); i++){ %>
+	                        	<tr>
+	                        		<td><%= list.get(i).getWorryNo() %></td>
+	                        		<td><%=list.get(i).getTitle() %></td>
+	                        		<td><%=list.get(i).getUserName() %></td>
+	                        		<td><%= list.get(i).getDate() %></td>
+	                        		<td><%= list.get(i).getWorryThumbUp() %></td>
+	                        		<td><%= list.get(i).getHit() %></td>
+	                        	</tr>
+                        		<%} %>
+                      		<% } %>	
                         </tbody>
+                        
                     </table>
                     				
                     
@@ -245,16 +259,17 @@
 			
                     <button id="write-btn" class="btn-standard" type="button" value="글쓰기" onclick="location.href='<%= request.getContextPath() %>/views/worry/worryWrite.jsp'">글쓰기</button>
                 </section>
-                <form class="worry-list-filter" name="worry-board-form">
+                <form class="worry-list-filter" name="worry-board-form" action="worryList3.bo">
+                
                     <div class="worry-list-filter-wrap">
 		            <select id="worry-list-select" name="select-worry">
 		                <option value="total">전체</option>
-		                <option value="writer">작성자</option>
-		                <option value="text">내용</option>
+		                <option value="name">작성자</option>
+		                <option value="content">내용</option>
 		            </select>
 		                <span class="sch">
-		                 <button type="button"><img src="<%= request.getContextPath() %>/resources/images/search_icon.png"></button>
-		                 <input type="text">
+		                 <button><img src="<%= request.getContextPath() %>/resources/images/search_icon.png"></button>
+		                 <input name="text" type="text">
 		                </span>
 		            </div>
                 </form>
@@ -289,11 +304,26 @@
 		$('#rank10 div').mouseenter(function(){
 			$('#rank10 li').css('cursor', 'pointer');
 		});
-
+		
+		
+		
 	});
 	
 	
-	
+	function change(){
+		var change = document.getElementById('select');
+		console.log(change);
+		var change2 = change.options[change.selectedIndex].value;
+		console.log(change2);
+		
+		if(change2 == 'thumb'){
+			window.open("worryList2.bo", "_self");
+			$('#select').val("thumb").attr("selected", "selected");
+		} else {
+			window.open("worryList.bo", "_self");
+		}
+		
+	}
 	
 	
 	

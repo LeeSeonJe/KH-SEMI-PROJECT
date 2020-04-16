@@ -30,21 +30,21 @@ public class CosmeticDAO {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public ArrayList<Cosmetic> selectCosmeticList(Connection conn, String cos_middle_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("selectCosmeticList");
-		ArrayList<Cosmetic> cList = new ArrayList<Cosmetic>();
+		ArrayList<Cosmetic> list = new ArrayList<Cosmetic>();
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, cos_middle_no);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				cList.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
+				list.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
 						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
-						rset.getInt("WEEK_RANK"), rset.getInt("LASTWEEK_RANK"), rset.getString("BRAND_NAME"),
+						rset.getInt("COUNT"), rset.getDouble("AVG"), rset.getString("BRAND_NAME"),
 						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
 			}
 		} catch (SQLException e) {
@@ -55,7 +55,63 @@ public class CosmeticDAO {
 			close(pstmt);
 		}
 
-		return cList;
+		return list;
+	}
+	
+
+	public ArrayList<Cosmetic> rSelectCosmeticList(Connection conn, String cos_middle_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("rSelectCosmeticList");
+		ArrayList<Cosmetic> rlist = new ArrayList<Cosmetic>();
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cos_middle_no);
+			pstmt.setString(2, cos_middle_no);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				rlist.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
+						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
+						rset.getInt("COUNT"), rset.getDouble("AVG"), rset.getString("BRAND_NAME"),
+						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return rlist;
+	}
+	
+	public ArrayList<Cosmetic> nrSelectCosmeticList(Connection conn, String cos_middle_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("nrSelectCosmeticList");
+		ArrayList<Cosmetic> nrlist = new ArrayList<Cosmetic>();
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cos_middle_no);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				nrlist.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
+						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
+						rset.getInt("COUNT"), rset.getDouble("AVG"), rset.getString("BRAND_NAME"),
+						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return nrlist;
 	}
 
 	public String cosMiddleName(Connection conn, String cos_middle_no) {
@@ -99,7 +155,7 @@ public class CosmeticDAO {
 			if (rset.next()) {
 				c = new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
 						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
-						rset.getInt("WEEK_RANK"), rset.getInt("LASTWEEK_RANK"), rset.getString("BRAND_NAME"),
+						rset.getInt("COUNT"), rset.getDouble("AVG"), rset.getString("BRAND_NAME"),
 						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG"));
 			}
 		} catch (SQLException e) {
@@ -177,7 +233,7 @@ public class CosmeticDAO {
 			while (rset.next()) {
 				list.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
 						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
-						rset.getInt("WEEK_RANK"), rset.getInt("LASTWEEK_RANK"), rset.getString("BRAND_NAME"),
+						rset.getInt("COUNT"), rset.getDouble("AVG"), rset.getString("BRAND_NAME"),
 						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
 			}
 		} catch (SQLException e) {
@@ -271,4 +327,6 @@ public class CosmeticDAO {
 
 		return rca;
 	}
+
+
 }
