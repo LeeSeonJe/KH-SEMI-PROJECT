@@ -61,6 +61,7 @@ public class worryListServlet2 extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
+
 		
 		ArrayList<Worry> list = service.selectList2(currentPage, boardLimit);
 		ArrayList<Worry> topList = new WorryService().selectTopList();
@@ -74,7 +75,11 @@ public class worryListServlet2 extends HttpServlet {
 		request.setAttribute("hitList", hitList);
 		request.setAttribute("pi", pi);
 		
+		String value = "thumb";
+		request.setAttribute("value", value);
+		
 		view.forward(request, response);
+		
 		
 	}
 
