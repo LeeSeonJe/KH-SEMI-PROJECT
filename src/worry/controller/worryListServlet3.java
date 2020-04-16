@@ -18,14 +18,14 @@ import worry.model.vo.Worry;
 /**
  * Servlet implementation class worryList
  */
-@WebServlet("/worryList.bo")
-public class worryListServlet extends HttpServlet {
+@WebServlet("/worryList3.bo")
+public class worryListServlet3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public worryListServlet() {
+    public worryListServlet3() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -63,27 +63,31 @@ public class worryListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 		
 		
+		String text = request.getParameter("text");
+		String select = request.getParameter("select-worry");
 		
 		
-		ArrayList<Worry> list = service.selectList(currentPage, boardLimit);
+		
+		ArrayList<Worry> list = service.selectList2(currentPage, boardLimit);
 		ArrayList<Worry> topList = new WorryService().selectTopList();
 		ArrayList<Worry> lowList = new WorryService().selectLowList();
 		ArrayList<Worry> hitList = new WorryService().selectHitList();
-
+		ArrayList<Worry> searchList = new WorryService().selectSearchList(text, select);
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/worry/worryMain.jsp");
-		request.setAttribute("list", list);
+		request.setAttribute("list", searchList);
 		request.setAttribute("topList", topList);
 		request.setAttribute("lowList", lowList);
 		request.setAttribute("hitList", hitList);
+		request.setAttribute("searchList", searchList);
 		request.setAttribute("pi", pi);
 		
-		String value = "hit";
+		String value = "thumb";
 		request.setAttribute("value", value);
 		
 		view.forward(request, response);
 		
-
+		
 	}
 
 	/**

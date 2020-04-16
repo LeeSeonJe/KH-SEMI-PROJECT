@@ -188,6 +188,17 @@ public class WorryService {
 		return lowList;
 	}
 
+	public ArrayList<Worry> selectSearchList(String text, String select) {
+		Connection conn = getConnection();
+		
+		ArrayList<Worry> searchList = new WorryDAO().selectSearchList(conn, text, select);
+		
+		
+		close(conn);
+		
+		return searchList;
+	}
+
 }
 
 
