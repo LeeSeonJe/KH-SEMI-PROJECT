@@ -306,7 +306,7 @@ span.star-prototype > * {
 				<div id="cosmetic-middle-category">
 					 <%@include file="/views/cosmetic/select_category.jsp" %>
 				</div>
-				<button id="category-btn" type="submit">적용</button>
+				<button id="category-btn" type="button">적용</button>
 				<br><br>
 				<section>
 					<ul>
@@ -352,6 +352,23 @@ span.star-prototype > * {
 	<%@ include file="/views/layout/footer.jsp"%>
 
 	<script>
+		/* 화장품 카테고리 변경 시 사용하는 ajax */
+		$('#category-btn').click(function(){
+			console.log('적용버튼');
+			var middleCategory = $('.middle-category[name="middle"]').val();
+			console.log(tt);
+			
+			$.ajax({
+				url: cosmetic.li,
+				data: {
+					middleCategory:middleCategory
+				},
+				success: function(data){
+					
+				}
+			})
+		})
+	
 		/* 별점 스크립트 */
 		$.fn.generateStars = function() {
 			return this.each(function(i,e){

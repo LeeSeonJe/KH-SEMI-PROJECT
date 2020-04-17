@@ -261,7 +261,7 @@ span.star-prototype > * {
 					<div id="cosmetic-beauty-filter">
 						<div id="cosmetic-beauty-filter-header">
 							<h3>필터</h3>
-							<button id="reset-btn" type="reset">초기화</button>
+							<button id="reset-btn" type="button">초기화</button>
 						</div>
 						<br>
 						<div id="cosmetic-beauty-filter-select">
@@ -269,39 +269,39 @@ span.star-prototype > * {
 								<legend>
 									<h4>성별</h4>
 								</legend>
-								<input type="radio" id="filter-sex-all" class="radioChkActive" name="filter-sex" value="filter-sex-all" checked="checked"/> <label for="filter-sex-all">전체</label>
-								<input type="radio" id="filter-sex-female" class="radioChk" name="filter-sex" value="filter-sex-female"/> <label for="filter-sex-female">여자</label>
-								<input type="radio" id="filter-sex-male" class="radioChk" name="filter-sex" value="filter-sex-male"/> <label for="filter-sex-male">남자</label>						
+								<input type="radio" id="filter-sex-all" class="radioChkActive" name="filter-sex" value="ALL" checked="checked"/> <label for="filter-sex-all">전체</label>
+								<input type="radio" id="filter-sex-female" class="radioChk" name="filter-sex" value="여성"/> <label for="filter-sex-female">여자</label>
+								<input type="radio" id="filter-sex-male" class="radioChk" name="filter-sex" value="남성"/> <label for="filter-sex-male">남자</label>						
 							</fieldset>
 							<br>
 							<fieldset>
 								<legend>
 									<h4>연령대</h4>
 								</legend>
-								<input type="checkbox" id="filter-age-all" class="chkboxChkActive" name="filter-age-all" value="filter-age-all" checked="checked" /> <label for="filter-age-all">전체</label>
-								<input type="checkbox" id="filter-age-10" class="chkboxChk" name="filter-age" value="filter-age-10" /> <label for="filter-age-10">10대</label>
-								<input type="checkbox" id="filter-age-20u" class="chkboxChk" name="filter-age" value="filter-age-20u" /> <label for="filter-age-20u">20대 초반</label>	
+								<input type="checkbox" id="filter-age-all" class="chkboxChkActive" name="filter-age-all" value="ALL" checked="checked" /> <label for="filter-age-all">전체</label>
+								<input type="checkbox" id="filter-age-10" class="chkboxChk" name="filter-age" value="10대" /> <label for="filter-age-10">10대</label>
+								<input type="checkbox" id="filter-age-20u" class="chkboxChk" name="filter-age" value="20대 초반" /> <label for="filter-age-20u">20대 초반</label>	
 								<br><br>
-								<input type="checkbox" id="filter-age-20d" class="chkboxChk" name="filter-age" value="filter-age-20d" /> <label for="filter-age-20d">20대 후반</label>	
-								<input type="checkbox" id="filter-age-30" class="chkboxChk" name="filter-age" value="filter-age-30" /> <label for="filter-age-30">30대 초반</label>	
-								<input type="checkbox" id="filter-age-30u" class="chkboxChk" name="filter-age" value="filter-age-30u" /> <label for="filter-age-30u">30대 후반</label>	
+								<input type="checkbox" id="filter-age-20d" class="chkboxChk" name="filter-age" value="20대 후반" /> <label for="filter-age-20d">20대 후반</label>	
+								<input type="checkbox" id="filter-age-30" class="chkboxChk" name="filter-age" value="30대 초반" /> <label for="filter-age-30">30대 초반</label>	
+								<input type="checkbox" id="filter-age-30u" class="chkboxChk" name="filter-age" value="30대 후반" /> <label for="filter-age-30u">30대 후반</label>	
 							</fieldset>
 							<br>
 							<fieldset>
 								<legend>
 									<h4>피부타입</h4>
 								</legend>
-								<input type="checkbox" id="filter-skinType-all" class="chkboxChkActive" name="filter-skinType-all" value="filter-skinType-all"/> <label for="filter-skinType-all">전체</label>
-								<input type="checkbox" id="filter-skinType-dry" class="chkboxChk" name="filter-skinType" value="filter-skinType-dry"/> <label for="filter-skinType-dry">건성</label>
-								<input type="checkbox" id="filter-skinType-oily" class="chkboxChk" name="filter-skinType" value="filter-skinType-oily"/> <label for="filter-skinType-oily">지성</label>	
+								<input type="checkbox" id="filter-skinType-all" class="chkboxChkActive" name="filter-skinType-all" value="ALL" checked="checked"/> <label for="filter-skinType-all">전체</label>
+								<input type="checkbox" id="filter-skinType-dry" class="chkboxChk" name="filter-skinType" value="건성"/> <label for="filter-skinType-dry">건성</label>
+								<input type="checkbox" id="filter-skinType-oily" class="chkboxChk" name="filter-skinType" value="지성"/> <label for="filter-skinType-oily">지성</label>	
 								<br><br>
-								<input type="checkbox" id="filter-skinType-neutral" class="chkboxChk" name="filter-skinType" value="filter-skinType-neutral"/> <label for="filter-skinType-neutral">중성</label>	
-								<input type="checkbox" id="filter-skinType-combi" class="chkboxChk" name="filter-skinType" value="filter-skinType-combi"/> <label for="filter-skinType-combi">복합성</label>	
-								<input type="checkbox" id="filter-skinType-sensitive" class="chkboxChk" name="filter-skinType" value="filter-skinType-sensitive"/> <label for="filter-skinType-sensitive">민감성</label>	
+								<input type="checkbox" id="filter-skinType-neutral" class="chkboxChk" name="filter-skinType" value="중성"/> <label for="filter-skinType-neutral">중성</label>	
+								<input type="checkbox" id="filter-skinType-combi" class="chkboxChk" name="filter-skinType" value="복합성"/> <label for="filter-skinType-combi">복합성</label>	
+								<input type="checkbox" id="filter-skinType-sensitive" class="chkboxChk" name="filter-skinType" value="민감성"/> <label for="filter-skinType-sensitive">민감성</label>	
 							</fieldset>
 								<br><br>
 							<div id="select-btn-center">
-								<button id="select-btn" type="submit">필터적용</button>
+								<button id="select-btn" type="button">필터적용</button>
 							</div>
 							<br><br><br>
 							<h1 id="keyword_search">키워드 검색</h1>
@@ -317,7 +317,7 @@ span.star-prototype > * {
 					<h2>리뷰</h2>
 					<br><br>
 					<section>
-						<ul>
+						<ul id="ul-area">
 						<% for (int i = 0; i < rList.size(); i++ ) {%>
 							<li class="review_list">
 								<div class="userInfo">
@@ -330,15 +330,15 @@ span.star-prototype > * {
 										<span class="wName"><%= rList.get(i).getUser_name() %></span>									
 										<span class="wDate"><%= rList.get(i).getBoard_date() %></span>
 									</div>
-								<div class="userDetail">
-									<span>
-										<%= rList.get(i).getAge() %>세 ㆍ <%= rList.get(i).getSkinType() %> ㆍ <% if(rList.get(i).getGender().equalsIgnoreCase("남성")) { %> 
-											<img src="<%= request.getContextPath() %>/resources/images/male.png" alt="남자" /> 
-										<% } else { %> 
-											<img src="<%= request.getContextPath() %>/resources/images/female.png" alt="여자" /> 
-										<% } %>   
-									</span>
-								</div>
+									<div class="userDetail">
+										<span>
+											<%= rList.get(i).getAge() %>세 ㆍ <%= rList.get(i).getSkinType() %> ㆍ <% if(rList.get(i).getGender().equalsIgnoreCase("남성")) { %> 
+												<img src="<%= request.getContextPath() %>/resources/images/male.png" alt="남자" /> 
+											<% } else { %> 
+												<img src="<%= request.getContextPath() %>/resources/images/female.png" alt="여자" /> 
+											<% } %>   
+										</span>
+									</div>
 								</div>
 								<div class="userReview">
 									<h3><%= rList.get(i).getBoard_title() %></h3>
@@ -356,6 +356,95 @@ span.star-prototype > * {
 
 	<%@ include file="/views/layout/footer.jsp"%>
 		<script> 
+		
+		$('#select-btn').click(function(){
+			var cosName = $('#brand-product-name>h3').text(); // 화장품 이름 가져오기
+			var gender = $("input[name='filter-sex']:checked").val()
+			var age = [];
+			var skin = [];
+			/* 나이값 체크박스 배열로 넣기 */
+	        $("input[name='filter-age']:checked").each(function(i) {
+	        	age.push($(this).val());
+	        });
+        	if(Array.isArray(age) && age.length === 0){
+        		age.push($("input[name='filter-age-all']:checked").val());
+        	}
+        	
+        	/* 피부타입값 체크박스 배열로 넣기 */
+        	$("input[name='filter-skinType']:checked").each(function(i) {
+        		skin.push($(this).val());
+ 	        });
+         	if(Array.isArray(skin) && skin.length === 0){
+         		skin.push($("input[name='filter-skinType-all']:checked").val());
+         	}
+         	
+         	// 객체를 통해서 ajax 데이터 넘겨주기
+         	var filter = {
+         		"cosName" : cosName,
+         		"gender" : gender,
+        		"ageFilter" : age,
+        		"skinTypeFilter" : skin
+         	}
+        	
+			console.log(filter)
+
+			$.ajax({
+				url: 'cosReview.ft',
+				data: filter, // 이 부분에서 조금 햇갈렸는데 객체 여러개를 보낼 수 있다고 생각해서 콤마찍고 넣었는데 에러남 객체로 묶어서 한번에 보내야한다는걸 깨달음
+				success: function(data){
+					console.log(data)
+					$('#ul-area').html("");
+					if(data.length > 0) {
+						for(var i in data){
+							var $li = $('<li class="review_list"></li>');
+							var $div1 = $('<div class="userInfo"></div>');
+							var $div2 = $('<div class="userProfile_name"></div>');
+							var $img1 = $('<img>');
+							if(data[i].profile_image == null){
+								$img1.attr('src', "<%= request.getContextPath() %>/member_images/icon.png");
+							} else {
+								$img1.attr('src', "<%= request.getContextPath() %>/member_images/" + data[i].profile_image);								
+							}
+							var $span1 = $('<span class="wName"></span>').text(data[i].user_name);
+							var $span2 = $('<span class="wDate"></span>').text(data[i].board_date);
+							// 한 div 끝
+							
+							var $div3 = $('<div class="userDetail"></div>');
+							var $img2 = $('<img>');
+							if(data[i].gender == "남성"){
+								$img2.attr('src', "<%= request.getContextPath() %>/resources/images/male.png");								
+							} else {
+								$img2.attr('src', "<%= request.getContextPath() %>/resources/images/female.png");								
+							}
+							var $span3 = $('<span></span>').text(data[i].age + "세 ㆍ " + data[i].skinType);
+							
+							var $div4 = $('<div class="userReview"></div>');
+							var $h3 = $('<h3></h3>').text(data[i].board_title);
+							var $textarea = $('<textarea class="review_ta"></textarea>').val(data[i].board_content);
+							
+							$div2.append($img1, $span1, $span2);
+							$div3.append($span3);
+// 							$span3.append($img2);
+							$div4.append($h3, $textarea)
+							
+							$div1.append($div2, $div3, $div4);
+							$li.append($div1);
+							$('#ul-area').append($li);
+						} 
+					} else {
+						var $li = $('<li class="review_List"></li>');
+						var $div1 = $('<div class="userInfo"></div>');
+						var $h3 = $('<h3></h3>').text("검색 결과가 없습니다.");
+						$div1.append($h3);
+						$li.append($div1);
+						$('#ul-area').append($li);
+					}
+				}
+			})
+		})
+		
+		
+		
 		$.fn.generateStars = function() {
 			return this.each(function(i,e){
 				$(e).html($('<span/>').width($(e).text()*16));
@@ -395,15 +484,15 @@ span.star-prototype > * {
 		}
 
 		$('input[name=filter-sex]').click(function() {
-			if ($(this)[0].value == "filter-sex-all") {
+			if ($(this)[0].value == "ALL") {
 				$('input[name=filter-sex]').addClass('radioChk')
 				$('input[name=filter-sex]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "filter-sex-female") {
+			} else if ($(this)[0].value == "여성") {
 				$('input[name=filter-sex]').addClass('radioChk')
 				$('input[name=filter-sex]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "filter-sex-male") {
+			} else if ($(this)[0].value == "남성") {
 				$('input[name=filter-sex]').addClass('radioChk')
 				$('input[name=filter-sex]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
@@ -411,7 +500,7 @@ span.star-prototype > * {
 		})
 		
 		$('#filter-age-all').click(function(){
-			if ($(this)[0].value == "filter-age-all") {
+			if ($(this)[0].value == "ALL") {
 				console.log($(this)[0].value)
 				$('#filter-age-all').prop("checked", true).removeClass("chkboxChk").addClass("chkboxChkActive");
 				$('input[name=filter-age]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
@@ -442,7 +531,7 @@ span.star-prototype > * {
 		})
 		
 		$('#filter-skinType-all').click(function(){
-			if ($(this)[0].value == "filter-skinType-all") {
+			if ($(this)[0].value == "ALL") {
 				console.log($(this)[0].value)
 				$('#filter-skinType-all').prop("checked", true).removeClass("chkboxChk").addClass("chkboxChkActive");
 				$('input[name=filter-skinType]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
@@ -472,11 +561,11 @@ span.star-prototype > * {
 		})
 		
 		$('#reset-btn').click(function(){
-			$('input[name=filter-sex]').addClass('radioChk').removeClass("radioChkActive")
 			$("#filter-sex-all").prop("checked", true).addClass("radioChkActive")
 			$('#filter-age-all').prop("checked", true).removeClass("chkboxChk").addClass("chkboxChkActive");
-			$('input[name=filter-age]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
 			$('#filter-skinType-all').prop("checked", true).removeClass("chkboxChk").addClass("chkboxChkActive");
+			$('input[name=filter-sex]').addClass('radioChk').removeClass("radioChkActive")
+			$('input[name=filter-age]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
 			$('input[name=filter-skinType]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
 		})
 	</script>

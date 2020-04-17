@@ -24,10 +24,10 @@ public class AgeCalculator {
 		System.out.println(sysdate);
 		if (Integer.parseInt(age) > Integer.parseInt(sdf2.format(d))) {
 			age = "19" + age;
-			age = (Integer.parseInt(sysdate) - Integer.parseInt(age)) + "";
+			age = (Integer.parseInt(sysdate) - Integer.parseInt(age) + 1) + "";
 		} else {
 			age = "20" + age;
-			age = (Integer.parseInt(sysdate) - Integer.parseInt(age)) + "";
+			age = (Integer.parseInt(sysdate) - Integer.parseInt(age) + 1) + "";
 		}
 		return age;
 	}
