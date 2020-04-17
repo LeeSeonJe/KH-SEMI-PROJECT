@@ -18,14 +18,14 @@ import worry.model.vo.Worry;
 /**
  * Servlet implementation class worryDetailServlet
  */
-@WebServlet("/worryDetail.bo")
-public class worryDetailServlet extends HttpServlet {
+@WebServlet("/beforeWorryDetail.bo")
+public class beforeWorryDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public worryDetailServlet() {
+    public beforeWorryDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,12 +37,13 @@ public class worryDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int worryNo = Integer.parseInt(request.getParameter("worryNo"));	
 		Worry w = new Worry(); 
-		ArrayList<Comments> list = new WorryService().selectComments(worryNo);
+		w = new WorryService().beforeWorryDetail(worryNo);
+		ArrayList<Comments> list = new WorryService().selectComments(w.getWorryNo());
 		
-		ArrayList<AddFile> fList = new WorryService().selectFile(worryNo);
+		ArrayList<AddFile> fList = new WorryService().selectFile(w.getWorryNo());
 
-		int last = new WorryService().lastWorry(worryNo);
-		w = new WorryService().worryDetail(worryNo);
+		
+		
 		
 
 		request.setAttribute("list", list);

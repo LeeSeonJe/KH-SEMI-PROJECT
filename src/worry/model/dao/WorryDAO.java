@@ -709,6 +709,181 @@ public class WorryDAO {
 
 		return searchList;
 	}
+
+
+
+
+
+	public int deleteWorry(Connection conn, int worryNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteWorry");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, worryNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+
+
+
+	public Worry beforeWorryDetail(int worryNo, Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Worry w = null;
+		
+		String query = prop.getProperty("beforeWorryDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, worryNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				w = new Worry(rset.getInt("worry_no"),
+						rset.getInt("WORRY_THUMBS_UP"),
+						rset.getInt("WORRY_HITS"),
+						rset.getString("BOARD_TITLE"),
+						rset.getString("BOARD_CONTENT"),
+						rset.getDate("BOARD_DATE"),
+						rset.getString("BOARD_CATEGORY"),
+						rset.getString("USER_NAME"),
+						rset.getInt("USER_NO"),
+						rset.getInt("WORRY_THUMBS_DOWN"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		PreparedStatement pstmt2 = null;
+		int result = 0;
+		
+		String query2 = prop.getProperty("hitPlus");
+		
+		
+		
+		try {
+			pstmt2 = conn.prepareStatement(query2);
+			pstmt2.setInt(1, worryNo);
+			
+			result = pstmt2.executeUpdate();
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt2);
+		}
+
+		return w;
+	}
+
+
+
+
+
+	public Worry afterWorryDetail(int worryNo, Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Worry w = null;
+		
+		String query = prop.getProperty("afterWorryDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, worryNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				w = new Worry(rset.getInt("worry_no"),
+						rset.getInt("WORRY_THUMBS_UP"),
+						rset.getInt("WORRY_HITS"),
+						rset.getString("BOARD_TITLE"),
+						rset.getString("BOARD_CONTENT"),
+						rset.getDate("BOARD_DATE"),
+						rset.getString("BOARD_CATEGORY"),
+						rset.getString("USER_NAME"),
+						rset.getInt("USER_NO"),
+						rset.getInt("WORRY_THUMBS_DOWN"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		PreparedStatement pstmt2 = null;
+		int result = 0;
+		
+		String query2 = prop.getProperty("hitPlus");
+		
+		
+		
+		try {
+			pstmt2 = conn.prepareStatement(query2);
+			pstmt2.setInt(1, worryNo);
+			
+			result = pstmt2.executeUpdate();
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt2);
+		}
+
+		return w;
+	}
+
+
+
+
+
+	public int lastWorry(int worryNo, Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int last = 0;
+		
+		
+		String query = prop.getProperty("lastWorry");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			System.out.println(rset.next());
+
+				last = rset.getInt(1);
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return last;
+	}
 }
 		
 

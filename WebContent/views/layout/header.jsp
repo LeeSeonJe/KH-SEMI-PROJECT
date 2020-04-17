@@ -4,7 +4,12 @@
    Member loginUser = (Member)session.getAttribute("loginUser");
    String profile_image = (String)session.getAttribute("profile_image");
 %>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/layoutCss/cosTalk.css"
+	type="text/css">
+
 <header>
+
    <div>
       <a href="<%= request.getContextPath()%>">
       	<img class="logo" src="<%= request.getContextPath() %>/resources/images/logopink.png"></a>
@@ -254,16 +259,221 @@
 			<% String[] profiles = profile_image.split(","); %>
 			<img id="login" class="login" style="width: 50px; height: 50px; border-radius: 50px;float: right; margin-top: 40px" src="<%= request.getContextPath() %>/hospital_images/<%= profiles[0] %>" alt="" />
 		<% } %>
-		<span id="login" class="login"><img src="resources/images/mail1.png" style = "width : 50px; height : 50px; margin-top : -15px;" onclick = "mailOpen()"></span>
+		<span id="login" class="login"><img src="resources/images/mail1.png" style = "width : 50px; height : 50px; margin-top : -15px;" onclick = "cosTalkOpen();" id = "cosTalkBtn"></span>
 		<% } %>
 		<%-- <span class="sch">
 			<button type="button"><img src="<%= request.getContextPath() %>/resources/images/search_icon.png"></button>
 			<input type="text" placeholder="검색어를 입력하세요.">
 		</span> --%>
 	</div>
+	<div>
+		<div id = "cosTalk" class = "modal">
+			<div>
+				<div><input class = "cTfunction" type = "button" id = "xBtn" ></div>
+			</div>
+			<div class = "cosTalk-content">
+				<div style = "margin-top : 40px; margin-left : 5px; float : left">
+					<input type = "button" class = "friendBtn" id = "friendBtnn1">
+				</div>
+				<div style = "margin-top : 20px; margin-left : 5px;float : left">
+					<input type = "button" class = "chatBtn" id = "chatBtnn1">
+				</div>
+				<div style = "margin-top : 40px; margin-left : -5px;float : left">
+					<input type = "button" class = "friendBtn" id = "friendBtnn2">
+				</div>
+				<div style = "margin-top : 20px; margin-left : 5px;float : left">
+					<input type = "button" class = "chatBtn" id = "chatBtnn2">
+				</div>				
+			</div>
+			<div class = "cosTalk-friendTab" id = "fTab">
+				<div style = "font-size : 15pt; margin-left : -5px; font-weight : 600;">
+					친구
+				</div>
+				<div style = "width : 100% ; height : 40px; margin-top : 18px;">
+					<input type = "button" class = "friendPersonBtn" id = "friendCustomerBtnn" value = "              이선제">
+				</div>
+			</div>
+			<div class = "cosTalk-chatTab" id = "cTab">
+				<div style = "font-size : 15pt; margin-left : -4px; font-weight : 600;">
+					채팅
+					<div style = "float : right; margin-right : 10px;">
+					</div>
+					<div style = "width : 90% ; height : 40px; margin-top : 18px; margin-left : 4px; cursor : pointer" id = "chatCustomerBtn" >
+						<input type = "button" class = "friendPersonBtn" id = "chatCustomerBtnn" >
+						<div style = "float : left; font-size : 9pt; margin-top : 11px; margin-left : 8px; width : 70%;">이선제</div>
+						<div style = "float : left; font-size : 8pt; margin-left : 8px; font-weight : 100; margin-top : 2px;">규혁아 뒤질래?</div>
+					</div>
+				</div>
+			</div>
+			<div class = "cosTalk-chatFunction" id = "cFuc">
+				<div class = "cosTalk-chatFunctionT">
+					<input type = "button" id = "bBtn">
+					<img src = "<%=request.getContextPath()%>/resources/images/face.png" style = "margin-top : 15px; margin-left : 12px; float : left">
+					<div>
+					<h3 style = "font-size : 11pt; font-weight : 600; margin-left : 6px; margin-top : 32px; float : left;">
+						이선제
+					</h3>
+					</div>
+				</div>
+				<div id = "chatView">
+				</div>
+				<form id = "submitForm" onsubmit = "return false">
+					<div class = "cosTalk-chatFunctionW">
+						<div style = "float : left; width : 80%; height : 48%;">
+							<textarea id = "msg" style = "background-color : white; width : 98%; height : 50px; border: none; outline : none; resize : none; margin-left : 4%; margin-top : 8px; font-size : 10pt;"></textarea>
+						</div>
+						<input type = "submit" id = "send" value = "전송" style = "background-color : yellow; width : 17%; height : 60px; border : none; outline : none; reslize : none; margin-top : 3px; margin-left : 6px;">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
 	<script>
-	function mailOpen(){
-		window.open("views/member/message.jsp","내 쪽지함","width = 700, height = 400");
+	function cosTalkOpen(){
+		//외부기능
+		$("#chatBtnn2").hide();
+		$("#friendBtnn2").hide();
+		$("#cTab").hide();
+		$("#cFuc").hide();
+	
+		
+        var modal = document.getElementById('cosTalk');
+        var btn = document.getElementById("cosTalkBtn");
+         
+        var btn2 = document.getElementById("xBtn");
+ 		
+        var fTab = document.getElementById("fTab");
+        var cTab = document.getElementById("cTab");
+        
+        var fBtn1 = document.getElementById("friendBtnn1");
+        var cBtn1 = document.getElementById("chatBtnn1");
+        var fBtn2 = document.getElementById("friendBtnn2");
+        var cBtn2 = document.getElementById("chatBtnn2");
+        
+        var member = document.getElementById("friendCustomerBtnn");
+        
+        var bBtn = document.getElementById("bBtn");
+        var chatM = document.getElementById("chatCustomerBtnn");
+        var chat = document.getElementById("chatCustomerBtn");
+        
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+ 
+        btn2.onclick = function() {
+            modal.style.display = "none";
+        }
+        
+        cBtn1.onclick = function(){
+        	$("#fTab").hide();
+        	$("#friendBtnn1").hide();
+        	$("#chatBtnn1").hide();
+        	$("#cTab").show();
+        	$("#friendBtnn2").show();
+        	$("#chatBtnn2").show();
+        	$("#cFuc").hide();
+        	
+        }
+        
+        fBtn2.onclick = function(){
+        	$("#cTab").hide();
+        	$("#friendBtnn2").hide();
+        	$("#chatBtnn2").hide();
+        	$("#fTab").show();
+        	$("#friendBtnn1").show();
+        	$("#chatBtnn1").show();
+        	$("#cFuc").hide();
+        }
+        
+        member.onclick = function(){
+        	$("#cTab").hide();
+        	$("#friendBtnn2").hide();
+        	$("#chatBtnn2").hide();
+        	$("#fTab").hide();
+        	$("#friendBtnn1").show();
+        	$("#chatBtnn1").show();
+        	$(".cosTalk-content").hide();
+        	$("#cFuc").show();
+        }
+        
+        chatM.onclick = function(){
+        	$("#cTab").hide();
+        	$("#friendBtnn2").hide();
+        	$("#chatBtnn2").hide();
+        	$("#fTab").hide();
+        	$("#friendBtnn1").show();
+        	$("#chatBtnn1").show();
+        	$(".cosTalk-content").hide();
+        	$("#cFuc").show();
+        }
+        
+        chat.onclick = function(){
+        	$("#cTab").hide();
+        	$("#friendBtnn2").hide();
+        	$("#chatBtnn2").hide();
+        	$("#fTab").hide();
+        	$("#friendBtnn1").show();
+        	$("#chatBtnn1").show();
+        	$(".cosTalk-content").hide();
+        	$("#cFuc").show();
+        }
+        
+        bBtn.onclick = function(){
+        	$("#cFuc").hide();
+        	$(".cosTalk-content").show();
+        	$("#fTab").show();
+        	$("#friendBtnn2").hide();
+        	$("#chatBtnn2").hide();
+        }
+        
+        //채팅기능
+        
+		var socket = io();
+        
+	    var chatView = document.getElementById('chatView');
+	    var chatForm = document.getElementById('chatForm');
+ 
+ 	   chatForm.addEventListener('submit', function() {
+ 	       var msg = $('#msg');
+ 
+ 	       if (msg.val() == '') {
+ 	           return;
+                 
+  	       } else {
+  	          socket.emit('SEND', msg.val());
+ 
+    	        var msgLine = $('<div class="msgLine">');
+    	        var msgBox = $('<div class="msgBox">');
+ 
+   	 	        msgBox.append(msg.val());
+	            msgBox.css('display', 'inline-block');
+       	        msgLine.css('text-align', 'right');
+       	        msgLine.append(msgBox);
+ 
+    	        $('#chatView').append(msgLine);
+ 
+      	        msg.val('');
+    	        chatView.scrollTop = chatView.scrollHeight;
+             }
+  	    });
+        
+        socket.on('SEND', function(msg) {
+            var msgLine = $('<div class="msgLine">');
+            var msgBox = $('<div class="msgBox">');
+                    
+            msgBox.append(msg);
+            msgBox.css('display', 'inline-block');
+     
+            msgLine.append(msgBox);
+            $('#chatView').append(msgLine);
+     
+            chatView.scrollTop = chatView.scrollHeight;
+        });
+ 
+
+
 	}
+	
 	</script>
 </header>

@@ -5,6 +5,7 @@
 	ArrayList<Comments> list = (ArrayList<Comments>)request.getAttribute("list");
 	Member m = ((Member)request.getSession().getAttribute("loginUser"));
 	ArrayList<AddFile> fList = (ArrayList<AddFile>)request.getAttribute("fList");
+	
 %>	
 	
 <!DOCTYPE html>
@@ -95,8 +96,8 @@
 				  vertical-align:top}
 	#mainCase{ margin-left:10px; width:900px;}
 	.case{width: 250px; height:250px; display: inline-block; float:left;}
-
-
+/* 	.content-text{width: 1151px; height: 580px; resize:none; border: none;} */
+	.content-text{width: 1151px; white-space:pre-wrap; margin-left:0px;}
 </style>
 
 
@@ -107,7 +108,7 @@
 		<hr>
             <h2>고민 게시판</h2>
 			<hr>
-			<Form action="views/worry/worryUpdate.jsp">
+			<Form action="worryDetail2.bo" method="post">
 			<div class="worry-read-wrap">
                 <article class="worry-head">
                     <h3><%= w.getTitle() %></h3>
@@ -123,9 +124,7 @@
                     </div>
                 </article>
                 <article class="content-body">
-                    <p class="content-text">
-			        	<%= w.getContent() %>           
-                    </p>
+                    <div class="content-text"><%= w.getContent() %></div>
                     <input type="hidden" name="content" value="<%= w.getContent() %>">
                     <div class="vote-btn">
                         <button  type="button" id="like-btn" class="btn-standard" value="좋아요">좋아요</button>
@@ -137,9 +136,11 @@
                     </div>
                     
                     <% if(fList != null){ %>
+						
                     	<%for(int i = 0 ; i < fList.size(); i++){ %>
 		                    <div id="mainCase">
 			                    <div id="img-case1" class="case"><img src="<%= request.getContextPath()%>/AddFile/<%= fList.get(i).getChangeName() %>" width="250px" height="250px"></div>
+			                    <input type="hidden" name='fList"+i+"' value="<%= fList.get(i).getChangeName() %>">
 		              		</div>
               			<%} %>
                    	<%} %>
@@ -157,13 +158,13 @@
 	                   		
 	                    <% if(m != null ){ %>
 		                    <% if(w.getUserNo() == m.getUser_no() ){ %>
-	                        <button class="btn-standard" type="submit" id="change-btn" onclick="location.href='worryList.bo'">수정</button>
-	                        <button id="delete-btn" class="btn-standard" onclick="location.href='worryDelete.bo'">삭제</button>
+	                        <button class="btn-standard" type="submit" id="change-btn" onclick="location.href='views/worry/worryUpdate'">수정</button>
+	                        <button type="button" id="delete-btn" class="btn-standard" onclick="location.href='worryDelete.bo?worryNo=<%=w.getWorryNo() %>'">삭제</button>
 	                        <% } %>
 	                    <% } %>    
                         <button class="btn-standard" type="button" value="목록" onclick="location.href='worryList.bo'">목록</button>
-                        <button id="prev-worry" class="btn-standard" type="button" value="이전글" onclick="location.href='<%=request.getContextPath()%>/worryDetail.bo?worryNo=<%= w.getWorryNo() - 1%>'">이전글</button>
-                        <button id="next-worry" class="btn-standard" type="button" value="다음글" onclick="location.href='<%=request.getContextPath()%>/worryDetail.bo?worryNo=<%= w.getWorryNo() + 1%>'">다음글</button>
+                        <button id="prev-worry" class="btn-standard" type="button" value="이전글" onclick="before()" >이전글</button>
+                        <button id="next-worry" class="btn-standard" type="button" value="다음글" onclick="after()" >다음글</button>
                     </div>
                 
                 
@@ -179,7 +180,8 @@
                         <%if(m != null) {%>
                         <button id="upload-btn" class="btn-standard" value="등록">등록</button>
                         <%} else{ %>
-                        <button type="button" id="upload-btn2" class="btn-standard" value="등록"> 댓글을 달기 위해서는 로그인이 필요합니다.</button>
+<!--                         <button type="button" id="upload-btn2" class="btn-standard" value="등록"> 댓글을 달기 위해서는 로그인이 필요합니다.</button> -->
+                        <button type="button" id="upload-btn" class="btn-standard" onclick="login()">등록</button>
                         <%} %>
                         <input type="hidden" name='worryNo' value='<%=w.getWorryNo() %>'>
                     
@@ -218,26 +220,15 @@
 		var likeCount = Number($("#like-count").text());	
 		var hateCount = Number($("#hate-count").text());
 		var count = 0;
-		$(function(){
-// 			$('#like-btn').on('click', function(){
-// 				if(count == 1){
-// 					count--;
-// 				} else if(count == 0){
-// 				count++;
-// 				}
-// 				$("#like-count").text(likeCount + count);
-				
-// 			});
-			$('#hate-btn').on('click', function(){
-				if(count == 1){
-					count--;
-				} else if(count == 0){
-				count++;
-				}
-				$("#hate-count").text(hateCount + count);
-				
-			});
-		});
+		
+// 		$(function(){
+// 			if(m == null){
+// 				$('#like-btn').attr('disabled', true);
+// 				$('#hate-btn').attr('disabled', true);
+// 			}
+// 		});
+		
+		
 		
 		
 		$('#upload-btn').click(function(){
@@ -272,6 +263,7 @@
 		});
 		
 		$('#like-btn').click(function(){
+			<% if( m != null){ %>
 			var count = $('#like-count').text();
 			count *= 1;
 			count = count + 1;
@@ -288,10 +280,14 @@
 				}
 				
 			});
+			<% }else { %>
+				alert("로그인이 필요합니다.");
+			<% } %>
 		});
 		
 		
 		$('#hate-btn').click(function(){
+			<% if( m != null){ %>
 			var count = $('#hate-count').text();
 			count *= 1;
 			count = count + 1;
@@ -303,14 +299,35 @@
 					$('#hate-btn').css('background', 'lightgray');
 					$('#like-btn').attr('disabled', true);
 					$('#hate-count').text(count);
-										
-
 				}
 				
 			});
+			<% }else { %>
+				alert("로그인이 필요합니다.");
+			<% } %>
 		});
 		
 		
+		
+		function login(){
+			alert("로그인이 필요합니다.");
+		}	
+		
+		
+		function before(){
+			if(<%= w.getWorryNo()%> != 1){
+				location.href='<%=request.getContextPath()%>/beforeWorryDetail.bo?worryNo=<%= w.getWorryNo()%>';
+			} else{
+				alert("가장 최신 게시글 입니다.");
+			}
+		}
+		
+		function after(){
+
+				location.href='<%=request.getContextPath()%>/afterWorryDetail.bo?worryNo=<%= w.getWorryNo()%>';
+
+		}
+			
 		
 		
 	</script>
