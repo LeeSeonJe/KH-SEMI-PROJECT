@@ -83,4 +83,29 @@ public class CustomerDAO {
 		return c;
 	}
 
+	public String selectProfile(Connection conn, int user_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String profile = null;
+		
+		String query = prop.getProperty("selectProfile");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, user_no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				profile = rset.getString("profile_image");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return profile;
+	}
+
 }

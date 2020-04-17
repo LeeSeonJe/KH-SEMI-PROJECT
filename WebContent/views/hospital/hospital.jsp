@@ -108,6 +108,62 @@
 		width: 450px; 
 		height: 350px;
 	}
+
+<!-- 리뷰부분 -->
+	
+.review_list {
+	border-bottom: 1px solid #ebd3d3;
+    margin-bottom: 40px;
+}
+
+.userInfo>div>img { 
+	width:50px;
+	height: 50px;
+	border-radius: 20px;
+}
+.userDetail, .userProfile_name {
+	margin-bottom: 10px;
+}
+.userDetail>span {
+	font-size: 14px;
+    margin-left: 10px;
+}
+
+.userDetail>span>img {
+	width: 15px;
+	height: 15px;
+}
+
+
+/* 리뷰크기  */
+.review_ta {
+	width:850px;
+	min-height:32px;
+	overflow-y:hidden;
+	border: 0;
+	resize: none;
+	font-size: 16px;
+}
+
+/* 리뷰 클릭시 나오는 아웃라인 제거 */
+.review_ta:focus {
+	outline: none;
+}
+
+/* 리뷰 전체 글씨크기  및 리뷰사이의 거리*/
+.userReview {
+	font-size: 28px;
+}
+
+.userReview>h3 {
+	margin-bottom: 20px;
+}
+
+.wName {
+    margin-left: 20px;
+    font-size: 20px;
+}
+
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"> 
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script> 
@@ -190,8 +246,6 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
 		<div id="hospital-review-more">리뷰 더 보기</div>
 		<br><br><br><br><br>
 		
-		<!-- <div id="map"><img src="mapp.PNG" id="mapPhoto"></div> -->
-		
 		<div id="map"></div>
    <script>
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -232,7 +286,33 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
           $('.location>a').attr("href", url);
       });      
    </script>
-		<div id="review-list">
+   <section id="cosmetic-category" >
+					<h2>리뷰</h2>
+					<br><br>
+					<section>
+						<ul id="ul-area">
+							<li class="review_list">
+								<div class="userInfo">
+									<div class="userProfile_name">
+										<img src="<%= request.getContextPath() %>/member_images/icon.png" alt="" />								
+										<span class="wName">이름</span>									
+										<span class="wDate">날짜</span>
+									</div>
+									<div class="userDetail">
+										<span>
+												<img src="<%= request.getContextPath() %>/resources/images/male.png" alt="남자" /> 
+										</span>
+									</div>
+								</div>
+								<div class="userReview">
+									<h3>제목</h3>
+									<textarea class="review_ta" >리뷰내용</textarea>
+								</div>
+							</li>
+						</ul>
+					</section>
+				</section>
+		<!-- <div id="review-list">
 			<div class="review">
 				<div>
 					<div class="review" id="review-writer">작성자</div>
@@ -310,7 +390,7 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
 				
 				<div class="review" id="review-text">리뷰 내용을 여기다가 줄줄줄ㅈ루 주 ㄹ주주룾룾루</div>
 			</div>
-		</div>
+		</div> -->
 		</div>
 <script>
 	$(function(){

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import customer.model.service.CustomerService;
+import hospital.model.service.HospitalService;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
@@ -36,21 +38,39 @@ public class LoginServlet extends HttpServlet {
 		
 		String userId = request.getParameter("id");
 		String userPwd = request.getParameter("pwd");
-		
+		String category = request.getParameter("category");
 		Member m = new Member(userId, userPwd);
 		
-		Member loginUser = new MemberService().loginCustomer(m);
-		if(loginUser != null) {
+		String profile_image = null;
+		
+		Member loginUser = null;
+		if(category.equals("H")) {
+			loginUser = new MemberService().loginHospital(m);
+		} else {
+			loginUser = new MemberService().loginCustomer(m);
+		}
+		
+		if(loginUser !=null) {
+			if(loginUser.getUser_category().equals("C")) {
+				profile_image = new CustomerService().selectProfile(loginUser.getUser_no()); 
+			} else if(loginUser.getUser_category().equals("H")){
+				profile_image = new HospitalService().selectProfile(loginUser.getUser_no());
+			} else {
+				profile_image = "admin";
+			}
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("profile_image", profile_image);
 			session.setMaxInactiveInterval(600);
 			
 			response.sendRedirect(request.getContextPath());
 		} else {
-			request.setAttribute("msg", "�α��� ����");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.setAttribute("msg", "로그인에 실패하였습니다.");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/login.jsp");
 			view.forward(request, response);
 		}
+		
+
 	}
 
 	/**

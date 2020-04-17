@@ -319,7 +319,13 @@ span.star-prototype > * {
 									<h5><%= list.get(i).getHospital_about() %></h5><br><br>
 								</div>
 								<div class="cos-score">
-									<span><%= list.get(i).getHospital_heart()%></span>
+									<span>
+									<% if(list.get(i).getHospital_heart() - (int)list.get(i).getHospital_heart() == 0) {%>
+										<%= (int)list.get(i).getHospital_heart()%>
+									<% } else { %>
+										<%= list.get(i).getHospital_heart()%>
+									<% } %>
+									</span>
 									<div class="heartPosition">
 										<span class="star-prototype"><%= list.get(i).getHospital_heart()%></span>
 									</div>
@@ -398,6 +404,7 @@ span.star-prototype > * {
 				success: function(data){
 					var count = 0;
 					$('#ul-area').html("");
+					console.log(data);
 					for(var i in data){
 						count += 1;
 						var $div1 = $('<div class="ranking-list"></div>');
@@ -421,10 +428,10 @@ span.star-prototype > * {
 						var $h6 = $('<h6></h6>').text(data[i].user_name);
 						var $h5 = $('<h5></h5>').text(data[i].hospital_about);
 						var $div5 = $('<div class="cos-score"></div>');
-						var $span1 = $('<span></span>').text(data[i].hospital_heart);
+						var $span1 = $('<span></span>').text(data[i].hospital_heart+" ");
 						var $div6 =  $('<div class="heartPosition"></div>');
 						var $span2 = $('<span class="star-prototype"></span>').text(data[i].hospital_heart);
-						var $span3 = $('<span></span>').text('('+data[i].review_count+')');
+						var $span3 = $('<span></span>').text(" "+'('+data[i].review_count+')');
 						
 						$div2.append($h3);
 						$div3.append($img);
@@ -436,12 +443,6 @@ span.star-prototype > * {
 						$div5.append($div6);
 						$div5.append($span3);
 						
-						$.fn.generateStars = function() {
-							return this.each(function(i,e){
-								$(e).html($('<span/>').width($(e).text()*16));
-							});
-						};
-						
 						$div1.append($div2);
 						$div1.append($div3);
 						$div1.append($div4);
@@ -452,9 +453,13 @@ span.star-prototype > * {
 						$('.hospital-detail-link').click(function(){
 							location.href="<%= request.getContextPath()%>/detail.hos?hosName=" + encodeURIComponent($(this).children('h6').text());
 						})
-
-						$('.star-prototype').generateStars();
 					}
+					$('.star-prototype').generateStars();
+					$.fn.generateStars = function() {
+						return this.each(function(i,e){
+							$(e).html($('<span/>').width($(e).text()*16));
+						});
+					};
 				}
 			})
 		}
@@ -610,10 +615,10 @@ span.star-prototype > * {
 							var $h6 = $('<h6></h6>').text(data[i].user_name);
 							var $h5 = $('<h5></h5>').text(data[i].hospital_about);
 							var $div5 = $('<div class="cos-score"></div>');
-							var $span1 = $('<span></span>').text(data[i].hospital_heart);
+							var $span1 = $('<span></span>').text(data[i].hospital_heart+" ");
 							var $div6 =  $('<div class="heartPosition"></div>');
 							var $span2 = $('<span class="star-prototype"></span>').text(data[i].hospital_heart);
-							var $span3 = $('<span></span>').text('('+data[i].review_count+')');
+							var $span3 = $('<span></span>').text(" "+'('+data[i].review_count+')');
 							
 							$div2.append($h3);
 							$div3.append($img);
@@ -635,14 +640,13 @@ span.star-prototype > * {
 							$('.hospital-detail-link').click(function(){
 								location.href="<%= request.getContextPath()%>/detail.hos?hosName=" + encodeURIComponent($(this).children('h6').text());
 							})
-							// 숫자 평점을 별로 변환하도록 호출하는 함수
-							$.fn.generateStars = function() {
-								return this.each(function(i,e){
-									$(e).html($('<span/>').width($(e).text()*16));
-								});
-							};
-							$('.star-prototype').generateStars();
 						}
+						$('.star-prototype').generateStars();
+						$.fn.generateStars = function() {
+							return this.each(function(i,e){
+								$(e).html($('<span/>').width($(e).text()*16));
+							});
+						};
 					}
 				}	
 			})
