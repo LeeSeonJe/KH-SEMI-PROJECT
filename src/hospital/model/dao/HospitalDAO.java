@@ -211,4 +211,37 @@ public class HospitalDAO {
 		return list;
 	}
 
+	public Hospital detailHospital(Connection conn, String hosName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Hospital h = null;
+		
+		String query = prop.getProperty("detailHospital");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, hosName);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				h = new Hospital(rset.getString("user_name"),
+								 rset.getString("hospital_about"),
+								 rset.getString("tel"),
+								 rset.getString("address"),
+								 rset.getString("hospital_img"),
+								 rset.getDouble("hospital_heart"),
+								 rset.getDouble("review_count"),
+								 rset.getString("email"));										
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return h;
+	}
+
 }
