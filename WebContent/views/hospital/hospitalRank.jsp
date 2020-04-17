@@ -101,11 +101,11 @@ input {
 	display: inline-flex;
     border-block-end: 1px solid #ccc;
     margin-left: 30px;
+    padding-bottom: 30px;
 }
 
 .ranking-list div {
 	display: inline-block;
-	height: 170px;
 	text-align: center;
 }
 
@@ -192,6 +192,25 @@ input {
 #sidoCd, .sggu, .srch-select, .input-text{
 	float: right;
 }
+
+/* 별점 CSS */
+span.star-prototype, span.star-prototype > * {
+		height: 16px; 
+		background: url(<%= request.getContextPath()%>/resources/images/heartAvg.png) 0 -16px repeat-x;
+		width: 80px;
+		display: inline-block;
+		text-align: left;
+}
+
+span.star-prototype > * {
+	background-position: 0 0;
+	max-width:80px; 
+}
+
+.heartPosition {
+		display: inline-block;
+		vertical-align: middle;
+	}
 </style>
 
 <% 
@@ -268,7 +287,7 @@ input {
 								</div>
 								<div class="cos-img">
 								</div>
-								<div class="cos-detail hospital-detail-link">
+								<div class="cos-detail">
 								<br>
 								<br><br>
 								<br>
@@ -290,8 +309,9 @@ input {
 									<% } %>
 								</div>
 								<div class="cos-img">
-										<span><%= list.get(i).getHospital_img() %></span>
-										<%-- <img src="<%= request.getContextPath() %>/hospital_images/<%= list.get(i).getHospital_img() %>"/> --%>
+										<%-- <span><%= list.get(i).getHospital_img() %></span> --%>
+										<% String[] images = list.get(i).getHospital_img().split(","); %>
+										<img src="<%= request.getContextPath() %>/hospital_images/<%= images[0] %>"/>
 								</div>
 								<div class="cos-detail hospital-detail-link">
 									<br>
@@ -300,7 +320,9 @@ input {
 								</div>
 								<div class="cos-score">
 									<span><%= list.get(i).getHospital_heart()%></span>
-									<span>imgimgimgimg</span>
+									<div class="heartPosition">
+										<span class="star-prototype"><%= list.get(i).getHospital_heart()%></span>
+									</div>
 									<span>(<%= (int)list.get(i).getReview_count() %>)</span>
 								</div>
 							</div>
@@ -315,6 +337,15 @@ input {
 	<%@ include file="/views/layout/footer.jsp"%>
 
 	<script>
+		/* 별점 스크립트 */
+		$.fn.generateStars = function() {
+			return this.each(function(i,e){
+				$(e).html($('<span/>').width($(e).text()*16));
+			});
+		};
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$('.star-prototype').generateStars();
+
 		$('.hospital-detail-link').click(function(){
 			location.href="<%= request.getContextPath()%>/detail.hos?hosName=" + encodeURIComponent($(this).children('h6').text());
 		})
@@ -383,14 +414,16 @@ input {
 						}
 						var $div3 = $('<div class="cos-img"></div>');
 						var $img = $('<img>')						
-						$img.attr('src', "<%= request.getContextPath() %>/hospital_images/" + data[i].hospital_img);														
+						var images = data[i].hospital_img.split(",");
+							$img.attr('src', "<%= request.getContextPath() %>/hospital_images/" + images[0]);		
 						var $div4 = $('<div class="cos-detail hospital-detail-link"></div>');
 						var $br = $('<br>');
 						var $h6 = $('<h6></h6>').text(data[i].user_name);
 						var $h5 = $('<h5></h5>').text(data[i].hospital_about);
 						var $div5 = $('<div class="cos-score"></div>');
 						var $span1 = $('<span></span>').text(data[i].hospital_heart);
-						var $span2 = $('<span></span>').text('imgimgimgimg');
+						var $div6 =  $('<div class="heartPosition"></div>');
+						var $span2 = $('<span class="star-prototype"></span>').text(data[i].hospital_heart);
 						var $span3 = $('<span></span>').text('('+data[i].review_count+')');
 						
 						$div2.append($h3);
@@ -399,8 +432,15 @@ input {
 						$div4.append($h6);
 						$div4.append($h5);
 						$div5.append($span1);
-						$div5.append($span2);
+						$div6.append($span2);
+						$div5.append($div6);
 						$div5.append($span3);
+						
+						$.fn.generateStars = function() {
+							return this.each(function(i,e){
+								$(e).html($('<span/>').width($(e).text()*16));
+							});
+						};
 						
 						$div1.append($div2);
 						$div1.append($div3);
@@ -408,6 +448,12 @@ input {
 						$div1.append($div5);
 						
 						$('#ul-area').append($div1);
+						
+						$('.hospital-detail-link').click(function(){
+							location.href="<%= request.getContextPath()%>/detail.hos?hosName=" + encodeURIComponent($(this).children('h6').text());
+						})
+
+						$('.star-prototype').generateStars();
 					}
 				}
 			})
@@ -531,7 +577,7 @@ input {
 						var $div1 = $('<div class="ranking-list"></div>');
 						var $div2 = $('<div class="cos-rank"></div>');
 						var $div3 = $('<div class="cos-img"></div>');
-						var $div4 = $('<div class="cos-detail hospital-detail-link"></div>');
+						var $div4 = $('<div class="cos-detail"></div>');
 						var $br = $('<br><br><br><br>');
 						var $span = $('<span></span>').text('조회된 리스트가 없습니다.');
 						var $div5 = $('<div class="cos-score"></div>');
@@ -556,15 +602,17 @@ input {
 								var $h3 = $('<h3></h3>').text(count);
 							}							
 							var $div3 = $('<div class="cos-img"></div>');
-							var $img = $('<img>')						
-							$img.attr('src', "<%= request.getContextPath() %>/hospital_images/" + data[i].hospital_img);														
+							var $img = $('<img>')
+							var images = data[i].hospital_img.split(",");
+							$img.attr('src', "<%= request.getContextPath() %>/hospital_images/" + images[0]);														
 							var $div4 = $('<div class="cos-detail hospital-detail-link"></div>');
 							var $br = $('<br>');
 							var $h6 = $('<h6></h6>').text(data[i].user_name);
 							var $h5 = $('<h5></h5>').text(data[i].hospital_about);
 							var $div5 = $('<div class="cos-score"></div>');
 							var $span1 = $('<span></span>').text(data[i].hospital_heart);
-							var $span2 = $('<span></span>').text('imgimgimgimg');
+							var $div6 =  $('<div class="heartPosition"></div>');
+							var $span2 = $('<span class="star-prototype"></span>').text(data[i].hospital_heart);
 							var $span3 = $('<span></span>').text('('+data[i].review_count+')');
 							
 							$div2.append($h3);
@@ -573,7 +621,8 @@ input {
 							$div4.append($h6);
 							$div4.append($h5);
 							$div5.append($span1);
-							$div5.append($span2);
+							$div6.append($span2);
+							$div5.append($div6);
 							$div5.append($span3);
 							
 							$div1.append($div2);
@@ -582,6 +631,17 @@ input {
 							$div1.append($div5);
 							
 							$('#ul-area').append($div1);
+							
+							$('.hospital-detail-link').click(function(){
+								location.href="<%= request.getContextPath()%>/detail.hos?hosName=" + encodeURIComponent($(this).children('h6').text());
+							})
+							// 숫자 평점을 별로 변환하도록 호출하는 함수
+							$.fn.generateStars = function() {
+								return this.each(function(i,e){
+									$(e).html($('<span/>').width($(e).text()*16));
+								});
+							};
+							$('.star-prototype').generateStars();
 						}
 					}
 				}	
