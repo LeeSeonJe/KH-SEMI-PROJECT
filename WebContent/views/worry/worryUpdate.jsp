@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="worry.model.vo.* , java.util.ArrayList" %>
 <%
+	Worry w = (Worry)request.getAttribute("w");
+	ArrayList<Comments> list = (ArrayList<Comments>)request.getAttribute("list");
+	Member m = ((Member)request.getSession().getAttribute("loginUser"));
+	ArrayList<AddFile> fList = (ArrayList<AddFile>)request.getAttribute("fList");
 	
 %>	
 	
@@ -52,8 +56,6 @@
 	          left:40%;
 	          margin: 10px;}
 	#change-btn,#delete-btn{margin-right:3px;}
-	#change-btn{display: inline-block; float: left; margin-left:1220px;}
-	#delete-btn{width: 40px;}
 	#write-btn, #upload-btn{color:white;
 			   				background: black;}
 	          
@@ -68,6 +70,13 @@
 				top:80px;
 				width:50px;
 				height:40px;}
+	#upload-btn2{position:absolute;
+				top:15px; 
+				width:100px;
+				height:100px;
+				color:white;
+			   	background: black;}
+			
 	
 	.comment-list-wrap{font-size: 1.1em;}
 	.comment-list-wrap>li{border-bottom: 1px dotted #666;
@@ -85,9 +94,12 @@
 				  width:200px;
 				  text-align:center;
 				  vertical-align:top}
-	
-	#content{border: none; width: 90%; height: 300px; resize:none;}
-
+	#mainCase{ margin-left:10px; width:900px;}
+	.case{width: 250px; height:250px; display: inline-block; float:left;}
+/* 	.content-text{width: 1151px; height: 580px; resize:none; border: none;} */
+	.content-text{width: 1151px; white-space:pre-wrap; margin-left:0px;}
+	#change-btn{display: inline-block; float: left; margin-left:1210px;}
+	#delete-btn{width: 40px;}
 </style>
 
 
@@ -98,57 +110,64 @@
 		<hr>
             <h2>고민 게시판</h2>
 			<hr>
-			<form action="<%=request.getContextPath() %>/worryUpdate.bo">
+			<Form action="worryDetail2.bo">
 			<div class="worry-read-wrap">
                 <article class="worry-head">
-                	<input type="hidden" name="worryNo" value="<%= request.getParameter("worryNo") %>">
-                    <h3><input type="text" name="title" value="<%= request.getParameter("title") %>"></h3>
-                    <span><%= request.getParameter("userName") %></span>
-                    <time datetime="2020-03-28T19:43:20"><%= request.getParameter("date") %></time>
+                    <h3><%= w.getTitle() %></h3>
+                    <input type="hidden" name="title" value="<%= w.getTitle() %>">
+                    <input type="hidden" name="worryNo" value="<%= w.getWorryNo() %>">
+                    <span><%= w.getUserName() %></span>
+                    <input type="hidden" name="userName" value="<%= w.getUserName() %>">
+                    <time datetime="2020-03-28T19:43:20"><%= w.getDate() %></time>
+                    <input type="hidden" name="date" value="<%= w.getDate() %>">
                     <div class="count-reading">
-                        <span class="count-title">조회수 : <%= request.getParameter("hit") %></span>
+                        <span class="count-title"> 조회수 : <%= w.getHit() %></span>
+                        <input type="hidden" name="hit" value="<%= w.getHit() %>">
                     </div>
                 </article>
                 <article class="content-body">
-<%--                 	<input id="content" type="text" value='<%= request.getParameter("content") %>'> --%>
-                   <textarea id="content" name="content"><%= request.getParameter("content") %></textarea>
-                    <div class="vote-btn">
-                        <button id="like-btn" class="btn-standard" value="좋아요">좋아요</button>
-                        <span id="like-count" class="counting"><%= request.getParameter("like") %></span>
-                        <button id="hate-btn" class="btn-standard" value="싫어요">싫어요</button>
-                        <span id="hate-count" class="counting">0</span>
-                    </div>
+                    <div class="content-text"><%= w.getContent() %></div>
+                    
 
+                    
+                    <% if(fList != null){ %>
+						
+                    	<%for(int i = 0 ; i < fList.size(); i++){ %>
+		                    <div id="mainCase">
+			                    <div id="img-case1" class="case"><img src="<%= request.getContextPath()%>/AddFile/<%= fList.get(i).getChangeName() %>" width="250px" height="250px"></div>
+			                    <input type="hidden" name='fList"+i+"' value="<%= fList.get(i).getChangeName() %>">
+		              		</div>
+              			<%} %>
+                   	<%} %>
                 </article>
-                  	<button type="submit" id="change-btn" class="btn-standard" >수정</button>
+                 
+                <button type="submit" id="change-btn" class="btn-standard" >수정</button>
                    
 					<div  id="delete-btn" class="btn-standard" onclick="location.href='javascript:history.go(-1);'" id="cancelBtn">취소</div> 
-				
- 				
- 				
- 				
- 				<div id="replySelectArea">
-					<table id="replySelectTable">
-						<tr class="comment-list-wrap">
-<!-- 							<span class="comment-writer">리뷰 작성자</span><span class="comment-text">리뷰 내용</span><span class="comment-time"><time>작성 시간</time></span> -->
-						</tr>
+				<br><br>
+                <div class="add-file">
+								<label id="add-file-label">첨부파일</label>
+								<input type="file" name="add-image1" multiple accept=".jpg,.png,.jpeg" value="a">
+								<input type="file" name="add-image2" multiple accept=".jpg,.png,.jpeg">
+							</div>
 
-		
-					</table>
-				</div>
                 
-              
-	</div>
-	</form>
+                
+                
+                </Form>    
+                
+                
+                
+
+ 				
+ 				
+ 				
+ 		
+
+                
+        	    
+
 				
-	</div>
-
-
-
-
-
-
-
 
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
@@ -156,30 +175,114 @@
 		var likeCount = Number($("#like-count").text());	
 		var hateCount = Number($("#hate-count").text());
 		var count = 0;
-		$(function(){
-			$('#like-btn').on('click', function(){
-				if(count == 1){
-					count--;
-				} else if(count == 0){
-				count++;
-				}
-				$("#like-count").text(likeCount + count);
-				
-			});
-			$('#hate-btn').on('click', function(){
-				if(count == 1){
-					count--;
-				} else if(count == 0){
-				count++;
-				}
-				$("#hate-count").text(hateCount + count);
-				
-			});
+		
+// 		$(function(){
+// 			if(m == null){
+// 				$('#like-btn').attr('disabled', true);
+// 				$('#hate-btn').attr('disabled', true);
+// 			}
+// 		});
+		
+		
+		
+		
+		$('#upload-btn').click(function(){
+				var userNo = 21;
+				var worryNo = '<%= w.getWorryNo()%>';
+				var content = $('#comment-area').val();
+			
+				$.ajax({
+					url: 'insertComments.bo',
+					data: {userNo:userNo, worryNo:worryNo, content:content},
+					success: function(data){
+						
+						$replyTable = $('#replySelectTable');
+						$replyTable.html("");
+						
+						for(var key in data){
+							var $tr = $('<tr>');
+							var $writerTd = $('<td>').text(data[key].userName).css('width', '200px');
+							var $contentTd = $('<td>').text(data[key].commentsText).css('width', '800px');
+							var $dataTd = $('<td>').text(data[key].commentsDate).css('width', '200px');
+							
+							$tr.append($writerTd);
+							$tr.append($contentTd);
+							$tr.append($dataTd);
+							$replyTable.append($tr);
+						}
+						$('#comment-area').val("");
+						
+					}
+				});
+
 		});
 		
-	
+		$('#like-btn').click(function(){
+			<% if( m != null){ %>
+			var count = $('#like-count').text();
+			count *= 1;
+			count = count + 1;
+			$.ajax({
+				url:'like.bo',
+				data: {worryNo:<%= w.getWorryNo() %>},
+				success: function(data){
+					$('#like-btn').attr('disabled', true);
+					$('#like-btn').css('background', 'lightgray');
+					$('#hate-btn').attr('disabled', true);
+					$('#like-count').text(count);
+										
+
+				}
+				
+			});
+			<% }else { %>
+				alert("로그인이 필요합니다.");
+			<% } %>
+		});
 		
 		
+		$('#hate-btn').click(function(){
+			<% if( m != null){ %>
+			var count = $('#hate-count').text();
+			count *= 1;
+			count = count + 1;
+			$.ajax({
+				url:'hate.bo',
+				data: {worryNo:<%= w.getWorryNo() %>},
+				success: function(data){
+					$('#hate-btn').attr('disabled', true);
+					$('#hate-btn').css('background', 'lightgray');
+					$('#like-btn').attr('disabled', true);
+					$('#hate-count').text(count);
+				}
+				
+			});
+			<% }else { %>
+				alert("로그인이 필요합니다.");
+			<% } %>
+		});
+		
+		
+		
+		function login(){
+			alert("로그인이 필요합니다.");
+		}	
+		
+		
+		function before(){
+			if(<%= w.getWorryNo()%> != 1){
+				location.href='<%=request.getContextPath()%>/beforeWorryDetail.bo?worryNo=<%= w.getWorryNo()%>';
+			} else{
+				alert("가장 최신 게시글 입니다.");
+			}
+		}
+		
+		function after(){
+
+				location.href='<%=request.getContextPath()%>/afterWorryDetail.bo?worryNo=<%= w.getWorryNo()%>';
+
+		}
+			
 		
 		
 	</script>
