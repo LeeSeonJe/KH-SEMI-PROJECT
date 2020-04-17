@@ -95,8 +95,8 @@ public class CosmeticReviewList {
 
 	@Override
 	public String toString() {
-		return "CosmeticReviewList [user_name=" + user_name + ", board_title=" + board_title + ", board_content="
+		return "CosmeticReviewList [profile_image=" + profile_image + ", user_name=" + user_name + ", age=" + age
+				+ ", skinType=" + skinType + ", gender=" + gender + ", board_title=" + board_title + ", board_content="
 				+ board_content + ", board_date=" + board_date + "]";
 	}
-
 }

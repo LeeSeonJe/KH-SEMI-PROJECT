@@ -21,8 +21,12 @@ public class BrandService {
 
 	public ArrayList<Cosmetic> brandDetailList(String bname) {
 		Connection conn = getConnection();
-		ArrayList<Cosmetic> cList = new BrandDAO().brandDetailList(conn, bname);
+		ArrayList<Cosmetic> rList = new BrandDAO().rSelectBrandDetailList(conn, bname);
+		ArrayList<Cosmetic> nrList = new BrandDAO().nrSelectBrandDetailList(conn, bname);
+		ArrayList<Cosmetic> list = new ArrayList<Cosmetic>();
+		list.addAll(rList);
+		list.addAll(nrList);
 		close(conn);
-		return cList;
+		return list;
 	}
 }
