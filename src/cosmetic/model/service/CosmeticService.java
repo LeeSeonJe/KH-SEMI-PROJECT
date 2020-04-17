@@ -76,4 +76,23 @@ public class CosmeticService {
 		return rca;
 	}
 
+	public ArrayList<CosmeticReviewList> cosReviewFilter(String query) {
+		Connection conn = getConnection();
+		ArrayList<CosmeticReviewList> rList = new CosmeticDAO().cosReviewFilter(conn, query);
+		close(conn);
+		return rList;
+	}
+
+	public ArrayList<Cosmetic> ajaxSelectCosmeticList(String middleName) {
+		Connection conn = getConnection();
+		String cos_middle_no = new CosmeticDAO().getCos_middle_no(conn, middleName);
+		ArrayList<Cosmetic> rlist = new CosmeticDAO().rSelectCosmeticList(conn, cos_middle_no);
+		ArrayList<Cosmetic> nrlist = new CosmeticDAO().nrSelectCosmeticList(conn, cos_middle_no);
+		ArrayList<Cosmetic> list = new ArrayList<Cosmetic>();
+		list.addAll(rlist);
+		list.addAll(nrlist);
+		close(conn);
+		return list;
+	}
+
 }

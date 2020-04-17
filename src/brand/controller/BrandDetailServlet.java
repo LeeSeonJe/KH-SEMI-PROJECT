@@ -34,13 +34,13 @@ public class BrandDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bname = request.getParameter("bname");
 		System.out.println(bname);
-		ArrayList<Cosmetic> cList = new BrandService().brandDetailList(bname);
+		ArrayList<Cosmetic> List = new BrandService().brandDetailList(bname);
 		
 		String page = null;
 		
-		if(cList != null) {
+		if(List != null) {
 			page="views/brand/brandDetail.jsp";
-			request.setAttribute("list", cList);
+			request.setAttribute("list", List);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "공지사항 조회에 실패하였습니다.");
