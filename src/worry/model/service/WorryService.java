@@ -199,6 +199,51 @@ public class WorryService {
 		return searchList;
 	}
 
+	public int deleteWorry(int worryNo) {
+		Connection conn = getConnection();
+		
+		int result = new WorryDAO().deleteWorry(conn, worryNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	public Worry beforeWorryDetail(int worryNo) {
+		Connection conn = getConnection();
+		
+		Worry w = new WorryDAO().beforeWorryDetail(worryNo, conn);
+		
+		close(conn);
+		
+		return w;
+	}
+
+	public Worry afterWorryDetail(int worryNo) {
+		Connection conn = getConnection();
+		
+		Worry w = new WorryDAO().afterWorryDetail(worryNo, conn);
+		
+		close(conn);
+		
+		return w;
+	}
+
+	public int lastWorry(int worryNo) {
+		Connection conn = getConnection();
+		
+		int last = new WorryDAO().lastWorry(worryNo, conn);
+		
+		return last;
+	}
+
 }
 
 

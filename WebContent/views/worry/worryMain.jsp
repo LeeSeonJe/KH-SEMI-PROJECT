@@ -14,6 +14,8 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	
+	Member m = ((Member)request.getSession().getAttribute("loginUser"));
 
 
 %>	
@@ -143,7 +145,7 @@
 		                    		<%if (i < topList.size()){ %> 	
 		                    			<li><div id="topListNum"><%= topList.get(i).getWorryNo() %></div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2"><%= topList.get(i).getTitle() %></div><div class="rank-num" id="rank3"><%= topList.get(i).getWorryThumbUp() %></div></li>                    						
 		                    		<%} else{ %>
-		                        		<li><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2">조회된 게시글이 없습니다.</div><div class="rank-num" id="rank3"> - </div></li>	
+		                        		<li><div id="topListNum">0</div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2">조회된 게시글이 없습니다.</div><div class="rank-num" id="rank3"> - </div></li>
 									<%} %>
 								<%} %>	
 							</ol>
@@ -158,7 +160,7 @@
 		                    				
 		                    			<li><div id="topListNum"><%= topList.get(i).getWorryNo() %></div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2"><%= lowList.get(i).getTitle() %></div><div class="rank-num" id="rank3"><%= topList.get(i).getWorryThumbUp() %></div></li>                    						
 		                    		<%} else{ %>
-		                        		<li><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2">조회된 게시글이 없습니다.</div><div class="rank-num" id="rank3"> - </div></li>	
+		                        		<li><div id="topListNum">0</div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2">조회된 게시글이 없습니다.</div><div class="rank-num" id="rank3"> - </div></li>	
 									<%} %>
 								<%} %>	
 							</ol>
@@ -256,8 +258,12 @@
                    	
                    	
 	
-			
+					<% if(m == null){ %>
+                    <button id="write-btn" class="btn-standard" type="button" value="글쓰기" onclick="login()">글쓰기</button>
+       				<%} else{ %>
+       
                     <button id="write-btn" class="btn-standard" type="button" value="글쓰기" onclick="location.href='<%= request.getContextPath() %>/views/worry/worryWrite.jsp'">글쓰기</button>
+ 					<% } %>
                 </section>
                 <form class="worry-list-filter" name="worry-board-form" action="worryList3.bo">
                 
@@ -297,17 +303,22 @@
 		});
 		
 		$('#rank10 div').click(function(){
-			var worryNo = $(this).parent().children().eq(0).text();
-			location.href='<%=request.getContextPath() %>/worryDetail.bo?worryNo=' + worryNo;
-			
+			var worryNo = $(this).parent().children().eq(0).text();	
+			if(worryNo != 0){
+				location.href='<%=request.getContextPath() %>/worryDetail.bo?worryNo=' + worryNo;
+			} else { 
+			}
 		});
 		$('#rank10 div').mouseenter(function(){
-			$('#rank10 li').css('cursor', 'pointer');
+				$('#rank10 li').css('cursor', 'pointer');
 		});
 		
 		
 		
 	});
+	
+	
+	
 	
 	
 	function change(){
@@ -318,13 +329,16 @@
 		
 		if(change2 == 'thumb'){
 			window.open("worryList2.bo", "_self");
-			$('#select').val("thumb").attr("selected", "selected");
+// 			$('#select').val("thumb").attr("selected", "selected");
 		} else {
 			window.open("worryList.bo", "_self");
 		}
 		
 	}
 	
+	function login(){
+		alert("로그인이 필요합니다.");
+	}
 	
 	
 	

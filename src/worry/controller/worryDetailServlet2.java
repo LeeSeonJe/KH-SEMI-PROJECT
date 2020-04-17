@@ -18,14 +18,14 @@ import worry.model.vo.Worry;
 /**
  * Servlet implementation class worryDetailServlet
  */
-@WebServlet("/worryDetail.bo")
-public class worryDetailServlet extends HttpServlet {
+@WebServlet("/worryDetail2.bo")
+public class worryDetailServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public worryDetailServlet() {
+    public worryDetailServlet2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,7 +48,7 @@ public class worryDetailServlet extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("w", w);
 		request.setAttribute("fList", fList);
-		RequestDispatcher view = request.getRequestDispatcher("views/worry/worryRead.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("views/worry/worryUpdate.jsp");
 		view.forward(request, response);
 	}
 
