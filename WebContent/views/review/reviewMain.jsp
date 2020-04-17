@@ -4,6 +4,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 <%
    ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
    PageInfo pi = (PageInfo)request.getAttribute("pi");
+   System.out.println("reviewMain pi : " + pi);
    ArrayList<Review> slideList = (ArrayList<Review>)request.getAttribute("slideList");
    
    int currentPage = pi.getCurrentPage();
@@ -20,15 +21,37 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">	
 /* 슬라이드 */
-#slide{width: 100%; height: 400px; background: none;}
+#slide{   width: 100%;
+   min-height: 300px;
+   text-align: center;}
+#tableDiv{
+   width: 80%; display: inline-block;
+   text-align: center;
+}
+/* .btns{width: 50px; height: 50px; margin-top: 165px;}
+ */
+#next {
+   width: 50px;
+    height: 50px;
+   display: none; 
+}
 
-.btns{width: 50px; height: 50px; margin-top: 165px;}
-#next{display: none;}
-#prev{display: none;}
+#prev {
+   width: 50px;
+   height: 50px;
+   display: none;
+}
+
+.btn-direction {
+   border: none;
+   background: none;
+/*    display: inline-block; */
+} 
 
 
 	#div-ranklist{text-align:center; display: inline-block; width: 100%; padding: 20px;}
-	#ranking-title{padding: 20px; text-align: left;}
+	#ranking-title{padding: 20px; text-align: left; display: inline-block}
+	#div-ranklist{display: inline-block; width: 80%;}
 	h3{margin-left: 30px;}
 	.rank-list1>td{display: inline-block; text-align: center; margin-top: 40px;}	
 	.rank-list2>td{display: inline-block; text-align: center; margin-top: 40px;}	
@@ -56,6 +79,13 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 	.hiddenSpan{min-height:20px; margin:0; text-align:left}
 	#write-date{float:right;}
 
+/* 페이징 */
+
+
+
+/* 페이징 끝 */
+
+
 </style>
 <%@ include file="/views/layout/import.jsp"%>
 
@@ -66,39 +96,39 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 		<hr>
 			<!-- 작성 -->
 		<div id="slide"><!-- 베스트리뷰 슬라이드 -->
-			<div id="div-btns">
-				<img class="btns" id="prev" src="/COSMEDIC/resources/images/prev.png">
-					<div id="ranking-title"><h3 style="color:gray">지금 뜨는 리뷰</h3></div>
-				<div id="div-ranklist"><!-- 리스트 -->
+	   <button class="btn-direction"><img id="prev" src="<%= request.getContextPath() %>/resources/images/prev.png"></button>
+	   <div id="tableDiv">
 					<table>
-							<tr>
-							<% for(int i = 0; i<slideList.size(); i++){ 
-								Review r = slideList.get(i); %>
-								<%if(i<3){ %>
-								<td class="img">
-								<img src="<%= r.getCosmetic_img() %>">
-								</td>
-							<% } }%>
-							</tr>
-							<tr>
-							<% for(int j = 0; j<slideList.size(); j++){
-								Review r = slideList.get(j);%>
-								<%if(j<3){ %>
-								<td id="rTitle" class="title"><%= r.getTitle() %></td>
-							<% } } %>
-							</tr>
-						</table>
-				</div><!-- 리스트끝 -->
-				<img class="btns" id="next" src="/COSMEDIC/resources/images/next.png">
-			</div>
-				
+						<tr>
+						<% for(int i = 0; i<slideList.size(); i++){ 
+							Review r = slideList.get(i); %>
+							<%if(i<3){ %>
+							<td class="img">
+							<img src="<%= r.getCosmetic_img() %>">
+							</td>
+						<% } }%>
+						</tr>
+						<tr>
+						<% for(int j = 0; j<slideList.size(); j++){
+							Review r = slideList.get(j);%>
+							<%if(j<3){ %>
+							<td id="rTitle" class="title"><%= r.getTitle() %></td>
+						<% } } %>
+						</tr>
+					</table>
 		</div>
+		 <button class="btn-direction"><img id="next" src="<%= request.getContextPath() %>/resources/images/next.png"></button>
+				</div><!-- 리스트끝 -->
+			</div>
+	<!-- 슬라이드 끝 -->	
 
-	</div><!-- 베리슬라이드 끝 -->	
-	
-<hr>
-	<div><!-- 리뷰 리스트 -->
-		<div><h3>리뷰</h3></div>
+
+
+
+
+
+	<div style="width: 68%;"><!-- 리뷰 리스트 -->
+		<h3>리뷰</h3>
 		<div id="select-option">
 		<select name="filter">
 			<option value="latest">최신순</option>
@@ -109,23 +139,33 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 		</div>
 	<hr>
 		<div class="reviews" id="review1">	
-			<table class="tb-profile" width="100%">
+			<table class="tb-profile" style="width: 100%;">
 			<% for(int i = 0; i< list.size(); i++){ %>
 				<tr>
-					<td rowspan="2" width="10%" align="center"><img src="<%= request.getContextPath() %>/resources/images/프사.png" class="icon-p"></td>
+					<td rowspan="2" width="10%" align="center"><img src="<%=list.get(i).getProfile_image() %>" class="icon-p"></td>
 					<td colspan="2" width="60%" class="review-title" height="40px"><!-- 리뷰제목 --><%=list.get(i).getTitle() %></td>
-					<td rowspan="2" width="15%" align="center"><img src="<%= request.getContextPath() %>/resources/images/makeup.png" class="icon-product"></td>
+					<td rowspan="2" width="15%" align="center"><img src="<%=list.get(i).getCosmetic_img() %>" class="icon-product"></td>
 					<td rowspan="3" width="15%" align="center"><span class="comment-like"><a href="#"><img src="<%= request.getContextPath() %>/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</a></span>
-					<span class="like-count"><%=list.get(i).getThumbs_up() %></span><br><span class="comment-hate"><a href="#"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요</a></span><span class="hate-count"><%=list.get(i).getThumbs_up() %></span></td>
+					<span class="like-count"><%=list.get(i).getThumbs_up() %></span><br><span class="comment-hate"><a href="#"><img src="<%= request.getContextPath() %>/resources/images/역따봉.png" class="thumb"> &nbsp;&nbsp;별로에요</a></span><span class="hate-count"><%=list.get(i).getThumbs_down() %></span></td>
 				</tr>
 				<tr>
-					<td colspan="2"><span class="content"><!-- 리뷰내용간략 --><%=list.get(i).getContent() %></span><span class="hiddenSpan"><!-- 리뷰내용간략 --><%=list.get(i).getContent() %></span></td>
+					<td colspan="2"><span class="content">
+					<!-- 리뷰내용간략 --><%=list.get(i).getContent() %></span>
+					<span class="hiddenSpan">
+						<!-- 리뷰내용간략 --><%=list.get(i).getContent() %>
+					</span>
+					</td>
 					
 				</tr>
 				<tr>
 					<td><p class="p-nick" align="center"><!-- 닉네임 --><%=list.get(i).getUserName() %></p></td>
-					<td colspan="2">연령대 / 피부타입 / 성별 &nbsp;&nbsp;<span class="star-prototype" id="review-star"><%=list.get(i).getHeart() %></span><span id="write-date"><%=list.get(i).getDate() %></span></td>
-					<td><p class="pro-name" align="center">제품명1</p></td>
+					<td colspan="2"><%=list.get(i).getAge() %> / <%=list.get(i).getSkintype() %> / <%=list.get(i).getGender() %> &nbsp;&nbsp;
+						<span class="star-prototype" id="review-star"><%=list.get(i).getHeart() %></span>
+						<span id="write-date"><%=list.get(i).getDate() %></span>
+					</td>
+					<td>
+						<p class="pro-name" align="center"><%=list.get(i).getCosmetic_name() %></p>
+					</td>
 				</tr>
 				<% } %>
 			</table> 
@@ -146,10 +186,10 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 					$('#beforeBtn').attr('disabled', 'true');
 				}
 			</script>
-			<button onclick="location.href='<%= request.getContextPath() %>/list.re?currentPage=1'">1</button>
+
 			<!-- 10개 페이지 목록 -->
 			<% for(int p = startPage; p<= endPage; p++){%>
-				<% if(p==currentPage){ %>
+				<% if(p == currentPage){ %>
 					<button id="choosen" disabled><%= p %></button>
 				<% } else { %>
 					<button id="numBtn" onclick="location.href='<%= request.getContextPath()%>/list.re?currentPage=<%= p %>'"><%= p %></button> 
@@ -172,46 +212,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 			<button onclick="loginChk();">리뷰작성</button>
 		</div>
 		
-	<script type="text/javascript">
 
-		$(function(){
-			$('.rank-list2').hide();
-			/* $('#slide2').hide(); */
-		
-		
-		 	var currentSlide = 1;
-			$('#next').click(function(){
-				if(currentSlide == 1){
-					$('.rank-list1').hide();
-					$('.rank-list2').fadeIn(300);
-					currentSlide = 2;		
-				}else if(currentSlide ==2){
-					$('.rank-list2').hide();
-					$('.rank-list1').fadeIn(300);
-		 			currentSlide = 3;
-				}else if(currentSlide == 3){
-					$('.rank-list1').hide();
-					$('.rank-list2').fadeIn(300);
-					currentSlide = 1; 
-				}});
-			
-		 	var currentSlide = 1;
-			$('#prev').click(function(){
-				if(currentSlide == 1){
-					$('.rank-list1').hide();
-					$('.rank-list2').fadeIn(300);
-					currentSlide = 2;		
-				}else if(currentSlide ==2){
-					$('.rank-list2').hide();
-					$('.rank-list1').fadeIn(300);
-		 			currentSlide = 3;
-				}else if(currentSlide == 3){
-					$('.rank-list1').hide();
-					$('.rank-list2').fadeIn(300);
-					currentSlide = 1; 
-				}});
-			});
-		</script>	
 		<script>
 			function loginChk(){
 				if('<%= loginUser %>' != 'null'){
@@ -258,7 +259,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 			});
 		</script>
 		
-	</div>		
+			
 			
 			
 	<!-- 작성 끝  -->

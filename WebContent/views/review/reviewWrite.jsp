@@ -7,15 +7,15 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">
-	#select-pro{border: none; width: 600px; height: 170px;
-				margin-left: 150px;}
-	#pro-img{background: lightgray; border-radius: 5px; border: none; 
-			width: 160px; height: 160px; text-align: center;
+	#selectDiv{text-align: center; width: 100%}
+	#selectPro{border: none; width: 600px; height: 170px; text-align: left;}
+	#pro-img{background: lightgray; border-radius: 5px; border: 1px; 
+			width: 160px; height: 160px; text-align: center; 
 			}
 	#pro-img>img{width: 160px; height: 160px;}
-	
+	.sp1{margin-left: 30px;}
 	#btn-select{background: darkgray; color: white; border: none; border-radius: 3px;
-				width: 75px; height: 30px;
+				width: 75px; height: 30px; margin-left: 30px;
 				}
 	.label-name{margin-left: 90px; font-size: 16px; margin-bottom: 30px; text-align: center; margin-right: 40px;}
 
@@ -47,30 +47,33 @@
 		<hr>
 			<!-- 작성 시작-->
 	<div class="writingReview">
-	<h2> &nbsp;리뷰 작성</h2>
+	<h2 style="color: gray"> &nbsp;리뷰 작성</h2>
 	<hr>
 	<form name="reviewForm" class="reviewForm" action="<%= request.getContextPath() %>/insert.re" method="get">
-	<div>
-	<table id="select-pro">
-		<tr>
-			<td rowspan=3>
-			<div id="pro-img">
-				<img name="cosmetic_img">
-			</div>
-			</td>
-			<td>브랜드 명 <input type="text" name="brand_name"/></td>
-		</tr>
-		<tr>
-			<td>제품 명 <input type="text" name="cosmetic_name"/></td>
-			<td><input type="hidden" name="cosmetic_no"/></td>
-		</tr>
-		<tr>
-			<td><button type="button" id="btn-select">제품 선택</button></td>
-			
-		</tr>
-	</table>
-<hr>	
+	<div id="selectDiv">
+		<table id="selectPro">
+			<tr>
+				<td rowspan=3>
+				<div id="pro-img">
+					<img name="cosmetic_img">
+				</div>
+				</td>
+				<td><span class="sp1">브랜드 명</span><br> 
+				<input type="text" name="brand_name" style="border: none; margin-left: 30px; display: none;"></td>
+			</tr>
+			<tr>
+				<td><span class="sp1">제품 명</span><br> 
+				<input type="text" name="cosmetic_name" style="border: none; width: 500px; margin-left: 30px; display: none;"></td>
+				<td><input type="hidden" name="cosmetic_no"/></td>
+			</tr>
+			<tr>
+				<td><button type="button" id="btn-select">제품 선택</button></td>
+				
+			</tr>
+		</table>
 	</div>
+<hr>	
+
 		<br><br>
 		<div>
 		     <label class="label-name">평점</label>

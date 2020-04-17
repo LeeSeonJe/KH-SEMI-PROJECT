@@ -101,11 +101,11 @@ input {
 	display: inline-flex;
     border-block-end: 1px solid #ccc;
     margin-left: 30px;
+    padding-bottom: 30px;
 }
 
 .ranking-list div {
 	display: inline-block;
-	height: 170px;
 	text-align: center;
 }
 
@@ -152,8 +152,13 @@ input {
 	margin-right: 225px;
 }
 
-#cosmetic-category #cosmetic-big-category, #cosmetic-middle-category, #category-btn, .middle-category{
-	float: left;
+#cosmetic-category #sidoCd, #cosmetic-category .sggu, .input-text {
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 5px;
+    /* width: 150px; */
+    height: 30px;
+    margin-left: 6px;
 }
 
 #cosmetic-category #cosmetic-big-category {
@@ -184,14 +189,32 @@ input {
     float: right;
 }
 
-.srch-select, .input-text{
+#sidoCd, .sggu, .srch-select, .input-text{
 	float: right;
 }
+
+/* 별점 CSS */
+span.star-prototype, span.star-prototype > * {
+		height: 16px; 
+		background: url(<%= request.getContextPath()%>/resources/images/heartAvg.png) 0 -16px repeat-x;
+		width: 80px;
+		display: inline-block;
+		text-align: left;
+}
+
+span.star-prototype > * {
+	background-position: 0 0;
+	max-width:80px; 
+}
+
+.heartPosition {
+		display: inline-block;
+		vertical-align: middle;
+	}
 </style>
 
 <% 
 	ArrayList<Hospital> list = (ArrayList<Hospital>) request.getAttribute("list"); 
-	
 %>
 </head>
 <body>
@@ -202,7 +225,7 @@ input {
 			<h1>병원 랭킹</h1>
 		</section>
 		
-		<form id="filter-form">
+		<form id="filter-form" action="<%= request.getContextPath() %>/searchAddress.hos" onsubmit="return false;">
 			<section id="cosmetic-filter">
 				<div id="cosmetic-beauty-filter">
 					<div id="cosmetic-beauty-filter-header">
@@ -232,65 +255,97 @@ input {
 				</div>
 			</section>
 			<section id="cosmetic-category" >
-				<button id="category-btn" type="submit">검색</button>
-				<input type="text" id="yadmNm" name="yadmNm" style="ime-mode: active;" value="읍/면/동 또는 도로명을 입력해주세요" title="도로명 입력" class="input-text" />
-				<select name="sgguCd" id="sgguCd" title="시/군/구 선택" class="srch-select" style="width: 111px;">
-				    <option value="">시/군/구 선택</option>
-				</select>
-				<select name="sidoCd" id="sidoCd" title="시/도 선택" class="srch-select" style="width: 93px;">
-				    <option value="">시/도 선택</option>
-				    <option value="서울">서울</option>
-				    <option value="부산">부산</option>
-				    <option value="인천">인천</option>
-				    <option value="대구">대구</option>
-				    <option value="광주">광주</option>
-				    <option value="대전">대전</option>
-				    <option value="울산">울산</option>
-				    <option value="경기">경기</option>
-				    <option value="강원">강원</option>
-				    <option value="충북">충북</option>
-				    <option value="충남">충남</option>
-				    <option value="전북">전북</option>
-				    <option value="전남">전남</option>
-				    <option value="경북">경북</option>
-				    <option value="경남">경남</option>
-				    <option value="제주">제주</option>
-				    <option value="세종">세종</option>
+				<button id="category-btn" type="button" onclick="addressSearch()">검색</button>
+				<input type="text" id="dong" name="dong" style="ime-mode: active;" placeholder="읍/면/동 또는 도로명을 입력해주세요" class="input-text" size="33"/>
+				<%@include file="/views/hospital/select_sggu.jsp" %>
+				<select name="sidoCd" id="sidoCd" title="시/도 선택" class="sido" style="width: 93px;">
+				    <option value="first" selected>시/도 선택</option>
+				    <option value="서울시">서울특별시</option>
+				    <option value="부산광역시">부산광역시</option>
+				    <option value="대구광역시">대구광역시</option>
+				    <option value="인천광역시">인천광역시</option>
+				    <option value="광주광역시">광주광역시</option>
+				    <option value="대전광역시">대전광역시</option>
+				    <option value="울산광역시">울산광역시</option>
+				    <option value="세종특별자치시">세종특별자치시</option>
+				    <option value="경기도">경기도</option>
+				    <option value="강원도">강원도</option>
+				    <option value="충청북도">충청북도</option>
+				    <option value="충청남도">충청남도</option>
+				    <option value="전라북도">전라북도</option>
+				    <option value="전라남도">전라남도</option>
+				    <option value="경상북도">경상북도</option>
+				    <option value="경상남도">경상남도</option>
+				    <option value="제주특별자치도">제주특별자치도</option>
 				</select>
 			<section>
 				<ul id='ul-area'>
-				<% for (int i = 0; i < list.size(); i++) { %>
-					<li>
-						<div class="ranking-list">
-							<div class="cos-rank">
-								<h3><%= i+1 %></h3>
-							</div>
-							<div class="cos-img">
-									<span><%= list.get(i).getHospital_img() %></span>
-									<%-- <img src="<%= request.getContextPath() %>/hospital_images/<%= list.get(i).getHospital_img() %>"/> --%>
-							</div>
-							<div class="cos-detail hospital-detail-link">
+				<% if(list.size() == 0) { %>
+						<li>
+							<div class="ranking-list">
+								<div class="cos-rank">
+								</div>
+								<div class="cos-img">
+								</div>
+								<div class="cos-detail">
 								<br>
-								<h6><%= list.get(i).getUser_name() %></h6>
-								<h5><%= list.get(i).getHospital_about() %></h5><br><br>
+								<br><br>
+								<br>
+								<span>조회된 결과가 없습니다.</span>
+								</div>
+								<div class="cos-score">
+								</div>
 							</div>
-							<div class="cos-score">
-								<span><%= list.get(i).getHospital_heart()%></span>
-								<span>imgimgimgimg</span>
-								<span>(<%= (int)list.get(i).getReview_count() %>)</span>
+						</li>
+				<% } else { %>
+					<% for (int i = 0; i < list.size(); i++) { %>
+						<li>
+							<div class="ranking-list">
+								<div class="cos-rank">
+									<% if(list.get(i).getReview_count()==0) { %>
+										<h3>-</h3>
+									<% } else { %>
+										<h3><%= i+1 %></h3>
+									<% } %>
+								</div>
+								<div class="cos-img">
+										<%-- <span><%= list.get(i).getHospital_img() %></span> --%>
+										<% String[] images = list.get(i).getHospital_img().split(","); %>
+										<img src="<%= request.getContextPath() %>/hospital_images/<%= images[0] %>"/>
+								</div>
+								<div class="cos-detail hospital-detail-link">
+									<br>
+									<h6><%= list.get(i).getUser_name() %></h6>
+									<h5><%= list.get(i).getHospital_about() %></h5><br><br>
+								</div>
+								<div class="cos-score">
+									<span><%= list.get(i).getHospital_heart()%></span>
+									<div class="heartPosition">
+										<span class="star-prototype"><%= list.get(i).getHospital_heart()%></span>
+									</div>
+									<span>(<%= (int)list.get(i).getReview_count() %>)</span>
+								</div>
 							</div>
-						</div>
-					</li>
+						</li>
+					<% } %>
 				<% } %>
 				</ul>
 				</section>
 			</section>
 		</form>
-		
 	</div>
 	<%@ include file="/views/layout/footer.jsp"%>
 
 	<script>
+		/* 별점 스크립트 */
+		$.fn.generateStars = function() {
+			return this.each(function(i,e){
+				$(e).html($('<span/>').width($(e).text()*16));
+			});
+		};
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$('.star-prototype').generateStars();
+
 		$('.hospital-detail-link').click(function(){
 			location.href="<%= request.getContextPath()%>/detail.hos?hosName=" + encodeURIComponent($(this).children('h6').text());
 		})
@@ -333,6 +388,9 @@ input {
 		})
 		
 		function filter_apply() {
+			$('#sidoCd').val("first");
+			$('select[name=sggu]')[0].value = "first";
+			$('#dong').val("");
 			var hospital_filter = $('#hospital-fieldset>input[name]:checked').val();
 			$.ajax({
 				url: 'hospital.li',
@@ -344,17 +402,28 @@ input {
 						count += 1;
 						var $div1 = $('<div class="ranking-list"></div>');
 						var $div2 = $('<div class="cos-rank"></div>');
-						var $h3 = $('<h3></h3>').text(count);
+						if(hospital_filter == "리뷰 적은 순" || hospital_filter == '평점 낮은 순' || hospital_filter == "답변 적은 순"){
+							var $h3 = $('<h3></h3>').text(count);
+						}
+						else{
+							if(data[i].review_count == 0){
+								var $h3 = $('<h3></h3>').text('-');							
+							} else{
+								var $h3 = $('<h3></h3>').text(count);
+							}							
+						}
 						var $div3 = $('<div class="cos-img"></div>');
 						var $img = $('<img>')						
-						$img.attr('src', "<%= request.getContextPath() %>/hospital_images/" + data[i].hospital_img);														
+						var images = data[i].hospital_img.split(",");
+							$img.attr('src', "<%= request.getContextPath() %>/hospital_images/" + images[0]);		
 						var $div4 = $('<div class="cos-detail hospital-detail-link"></div>');
 						var $br = $('<br>');
 						var $h6 = $('<h6></h6>').text(data[i].user_name);
 						var $h5 = $('<h5></h5>').text(data[i].hospital_about);
 						var $div5 = $('<div class="cos-score"></div>');
 						var $span1 = $('<span></span>').text(data[i].hospital_heart);
-						var $span2 = $('<span></span>').text('imgimgimgimg');
+						var $div6 =  $('<div class="heartPosition"></div>');
+						var $span2 = $('<span class="star-prototype"></span>').text(data[i].hospital_heart);
 						var $span3 = $('<span></span>').text('('+data[i].review_count+')');
 						
 						$div2.append($h3);
@@ -363,8 +432,15 @@ input {
 						$div4.append($h6);
 						$div4.append($h5);
 						$div5.append($span1);
-						$div5.append($span2);
+						$div6.append($span2);
+						$div5.append($div6);
 						$div5.append($span3);
+						
+						$.fn.generateStars = function() {
+							return this.each(function(i,e){
+								$(e).html($('<span/>').width($(e).text()*16));
+							});
+						};
 						
 						$div1.append($div2);
 						$div1.append($div3);
@@ -372,8 +448,203 @@ input {
 						$div1.append($div5);
 						
 						$('#ul-area').append($div1);
+						
+						$('.hospital-detail-link').click(function(){
+							location.href="<%= request.getContextPath()%>/detail.hos?hosName=" + encodeURIComponent($(this).children('h6').text());
+						})
+
+						$('.star-prototype').generateStars();
 					}
 				}
+			})
+		}
+		
+		$(function(){
+			$('.sggu').css('display','none')
+			$('#first').css('display','block');
+			$('#first').attr("name","sggu");
+		})
+		
+		$('#sidoCd').click(function(){
+			var t = document.getElementById('sidoCd');
+			if(t.value=='first'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#first').css('display','block');
+				$('#first').attr("name","sggu");
+			} else if(t.value=='서울시'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#seoul').css('display','block');
+				$('#seoul').attr("name","sggu");
+			} else if(t.value=='부산광역시'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#busan').css('display','block');
+				$('#busan').attr("name","sggu");
+			} else if(t.value=='대구광역시'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#daegu').css('display','block');
+				$('#daegu').attr("name","sggu");
+			} else if(t.value=='인천광역시'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#incheon').css('display','block');
+				$('#incheon').attr("name","sggu");
+			} else if(t.value=='광주광역시'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#gwangju').css('display','block');
+				$('#gwangju').attr("name","sggu");
+			} else if(t.value=='대전광역시'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#daejeon').css('display','block');
+				$('#daejeon').attr("name","sggu");
+			} else if(t.value=='울산광역시'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#ulsan').css('display','block');
+				$('#ulsan').attr("name","sggu");
+			} else if(t.value=='세종특별자치시'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#sejong').css('display','block');
+				$('#sejong').attr("name","sggu");
+			} else if(t.value=='경기도'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#gyeonggi').css('display','block');
+				$('#gyeonggi').attr("name","sggu");
+			} else if(t.value=='강원도'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#gangwon').css('display','block');
+				$('#gangwon').attr("name","sggu");
+			} else if(t.value=='충청북도'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#chungcheongbuk').css('display','block');
+				$('#chungcheongbuk').attr("name","sggu");
+			} else if(t.value=='충청남도'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#chungcheongnam').css('display','block');
+				$('#chungcheongnam').attr("name","sggu");
+			} else if(t.value=='전라북도'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#jeollabuk').css('display','block');
+				$('#jeollabuk').attr("name","sggu");
+			} else if(t.value=='전라남도'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#jeollanam').css('display','block');
+				$('#jeollanam').attr("name","sggu");
+			} else if(t.value=='경상북도'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#gyeongsangbuk').css('display','block');
+				$('#gyeongsangbuk').attr("name","sggu");
+			} else if(t.value=='경상남도'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#gyeongsangnam').css('display','block');
+				$('#gyeongsangnam').attr("name","sggu");
+			} else if(t.value=='제주특별자치도'){
+				$('.sggu').css('display','none')
+				$('.sggu').attr("name", null);
+				$('#jeju').css('display','block');
+				$('#jeju').attr("name","sggu");
+			}
+		})
+		
+		function addressSearch(){
+			$('input[name=hospital_filter]').addClass('radioChk').removeClass("radioChkActive");
+			$("#ranking").prop("checked", true).addClass("radioChkActive");
+			var sidoCd = $('#sidoCd').val();
+			var sggu = $('select[name=sggu]')[0].value;
+			var dong = $('#dong').val();
+			
+			$.ajax({
+				url: 'searchAddress.hos',
+				data: {sidoCd:sidoCd, sggu:sggu, dong:dong},
+				success: function(data){
+					var count = 0;
+					$('#ul-area').html("");
+					if(data.length == 0){
+						var $div1 = $('<div class="ranking-list"></div>');
+						var $div2 = $('<div class="cos-rank"></div>');
+						var $div3 = $('<div class="cos-img"></div>');
+						var $div4 = $('<div class="cos-detail"></div>');
+						var $br = $('<br><br><br><br>');
+						var $span = $('<span></span>').text('조회된 리스트가 없습니다.');
+						var $div5 = $('<div class="cos-score"></div>');
+						
+						$div4.append($br);
+						$div4.append($span);
+						
+						$div1.append($div2);
+						$div1.append($div3);
+						$div1.append($div4);
+						$div1.append($div5);
+						
+						$('#ul-area').append($div1);
+					} else {
+						for(var i in data){
+							count += 1;
+							var $div1 = $('<div class="ranking-list"></div>');
+							var $div2 = $('<div class="cos-rank"></div>');
+							if(data[i].review_count == 0){
+								var $h3 = $('<h3></h3>').text('-');							
+							} else{
+								var $h3 = $('<h3></h3>').text(count);
+							}							
+							var $div3 = $('<div class="cos-img"></div>');
+							var $img = $('<img>')
+							var images = data[i].hospital_img.split(",");
+							$img.attr('src', "<%= request.getContextPath() %>/hospital_images/" + images[0]);														
+							var $div4 = $('<div class="cos-detail hospital-detail-link"></div>');
+							var $br = $('<br>');
+							var $h6 = $('<h6></h6>').text(data[i].user_name);
+							var $h5 = $('<h5></h5>').text(data[i].hospital_about);
+							var $div5 = $('<div class="cos-score"></div>');
+							var $span1 = $('<span></span>').text(data[i].hospital_heart);
+							var $div6 =  $('<div class="heartPosition"></div>');
+							var $span2 = $('<span class="star-prototype"></span>').text(data[i].hospital_heart);
+							var $span3 = $('<span></span>').text('('+data[i].review_count+')');
+							
+							$div2.append($h3);
+							$div3.append($img);
+							$div4.append($br);
+							$div4.append($h6);
+							$div4.append($h5);
+							$div5.append($span1);
+							$div6.append($span2);
+							$div5.append($div6);
+							$div5.append($span3);
+							
+							$div1.append($div2);
+							$div1.append($div3);
+							$div1.append($div4);
+							$div1.append($div5);
+							
+							$('#ul-area').append($div1);
+							
+							$('.hospital-detail-link').click(function(){
+								location.href="<%= request.getContextPath()%>/detail.hos?hosName=" + encodeURIComponent($(this).children('h6').text());
+							})
+							// 숫자 평점을 별로 변환하도록 호출하는 함수
+							$.fn.generateStars = function() {
+								return this.each(function(i,e){
+									$(e).html($('<span/>').width($(e).text()*16));
+								});
+							};
+							$('.star-prototype').generateStars();
+						}
+					}
+				}	
 			})
 		}
 		

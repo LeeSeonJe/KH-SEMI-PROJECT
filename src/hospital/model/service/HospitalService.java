@@ -8,8 +8,6 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import static common.JDBCTemplate.*;
-import customer.model.dao.CustomerDAO;
 import hospital.model.dao.HospitalDAO;
 import hospital.model.vo.Hospital;
 import member.model.dao.MemberDAO;
@@ -39,6 +37,20 @@ public class HospitalService {
 		ArrayList<Hospital> list = new HospitalDAO().selectHospitalList(conn, hospitalFilter);
 		close(conn);
 		return list;
+	}
+
+	public ArrayList<Hospital> searchAddress(String sidoCd, String sggu, String dong) {
+		Connection conn = getConnection();
+		ArrayList<Hospital> list = new HospitalDAO().searchAddress(conn, sidoCd, sggu, dong);
+		close(conn);
+		return list;
+	}
+
+	public Hospital detailHospital(String hosName) {
+		Connection conn = getConnection();
+		Hospital h = new HospitalDAO().detailHospital(conn, hosName);
+		
+		return h;
 	}
 
 }

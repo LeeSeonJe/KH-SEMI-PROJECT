@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -328,5 +329,55 @@ public class CosmeticDAO {
 		return rca;
 	}
 
+	public ArrayList<CosmeticReviewList> cosReviewFilter(Connection conn, String query) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<CosmeticReviewList> rList = new ArrayList<CosmeticReviewList>();
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			while(rset.next()) {
+				String profile_image = rset.getString("PROFILE_IMAGE");
+				String user_name = rset.getString("USER_NAME");
+				String age = rset.getString("AGE");
+				String skinType = rset.getString("SKINTYPE");
+				String gender = rset.getString("GENDER");
+				String board_title = rset.getString("BOARD_TITLE");
+				String board_content = rset.getString("BOARD_CONTENT");
+				Date board_date = rset.getDate("BOARD_DATE");
+				rList.add(new CosmeticReviewList(profile_image, user_name, age, skinType, gender, board_title,
+				board_content, board_date));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return rList;
+	}
 
+	public String getCos_middle_no(Connection conn, String middleName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String cos_middle_no = "";
+		String query = prop.getProperty("getCos_middle_no");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, middleName);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				cos_middle_no = rset.getString("MIDDLE_NO");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} 
+		return cos_middle_no;
+	}
 }

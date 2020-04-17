@@ -29,47 +29,7 @@ public class ReviewDAO {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Review> selectList(Connection conn, int currentPage, int boardLimit) {
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Review> list = null;
-		
-		String query = prop.getProperty("selectList");
-		
-		int startRow = (currentPage -1) * boardLimit +1;
-		int endRow = startRow + boardLimit -1;
-		
-		try {
-			pstmt=conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
-			list = new ArrayList<Review>();
-			
-			while(rset.next()) {
-				Review r = new Review(rset.getInt("REVIEW_NO"),
-									  rset.getInt("REVIEW_THUMBS_UP"),
-									  rset.getInt("REVIEW_HEART"),
-									  rset.getString("board_title"),
-									  rset.getString("board_content"),
-									  rset.getDate("board_date"),
-									  rset.getString("board_category"),
-									  rset.getString("user_name"),
-									  rset.getInt("review_thumbs_down"));
-				list.add(r);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
-
+	
 	public int getListCount(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -93,6 +53,55 @@ public class ReviewDAO {
 		
 		return result;
 	}
+	public ArrayList<Review> selectList(Connection conn, int currentPage, int boardLimit) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> list = null;
+		
+		String query = prop.getProperty("selectList");
+		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
+		System.out.println("ReviewDAO startRow, endRow : " + startRow + ", " + endRow);
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Review>();
+			
+			while(rset.next()) {
+				Review r = new Review(rset.getInt("REVIEW_NO"),
+									  rset.getInt("REVIEW_THUMBS_UP"),
+									  rset.getInt("REVIEW_HEART"),
+									  rset.getString("REVIEW_DEL_YN"),
+									  rset.getString("board_title"),
+									  rset.getString("board_content"),
+									  rset.getDate("board_date"),
+									  rset.getString("board_category"),
+									  rset.getString("user_name"),
+									  rset.getString("cosmetic_name"),
+									  rset.getString("cosmetic_img"),
+									  rset.getInt("review_thumbs_down"),
+									  rset.getInt("age"),
+									  rset.getString("skintype"),
+									  rset.getString("gender"),
+									  rset.getString("profile_image"));
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
 	public int insertBoard(Connection conn, Review r) {
 		// insert into board values(seq_board_no.nextval, ?, ?, sysdate, 리뷰게시판, ?)
 		

@@ -160,4 +160,88 @@ public class HospitalDAO {
 		return list;
 	}
 
+	public ArrayList<Hospital> searchAddress(Connection conn, String sidoCd, String sggu, String dong) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Hospital> list = new ArrayList<Hospital>();
+		
+		String plusQuery = "";
+		
+		if(!sidoCd.equals("first")) {
+			plusQuery += " address LIKE '%"+sidoCd+"%'";
+		}
+		
+		if(!sggu.equals("first")) {
+			if(plusQuery.contains("address")) {
+				plusQuery += " and address LIKE '%"+sggu+"%'";				
+			} else {
+				plusQuery += " address LIKE '%"+sggu+"%'";				
+			}
+		}
+		
+		if(dong != null) {
+			if(plusQuery.contains("address")) {
+				plusQuery += " and address LIKE '%"+dong+"%'";				
+			} else {
+				plusQuery += " address LIKE '%"+dong+"%'";				
+			}
+		}
+		
+		String query = prop.getProperty("searchAddress");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query+plusQuery);
+			
+			while(rset.next()) {
+				list.add(new Hospital(rset.getString("user_name"),
+						rset.getString("hospital_about"),
+						rset.getString("address"),
+						rset.getString("hospital_img"),
+						rset.getDouble("hospital_heart"),
+						rset.getDouble("review_count")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+	public Hospital detailHospital(Connection conn, String hosName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Hospital h = null;
+		
+		String query = prop.getProperty("detailHospital");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, hosName);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				h = new Hospital(rset.getString("user_name"),
+								 rset.getString("hospital_about"),
+								 rset.getString("tel"),
+								 rset.getString("address"),
+								 rset.getString("hospital_img"),
+								 rset.getDouble("hospital_heart"),
+								 rset.getDouble("review_count"),
+								 rset.getString("email"));										
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return h;
+	}
+
 }

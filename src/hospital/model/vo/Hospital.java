@@ -26,6 +26,18 @@ public class Hospital {
 		this.hospital_heart = hospital_heart;
 		this.review_count = review_count;
 	}
+	
+	public Hospital(String user_name, String hospital_about, String tel, String address, String hospital_img, double hospital_heart, double review_count, String email) {
+		super();
+		this.user_name = user_name;
+		this.hospital_about = hospital_about;
+		this.tel = tel;
+		this.address = address;
+		this.hospital_img = hospital_img;
+		this.hospital_heart = hospital_heart;
+		this.review_count = review_count;
+		this.email = email;
+	}
 
 	public Hospital(int hospital_no, String hospital_about, String tel, String address, String join_yn,
 			double hospital_heart, String email) {
