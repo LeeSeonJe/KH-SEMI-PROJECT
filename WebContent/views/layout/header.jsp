@@ -2,7 +2,7 @@
    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%
    Member loginUser = (Member)session.getAttribute("loginUser");
-   String msg = (String)request.getAttribute("msg");
+   String profile_image = (String)session.getAttribute("profile_image");
 %>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/layoutCss/cosTalk.css"
@@ -253,6 +253,12 @@
 		
 		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
 		<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/views/member/myPage.jsp"><%= loginUser.getUser_name() %></a></label></span>
+		<% if(loginUser.getUser_category().equals("C")) { %>
+			<img id="login" class="login" style="width: 50px; height: 50px; border-radius: 50px;float: right; margin-top: 40px" src="<%= request.getContextPath() %>/member_images/<%= profile_image %>" alt="" />
+		<% } else if(loginUser.getUser_category().equals("H")) { %>
+			<% String[] profiles = profile_image.split(","); %>
+			<img id="login" class="login" style="width: 50px; height: 50px; border-radius: 50px;float: right; margin-top: 40px" src="<%= request.getContextPath() %>/hospital_images/<%= profiles[0] %>" alt="" />
+		<% } %>
 		<span id="login" class="login"><img src="resources/images/mail1.png" style = "width : 50px; height : 50px; margin-top : -15px;" onclick = "cosTalkOpen();" id = "cosTalkBtn"></span>
 		<% } %>
 		<%-- <span class="sch">

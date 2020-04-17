@@ -145,4 +145,12 @@ public class MemberService {
 			return result;
 		}
   }
+
+	public Member loginHospital(Member m) {
+		Connection conn = getConnection();
+
+		Member loginUser = new MemberDAO().loginHospital(conn, m);
+		close(conn);
+		return loginUser;
+	}
 }

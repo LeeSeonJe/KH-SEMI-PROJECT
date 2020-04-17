@@ -49,8 +49,16 @@ public class HospitalService {
 	public Hospital detailHospital(String hosName) {
 		Connection conn = getConnection();
 		Hospital h = new HospitalDAO().detailHospital(conn, hosName);
-		
+		close(conn);
 		return h;
+	}
+
+	public String selectProfile(int user_no) {
+		Connection conn = getConnection();
+		
+		String profile = new HospitalDAO().selectProfile(conn, user_no);
+		close(conn);
+		return profile;
 	}
 
 }

@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import customer.model.service.CustomerService;
+import hospital.model.service.HospitalService;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
@@ -73,9 +75,17 @@ public class NaverLoginServlet extends HttpServlet {
             String nickname = (String)((JSONObject)result.get("response")).get("nickname");
             
             Member loginUser = new MemberService().checkMember(id);
-            
+            String profile_image = null;
+            if(loginUser.getUser_category().equals("C")) {
+    			profile_image = new CustomerService().selectProfile(loginUser.getUser_no()); 
+    		} else if(loginUser.getUser_category().equals("H")){
+    			profile_image = new HospitalService().selectProfile(loginUser.getUser_no());
+    		} else {
+    			profile_image = "admin";
+    		}
             if(loginUser != null) {
     			session.setAttribute("loginUser", loginUser);
+    			session.setAttribute("profile_image", profile_image);
     			session.setMaxInactiveInterval(600);
     			
     			response.sendRedirect(request.getContextPath());

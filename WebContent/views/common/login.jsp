@@ -3,6 +3,11 @@
 <%@ page import="java.net.URLEncoder"%>
 <%@ page import="java.security.SecureRandom"%>
 <%@ page import="java.math.BigInteger"%>
+
+<% 
+	String msg = (String) request.getAttribute("msg");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +30,12 @@
 		<!-- 작성 -->
 
 	</div>
-
+	<% if(msg != null) { %>
+	<script>
+		window.alert("<%= msg%>");
+	</script>
+	<% } %>
 	<div class="loginForm">
-
 		<div>
 			<br> <br> <br>
 		</div>
@@ -60,6 +68,7 @@
 							<br><br>
 						</div>
 						<div>
+							<input type="hidden" name="category" value="C">
 							<input class="loginInput" id="id-input" placeholder="  아이디" style = "float : left"
 								name="id">
 						</div>
@@ -105,6 +114,7 @@
 							<br><br>
 						</div>
 						<div>
+							<input type="hidden" name="category" value="H">
 							<input class="loginInput" id="id-input2" placeholder="  아이디"
 								name="id">
 						</div>
