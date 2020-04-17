@@ -59,11 +59,11 @@
 				</div>
 				</td>
 				<td><span class="sp1">브랜드 명</span><br> 
-				<input type="text" name="brand_name" style="border: none; margin-left: 30px;"></td>
+				<input type="text" name="brand_name" style="border: none; margin-left: 30px; display: none;"></td>
 			</tr>
 			<tr>
 				<td><span class="sp1">제품 명</span><br> 
-				<input type="text" name="cosmetic_name" style="border: none; width: 500px; margin-left: 30px;"></td>
+				<input type="text" name="cosmetic_name" style="border: none; width: 500px; margin-left: 30px; display: none;"></td>
 				<td><input type="hidden" name="cosmetic_no"/></td>
 			</tr>
 			<tr>

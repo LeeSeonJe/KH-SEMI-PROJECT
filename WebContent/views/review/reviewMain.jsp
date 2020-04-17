@@ -4,7 +4,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 <%
    ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
    PageInfo pi = (PageInfo)request.getAttribute("pi");
-   System.out.println(pi);
+   System.out.println("reviewMain pi : " + pi);
    ArrayList<Review> slideList = (ArrayList<Review>)request.getAttribute("slideList");
    
    int currentPage = pi.getCurrentPage();
@@ -21,15 +21,37 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">	
 /* 슬라이드 */
-#slide{width: 100%; height: 400px; background: none;}
+#slide{   width: 100%;
+   min-height: 300px;
+   text-align: center;}
+#tableDiv{
+   width: 80%; display: inline-block;
+   text-align: center;
+}
+/* .btns{width: 50px; height: 50px; margin-top: 165px;}
+ */
+#next {
+   width: 50px;
+    height: 50px;
+   display: none; 
+}
 
-.btns{width: 50px; height: 50px; margin-top: 165px;}
-#next{display: none;}
-#prev{display: none;}
+#prev {
+   width: 50px;
+   height: 50px;
+   display: none;
+}
+
+.btn-direction {
+   border: none;
+   background: none;
+/*    display: inline-block; */
+} 
 
 
 	#div-ranklist{text-align:center; display: inline-block; width: 100%; padding: 20px;}
-	#ranking-title{padding: 20px; text-align: left;}
+	#ranking-title{padding: 20px; text-align: left; display: inline-block}
+	#div-ranklist{display: inline-block; width: 80%;}
 	h3{margin-left: 30px;}
 	.rank-list1>td{display: inline-block; text-align: center; margin-top: 40px;}	
 	.rank-list2>td{display: inline-block; text-align: center; margin-top: 40px;}	
@@ -74,33 +96,36 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 		<hr>
 			<!-- 작성 -->
 		<div id="slide"><!-- 베스트리뷰 슬라이드 -->
-			<div id="div-btns">
-				<img class="btns" id="prev" src="/COSMEDIC/resources/images/prev.png">
-					<div id="ranking-title"><h3 style="color:gray">지금 뜨는 리뷰</h3></div>
-				<div id="div-ranklist"><!-- 리스트 -->
+	   <button class="btn-direction"><img id="prev" src="<%= request.getContextPath() %>/resources/images/prev.png"></button>
+	   <div id="tableDiv">
 					<table>
-							<tr>
-							<% for(int i = 0; i<slideList.size(); i++){ 
-								Review r = slideList.get(i); %>
-								<%if(i<3){ %>
-								<td class="img">
-								<img src="<%= r.getCosmetic_img() %>">
-								</td>
-							<% } }%>
-							</tr>
-							<tr>
-							<% for(int j = 0; j<slideList.size(); j++){
-								Review r = slideList.get(j);%>
-								<%if(j<3){ %>
-								<td id="rTitle" class="title"><%= r.getTitle() %></td>
-							<% } } %>
-							</tr>
+						<tr>
+						<% for(int i = 0; i<slideList.size(); i++){ 
+							Review r = slideList.get(i); %>
+							<%if(i<3){ %>
+							<td class="img">
+							<img src="<%= r.getCosmetic_img() %>">
+							</td>
+						<% } }%>
+						</tr>
+						<tr>
+						<% for(int j = 0; j<slideList.size(); j++){
+							Review r = slideList.get(j);%>
+							<%if(j<3){ %>
+							<td id="rTitle" class="title"><%= r.getTitle() %></td>
+						<% } } %>
+						</tr>
 					</table>
-				</div><!-- 리스트끝 -->
-				<img class="btns" id="next" src="/COSMEDIC/resources/images/next.png">
-			</div>
 		</div>
-	</div><!-- 슬라이드 끝 -->	
+		 <button class="btn-direction"><img id="next" src="<%= request.getContextPath() %>/resources/images/next.png"></button>
+				</div><!-- 리스트끝 -->
+			</div>
+	<!-- 슬라이드 끝 -->	
+
+
+
+
+
 
 	<div style="width: 68%;"><!-- 리뷰 리스트 -->
 		<h3>리뷰</h3>
