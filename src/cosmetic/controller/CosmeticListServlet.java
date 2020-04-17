@@ -38,7 +38,6 @@ public class CosmeticListServlet extends HttpServlet {
 		// 화장품 테이블에 중분류가 숫자이므로 카테고리 테이블에서 조인해서 중분류 이름 가져옴
 		String middleName = new CosmeticService().cosMiddleName(cos_middle_no);
 		
-		
 		String page = null;
 		if(list != null) {
 			page="views/cosmetic/cosmeticRank.jsp";
@@ -50,6 +49,11 @@ public class CosmeticListServlet extends HttpServlet {
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
+		
+		// ajax를 통한 화장품 카테고리 변경
+		String middleCategory = request.getParameter("middleCategory");
+		list = new CosmeticService().ajaxSelectCosmeticList(middleCategory);
+		
 	}
 
 	/**
