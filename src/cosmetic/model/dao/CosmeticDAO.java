@@ -363,13 +363,14 @@ public class CosmeticDAO {
 		ResultSet rset = null;
 		String cos_middle_no = "";
 		String query = prop.getProperty("getCos_middle_no");
+//		System.out.println(middleName);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, middleName);
 			rset = pstmt.executeQuery();
-			
 			if(rset.next()) {
 				cos_middle_no = rset.getString("MIDDLE_NO");
+//				System.out.println(cos_middle_no);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
