@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8" import="hospital.model.vo.Hospital"%>
 <%
 	Hospital h = (Hospital) request.getAttribute("h");
-
 	String[] images = h.getHospital_img().split(",");
 %>
 <!DOCTYPE html>
@@ -224,7 +223,13 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
 		
 		<br><br>
 		
-		<div id="book" onclick="book();" class="button" >병원 예약 하기</div>
+		<div id="book" 
+		<% if(loginUser == null) { %>
+			onclick="alert('먼저 로그인을해주세요.')"		
+		<% } else { %>
+			onclick="window.open('<%=request.getContextPath()%>/views/hospital/hospitalBook.jsp?customer_no=<%= loginUser.getUser_no() %>&hos_name=<%= h.getUser_name() %>', 'book', 'width=650, height= 800');"		
+		<% } %>
+		class="button" >병원 예약 하기</div>
 		<br>
 		<div id="hospitalPoint">
 			<div id="pointName" class="title">병원 평점</div>
@@ -394,10 +399,7 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
 		</div>
 <script>
 	$(function(){
-		$('#book').click(function(){
-			open("#","이름" );
-		});
-		
+	
 		$('#hospital-review-more').click(function(){
 			$('.review-hide').show(100);
 		});	
@@ -410,10 +412,7 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
 		// 숫자 평점을 별로 변환하도록 호출하는 함수
 		$('.star-prototype').generateStars();
 		
-	});
-	function book(){
-		window.open("<%=request.getContextPath()%>/views/hospital/hospitalBook.jsp", 'book', 'width=650, height= 800');	
-	}
+	})
 </script>
 		</section>
 	</div>

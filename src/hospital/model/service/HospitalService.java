@@ -61,4 +61,12 @@ public class HospitalService {
 		return profile;
 	}
 
+	public int selectHosNo(String hos_name) {
+		Connection conn = getConnection();
+		
+		int user_no = new HospitalDAO().selectHosNo(conn, hos_name);
+		close(conn);
+		return user_no;
+	}
+
 }
