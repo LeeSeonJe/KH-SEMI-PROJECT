@@ -21,12 +21,14 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">	
 /* 슬라이드 */
-#slide{   width: 100%;
-   min-height: 300px;
+#slide{width: 100%;
+   min-height: 300px; 
    text-align: center;}
 #tableDiv{
-   width: 80%; display: inline-block;
+   width: 80%; margin-top:50px;
+   display: inline-block;
    text-align: center;
+   vertical-align: middle;
 }
 /* .btns{width: 50px; height: 50px; margin-top: 165px;}
  */
@@ -49,21 +51,21 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 } 
 
 
-	#div-ranklist{text-align:center; display: inline-block; width: 100%; padding: 20px;}
-	#ranking-title{padding: 20px; text-align: left; display: inline-block}
+/* 	#div-ranklist{text-align:center; display: inline-block; width: 100%; padding: 20px;}
 	#div-ranklist{display: inline-block; width: 80%;}
+	#ranking-title{padding: 20px; text-align: left; display: inline-block}
 	h3{margin-left: 30px;}
 	.rank-list1>td{display: inline-block; text-align: center; margin-top: 40px;}	
-	.rank-list2>td{display: inline-block; text-align: center; margin-top: 40px;}	
-	#rank2{margin-left: 80px; margin-right: 80px;}
-	#rank5{margin-left: 80px; margin-right: 80px;} 
+	.rank-list2>td{display: inline-block; text-align: center; margin-top: 40px;}
 	
-	.review-shots{width: 180px; height: 100px;}
-	
-	#rTitle{width: 450px; padding: 20px;}
 	#slideTable{width: 100px; height: 50px; display: inline-block;}
+	
+ */	
+	#rTitle{width: 450px; padding: 20px;}
 	.img>img{width: 160px;}
+	
 /* 슬라이드 끝 */
+
 #select-option{text-align: right;}
 	
 	.tb-profile tr td{border:1px solid black}
@@ -96,9 +98,9 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 		<hr>
 			<!-- 작성 -->
 		<div id="slide"><!-- 베스트리뷰 슬라이드 -->
-	   <button class="btn-direction"><img id="prev" src="<%= request.getContextPath() %>/resources/images/prev.png"></button>
-	   <div id="tableDiv">
-					<table>
+	   	   <button class="btn-direction"><img id="prev" src="<%= request.getContextPath() %>/resources/images/prev.png"></button>
+	   
+					<table id="tableDiv">
 						<tr>
 						<% for(int i = 0; i<slideList.size(); i++){ 
 							Review r = slideList.get(i); %>
@@ -116,18 +118,11 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 						<% } } %>
 						</tr>
 					</table>
-		</div>
-		 <button class="btn-direction"><img id="next" src="<%= request.getContextPath() %>/resources/images/next.png"></button>
+		 	<button class="btn-direction"><img id="next" src="<%= request.getContextPath() %>/resources/images/next.png"></button>
 				</div><!-- 리스트끝 -->
-			</div>
 	<!-- 슬라이드 끝 -->	
 
-
-
-
-
-
-	<div style="width: 68%;"><!-- 리뷰 리스트 -->
+	<div><!-- 리뷰 리스트 -->
 		<h3>리뷰</h3>
 		<div id="select-option">
 		<select name="filter">
@@ -142,7 +137,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 			<table class="tb-profile" style="width: 100%;">
 			<% for(int i = 0; i< list.size(); i++){ %>
 				<tr>
-					<td rowspan="2" width="10%" align="center"><img src="<%=list.get(i).getProfile_image() %>" class="icon-p"></td>
+					<td rowspan="2" width="10%" align="center"><img src="<%= request.getContextPath() %>/member_images/<%=list.get(i).getProfile_image() %>" class="icon-p"></td>
 					<td colspan="2" width="60%" class="review-title" height="40px"><!-- 리뷰제목 --><%=list.get(i).getTitle() %></td>
 					<td rowspan="2" width="15%" align="center"><img src="<%=list.get(i).getCosmetic_img() %>" class="icon-product"></td>
 					<td rowspan="3" width="15%" align="center"><span class="comment-like"><a href="#"><img src="<%= request.getContextPath() %>/resources/images/따봉.png" class="thumb"> &nbsp;&nbsp;좋아요</a></span>
@@ -263,7 +258,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 			
 			
 	<!-- 작성 끝  -->
-	
+	</div>
 
 	<%@ include file="/views/layout/footer.jsp"%>
 

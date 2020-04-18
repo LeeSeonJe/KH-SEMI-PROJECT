@@ -17,26 +17,29 @@
 	#btn-select{background: darkgray; color: white; border: none; border-radius: 3px;
 				width: 75px; height: 30px; margin-left: 30px;
 				}
-	.label-name{margin-left: 90px; font-size: 16px; margin-bottom: 30px; text-align: center; margin-right: 40px;}
+	.labelName{margin-left: 90px; font-size: 16px; margin-bottom: 30px; text-align: center; margin-right: 40px;}
 
 	#heart{font-size: 30px; display: inline-block; margin-left: 25px; margin-bottom: 0;}
 	#heart a{text-decoration: none; color: lightgray;}
 	#heart a.on{color: red;}
 	.label-radio{margin-left: 25px;}
-	#review-title{margin-left: 35px;}
-	#review-content{margin-left: 85px;}
+	#reviewTitle{margin-left: 35px; width: 624px;}
+	#reviewContent{margin-left:35px; vertical-align: top;}
 	#label-age{margin-left: 85px; font-size: 16px; margin-bottom: 30px; text-align: center; margin-right: 31px;}
 	
 	#div-content{display: inline-block;}
 	
-	#label-content{margin-left: 85px; font-size: 16px; margin-top: 2px;}
+	#labelContent{margin-left: 0px; font-size: 16px; margin-top: 2px;}
 	
-	#div-tip{display: inline-block; margin-left: 30px;}
+	#tip{display: inline-block; text-align: left; font-size: 11px; width: 40%;}
+	#req{display: inline-block; text-align: left; width: 40%;
+	margin-left: 190px;}
 	#p-tip{font-size: 5px;}
 
-	#div-btns{margin-left: 420px;}
-	#btn-reset{border-radius: 4px; background: lightgray; width: 55px; height: 35px; border: none;}
-	#btn-submit{border-radius: 4px; color: white; background: darkgray; width: 55px; height: 35px; border: none;}
+	#divBtns{margin-left: 420px;}
+	#btnReset{border-radius: 4px; background: lightgray; width: 55px; height: 35px; border: none;}
+	#btnReq{border-radius: 4px; background: linen; width: 55px; height: 35px; border: none;}
+	#btnSubmit{border-radius: 4px; color: white; background: slategray; width: 55px; height: 35px; border: none;}
 </style>
 <%@ include file="/views/layout/import.jsp"%>
 
@@ -49,7 +52,7 @@
 	<div class="writingReview">
 	<h2 style="color: gray"> &nbsp;리뷰 작성</h2>
 	<hr>
-	<form name="reviewForm" class="reviewForm" action="<%= request.getContextPath() %>/insert.re" method="get">
+	<form name="reviewForm" class="reviewForm" action="<%= request.getContextPath() %>/insert.re" method="get" onsubmit="return check();">
 	<div id="selectDiv">
 		<table id="selectPro">
 			<tr>
@@ -59,12 +62,12 @@
 				</div>
 				</td>
 				<td><span class="sp1">브랜드 명</span><br> 
-				<input type="text" name="brand_name" style="border: none; margin-left: 30px; display: none;"></td>
+				<input id="brandName" type="hidden" name="brand_name" style="border: none; margin-left: 30px; readonly"></td>
 			</tr>
 			<tr>
 				<td><span class="sp1">제품 명</span><br> 
-				<input type="text" name="cosmetic_name" style="border: none; width: 500px; margin-left: 30px; display: none;"></td>
-				<td><input type="hidden" name="cosmetic_no"/></td>
+				<input id="cosName" type="text" name="cosmetic_name" style="border: none; width: 500px; margin-left: 30px; readonly"></td>
+				<td><input id="cosNo" type="hidden" name="cosmetic_no"/></td>
 			</tr>
 			<tr>
 				<td><button type="button" id="btn-select">제품 선택</button></td>
@@ -76,7 +79,7 @@
 
 		<br><br>
 		<div>
-		     <label class="label-name">평점</label>
+		     <label class="labelName">평점</label>
 		     <p id="heart">
 		        <a href="#" no='1'>♥</a>
 		        <a href="#" no='2'>♥</a>
@@ -93,35 +96,61 @@
 		           $('#reviewScore').val(no); // input 태그에 값넣어주는 jquery
 		           return false;
 		       });
-		       
+
 		   </script>
 		  </div>
 
 		<div>
-			<label class="label-name">제목</label>
-			<input type="text" name="title" id="review-title"placeholder="제목을 입력해주세요" size="57" required>
+			<label class="labelName">제목</label>
+			<input type="text" name="title" id="reviewTitle"placeholder="제목을 입력해주세요" size="57" required>
 		</div>
-		<div id="div-content">
- 			<label id="label-content">내용</label>
-			<textarea name="content" cols="60" rows="13" id="review-content"
+		<div id="div-content" class="labelName">
+ 			<label id="labelContent" class="labelName">내용</label>
+			<textarea name="content" cols="80" rows="13" id="reviewContent"
 			required placeholder=" # 음란물, 차별, 비하, 혐오 및 초상권, 저작권 침해 게시물은 민,형사상의 책임을 질 수 있습니다."></textarea>
 		</div>
-			<div id="div-tip">
-				<p><h4>좋은 리뷰 TIP!</h4></p>
-				<p id="p-tip"><h6>
-				<b>1. </b>좋았던 점에 대해서<b> 자세한 </b>리뷰를 남겨 주세요.<br>
-				 예) 추천하는 피부타입, 발림성, 흡수력 등 사용감을 적어주세요.<br><br>
-				 <b>2. </b>아쉬운 점에 대해서 <b> 자세한 </b>리뷰를 남겨 주세요.<br>
-				 예) 추천하지 않는 피부타입, 트러블 유무, 아쉬웠던 사용감을 적어주세요.<br><br>
-				 <b>3. </b>꿀팁이 있다면 남겨주세요.<br>
-				 예) 나만의 사용법, 제품에 대해 도움이 되는 정보 등을 적어주세요.
-				</h6></p>
-			</div> 
+			<div id="req">
+			<h4>리뷰할 제품을 코스메딕에서 찾을 수 없으신가요?</h4>
+			 &nbsp;하단의 '<b>제품등록</b>'을 이용해보세요<br>
+			 &nbsp;제품등록을 요청하는 페이지로 이동합니다<br>
+			<br><br><br><br><br>
+			</div>
+			<div id="tip">
+			<h4>좋은 리뷰 TIP!</h4>
+				<b>&nbsp;1. </b>좋았던 점에 대해서<b> 자세한 </b>리뷰를 남겨 주세요.<br>
+				 &nbsp;예) 추천하는 피부타입, 발림성, 흡수력 등 사용감을 적어주세요.<br><br>
+				 <b>&nbsp;2. </b>아쉬운 점에 대해서 <b> 자세한 </b>리뷰를 남겨 주세요.<br>
+				 &nbsp;예) 추천하지 않는 피부타입, 트러블 유무, 아쉬웠던 사용감을 적어주세요.<br><br>
+				 <b>&nbsp;3. </b>꿀팁이 있다면 남겨주세요.<br>
+				 &nbsp;예) 나만의 사용법, 제품에 대해 도움이 되는 정보 등을 적어주세요.<br>
+			</div>
+			<br><br><br><br>
 
-		<div id="div-btns">
-			<button type="submit" id="btn-submit">등록</button>
-			<button type="reset" id="btn-reset">취소</button>
+		<div id="divBtns">
+			<button onclick="check();" type="submit" id="btnSubmit">리뷰등록</button>
+			<button type="reset" id="btnReset">취소</button>
+			<button onclick="req();" type="button" id="btnReq">제품등록</button>
 		</div>
+		<script>
+		function check(){
+			var cosNo = document.getElementById('cosNo').value;
+			var reviewScore = document.getElementById('reviewScore').value;
+			
+			if(cosNo == ""){
+				alert('리뷰할 제품을 선택해주세요.');
+				return false;
+			}
+			if(reviewScore == ""){
+				alert('평점을 선택해주세요.');
+				return false;
+			}
+		}
+		
+		function req(){
+			window.open('../admin/cosmeticReqPopup.jsp', 'reqPop', 'width=600, height=500');
+			
+		}
+		</script>
 	</form>
 	</div>
 <!-- 작성 끝 -->	
