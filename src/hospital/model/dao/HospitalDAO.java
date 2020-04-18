@@ -269,4 +269,28 @@ public class HospitalDAO {
 		return profile;
 	}
 
+	public int selectHosNo(Connection conn, String hos_name) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int user_no = 0;
+		
+		String query = prop.getProperty("selectHosNo");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, hos_name);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				user_no = rset.getInt("user_no");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return user_no;	}
+
 }
