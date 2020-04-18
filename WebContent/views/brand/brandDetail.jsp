@@ -365,7 +365,7 @@ span.star-prototype > * {
 			console.log($(this).children('.hiddenNo').val());	
 // 			var cosName = encodeURIComponent($(this).text());
 // 			var categoryNo = $(this).children('.hiddenNo').val();
-			location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + $(this).text() + "&categoryNo=" +$(this).children('.hiddenNo').val();
+			location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&categoryNo=" +$(this).children('.hiddenNo').val();
 		})
 		
 		$('input[name=filter-sex]').click(function() {

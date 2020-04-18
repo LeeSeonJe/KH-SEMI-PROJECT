@@ -309,7 +309,7 @@ span.star-prototype > * {
 				<button id="category-btn" type="button">적용</button>
 				<br><br>
 				<section>
-					<ul>
+					<ul id="ul-area">
 					<% for (int i = 0; i < list.size(); i++) { %>
 						<li>
 							<div class="ranking-list">
@@ -353,18 +353,86 @@ span.star-prototype > * {
 
 	<script>
 		/* 화장품 카테고리 변경 시 사용하는 ajax */
-		$('#category-btn').click(function(){
+		$('#category-btn').on('click', function(){
 			console.log('적용버튼');
 			var middleCategory = $('.middle-category[name="middle"]').val();
-			console.log(tt);
-			
+			console.log(middleCategory);
+			var count = 0;
 			$.ajax({
-				url: cosmetic.li,
+				url: '/COSMEDIC/cosmetic.li',
 				data: {
 					middleCategory:middleCategory
 				},
 				success: function(data){
+					console.log(data)
+					$('#ul-area').html("");
+					for(var i in data) {
+						var $li = $('<li></li>')
+						var $div1 = $('<div class="ranking-list"></div>')
+						
+						var $div2 = $('<div class="cos-rank"></div>')
+						var $h3 = $('<h3></h3>')
+						count++;
+						if(data[i].count > 0){
+							$h3.text(count)
+						}  else {
+							$h3.text("-")							
+						}
+						$div2.append($h3);
+						
+						var $div3 = $('<div class="cos-img"></div>')
+						var $img = $('<img>')
+						if((data[i].cosmetic_img).indexOf("http") == -1){
+							$img.attr('src', "<%= request.getContextPath() %>/cosReq_uploadFiles/" + data[i].cosmetic_img);														
+						} else {
+							$img.attr('src', data[i].cosmetic_img);							
+						}
+						
+						$div3.append($img)
+						$br1 = $('<br>')
+						$br2 = $('<br>')
+						$br3 = $('<br>')
+						var $div4 = $('<div class="cos-detail"></div>')
+						var $h6 = $('<h6></h6>').html(data[i].brand_name)
+						var $h5 = $('<h5 class="cos-detail-link"></h5>').html(data[i].cosmetic_name)
+						var $span1 = $('<span></span>').text(data[i].volume + " / ")
+						var $span2 = $('<span></span>').text(data[i].price)
+						
+						$div4.append($br1, $h6, $h5, $br2, $br3, $span1, $span2)
+						
+						
+						var $div5 = $('<div class="cos-score"></div>')
+						if(String(data[i].avg)[3] == undefined){
+							var $span3 = $('<span></span>').text(parseFloat(data[i].avg).toFixed(1) + " ")							
+						} else {
+							var $span3 = $('<span></span>').text(data[i].avg + " ")														
+						}
+						var $div6 = $('<div class="heartPosition"></div>')
+						var $span4 = $('<span class="star-prototype"></span>').text(data[i].avg)
+						var $span5 = $('<span></span>').text(" (" + data[i].count + ")")
+						
+						$div6.append($span4)
+						$div5.append($span3, $div6, $span5)
+						
+						$div1.append($div2, $div3, $div4, $div5)
+						$li.append($div1);
+						
+						$('#ul-area').append($li);
 					
+						if(count == 100) {break}
+					}
+					$.fn.generateStars = function() {
+						return this.each(function(i,e){
+							$(e).html($('<span/>').width($(e).text()*16));
+						});
+					};
+					// 숫자 평점을 별로 변환하도록 호출하는 함수
+					$('.star-prototype').generateStars();
+					
+					$('.cos-detail-link').click(function(){
+						location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + "<%= middleName%>";
+					})
+
 				}
 			})
 		})
@@ -375,6 +443,7 @@ span.star-prototype > * {
 				$(e).html($('<span/>').width($(e).text()*16));
 			});
 		};
+
 		// 숫자 평점을 별로 변환하도록 호출하는 함수
 		$('.star-prototype').generateStars();
 	
@@ -471,7 +540,7 @@ span.star-prototype > * {
 		// 화장품 셀렉트
 		$(function(){
 			$('.middle-category').css('display','none')
-			$('#skincare').css('display','block');
+			$('#skincare').css('display','block').attr("selected", "selected");
 			$('#skincare').attr("name","middle");
 		})
 		
