@@ -76,14 +76,14 @@ public class NaverLoginServlet extends HttpServlet {
             
             Member loginUser = new MemberService().checkMember(id);
             String profile_image = null;
-            if(loginUser.getUser_category().equals("C")) {
-    			profile_image = new CustomerService().selectProfile(loginUser.getUser_no()); 
-    		} else if(loginUser.getUser_category().equals("H")){
-    			profile_image = new HospitalService().selectProfile(loginUser.getUser_no());
-    		} else {
-    			profile_image = "admin";
-    		}
             if(loginUser != null) {
+                if(loginUser.getUser_category().equals("C")) {
+        			profile_image = new CustomerService().selectProfile(loginUser.getUser_no()); 
+        		} else if(loginUser.getUser_category().equals("H")){
+        			profile_image = new HospitalService().selectProfile(loginUser.getUser_no());
+        		} else {
+        			profile_image = "admin";
+        		}
     			session.setAttribute("loginUser", loginUser);
     			session.setAttribute("profile_image", profile_image);
     			session.setMaxInactiveInterval(600);
