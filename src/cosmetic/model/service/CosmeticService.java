@@ -95,4 +95,18 @@ public class CosmeticService {
 		return list;
 	}
 
+	public String getCos_Middle_no(String middleCategory) {
+		Connection conn = getConnection();
+		String middle_no = new CosmeticDAO().getCos_middle_no(conn, middleCategory);
+		close(conn);
+		return middle_no;
+	}
+
+	public ArrayList<Cosmetic> cosRankFilter(String last) {
+		Connection conn = getConnection();
+		ArrayList<Cosmetic> rList = new CosmeticDAO().cosRankFilter(conn, last);
+		close(conn);
+		return rList;
+	}
+
 }

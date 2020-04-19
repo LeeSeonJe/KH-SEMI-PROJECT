@@ -416,15 +416,15 @@ span.star-prototype > * {
 							} else {
 								$img2.attr('src', "<%= request.getContextPath() %>/resources/images/female.png");								
 							}
-							var $span3 = $('<span></span>').text(data[i].age + "세 ㆍ " + data[i].skinType);
+							var $span3 = $('<span></span>').text(data[i].age + "세 ㆍ " + data[i].skinType + " ㆍ ");
 							
 							var $div4 = $('<div class="userReview"></div>');
 							var $h3 = $('<h3></h3>').text(data[i].board_title);
 							var $textarea = $('<textarea class="review_ta"></textarea>').val(data[i].board_content);
 							
 							$div2.append($img1, $span1, $span2);
+							$span3.append($img2);
 							$div3.append($span3);
-// 							$span3.append($img2);
 							$div4.append($h3, $textarea)
 							
 							$div1.append($div2, $div3, $div4);
