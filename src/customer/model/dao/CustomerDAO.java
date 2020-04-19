@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import customer.model.vo.Customer;
+import customer.model.vo.MyPageCustomer;
 
 public class CustomerDAO {
 	
@@ -108,4 +109,97 @@ public class CustomerDAO {
 		return profile;
 	}
 
+	public MyPageCustomer selectCustomer(Connection conn, String user_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		MyPageCustomer mpc = null;
+		String query = prop.getProperty("selectCustomer");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, user_id);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mpc = new MyPageCustomer(
+						rset.getString("USER_NO"),
+						rset.getString("USER_NAME"),
+						rset.getString("USER_ID"),
+						rset.getString("USER_PWD"),
+						rset.getString("EMAIL"),
+						rset.getString("AGE"),
+						rset.getString("SKINTYPE"),
+						rset.getString("GENDER"),
+						rset.getString("PROFILE_IMAGE")
+						);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mpc;
+	}
+
+	public int updateCustomer(Connection conn, MyPageCustomer mpc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCustomer");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, mpc.getSkintype());
+			pstmt.setString(2, mpc.getProfile_image());
+			pstmt.setInt(3, Integer.parseInt(mpc.getUser_no()));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateBasicCustomer(Connection conn, String userNo, String skinType) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateBasicCustomer");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, skinType);
+			pstmt.setInt(2, Integer.parseInt(userNo));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateSkinTypeCustomer(Connection conn, String userNo, String skinType) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateSkinTypeCustomer");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, skinType);
+			pstmt.setInt(2, Integer.parseInt(userNo));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
