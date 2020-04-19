@@ -46,41 +46,16 @@ public class afterWorryDetailServlet extends HttpServlet {
 			response.setContentType("text/html; charset=UTF-8");
 			 
 			PrintWriter out = response.getWriter();
-			 
-//			out.println("<script>alert('마지막 페이지 입니다.'); location.href='<%=request.getContextPath()%>/WorryDetail.bo?worryNo=<%= w.getWorryNo()%>';</script>");
-			
+			 			
 			out.println("<script>");
 			
 			out.println("alert('마지막 페이지 입니다.');");
 			
 			out.println("location.href='worryDetail.bo?worryNo=" + worryNo + "';");
-//			out.println(3);
-//			out.println("';");
 			
-			out.println("</script>");
-//			out.println("<script>alert('마지막 페이지 입니다.');</script>");
-			
-			 
+			out.println("</script>");		 
 			out.flush();
-			
-//			w = new WorryService().worryDetail(worryNo);
-//			
-//			ArrayList<Comments> list = new WorryService().selectComments(worryNo);
-//			
-//			ArrayList<AddFile> fList = new WorryService().selectFile(worryNo);
-//			
-//			
-//			request.setAttribute("list", list);
-//			request.setAttribute("w", request.getAttribute("w"));
-//			request.setAttribute("fList", request.getAttribute("fList"));
-//			RequestDispatcher view = request.getRequestDispatcher("worryDetail.bo?worryNo=" + worryNo);
-//			view.forward(request, response);
-			
-			
 		} else {
-			
-			
-			
 			w = new WorryService().afterWorryDetail(worryNo);
 			
 			ArrayList<Comments> list = new WorryService().selectComments(w.getWorryNo());

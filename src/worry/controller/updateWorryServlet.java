@@ -1,6 +1,9 @@
 package worry.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+
+import common.MyFileRenamePolicy;
 import member.model.vo.Member;
 import worry.model.service.WorryService;
+import worry.model.vo.AddFile;
 import worry.model.vo.Worry;
 
 /**
@@ -32,24 +41,59 @@ public class updateWorryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		int worryNo = Integer.parseInt(request.getParameter("worryNo"));
-		
-		System.out.println(userNo + title + content + worryNo);
-		
-		Worry w = new Worry(worryNo, title, content, userNo);
-		int result = new WorryService().updateWorry(w);
-		
-		System.out.println(result);
-		
-		response.sendRedirect("worryDetail.bo?worryNo=" + worryNo);
-		
-		
-		
-		
-		
+		System.out.println("서블릿");
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10; 
+			String root = request.getSession().getServletContext().getRealPath("/");
+			String savePath = root + "AddFile/";
+			
+			MultipartRequest multiRequest
+			= new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			ArrayList<String> saveFiles = new ArrayList<String>();
+			ArrayList<String> originFiles = new ArrayList<String>();
+			
+			Enumeration<String> files = multiRequest.getFileNames();
+			
+			while(files.hasMoreElements()) {
+				String name = files.nextElement();
+				if(multiRequest.getFilesystemName(name) != null) {
+					saveFiles.add(multiRequest.getFilesystemName(name));
+					originFiles.add(multiRequest.getOriginalFileName(name));
+				}
+			}
+			
+			String title = multiRequest.getParameter("title");
+			String content = multiRequest.getParameter("content");
+			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
+			int worryNo = Integer.parseInt(multiRequest.getParameter("worryNo"));
+			
+			
+			ArrayList<AddFile> fileList = new ArrayList<AddFile>();
+			for(int i =originFiles.size() -1 ; i>= 0; i--) {
+				AddFile af = new AddFile();
+				af.setFilePath(savePath);
+				af.setOriginName(originFiles.get(i));
+				af.setChangeName(saveFiles.get(i));
+				fileList.add(af);
+			}
+
+			int result = new WorryService().updateWorry(title, content, userNo, fileList, worryNo);
+			
+			if(result > 0) {
+				System.out.println("성공");
+				response.sendRedirect("worryDetail.bo?worryNo=" + worryNo);
+			} else {
+				System.out.println("실패");
+				for(int i = 0 ; i < saveFiles.size(); i++) {
+					File failedFile = new File(savePath + saveFiles.get(i));
+					System.out.println(savePath);
+					failedFile.delete();
+				}
+			}
+
+		}
+
 	}
 
 	/**
