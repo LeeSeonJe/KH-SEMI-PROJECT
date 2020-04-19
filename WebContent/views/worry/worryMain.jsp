@@ -132,7 +132,7 @@
 	<div class="contents">
 		<%@ include file="/views/layout/header.jsp"%>
 		<hr>
-            <h2>고민 게시글 <span class="sub-title">여러분의 피부고민 다른 분들과 공유해보세요</span></h2>
+            <h2>고민 게시판 <span class="sub-title">여러분의 피부고민 다른 분들과 공유해보세요</span></h2>
 			<hr>
 			<div class="worry-board">
 				<div class="worry-board-top">

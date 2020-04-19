@@ -83,6 +83,7 @@ public class worryListServlet extends HttpServlet {
 		
 		view.forward(request, response);
 		
+		System.out.println(list);
 
 	}
 

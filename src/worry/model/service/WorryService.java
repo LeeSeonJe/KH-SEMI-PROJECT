@@ -88,22 +88,7 @@ public class WorryService {
 		return result;
 	}
 
-	public int updateWorry(Worry w) {
-		Connection conn = getConnection();
-		
-		int result = new WorryDAO().updateWorry(conn, w);
-		
-		if(result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		
-		
-		
-		
-		return result;
-	}
+
 
 	public ArrayList<AddFile> selectFile(int worryNo) {
 		Connection conn = getConnection();
@@ -244,6 +229,43 @@ public class WorryService {
 		return last;
 	}
 
+	public int firstWorry(int worryNo) {
+		Connection conn = getConnection();
+		
+		int first = new WorryDAO().firstWorry(worryNo, conn);
+		
+		return first;
+	}
+
+	public int updateWorry(String title, String content, int userNo, ArrayList<AddFile> fileList, int worryNo) {
+		Connection conn = getConnection();
+		
+		int result = new WorryDAO().updateWorry(conn, title, content, userNo, fileList, worryNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		return result;
+	}
+
+	public int deleteFile(int fNo) {
+		Connection conn = getConnection();
+		
+		int result = new WorryDAO().deleteFile(conn, fNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+	
+	
 }
 
 

@@ -35,13 +35,14 @@
                 
 	.content-body{min-height: 300px;
 	            border-bottom: 2px solid #666;
-	            overflow:scroll;
+	           
 	            position: relative;
 	            padding:10px;}
 	.content-body>p{display: inline-block; 
 					width:800px;
 					margin:2px;
-					font-size:1.1em;}
+					font-size:1.1em;
+					maxlength: "2000";}
 	.vote-btn{width:70px;
 	          position: absolute; 
 	          top:80px;
@@ -95,9 +96,9 @@
 				  text-align:center;
 				  vertical-align:top}
 	#mainCase{ margin-left:10px; width:900px;}
-	.case{width: 250px; height:250px; display: inline-block; float:left;}
+	.case{width: 250px; height:250px;display: inline-block; }
 /* 	.content-text{width: 1151px; height: 580px; resize:none; border: none;} */
-	.content-text{width: 1151px; white-space:pre-wrap; margin-left:0px;}
+	.content-text{width: 1151px; min-height: 280px; white-space:pre-wrap; margin-left:0px;}
 </style>
 
 
@@ -106,7 +107,7 @@
 	<div class="contents">
 		<%@ include file="/views/layout/header.jsp"%>	
 		<hr>
-            <h2>고민 게시판</h2>
+            <h2>고민 게시글</h2>
 			<hr>
 			<Form action="worryDetail2.bo" method="post">
 			<div class="worry-read-wrap">
@@ -134,13 +135,15 @@
                         <input type="hidden" name="hate" value="<%= w.getWorryThumbDown() %>">
                         <span id="hate-count" class="counting"><%= w.getWorryThumbDown() %></span>
                     </div>
-                    
+                    <br><br>
                     <% if(fList != null){ %>
-						
+
                     	<%for(int i = 0 ; i < fList.size(); i++){ %>
 		                    <div id="mainCase">
 			                    <div id="img-case1" class="case"><img src="<%= request.getContextPath()%>/AddFile/<%= fList.get(i).getChangeName() %>" width="250px" height="250px"></div>
-			                    <input type="hidden" name='fList"+i+"' value="<%= fList.get(i).getChangeName() %>">
+			                    <input type="hidden" name='fList' value="<%= fList.get(i).getChangeName() %>">
+			                    <br>
+			                    <br>
 		              		</div>
               			<%} %>
                    	<%} %>
@@ -150,15 +153,11 @@
                 
                   	<div class="worry-btn-wrap">
 	                  	
-		                    <div class="edit-btn">
-		                        <button type="submit" id="change-btn" class="btn-standard" >수정</button>
-		                        <button id="delete-btn" class="btn-standard" onclick="location.href='worryDelete.bo'">삭제</button>
-		<!--                         <button id="write-btn" class="btn-standard" value="글쓰기" onclick="location.href='worryWrite.jsp'">글쓰기</button> -->
-	                   		</div>
+		                 
 	                   		
 	                    <% if(m != null ){ %>
 		                    <% if(w.getUserNo() == m.getUser_no() ){ %>
-	                        <button class="btn-standard" type="submit" id="change-btn" onclick="location.href='views/worry/worryUpdate'">수정</button>
+	                        <button class="btn-standard" type="submit" id="change-btn" onclick="location.href='worryDetail2.bo?worryNo=<%=w.getWorryNo() %>'">수정</button>
 	                        <button type="button" id="delete-btn" class="btn-standard" onclick="location.href='worryDelete.bo?worryNo=<%=w.getWorryNo() %>'">삭제</button>
 	                        <% } %>
 	                    <% } %>    
@@ -315,11 +314,7 @@
 		
 		
 		function before(){
-			if(<%= w.getWorryNo()%> != 1){
 				location.href='<%=request.getContextPath()%>/beforeWorryDetail.bo?worryNo=<%= w.getWorryNo()%>';
-			} else{
-				alert("가장 최신 게시글 입니다.");
-			}
 		}
 		
 		function after(){
@@ -327,7 +322,9 @@
 				location.href='<%=request.getContextPath()%>/afterWorryDetail.bo?worryNo=<%= w.getWorryNo()%>';
 
 		}
-			
+		
+		
+		
 		
 		
 	</script>
