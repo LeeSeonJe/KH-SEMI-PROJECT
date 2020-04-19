@@ -252,7 +252,11 @@
 		<% } else { %>
 		
 		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
-		<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/views/member/myPage.jsp"><%= loginUser.getUser_name() %></a></label></span>
+		<% if(loginUser.getUser_category().equals("C")) { %>
+			<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/views/member/myPage.jsp"><%= loginUser.getUser_name() %></a></label></span>
+		<% } else if(loginUser.getUser_category().equals("H")) { %>
+			<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/mypage.hos"><%= loginUser.getUser_name() %></a></label></span>
+		<% } %>	
 		<% if(loginUser.getUser_category().equals("C")) { %>
 			<img id="login" class="login" style="width: 50px; height: 50px; border-radius: 50px;float: right; margin-top: 40px" src="<%= request.getContextPath() %>/member_images/<%= profile_image %>" alt="" />
 		<% } else if(loginUser.getUser_category().equals("H")) { %>
