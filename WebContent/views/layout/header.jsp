@@ -294,7 +294,7 @@
 					친구
 				</div>
 				<div style = "width : 100% ; height : 40px; margin-top : 18px;">
-					<input type = "button" class = "friendPersonBtn" id = "friendCustomerBtnn" value = "              이선제">
+					<input type = "button" class = "friendPersonBtn" id = "friendCustomerBtnn" value = "              이선제" >
 				</div>
 			</div>
 			<div class = "cosTalk-chatTab" id = "cTab">
@@ -321,7 +321,7 @@
 				</div>
 				<div id = "chatView">
 				</div>
-				<form id = "submitForm" onsubmit = "return false">
+				<form id = "submitForm" onsubmit = "return false" action="<%= request.getContextPath() %>/sendMessage.me">
 					<div class = "cosTalk-chatFunctionW">
 						<div style = "float : left; width : 80%; height : 48%;">
 							<textarea id = "msg" style = "background-color : white; width : 98%; height : 50px; border: none; outline : none; resize : none; margin-left : 4%; margin-top : 8px; font-size : 10pt;"></textarea>
