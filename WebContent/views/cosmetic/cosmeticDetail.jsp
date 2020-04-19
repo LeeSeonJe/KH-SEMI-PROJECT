@@ -58,6 +58,11 @@
 	color: #936890;
 }
 
+.score-count{
+	display: inline;
+    float: right;
+}
+
 #score-count{
 	display: inline;
     float: right;
@@ -149,12 +154,13 @@ div>.wDate {
 
 /* 리뷰크기  */
 .review_ta {
-	width:850px;
+/* 	width:850px; */
 	min-height:32px;
 	overflow-y:hidden;
 	border: 0;
 	resize: none;
 	font-size: 16px;
+    width: 76vh;
 }
 
 /* 리뷰 클릭시 나오는 아웃라인 제거 */
@@ -169,6 +175,11 @@ div>.wDate {
 
 .userReview>h3 {
 	margin-bottom: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 76vh;
+    margin-left: 0;
 }
 
 .wName {
@@ -338,11 +349,16 @@ span.star-prototype > * {
 												<img src="<%= request.getContextPath() %>/resources/images/female.png" alt="여자" /> 
 											<% } %>   
 										</span>
+										<div class="score-count">
+											<div class="heartPosition">
+												<span class="star-prototype"><%= rList.get(i).getReview_heart() %></span>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="userReview">
 									<h3><%= rList.get(i).getBoard_title() %></h3>
-									<textarea class="review_ta" ><%= rList.get(i).getBoard_content() %></textarea>
+									<textarea  class="review_ta" ><%= rList.get(i).getBoard_content() %></textarea>
 								</div>
 							</li>
 						<% } %>
@@ -417,14 +433,21 @@ span.star-prototype > * {
 								$img2.attr('src', "<%= request.getContextPath() %>/resources/images/female.png");								
 							}
 							var $span3 = $('<span></span>').text(data[i].age + "세 ㆍ " + data[i].skinType + " ㆍ ");
+							var $div5 = $('<div class="score-count"></div>')
+							var $div6 = $('<div class="heartPosition"></div>')
+							var $span4 = $('<span class="star-prototype"></span>').text(data[i].review_heart)
+						
+							$div6.append($span4)
+							$div5.append($div6)
+							
 							
 							var $div4 = $('<div class="userReview"></div>');
 							var $h3 = $('<h3></h3>').text(data[i].board_title);
-							var $textarea = $('<textarea class="review_ta"></textarea>').val(data[i].board_content);
+							var $textarea = $('<textarea cols="80" class="review_ta"></textarea>').val(data[i].board_content);
 							
 							$div2.append($img1, $span1, $span2);
 							$span3.append($img2);
-							$div3.append($span3);
+							$div3.append($span3, $div5);
 							$div4.append($h3, $textarea)
 							
 							$div1.append($div2, $div3, $div4);
@@ -439,6 +462,14 @@ span.star-prototype > * {
 						$li.append($div1);
 						$('#ul-area').append($li);
 					}
+					
+					$.fn.generateStars = function() {
+						return this.each(function(i,e){
+							$(e).html($('<span/>').width($(e).text()*16));
+						});
+					};
+					// 숫자 평점을 별로 변환하도록 호출하는 함수
+					$('.score-count .star-prototype').generateStars();
 				}
 			})
 		})
