@@ -174,9 +174,11 @@ input#friendCustomerBtnn {
 	height: 60px;
 	border: none;
 	background-color: #FFD2D7;
+	
 	background-image: url('../../resources/images/profile_1.png');
 	background-repeat: no-repeat;
 	background-position: 10px 10px;
+	
 	margin-left: -22px;
 }
 
