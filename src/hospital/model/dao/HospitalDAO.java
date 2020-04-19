@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import customer.model.dao.CustomerDAO;
 import hospital.model.vo.Hospital;
+import member.model.vo.Member;
 
 public class HospitalDAO {
 	
@@ -292,5 +293,41 @@ public class HospitalDAO {
 			close(pstmt);
 		}
 		return user_no;	}
+
+	public Hospital selectHospital(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Hospital h = null;
+		
+		String query = prop.getProperty("selectHospital");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, m.getUser_no());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				h = new Hospital(rset.getInt("hospital_no"),
+							     rset.getString("hospital_about"),
+							     rset.getString("tel"),
+							     rset.getString("address"),
+							     rset.getString("regi"),
+							     rset.getString("hospital_img"),
+							     rset.getString("join_yn"),
+							     rset.getDouble("hospital_heart"),
+							     rset.getDouble("review_count"),
+							     rset.getString("email"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return h;
+	}
 
 }

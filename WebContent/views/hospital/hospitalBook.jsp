@@ -78,14 +78,14 @@
 							<label>예약 시간</label>
 							<select id="time" name="time">
 							<option>예약 시간을 선택해주세요</option>
-							<option>10:00</option>
-							<option>11:00</option>
-							<option>13:00</option>
-							<option>14:00</option>
-							<option>15:00</option>
-							<option>16:00</option>
-							<option>17:00</option>
-							<option>18:00</option>
+							<option value="09">09:00</option>
+							<option value="10">10:00</option>
+							<option value="11">11:00</option>
+							<option value="13">13:00</option>
+							<option value="14">14:00</option>
+							<option value="15">15:00</option>
+							<option value="16">16:00</option>
+							<option value="17">17:00</option>
 							</select> 
 						</div>
 					</div>

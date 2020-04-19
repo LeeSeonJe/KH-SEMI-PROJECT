@@ -57,7 +57,7 @@ public class BookHospitalServlet extends HttpServlet {
 		}
 		
 		int hospital_no = new HospitalService().selectHosNo(hos_name); 
-		Book b = new Book(0, tel, sqlDate, time, textbox, Integer.parseInt(customer_no), hospital_no);
+		Book b = new Book(0, name, tel, sqlDate, time, textbox, Integer.parseInt(customer_no), hospital_no);
 		int result = new BookService().insertBook(b);
 		
 		response.setCharacterEncoding("UTF-8");
