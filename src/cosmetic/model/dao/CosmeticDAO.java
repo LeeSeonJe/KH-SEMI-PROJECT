@@ -363,13 +363,14 @@ public class CosmeticDAO {
 		ResultSet rset = null;
 		String cos_middle_no = "";
 		String query = prop.getProperty("getCos_middle_no");
+//		System.out.println(middleName);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, middleName);
 			rset = pstmt.executeQuery();
-			
 			if(rset.next()) {
 				cos_middle_no = rset.getString("MIDDLE_NO");
+//				System.out.println(cos_middle_no);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -380,4 +381,28 @@ public class CosmeticDAO {
 		} 
 		return cos_middle_no;
 	}
+
+	public ArrayList<Cosmetic> cosRankFilter(Connection conn, String last) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Cosmetic> rList = new ArrayList<Cosmetic>();
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(last);
+			while(rset.next()) {
+				rList.add(new Cosmetic(rset.getInt("COSMETIC_NO"), rset.getString("COSMETIC_NAME"),
+						rset.getString("COSMETIC_ABOUT"), rset.getString("VOLUME"), rset.getString("PRICE"),
+						rset.getInt("COUNT"), rset.getDouble("AVG"), rset.getString("BRAND_NAME"),
+						rset.getString("MIDDLE_NO"), rset.getString("COSMETIC_IMG")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return rList;
+	}
+
 }
