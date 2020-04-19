@@ -54,14 +54,15 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 //		select * from reviewall
 //		where
 //		cosmetic_name = '블랑 엑스퍼트 얼티메이트 화이트닝 뷰티 로션 모이스트' and
-//		gender = '남성' and (
-//		age between 10 and 19 
+//		gender = '남성' and 
+//		(age between 10 and 19 
 //		or age between 20 and 24 
 //		or age between 25 and 29
 //		or age between 30 and 34 
 //		or age between 35 and 39 
-//		or age between 40 and 99
-//		or skintype ='건성'
+//		or age between 40 and 99)
+//		and 
+//		(skintype ='건성'
 //		or skintype ='복합성'
 //		or skintype ='지성'
 //		or skintype ='민감성'

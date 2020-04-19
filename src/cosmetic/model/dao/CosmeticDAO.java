@@ -269,14 +269,13 @@ public class CosmeticDAO {
 				String profile_image = rset.getString("PROFILE_IMAGE");
 				String user_name = rset.getString("USER_NAME");
 				String age = rset.getString("AGE");
-				age = ac.ageCal(age);
 				String skinType = rset.getString("SKINTYPE");
 				String gender = rset.getString("GENDER");
 				String board_title = rset.getString("BOARD_TITLE");
 				String board_content = rset.getString("BOARD_CONTENT");
 				Date board_date = rset.getDate("BOARD_DATE");
-				rList.add(new CosmeticReviewList(profile_image, user_name, age, skinType, gender, board_title,
-						board_content, board_date));
+				String review_heart = rset.getString("REVIEW_HEART");
+				rList.add(new CosmeticReviewList(profile_image, user_name, age, skinType, gender, board_title, board_content, board_date, review_heart));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -345,8 +344,8 @@ public class CosmeticDAO {
 				String board_title = rset.getString("BOARD_TITLE");
 				String board_content = rset.getString("BOARD_CONTENT");
 				Date board_date = rset.getDate("BOARD_DATE");
-				rList.add(new CosmeticReviewList(profile_image, user_name, age, skinType, gender, board_title,
-				board_content, board_date));
+				String review_heart = rset.getString("REVIEW_HEART");
+				rList.add(new CosmeticReviewList(profile_image, user_name, age, skinType, gender, board_title, board_content, board_date, review_heart));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

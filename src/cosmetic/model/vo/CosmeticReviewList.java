@@ -11,13 +11,14 @@ public class CosmeticReviewList {
 	private String board_title;
 	private String board_content;
 	private Date board_date;
+	private String review_heart;
 
 	public CosmeticReviewList() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public CosmeticReviewList(String profile_image, String user_name, String age, String skinType, String gender,
-			String board_title, String board_content, Date board_date) {
+			String board_title, String board_content, Date board_date, String review_heart) {
 		super();
 		this.profile_image = profile_image;
 		this.user_name = user_name;
@@ -27,6 +28,7 @@ public class CosmeticReviewList {
 		this.board_title = board_title;
 		this.board_content = board_content;
 		this.board_date = board_date;
+		this.review_heart = review_heart;
 	}
 
 	public String getProfile_image() {
@@ -93,10 +95,19 @@ public class CosmeticReviewList {
 		this.board_date = board_date;
 	}
 
+	public String getReview_heart() {
+		return review_heart;
+	}
+
+	public void setReview_heart(String review_heart) {
+		this.review_heart = review_heart;
+	}
+
 	@Override
 	public String toString() {
 		return "CosmeticReviewList [profile_image=" + profile_image + ", user_name=" + user_name + ", age=" + age
 				+ ", skinType=" + skinType + ", gender=" + gender + ", board_title=" + board_title + ", board_content="
-				+ board_content + ", board_date=" + board_date + "]";
+				+ board_content + ", board_date=" + board_date + ", review_heart=" + review_heart + "]";
 	}
+
 }
