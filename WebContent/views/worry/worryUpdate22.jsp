@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="worry.model.vo.* , java.util.ArrayList" %>
 <%
-request.setCharacterEncoding("UTF-8");
-
-
-
+	Worry w = (Worry)request.getAttribute("w");
+	ArrayList<Comments> list = (ArrayList<Comments>)request.getAttribute("list");
+	Member m = ((Member)request.getSession().getAttribute("loginUser"));
+	ArrayList<AddFile> fList = (ArrayList<AddFile>)request.getAttribute("fList");
+	
 %>	
 	
 <!DOCTYPE html>
@@ -34,7 +35,6 @@ request.setCharacterEncoding("UTF-8");
                 
 	.content-body{min-height: 300px;
 	            border-bottom: 2px solid #666;
-	            overflow:scroll;
 	            position: relative;
 	            padding:10px;}
 	.content-body>p{display: inline-block; 
@@ -55,8 +55,6 @@ request.setCharacterEncoding("UTF-8");
 	          left:40%;
 	          margin: 10px;}
 	#change-btn,#delete-btn{margin-right:3px;}
-	#change-btn{display: inline-block; float: left; margin-left:1210px;}
-	#delete-btn{width: 40px;}
 	#write-btn, #upload-btn{color:white;
 			   				background: black;}
 	          
@@ -71,6 +69,13 @@ request.setCharacterEncoding("UTF-8");
 				top:80px;
 				width:50px;
 				height:40px;}
+	#upload-btn2{position:absolute;
+				top:15px; 
+				width:100px;
+				height:100px;
+				color:white;
+			   	background: black;}
+			
 	
 	.comment-list-wrap{font-size: 1.1em;}
 	.comment-list-wrap>li{border-bottom: 1px dotted #666;
@@ -88,9 +93,12 @@ request.setCharacterEncoding("UTF-8");
 				  width:200px;
 				  text-align:center;
 				  vertical-align:top}
-	
-	#content{border: none; width: 90%; height: 300px; resize:none;}
-
+	#mainCase{ margin-left:10px; width:900px;}
+	.case{width: 250px; height:250px; display: inline-block; float:left;}
+/* 	.content-text{width: 1151px; height: 580px; resize:none; border: none;} */
+	.content-text{width: 1151px; white-space:pre-wrap; margin-left:0px;}
+	#change-btn{display: inline-block; float: left; margin-left:1210px;}
+	#delete-btn{width: 40px;}
 </style>
 
 
@@ -99,99 +107,86 @@ request.setCharacterEncoding("UTF-8");
 	<div class="contents">
 		<%@ include file="/views/layout/header.jsp"%>	
 		<hr>
-            <h2>고민 게시판</h2>
+            <h2>고민 게시글</h2>
 			<hr>
-			<form action="<%=request.getContextPath() %>/worryUpdate.bo">
+			<Form action="worryDetail2.bo">
 			<div class="worry-read-wrap">
                 <article class="worry-head">
-                	<input type="hidden" name="worryNo" value="<%= request.getParameter("worryNo") %>">
-                    <h3><input type="text" name="title" value="<%= request.getParameter("title") %>"></h3>
-                    <span><%= request.getParameter("userName") %></span>
-                    <time datetime="2020-03-28T19:43:20"><%= request.getParameter("date") %></time>
+                    <h3><%= w.getTitle() %></h3>
+                    <input type="hidden" name="title" value="<%= w.getTitle() %>">
+                    <input type="hidden" name="worryNo" value="<%= w.getWorryNo() %>">
+                    <span><%= w.getUserName() %></span>
+                    <input type="hidden" name="userName" value="<%= w.getUserName() %>">
+                    <time datetime="2020-03-28T19:43:20"><%= w.getDate() %></time>
+                    <input type="hidden" name="date" value="<%= w.getDate() %>">
                     <div class="count-reading">
-                        <span class="count-title">조회수 : <%= request.getParameter("hit") %></span>
+                        <span class="count-title"> 조회수 : <%= w.getHit() %></span>
+                        <input type="hidden" name="hit" value="<%= w.getHit() %>">
                     </div>
                 </article>
                 <article class="content-body">
-<%--                 	<input id="content" type="text" value='<%= request.getParameter("content") %>'> --%>
-                   <textarea id="content" name="content"><%= request.getParameter("content") %></textarea>
-                 
-                 
-                 <% if(request.getAttribute("fList1") != null){ %>
-		                    <div id="mainCase">  
-			                    <div id="img-case1" class="case"><img src="<%= request.getContextPath()%>/AddFile/<%= request.getAttribute("fList1") %>" width="250px" height="250px"></div>
-			                    <% if(request.getAttribute("fList2") != null){ %>
-			                    <div id="img-case1" class="case"><img src="<%= request.getContextPath()%>/AddFile/<%= request.getAttribute("fList2") %>" width="250px" height="250px"></div>
-		              		</div> 
+                    <div class="content-text"><%= w.getContent() %></div>
+                    
+					
+                    
+                    <% if(fList != null){ %>
+						
+                    	<%for(int i = 0 ; i < fList.size(); i++){ %>
+		                    <div id="mainCase">
+			                    <div id="img-case1" class="case"><img src="<%= request.getContextPath()%>/AddFile/<%= fList.get(i).getChangeName() %>" width="250px" height="250px"></div>
+			                    <input type="hidden" name='fList"+i+"' value="<%= fList.get(i).getChangeName() %>">
+		              		</div>
               			<%} %>
-                   	<%} %>  
-
+                   	<%} %>
                 </article>
-                  	<button type="submit" id="change-btn" class="btn-standard" >수정</button>
+                 
+                <button type="submit" id="change-btn" class="btn-standard" >수정</button>
                    
 					<div  id="delete-btn" class="btn-standard" onclick="location.href='javascript:history.go(-1);'" id="cancelBtn">취소</div> 
 				
- 				<br><br>
+				<span style="color:#aaa;" id="counter">(0 / 최대 2000자)</span>
+				<br><br>
                 <div class="add-file">
 								<label id="add-file-label">첨부파일</label>
 								<input type="file" name="add-image1" multiple accept=".jpg,.png,.jpeg" value="a">
+								<br>
 								<input type="file" name="add-image2" multiple accept=".jpg,.png,.jpeg">
 							</div>
- 				
- 				
- 				<div id="replySelectArea">
-					<table id="replySelectTable">
-						<tr class="comment-list-wrap">
-<!-- 							<span class="comment-writer">리뷰 작성자</span><span class="comment-text">리뷰 내용</span><span class="comment-time"><time>작성 시간</time></span> -->
-						</tr>
 
-		
-					</table>
-				</div>
                 
-              
-	</div>
-	</form>
+                
+                
+                </Form>    
+                
+                
+                
+
+ 				
+ 				
+ 				
+ 		
+
+                
+        	    
+
 				
-	</div>
-
-
-
-
-
-
-
 
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
 	<script>
-		var likeCount = Number($("#like-count").text());	
-		var hateCount = Number($("#hate-count").text());
-		var count = 0;
-		$(function(){
-			$('#like-btn').on('click', function(){
-				if(count == 1){
-					count--;
-				} else if(count == 0){
-				count++;
-				}
-				$("#like-count").text(likeCount + count);
-				
-			});
-			$('#hate-btn').on('click', function(){
-				if(count == 1){
-					count--;
-				} else if(count == 0){
-				count++;
-				}
-				$("#hate-count").text(hateCount + count);
-				
-			});
+
+			
+		$('#comment-box').keyup(function (e){
+		    var content = $(this).val();
+		    $('#counter').html("("+content.length+" / 최대 2000자)");    //글자수 실시간 카운팅
+
+		    if (content.length > 2000){
+		        alert("최대 2000자까지 입력 가능합니다.");
+		        $(this).val(content.substring(0, 2000));
+		        $('#counter').html("(2000 / 최대 2000자)");
+		    }
 		});
-		
-		
-		
-		
+
 		
 	</script>
 </body>

@@ -9,6 +9,7 @@ import java.sql.Connection;
 
 import customer.model.dao.CustomerDAO;
 import customer.model.vo.Customer;
+import customer.model.vo.MyPageCustomer;
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
 
@@ -47,6 +48,53 @@ public class CustomerService {
 		
 		close(conn);
 		return profile;
+	}
+
+	public MyPageCustomer selectCustomer(String user_id) {
+		Connection conn = getConnection();
+		
+		MyPageCustomer mpc = new CustomerDAO().selectCustomer(conn, user_id);
+		close(conn);
+		return mpc;
+	}
+
+	public int updateCustomer(MyPageCustomer mpc) {
+		Connection conn = getConnection();
+		
+		int result = new CustomerDAO().updateCustomer(conn, mpc);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int updateBasicCustomer(String userNo, String skinType) {
+		Connection conn = getConnection();
+		
+		int result = new CustomerDAO().updateBasicCustomer(conn, userNo, skinType);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int updateSkinTypeCustomer(String userNo, String skinType) {
+		Connection conn = getConnection();
+		
+		int result = new CustomerDAO().updateSkinTypeCustomer(conn, userNo, skinType);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 }

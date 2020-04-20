@@ -1,3 +1,5 @@
+<%@page import="common.AgeCalculator"%>
+<%@page import="customer.model.vo.MyPageCustomer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -79,7 +81,7 @@ table#myInform>tbody>tr>td.tab-myControl-content {
     margin-top: 20px; 
 }
 
-#btn-category>form>button {
+#btn-category>button {
 	margin-right: 15px;
 }
 #main-div{
@@ -153,7 +155,56 @@ table#myPost>tbody>tr>td{
 #myQnA-writer {
 	text-align: center;
 }
+
+#birth {
+	border: 0;
+    background: white;
+    outline: none
+}
+
+tbody img {
+	width: 160px;
+	height: 160px;
+}
+
+.filebox {
+	display: inline-block;
+	vertical-align: bottom;
+	margin-left: 20px;
+}
+
+.filebox label { 
+    display: inline-block;
+    padding: .5em .75em;
+    line-height: normal;
+    vertical-align: middle;
+    cursor: pointer;
+    border-bottom-color: #e2e2e2;
+    border: 1px solid #ccccce;
+    border-radius: 6px;
+    background-color: #fff;
+    font-weight: 500;
+    color: #666;
+    font-size: 12px;
+    padding: 7px;
+} 
+.filebox input[type="file"] { 
+/* 파일 필드 숨기기 */ 
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0; 
+}
+
 </style>
+
+<%
+	MyPageCustomer mpc = (MyPageCustomer) request.getAttribute("mpc");
+%>
 </head>
 <body>
 	<div class="contents">
@@ -177,46 +228,63 @@ table#myPost>tbody>tr>td{
 				<div id="tab-title">내정보관리</div>
 				<div id="tab-title-detail">고객님의 개인정보 보호를 위해 최선을 다하겠습니다.</div>
 				<hr>
-				<table id="myInform" class="table-standard">
-					<tbody>
-						<tr>
-							<td class="tab-myControl-category">아이디</td>
-							<td class="tab-myControl-content">tjswp4052</td>
-						</tr>
-						<tr>
-							<td class="tab-myControl-category">이름</td>
-							<td class="tab-myControl-content">이선제</td>
-						</tr>
-						<tr>
-							<td class="tab-myControl-category">이메일</td>
-							<td class="tab-myControl-content">tjswp4052@naver.com</td>
-						</tr>
-						<tr>
-							<td class="tab-myControl-category">피부타입</td>
-							<td class="tab-myControl-content">
-								<input type="checkbox" name="skinType" class="skinType"><span class="skinType">건성</span>
-								<input type="checkbox" name="skinType" class="skinType"><span class="skinType">지성</span>
-								<input type="checkbox" name="skinType" class="skinType"><span class="skinType">중성</span>
-								<input type="checkbox" name="skinType" class="skinType"><span class="skinType">복합성</span>
-								<input type="checkbox" name="skinType" class="skinType"><span class="skinType">민감성</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="tab-myControl-content-category">대표 화장품</td>
-							<td class="tab-myControl-content-content">
-								<input type="text" class="input-standard" readonly/>
-								<button type="button" class="btn-standard">화장품찾기</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div id="btn-category">
-					<form action="#">
-						<button type="submit" class="btn-standard">수정하기</button>
+				<form action="<%= request.getContextPath() %>/update.me" method="post" encType="multipart/form-data" onsubmit="return update()">
+					<table id="myInform" class="table-standard">
+						<tbody>
+							<tr>
+								<td class="tab-myControl-category">프로필</td>
+								<td class="tab-myControl-content">
+								<% if(mpc.getProfile_image() == null) { %>
+									<img id="profile"src="<%=request.getContextPath() %>/member_images/icon.png" alt="" />
+								<% } else { %>
+									<img id="profile"src="<%=request.getContextPath() %>/member_images/<%= mpc.getProfile_image() %>" alt="" />
+								<% } %>
+									<div class="filebox"> 
+										<label for="ex_filename">사진찾기</label> 
+										<input name="profile_img" type="file" id="ex_filename" class="upload-hidden" onchange="LoadImg(this,1)"> 
+										<button id="basic_img" class="btn-standard" type="button">기본 이미지로 변경</button>
+										<input id="stand" type="hidden" name="stand" value="ch" />
+									</div>		
+								</td>
+							</tr>
+							<tr>
+								<td class="tab-myControl-category">아이디</td>
+								<td class="tab-myControl-content"><%= mpc.getUser_id() %><input type="hidden" name="userNo" value="<%= mpc.getUser_no() %>" /></td>
+							</tr>
+							<tr>
+								<td class="tab-myControl-category">이름</td>
+								<td class="tab-myControl-content"><%= mpc.getUser_name() %></td>
+							</tr>
+							<tr>
+								<td class="tab-myControl-category">이메일</td>
+								<td class="tab-myControl-content"><%= mpc.getEmail() %></td>
+							</tr>
+							<tr>
+								<td class="tab-myControl-category">성별</td>
+								<td class="tab-myControl-content"><%= mpc.getGender() %></td>
+							</tr>
+							<tr>
+								<td class="tab-myControl-category">생년월일</td>
+								<td class="tab-myControl-content"><input id="birth" type="date" value="" readonly="readonly"/></td>
+							</tr>
+							<tr>
+								<td class="tab-myControl-category">피부타입</td>
+								<td class="tab-myControl-content">
+									<input type="radio" name="skinType" class="skinType" value="건성"><span class="skinType">건성</span>
+									<input type="radio" name="skinType" class="skinType" value="지성"><span class="skinType">지성</span>
+									<input type="radio" name="skinType" class="skinType" value="중성"><span class="skinType">중성</span>
+									<input type="radio" name="skinType" class="skinType" value="복합성"><span class="skinType">복합성</span>
+									<input type="radio" name="skinType" class="skinType" value="민감성"><span class="skinType">민감성</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div id="btn-category">
+						<button id="update_btn" type="submit" class="btn-standard">수정하기</button>
 						<button id="change_pwd"type="button" class="btn-standard" onclick="openChangePwd()">비밀번호변경</button>	
 						<button type="button" class="btn-standard">회원탈퇴</button>				
-					</form>
-				</div> 
+					</div> 
+				</form>
 			</section>		
 			
 			<section id="tab-myReview" class="tab-mypage">
@@ -380,8 +448,76 @@ table#myPost>tbody>tr>td{
 	<%@ include file="/views/layout/footer.jsp"%>
 	
 	<script>
+		function update(){	
+			var profile = $('#profile').attr('src');
+			var category = "c";
+			var id = '<%= mpc.getUser_id()%>'
+			var pwd = '<%= mpc.getUser_pwd()%>'
+			console.log(id);
+			$.ajax({
+				url: 'login.me',
+				data: {category:category, id:id, pwd:pwd}
+			})
+		}
+	
+		$('#basic_img').on('click', function(){
+			$("#profile").attr("src", "<%= request.getContextPath()%>/member_images/icon.png");
+			$('#stand').val("basic");
+		})
+		
+		function LoadImg(value, num){
+			if(value.files && value.files[0]){
+				var reader = new FileReader();
+				
+				reader.onload = function(e){								
+					switch(num){
+					case 1: 
+						$("#profile").attr("src", e.target.result);
+						$('#stand').val("up");
+						console.log($('#stand').val());
+						break;
+					}
+				}
+				reader.readAsDataURL(value.files[0]);
+			}
+		}
+		
+	
+	
+		$(function(){
+			
+			// 피부타입 라디오 박스 체크하기
+			var skintype = '<%= mpc.getSkintype() %>'
+			$('input:radio[name=skinType]:input[value=' + skintype + ']').attr("checked", true);
+			
+			// 현재 날짜 
+			var age = '<%= mpc.getAge()%>'
+			var y = new Date().getFullYear();
+			var m = new Date().getMonth() + 1;
+			var d = new Date().getDate();
+			
+			
+			var ageY = age.substr(0,2);
+			y = y + "";
+			if(y < ageY) {
+				ageY = "19" + ageY
+				console.log(ageY)
+			} else {
+				ageY = "20" + ageY
+				console.log(ageY)
+			}
+			
+			var ageM = age.substr(2, 2)
+			var ageD = age.substr(4, 2)
+			
+			var birth = ageY + "-" + ageM + "-" + ageD
+			console.log(birth)
+			$('#birth').val(birth);
+			
+		})
+	
 		function openChangePwd(){
-			window.open('change_pwd.jsp', 'change_pwd', 'width=600, height=650');
+			window.open('/COSMEDIC/views/customer/change_pwd.jsp', 'change_pwd', 'width=600, height=650');
 		}		
 		$(function(){
 			$('.tab-mypage').hide();

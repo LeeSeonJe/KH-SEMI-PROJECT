@@ -347,31 +347,7 @@ public class WorryDAO {
 
 
 
-	public int updateWorry(Connection conn, Worry w) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("updateBoard");
-		
-		
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, w.getTitle());
-			pstmt.setString(2, w.getContent());
-			pstmt.setInt(3, w.getWorryNo());
-			
-			result = pstmt.executeUpdate();
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
 
-		return result;
-	}
 
 
 
@@ -884,7 +860,118 @@ public class WorryDAO {
 
 		return last;
 	}
-}
+
+
+
+
+
+	public int firstWorry(int worryNo, Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int first = 0;
+		
+		
+		String query = prop.getProperty("firstWorry");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			System.out.println(rset.next());
+
+				first = rset.getInt(1);
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return first;
+	}
+
+
+
+
+
+	public int updateWorry(Connection conn, String title, String content, int userNo, ArrayList<AddFile> fileList,
+			int worryNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		System.out.println(fileList);
+		String query = prop.getProperty("updateBoard");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, worryNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		PreparedStatement pstmt2 = null;
+
+		int result2 = 0;
+		AddFile af = null;
+		if(fileList != null) {
+			String query2 =prop.getProperty("updateAddFile");
+			try {
+				
+				for(int i =0 ; i < fileList.size(); i++) {
+					af = fileList.get(i);
+					pstmt2 = conn.prepareStatement(query2);
+					pstmt2.setString(1, af.getOriginName());
+					pstmt2.setString(2, af.getChangeName());
+					pstmt2.setInt(3, worryNo);
+					pstmt2.setString(4, af.getFilePath());
+					
+					result2 += pstmt2.executeUpdate();
+					
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt2);
+			}
+		}
+
+		return result;
+
+	}
+
+
+
+
+
+	public int deleteFile(Connection conn, int fNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteFile");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, fNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	}
+	
+
 		
 
 
