@@ -253,7 +253,7 @@
 		
 		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
 		<% if(loginUser.getUser_category().equals("C")) { %>
-			<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/views/member/myPage.jsp"><%= loginUser.getUser_name() %></a></label></span>
+			<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/mypage.me"><%= loginUser.getUser_name() %></a></label></span>
 		<% } else if(loginUser.getUser_category().equals("H")) { %>
 			<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/mypage.hos"><%= loginUser.getUser_name() %></a></label></span>
 		<% } %>	

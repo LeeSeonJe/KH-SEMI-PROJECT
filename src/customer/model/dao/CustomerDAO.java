@@ -9,10 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import customer.model.vo.Customer;
 import customer.model.vo.MyPageCustomer;
+import customer.model.vo.MyPageReview;
 
 public class CustomerDAO {
 	
@@ -198,6 +201,63 @@ public class CustomerDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<MyPageReview> selectCustomerReview(Connection conn, String user_id, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MyPageReview> mpr = new ArrayList<MyPageReview>();
+		String query = prop.getProperty("selectCustomerReview");
+		
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, user_id);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				mpr.add(new MyPageReview(
+							rset.getString("user_id"),
+							rset.getString("user_name"),
+							rset.getString("board_no"),
+							rset.getString("board_title"),
+							rset.getString("board_date")
+						));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mpr;
+	}
+
+	public int getReviewCount(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = prop.getProperty("getReviewCount");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		return result;
