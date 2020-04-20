@@ -11,6 +11,7 @@
 		inner.put("end", list.get(i).getBooking_date()+"T"+(Integer.parseInt(list.get(i).getBooking_time())+1));
 		inner.put("start", list.get(i).getBooking_date()+"T"+list.get(i).getBooking_time());
 		inner.put("title", list.get(i).getBooking_name() +" : "+ list.get(i).getBooking_content());
+		inner.put("url", "/COSMEDIC/bookDetail.hos?booking_no="+list.get(i).getBooking_no());
 		ja.add(inner);
 	}
 	
@@ -234,7 +235,7 @@ table#myPost>tbody>tr>td{
 					  events: json,
 					  eventClick: function(event) {
 						    if (event.url) {
-						        window.open(event.url, "_blank");
+						        window.open(event.url, "_blank", 'width=650, height= 800');
 						        return false;
 						    }
 						}
@@ -246,7 +247,7 @@ table#myPost>tbody>tr>td{
       </div>
    </div>   
 
-   <%@ include file="/views/layout/footer.jsp"%>
+   <%@ include file="/views/layout/footer.jsp" %>
    
    <script>
 
