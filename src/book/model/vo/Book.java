@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Book {
 	private int booking_no;
+	private String booking_name;
 	private String booking_tel;
 	private Date booking_date;
 	private String booking_time;
@@ -12,11 +13,12 @@ public class Book {
 	private int hospital_no;
 	
 	public Book() {}
-	
-	public Book(int booking_no, String booking_tel, Date booking_date, String booking_time, String booking_content,
-			int customer_no, int hospital_no) {
+
+	public Book(int booking_no, String booking_name, String booking_tel, Date booking_date, String booking_time,
+			String booking_content, int customer_no, int hospital_no) {
 		super();
 		this.booking_no = booking_no;
+		this.booking_name = booking_name;
 		this.booking_tel = booking_tel;
 		this.booking_date = booking_date;
 		this.booking_time = booking_time;
@@ -31,6 +33,14 @@ public class Book {
 
 	public void setBooking_no(int booking_no) {
 		this.booking_no = booking_no;
+	}
+
+	public String getBooking_name() {
+		return booking_name;
+	}
+
+	public void setBooking_name(String booking_name) {
+		this.booking_name = booking_name;
 	}
 
 	public String getBooking_tel() {
@@ -83,9 +93,9 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [booking_no=" + booking_no + ", booking_tel=" + booking_tel + ", booking_date=" + booking_date
-				+ ", booking_time=" + booking_time + ", booking_content=" + booking_content + ", customer_no="
-				+ customer_no + ", hospital_no=" + hospital_no + "]";
+		return "Book [booking_no=" + booking_no + ", booking_name=" + booking_name + ", booking_tel=" + booking_tel
+				+ ", booking_date=" + booking_date + ", booking_time=" + booking_time + ", booking_content="
+				+ booking_content + ", customer_no=" + customer_no + ", hospital_no=" + hospital_no + "]";
 	}
 	
 }

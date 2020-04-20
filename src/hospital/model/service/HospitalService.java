@@ -69,4 +69,12 @@ public class HospitalService {
 		return user_no;
 	}
 
+	public Hospital selectHospital(Member m) {
+		Connection conn = getConnection();
+		
+		Hospital h = new HospitalDAO().selectHospital(conn, m);
+		close(conn);
+		return h;
+	}
+
 }

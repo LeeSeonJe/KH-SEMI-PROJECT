@@ -226,6 +226,8 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
 		<div id="book" 
 		<% if(loginUser == null) { %>
 			onclick="alert('먼저 로그인을해주세요.')"		
+		<% } else if(loginUser.getUser_category().equals("H")){ %>
+			onclick="alert('병원회원은 이용하실 수 없습니다.')"
 		<% } else { %>
 			onclick="window.open('<%=request.getContextPath()%>/views/hospital/hospitalBook.jsp?customer_no=<%= loginUser.getUser_no() %>&hos_name=<%= h.getUser_name() %>', 'book', 'width=650, height= 800');"		
 		<% } %>

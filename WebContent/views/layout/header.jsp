@@ -234,56 +234,29 @@
 					<li><a href="<%=request.getContextPath()%>/worryList.bo">고민</a></li>
 				</ul>
 			</form>
-		</nav>
-
-		<%
-			if (loginUser == null) {
-		%>
-		<span id="login" class="login"><a style="color: #DF1758;"
-			href="<%=request.getContextPath()%>/views/common/login.jsp">로그인</a></span>
-		<%
-			} else if (loginUser.getUser_id().equals("admin")) {
-		%>
-		<span id="login" class="login"><label
-			onclick="location.href='<%=request.getContextPath()%>/logout.me'">로그아웃</label></span>
-		<span id="login" class="login"><label><%=loginUser.getUser_name()%></label></span>
-		<span id="login" class="login"><label
-			onclick="location.href='<%=request.getContextPath()%>/user.admin'">관리자페이지</label></span>
-		<%
-			} else {
-		%>
-
-		<span id="login" class="login"><label
-			onclick="location.href='<%=request.getContextPath()%>/logout.me'">로그아웃</label></span>
-		<span id="login" class="login"><label><a
-				href="<%=request.getContextPath()%>/mypage.me"><%=loginUser.getUser_name()%></a></label></span>
-		<%
-			if (loginUser.getUser_category().equals("C")) {
-		%>
-		<img id="login" class="login"
-			style="width: 50px; height: 50px; border-radius: 50px; float: right; margin-top: 40px"
-			src="<%=request.getContextPath()%>/member_images/<%=profile_image%>"
-			alt="" />
-		<%
-			} else if (loginUser.getUser_category().equals("H")) {
-		%>
-		<%
-			String[] profiles = profile_image.split(",");
-		%>
-		<img id="login" class="login"
-			style="width: 50px; height: 50px; border-radius: 50px; float: right; margin-top: 40px"
-			src="<%=request.getContextPath()%>/hospital_images/<%=profiles[0]%>"
-			alt="" />
-		<%
-			}
-		%>
-		<span id="login" class="login"><img
-			src="resources/images/mail1.png"
-			style="width: 50px; height: 50px; margin-top: -15px;"
-			onclick="cosTalkOpen();" id="cosTalkBtn"></span>
-		<%
-			}
-		%>
+		</nav>	
+		<% if(loginUser == null) { %>
+		<span id="login" class="login"><a style =  "color : #DF1758;" href="<%= request.getContextPath() %>/views/common/login.jsp">로그인</a></span>
+		<% } else if(loginUser.getUser_id().equals("admin")) { %>
+		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
+		<span id="login" class="login"><label><%= loginUser.getUser_name() %></label></span>
+		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/user.admin'">관리자페이지</label></span>
+		<% } else { %>
+		
+		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
+		<% if(loginUser.getUser_category().equals("C")) { %>
+			<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/mypage.me"><%= loginUser.getUser_name() %></a></label></span>
+		<% } else if(loginUser.getUser_category().equals("H")) { %>
+			<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/mypage.hos"><%= loginUser.getUser_name() %></a></label></span>
+		<% } %>	
+		<% if(loginUser.getUser_category().equals("C")) { %>
+			<img id="login" class="login" style="width: 50px; height: 50px; border-radius: 50px;float: right; margin-top: 40px" src="<%= request.getContextPath() %>/member_images/<%= profile_image %>" alt="" />
+		<% } else if(loginUser.getUser_category().equals("H")) { %>
+			<% String[] profiles = profile_image.split(","); %>
+			<img id="login" class="login" style="width: 50px; height: 50px; border-radius: 50px;float: right; margin-top: 40px" src="<%= request.getContextPath() %>/hospital_images/<%= profiles[0] %>" alt="" />
+		<% } %>
+		<span id="login" class="login"><img src="resources/images/mail1.png" style = "width : 50px; height : 50px; margin-top : -15px;" onclick = "cosTalkOpen();" id = "cosTalkBtn"></span>
+		<% } %>
 		<%-- <span class="sch">
 			<button type="button"><img src="<%= request.getContextPath() %>/resources/images/search_icon.png"></button>
 			<input type="text" placeholder="검색어를 입력하세요.">
