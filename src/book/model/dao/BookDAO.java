@@ -94,4 +94,90 @@ private Properties prop = new Properties();
 		return list;
 	}
 
+	public Book selectBookDetail(Connection conn, String booking_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Book b = null;
+		
+		String query = prop.getProperty("selectBookDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, booking_no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Book(rset.getInt("booking_no"),
+						rset.getString("booking_name"),
+						rset.getString("booking_tel"),
+						rset.getDate("booking_date"),
+						rset.getString("booking_time"),
+						rset.getString("booking_content"),
+						rset.getInt("customer_no"),
+						rset.getInt("hospital_no"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return b;
+	}
+
+	public int deleteBook(Connection conn, String booking_no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteBook");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, booking_no);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<String> bookTimeCheck(Connection conn, String date) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> list = new ArrayList<>();
+		String time = "";
+		
+		String query = prop.getProperty("bookTimeCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, date);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				time = rset.getString("booking_time");
+				
+				list.add(time);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 }
