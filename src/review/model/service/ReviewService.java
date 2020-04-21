@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import customer.model.vo.Customer;
 import review.model.dao.ReviewDAO;
+import review.model.vo.AddFile;
 import review.model.vo.Review;
 
 public class ReviewService {
@@ -59,6 +60,20 @@ public class ReviewService {
 		close(conn);
 		
 		return slideList;
+	}
+
+	public int insertReq(Review r, AddFile af) {
+		Connection conn = getConnection();
+		
+		ReviewDAO dao = new ReviewDAO();
+		
+		int result1 = dao.insertBoardReq(conn, r);
+		int result2 = dao.insertAddFile(conn, af);
+		int result3 = dao.insertCosReq(conn, r);
+		
+		close(conn);
+		
+		return result1;
 	}
 
 
