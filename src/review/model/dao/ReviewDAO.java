@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import customer.model.vo.Customer;
+import review.model.vo.AddFile;
 import review.model.vo.Review;
 
 public class ReviewDAO {
@@ -167,13 +168,7 @@ public class ReviewDAO {
 		
 		return result3;
 	}
-	public ArrayList selectSList(Connection conn) {
-//		select board_title, cosmetic_name, cosmetic_img 
-//		from review 
-//			 join board on(review_no = board_no) 
-//			 join cosmetic_review on(review_no = cos_review_no) 
-//			 join cosmetic using(cosmetic_no) 
-//		order by review_thumbs_up desc
+	public ArrayList<Review> selectSList(Connection conn) {
 
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -188,10 +183,23 @@ public class ReviewDAO {
 			slideList = new ArrayList<Review>();
 			
 			while(rset.next()) {
-				Review r = new Review(rset.getString("board_title"),
-										rset.getString("cosmetic_name"),
-										rset.getString("cosmetic_img"));
-				slideList.add(r);
+				Review r = new Review(rset.getInt("REVIEW_NO"),
+									  rset.getInt("REVIEW_THUMBS_UP"),
+									  rset.getInt("REVIEW_HEART"),
+									  rset.getString("REVIEW_DEL_YN"),
+									  rset.getString("board_title"),
+									  rset.getString("board_content"),
+									  rset.getDate("board_date"),
+									  rset.getString("board_category"),
+									  rset.getString("user_name"),
+									  rset.getString("cosmetic_name"),
+									  rset.getString("cosmetic_img"),
+									  rset.getInt("review_thumbs_down"),
+									  rset.getInt("age"),
+									  rset.getString("skintype"),
+									  rset.getString("gender"),
+									  rset.getString("profile_image"));
+					slideList.add(r);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -203,4 +211,75 @@ public class ReviewDAO {
 		return slideList;
 		
 	}
+  
+	public int insertBoardReq(Connection conn, Review r) {
+//		insert into board values(seq_board_no.nextval, '제품등록요청', ?, sysdate, 'req', ?);
+		PreparedStatement pstmt = null;
+		int result1 = 0;
+		
+		String query = prop.getProperty("insertBoardReq");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, r.getContent());
+			pstmt.setInt(2, r.getUser_no());
+			
+			result1 = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result1;
+	}
+
+	public int insertAddFile(Connection conn, AddFile af) {
+//		insert into addfile values(seq_file_no.nextval, ?, ?, seq_board_no.currval, ?, sysdate, default)
+		PreparedStatement pstmt = null;
+		int result2 = 0;
+		String query = prop.getProperty("insertaAddfile");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, af.getOrigin_name());
+			pstmt.setString(2, af.getChange_name());
+			pstmt.setString(3, af.getFile_path());
+
+			result2 = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result2;
+	}
+
+	public int insertCosReq(Connection conn, Review r) {
+//		insert into cosmetic_req values(seq_board_no.currval, default)
+		Statement stmt = null;
+		int result3 = 0;
+		
+		String query = prop.getProperty("insertCosReq");
+		
+		try {
+			stmt = conn.createStatement();
+			result3 = stmt.executeUpdate(query);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		
+		
+		
+		return result3;
+	}
+
 }

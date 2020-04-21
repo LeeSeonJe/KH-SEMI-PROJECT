@@ -80,11 +80,12 @@
 					<div class="worry-title">
 						<label for="title" id="title-label">제목</label>
 						<input name ="title" type="text" id="title" placeholder="제목을 입력해주세요." size="70" required> 
+						<span style="color:#aaa;" id="counter2">(0 / 최대 50자)</span>
 					</div>
 					
 					<div class="comment">
 						<label id="comment-label" for="comment-box">내용</label>
-						<textarea name = "content" style="overflow: hidden; resize: none; overflow-wrap: break-word; resize: horicontal; hieght: 170px;"" id="comment-box" cols="75" rows="20" required placeholder="# 음란물, 차별, 비하, 혐오 및 초상권, 저작권 침해 게시물은 민,형사상의 책임을 질 수 있습니다."></textarea>
+						<textarea name = "content" style="overflow: hidden; resize: none; overflow-wrap: break-word; resize: horicontal; height: 400px;" id="comment-box" cols="75" rows="20" required placeholder="# 음란물, 차별, 비하, 혐오 및 초상권, 저작권 침해 게시물은 민,형사상의 책임을 질 수 있습니다."></textarea>
 						<span class="comment-tip">
 							<h4>고민작성 TIP!</h4>
 							<ol>
@@ -125,9 +126,38 @@
 		        $(this).val(content.substring(0, 1500));
 		        $('#counter').html("(1500 / 최대 1500자)");
 		    }
-		});
+		}).keydown(function (e){
+			var content = $(this).val();
+		    $('#counter').html("("+content.length+" / 최대 1500자)");    //글자수 실시간 카운팅
 
-	
+		    if (content.length > 1500){
+		        alert("최대 1500자까지 입력 가능합니다.");
+		        $(this).val(content.substring(0, 1500));
+		        $('#counter').html("(1500 / 최대 1500자)");
+		    }
+		});
+		
+		$('#title').keyup(function (e){
+		    var content = $(this).val();
+		    $('#counter2').html("("+content.length+" / 최대 50자)");    //글자수 실시간 카운팅
+
+		    if (content.length > 50){
+		        alert("최대 50자까지 입력 가능합니다.");
+		        $(this).val(content.substring(0, 50));
+		        $('#counter2').html("(50 / 최대 50자)");
+		    }
+		}).keydown(function (e){
+			var content = $(this).val();
+		    $('#counter2').html("("+content.length+" / 최대 50자)");    //글자수 실시간 카운팅
+
+		    if (content.length > 50){
+		        alert("최대 50자까지 입력 가능합니다.");
+		        $(this).val(content.substring(0, 50));
+		        $('#counter2').html("(50 / 최대 50자)");
+		    }
+		});
+		
+		autosize(document.querySelectorAll("textarea"));
 	
 	</script>
 	

@@ -116,7 +116,7 @@ ArrayList<AddFile> fList = (ArrayList<AddFile>)request.getAttribute("fList");
                 </article>
                 <article class="content-body">
 <%--                 	<input id="content" type="text" value='<%= request.getParameter("content") %>'> --%>
-                   <textarea id="content" name="content" row="10" style="overflow: hidden; overflow-wrap: break-word; resize: horicontal; hieght: 170px;"><%= w.getContent() %></textarea>
+                   <textarea id="content" name="content" row="10" style="overflow: hidden; overflow-wrap: break-word; resize: horicontal; height: 170px;"><%= w.getContent() %></textarea>
                  <br><br>
 
                   <% if(fList != null){ %>

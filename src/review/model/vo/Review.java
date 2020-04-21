@@ -49,11 +49,6 @@ public class Review {
 		this.profile_image = profile_image;
 	}
 
-
-
-
-
-
 	public Review(String title, String cosmetic_name, String cosmetic_img) {
 		super();
 		this.title = title;

@@ -4,26 +4,37 @@ import java.sql.Date;
 
 public class CosTalk {
 	private int message_no;
-	private String message_title;
 	private String message;
 	private Date message_date;
 	private String message_read;
 	private int dispatch_no;
+	private int reception_no;
+	
+	private int rMember_no;
+	private String rMember_id;
+	private String rMember_name;
 
 	public CosTalk() {
 		super();
 	}
 
-	public CosTalk(int message_no, String message_title, String message, Date message_date, String message_read,
+	public CosTalk(int message_no, String message, Date message_date, String message_read,
 			int dispatch_no, int reception_no) {
 		super();
 		this.message_no = message_no;
-		this.message_title = message_title;
 		this.message = message;
 		this.message_date = message_date;
 		this.message_read = message_read;
 		this.dispatch_no = dispatch_no;
 		this.reception_no = reception_no;
+	}
+
+
+	public CosTalk(int rMember_no, String rMember_id, String rMember_name) {
+		super();
+		this.rMember_no = rMember_no;
+		this.rMember_id = rMember_id;
+		this.rMember_name = rMember_name;
 	}
 
 	public int getMessage_no() {
@@ -32,14 +43,6 @@ public class CosTalk {
 
 	public void setMessage_no(int message_no) {
 		this.message_no = message_no;
-	}
-
-	public String getMessage_title() {
-		return message_title;
-	}
-
-	public void setMessage_title(String message_title) {
-		this.message_title = message_title;
 	}
 
 	public String getMessage() {
@@ -82,13 +85,36 @@ public class CosTalk {
 		this.reception_no = reception_no;
 	}
 
-	private int reception_no;
+	public int getrMember_no() {
+		return rMember_no;
+	}
+
+	public void setrMember_no(int rMember_no) {
+		this.rMember_no = rMember_no;
+	}
+
+	public String getrMember_id() {
+		return rMember_id;
+	}
+
+	public void setrMember_id(String rMember_id) {
+		this.rMember_id = rMember_id;
+	}
+
+	public String getrMember_name() {
+		return rMember_name;
+	}
+
+	public void setrMember_name(String rMember_name) {
+		this.rMember_name = rMember_name;
+	}
 
 	@Override
 	public String toString() {
-		return "CosTalk [message_no=" + message_no + ", message_title=" + message_title + ", message=" + message
-				+ ", message_date=" + message_date + ", message_read=" + message_read + ", dispatch_no=" + dispatch_no
-				+ ", reception_no=" + reception_no + "]";
+		return "CosTalk [message_no=" + message_no + ", message=" + message + ", message_date=" + message_date
+				+ ", message_read=" + message_read + ", dispatch_no=" + dispatch_no + ", reception_no=" + reception_no
+				+ ", rMember_no=" + rMember_no + ", rMember_id=" + rMember_id + ", rMember_name=" + rMember_name + "]";
 	}
+
 
 }
