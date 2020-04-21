@@ -1,10 +1,8 @@
 package message.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,26 +18,24 @@ import message.model.service.CosTalkService;
 import message.model.vo.CosTalk;
 
 /**
- * Servlet implementation class CosTalkSendServlet
+ * Servlet implementation class CosTalkFindServlet
  */
-@WebServlet("/CosTalkSendServlet")
-public class CosTalkSendServlet extends HttpServlet {
+@WebServlet("/CosTalkFindServlet")
+public class CosTalkFindServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CosTalkFindServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public CosTalkSendServlet() {
-		super();
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		//채팅 추가하기
 		String rName = request.getParameter("rName");
@@ -83,26 +79,15 @@ public class CosTalkSendServlet extends HttpServlet {
 			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 		
 		}
-		
-		CosTalk cosTalk = new CosTalk(0, sMessage, null, null, sUserNo, Integer.parseInt(rMNum));
-		int result = new CosTalkService().sendMessage(cosTalk);
-		if(result > 0) {
-			ArrayList<CosTalk> list = new CosTalkService().sendAfterSelect(sUserNo, Integer.parseInt(rMNum));
-			if(list !=null) {
-				response.setContentType("application/json; charset=UTF-8");
-				new Gson().toJson(list, response.getWriter());
-			}
-		}
-		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(rMember, response.getWriter());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
