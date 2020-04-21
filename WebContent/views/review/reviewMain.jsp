@@ -47,35 +47,21 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 .btn-direction {
    border: none;
    background: none;
-/*    display: inline-block; */
 } 
-
-
-/* 	#div-ranklist{text-align:center; display: inline-block; width: 100%; padding: 20px;}
-	#div-ranklist{display: inline-block; width: 80%;}
-	#ranking-title{padding: 20px; text-align: left; display: inline-block}
-	h3{margin-left: 30px;}
-	.rank-list1>td{display: inline-block; text-align: center; margin-top: 40px;}	
-	.rank-list2>td{display: inline-block; text-align: center; margin-top: 40px;}
-	
-	#slideTable{width: 100px; height: 50px; display: inline-block;}
-	
- */	
+	.medal{width: 70px; height: 70px;}
 	#rTitle{width: 450px; padding: 20px;}
-	.img>img{width: 160px;}
+	.img>img{width: 160px; height: 160px; border-radius: 70%;}
 	
 /* 슬라이드 끝 */
 
 #select-option{text-align: right;}
 	
 	.tb-profile tr td{border:1px solid black}
- 	.icon-p{width: 50px; height: 50px; margin-top: 10px;} 
+ 	.icon-p{width: 60px; height: 60px; border-radius: 70%;} 
  	.p-content{margin-bottom: 10px; margin-top: 10px;}
 	.icon-product{width: 80px; height: 70px; margin-top: 10px;}
 	.thumb{width: 25px; height: 25px;}
 	
-	.best-rivew{display:inline-block; width:150px; height:110px; text-align:center; vertical-align: middle;}
-	.best-rivew-title{overflow: hidden; width:140px; display:inline-block; max-height:2.7em;}
 	.review-title{white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 	.content{white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 570px; display:inline-block; min-height:20px;}
 	.hiddenSpan{min-height:20px; margin:0; text-align:left}
@@ -83,10 +69,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 
 /* 페이징 */
 
-
-
 /* 페이징 끝 */
-
 
 </style>
 <%@ include file="/views/layout/import.jsp"%>
@@ -97,24 +80,37 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 		<%@ include file="/views/layout/header.jsp"%>
 		<hr>
 			<!-- 작성 -->
-		<div id="slide"><!-- 베스트리뷰 슬라이드 -->
+		<div id="slide"><!-- 탑리뷰어  -->
 	   	   <button class="btn-direction"><img id="prev" src="<%= request.getContextPath() %>/resources/images/prev.png"></button>
-	   
+	   			<h3>top reviewers</h3>
 					<table id="tableDiv">
 						<tr>
-						<% for(int i = 0; i<slideList.size(); i++){ 
-							Review r = slideList.get(i); %>
-							<%if(i<3){ %>
-							<td class="img">
-							<img src="<%= r.getCosmetic_img() %>">
-							</td>
-						<% } }%>
+							<td><img class="medal" src="<%= request.getContextPath() %>/resources/images/금메달.png"></td>
+							<td><img class="medal" src="<%= request.getContextPath() %>/resources/images/은메달.png"></td>
+							<td><img class="medal" src="<%= request.getContextPath() %>/resources/images/동메달.png"></td>
 						</tr>
 						<tr>
-						<% for(int j = 0; j<slideList.size(); j++){
-							Review r = slideList.get(j);%>
-							<%if(j<3){ %>
-							<td id="rTitle" class="title"><%= r.getTitle() %></td>
+						<% for(int i = 0; i<slideList.size(); i++){ 
+							Review r = slideList.get(i); 
+						%>
+							<% if(i < 3){ %>
+							<td class="img">
+							<img src="<%= r.getProfile_image() %>" id="tops">
+							</td>
+							<% } } %>
+						</tr>
+						<tr>
+						<% for(int j = 0; j<list.size(); j++){
+							Review r = slideList.get(j); 
+							//System.out.println("reviewMain r : " + r);
+							%>
+							<% if(j<3){ %>
+							<td id="rTitle" class="title"><%= r.getUserName() %><br>
+							<img src="<%= request.getContextPath() %>/resources/images/따봉.png" style="height: 20px; width: 20px;">
+								<div style="display: inline-block;  vertical-align: middle;">
+								<h4 style="color: indianred;"><%= r.getThumbs_up() %></h4>
+								</div>
+							</td>
 						<% } } %>
 						</tr>
 					</table>

@@ -1,3 +1,6 @@
+<%@page import="review.model.vo.PageInfo"%>
+<%@page import="customer.model.vo.MyPageReview"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="common.AgeCalculator"%>
 <%@page import="customer.model.vo.MyPageCustomer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -37,7 +40,7 @@ div>section#page-name {
 div>section.tab-mypage {
 	display: inline-block;
     /* position: absolute; */
-    padding-left: 100px;
+    padding-left: 50px;
     padding-top: 20px;
 }
 
@@ -64,7 +67,7 @@ table#myInform>tbody>tr>td {
 }
 
 table#myInform>tbody>tr>td.tab-myControl-category {
-	width: 170px;
+	width: 220px;
 }
 
 table#myInform>tbody>tr>td.tab-myControl-content {
@@ -101,7 +104,7 @@ table#myReview>thead>tr>th {
 }
 
 table#myReview>thead>tr>th#title2 {
-	width:420px;
+	width:500px;
 }
 
 table#myReview>tbody>tr>td {
@@ -121,7 +124,7 @@ table#myPost>thead>tr>th {
 }
 
 table#myPost>thead>tr>th#title2 {
-	width:420px;
+	width:500px;
 }
 
 table#myPost>tbody>tr>td{
@@ -200,10 +203,42 @@ tbody img {
 	border: 0; 
 }
 
+.review-content:nth-child(2) {
+    width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: absolute;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.numBtn {
+	cursor: pointer;
+    border-bottom-color: #e2e2e2;
+    border: 1px solid #ccccce;
+    border-radius: 6px;
+    background-color: #fff;
+    font-weight: 500;
+    color: #666;
+    font-size: 12px;
+    padding: 7px;
+    margin-right: 5px;
+}
+
 </style>
 
 <%
 	MyPageCustomer mpc = (MyPageCustomer) request.getAttribute("mpc");
+	ArrayList<MyPageReview> mpr = (ArrayList<MyPageReview>) request.getAttribute("mpr");
+	
+	PageInfo reviewPi = (PageInfo)request.getAttribute("reviewPi");
+	
+	int currentPage = reviewPi.getCurrentPage();
+	int maxPage = reviewPi.getMaxPage();
+	int startPage = reviewPi.getStartPage();
+	int endPage = reviewPi.getEndPage();
+	System.out.println(currentPage);
 %>
 </head>
 <body>
@@ -300,16 +335,178 @@ tbody img {
 							<th class="review-title">작성일</th>							
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id=tbody_area>
+					<% for(int i = 0; i < mpr.size(); i++) { %>
 						<tr>
-							<td class="review-content">1</td>
-							<td class="review-content"><a href="#">동해물과백두산이 마르고</a></td>
-							<td class="review-content">이선제</td>
-							<td class="review-content">2020-03-26</td>
+							<td class="review-content"><%= i+1 %><input type="hidden" value="<%= mpr.get(i).getBoard_no() %>" /></%></td>
+							<td class="review-content"><%= mpr.get(i).getBoard_title() %></td>
+							<td class="review-content"><%= mpr.get(i).getUser_name() %></td>
+							<td class="review-content"><%= mpr.get(i).getBoard_date().substring(0, 10) %></td>
 						</tr>
+					<% } %>
 					</tbody>
+
 				</table>
-				
+				<div class="pagingArea" align="center" style="margin-right: 76px;">
+				<% if(!mpr.isEmpty()){ %>
+					<!--맨 처음으로  -->
+					<button id="fristPage" class="btn-standard">&lt;&lt;</button>
+					<script>
+						var currentPage = 1
+						$('#fristPage').on('click', function(){
+							currentPage = "1";
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage:currentPage},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="review-content"></td>').text((10*parseInt(currentPage)-10)+parseInt(i)+1);
+										var $input = $('<input type="hidden">').val(data[i].board_no)
+										var $td2 = $('<td class="review-content"></td>').text(data[i].board_title);
+										var $td3 = $('<td class="review-content"></td>').text(data[i].user_name);										
+										var $td4 = $('<td class="review-content"></td>').text(data[i].board_date.substr(0, 10));	
+										
+										$td1.append($input);
+										$tr.append($td1, $td2, $td3, $td4);
+										$('#tbody_area').append($tr)
+									}
+								}
+							})
+						})
+					</script>
+					<!--이전 페이지  -->
+					<button  id="beforeBtn" class="btn-standard">&lt;</button>
+					<script>
+						$('#beforeBtn').on('click', function(){
+							console.log(currentPage);
+							if(1 == currentPage){
+								currentPage = 1
+							} else {
+								currentPage--;								
+							}
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage:currentPage},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="review-content"></td>').text((10*parseInt(currentPage)-10)+parseInt(i)+1);
+										var $input = $('<input type="hidden">').val(data[i].board_no)
+										var $td2 = $('<td class="review-content"></td>').text(data[i].board_title);
+										var $td3 = $('<td class="review-content"></td>').text(data[i].user_name);										
+										var $td4 = $('<td class="review-content"></td>').text(data[i].board_date.substr(0, 10));	
+										
+										$td1.append($input);
+										$tr.append($td1, $td2, $td3, $td4);
+										$('#tbody_area').append($tr)
+									}
+								}
+							})
+						})
+	
+					</script>
+					
+					<!-- 10개 페이지 목록  -->
+					<% for(int p=startPage; p<=endPage; p++){ %>
+<%-- 						<%if(p == currentPage){ %> --%>
+								<button class="numBtn"><%= p %></button>
+<%-- 						<% } else{ %>			 --%>
+<%-- 								<button id="numBtn" onclick="location.href='<%= request.getContextPath() %>/mypage.me?currentPage=<%= p %>'"><%= p %></button> --%>
+<%-- 						<% } %>			 --%>
+					<% } %>
+					<script>
+						$('.numBtn').on('click', function(){
+							currentPage = $(this).text();
+							console.log(currentPage)
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage:currentPage},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="review-content"></td>').text((10*parseInt(currentPage)-10)+parseInt(i)+1);
+										var $input = $('<input type="hidden">').val(data[i].board_no)
+										var $td2 = $('<td class="review-content"></td>').text(data[i].board_title);
+										var $td3 = $('<td class="review-content"></td>').text(data[i].user_name);										
+										var $td4 = $('<td class="review-content"></td>').text(data[i].board_date.substr(0, 10));	
+										
+										$td1.append($input);
+										$tr.append($td1, $td2, $td3, $td4);
+										$('#tbody_area').append($tr)
+									}
+								}
+							})
+						})
+					</script>
+					
+					<!-- 다음 페이지로 -->
+					<button id="afterBtn" class="btn-standard">&gt;</button>
+					<script>
+						$('#afterBtn').on('click', function(){
+							if(<%= maxPage %> == currentPage){
+								currentPage = <%= maxPage %>
+							} else {
+								currentPage++;								
+							}
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage:currentPage},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="review-content"></td>').text((10*parseInt(currentPage)-10)+parseInt(i)+1);
+										var $input = $('<input type="hidden">').val(data[i].board_no)
+										var $td2 = $('<td class="review-content"></td>').text(data[i].board_title);
+										var $td3 = $('<td class="review-content"></td>').text(data[i].user_name);										
+										var $td4 = $('<td class="review-content"></td>').text(data[i].board_date.substr(0, 10));	
+										
+										$td1.append($input);
+										$tr.append($td1, $td2, $td3, $td4);
+										$('#tbody_area').append($tr)
+									}
+								}
+							})
+						})
+					</script>
+					
+					<!-- 맨 끝으로 -->
+					<button id="lastPage" class="btn-standard">&gt;&gt;</button>
+					<script>
+						$('#lastPage').on('click', function(){
+							var currentPage = <%= maxPage %>
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage:currentPage},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="review-content"></td>').text((10*parseInt(currentPage)-10)+parseInt(i)+1);
+										var $input = $('<input type="hidden">').val(data[i].board_no)
+										var $td2 = $('<td class="review-content"></td>').text(data[i].board_title);
+										var $td3 = $('<td class="review-content"></td>').text(data[i].user_name);										
+										var $td4 = $('<td class="review-content"></td>').text(data[i].board_date.substr(0, 10));	
+										
+										$td1.append($input);
+										$tr.append($td1, $td2, $td3, $td4);
+										$('#tbody_area').append($tr)
+									}
+								}
+							})
+						})
+					</script>
+				<% } %>
+				</div>
 			</section>
 			
 			<section id="tab-myPost" class="tab-mypage">
@@ -325,13 +522,15 @@ tbody img {
 							<th>작성일</th>							
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id=tbody_area>
+					<% for(int i = 0; i < mpr.size(); i++) { %>
 						<tr>
-							<td>1</td>
-							<td>동해물과백두산이 마르고</td>
-							<td>이선제</td>
-							<td>2020-03-26</td>
+							<td class="review-content"><%= i+1 %><input type="hidden" value="<%= mpr.get(i).getBoard_no() %>" /></%></td>
+							<td class="review-content"><%= mpr.get(i).getBoard_title() %></td>
+							<td class="review-content"><%= mpr.get(i).getUser_name() %></td>
+							<td class="review-content"><%= mpr.get(i).getBoard_date().substring(0, 10) %></td>
 						</tr>
+					<% } %>
 					</tbody>
 				</table>
 			</section>
@@ -448,6 +647,11 @@ tbody img {
 	<%@ include file="/views/layout/footer.jsp"%>
 	
 	<script>
+		$(document).on('click', '.review-content:nth-child(2)', function(){
+			var tt = $(this).prev().find('input').val()
+			console.log(tt);
+		})
+	
 		function update(){	
 			var profile = $('#profile').attr('src');
 			var category = "c";
