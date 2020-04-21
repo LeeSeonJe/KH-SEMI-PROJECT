@@ -211,7 +211,7 @@ public class ReviewDAO {
 		return slideList;
 		
 	}
-
+  
 	public int insertBoardReq(Connection conn, Review r) {
 //		insert into board values(seq_board_no.nextval, '제품등록요청', ?, sysdate, 'req', ?);
 		PreparedStatement pstmt = null;
@@ -281,9 +281,5 @@ public class ReviewDAO {
 		
 		return result3;
 	}
-
-
-
-
 
 }
