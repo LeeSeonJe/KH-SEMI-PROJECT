@@ -180,7 +180,7 @@ table#adminEnrollHospital>tbody>tr>td{
                <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/hospital.admin'">병원 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminReview.jsp'">리뷰 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/reviewList.admin'">리뷰 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminInq.jsp'">1대1문의 관리</li>
             </ul>
@@ -211,7 +211,7 @@ table#adminEnrollHospital>tbody>tr>td{
 	                     <td><%= m.getUser_no() %></td>
 	                     <td><%= m.getUser_name() %></td>
 	                     <td><%= m.getEnroll_date() %></td>
-	                     <td><a href="#" style="font-weight: bold;">조회</a></td>
+	                     <td><a href="detail.hos?hosName=<%= m.getUser_name() %>" style="font-weight: bold;">조회</a></td>
 	                     <td><label class="quit">탈퇴처리</label></td>
 	                </tr>
 					<% } %>	

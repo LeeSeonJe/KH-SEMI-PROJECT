@@ -61,7 +61,4 @@ public class ReviewService {
 		return slideList;
 	}
 
-
-
-
 }

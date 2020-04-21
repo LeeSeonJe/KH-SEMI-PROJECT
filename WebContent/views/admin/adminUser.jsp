@@ -180,7 +180,7 @@ table#adminEnrollHospital>tbody>tr>td{
                <li onclick="location.href = '<%= request.getContextPath()%>/hospital.admin'">병원 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminReview.jsp'">리뷰 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/reviewList.admin'">리뷰 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminInq.jsp'">1대1문의 관리</li>
             </ul>
@@ -240,7 +240,7 @@ table#adminEnrollHospital>tbody>tr>td{
    <script>
 	$('.detail').click(function(){
 		var userNo = $(this).parent().parent().children().eq(0).text();
-		var popup = window.open('<%=request.getContextPath()%>/userDetail.admin?userNo=' + userNo, "detailPopUp", "width=500, height=300");
+		var popup = window.open('<%=request.getContextPath()%>/userDetail.admin?userNo=' + userNo, "detailPopUp", "width=500, height=750");
 		
 
 	});

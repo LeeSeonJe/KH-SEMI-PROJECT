@@ -203,9 +203,4 @@ public class ReviewDAO {
 		return slideList;
 		
 	}
-
-
-
-
-
 }
