@@ -282,6 +282,32 @@ public class ReviewDAO {
 		return result3;
 	}
 
+	public ArrayList<Review> selectReq(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> list = new ArrayList<>();
+		Review r = null;
+		
+		String query = prop.getProperty("selectReq");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			//리뷰넘버 유저네임 데이트
+			while(rset.next()) {
+				r = new Review(rset.getInt("board_no"),
+								rset.getString("user_name"),
+								rset.getDate("board_date"));
+				list.add(r);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
 
 
 
