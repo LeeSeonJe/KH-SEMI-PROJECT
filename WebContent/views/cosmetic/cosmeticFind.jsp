@@ -123,6 +123,11 @@ select, input {
 		</div>
 		<input id="find-input"type="text" placeholder="화장품 명을 입력해주세요" />
 		<button id="category-btn" type="button">찾기</button>
+		<div>
+			찾고있는 브랜드나 제품이 없으신가요?<br>
+			등록 요청을 하시면 빠르게 업데이트 해드립니다
+			<button id="cosReq" type="button" onclick="req();">제품등록요청</button>
+		</div>
 	</section>
 	<section>
 		<ul id="ul-area">
@@ -135,7 +140,9 @@ select, input {
 	</section>
 	
 	<script>
-	
+		function req(){
+			window.open('<%= request.getContextPath() %>/views/review/reqInsertForm.jsp', 'cosmeticReq', 'width=500, height=500');
+		}
 		$('#category-btn').click(function(){
 			var middleCategory = $('.middle-category[name="middle"]').val();
 			var findInput = $('#find-input').val();

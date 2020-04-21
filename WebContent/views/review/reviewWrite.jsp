@@ -67,7 +67,7 @@
 			<tr>
 				<td><span class="sp1">제품 명</span><br> 
 				<input id="cosName" type="text" name="cosmetic_name" style="border: none; width: 500px; margin-left: 30px; readonly"></td>
-				<td><input id="cosNo" type="hidden" name="cosmetic_no"/></td>
+				<td><input id="cosNo" type="text" name="cosmetic_no"/></td>
 			</tr>
 			<tr>
 				<td><button type="button" id="btn-select">제품 선택</button></td>
