@@ -49,7 +49,7 @@ public class beforeWorryDetailServlet extends HttpServlet {
 			 			
 			out.println("<script>");
 			
-			out.println("alert('Ã¹ ÆäÀÌÁö ÀÔ´Ï´Ù.');");
+			out.println("alert('ì´ì „ ê²Œì‹œê¸€ì´ ì—†ìŠµë‹ˆë‹¤.');");
 			
 			out.println("location.href='worryDetail.bo?worryNo=" + worryNo + "';");
 			

@@ -68,7 +68,7 @@
 				   position: relative;}
 	#comment-area{margin: 5px; display:inline-block; resize: none;}  
 	#upload-btn{position:absolute;
-				top:80px;
+				top:140px; 
 				width:50px;
 				height:40px;}
 	#upload-btn2{position:absolute;
@@ -99,6 +99,10 @@
 	.case{width: 250px; height:250px;display: inline-block; }
 /* 	.content-text{width: 1151px; height: 580px; resize:none; border: none;} */
 	.content-text{width: 1151px; min-height: 280px; white-space:pre-wrap; margin-left:0px;}
+	#profile{border-radius:50px;}
+	.center{text-align:center;}
+	#title{font-size:1.3em; width:850px; height: 60px; margin-left: 0px; overflow:hidden; text-overflow: ellipsis; white-space: normal; line-height: 1.2; height: 2.4em;}
+	.replyTr{background: skyblue; width: 100%; margin: 0px; padding: 0px;}
 </style>
 
 
@@ -112,7 +116,8 @@
 			<Form action="worryDetail2.bo" method="post">
 			<div class="worry-read-wrap">
                 <article class="worry-head">
-                    <h3><%= w.getTitle() %></h3>
+                    <div id="title"><%= w.getTitle() %></div>
+                    
                     <input type="hidden" name="title" value="<%= w.getTitle() %>">
                     <input type="hidden" name="worryNo" value="<%= w.getWorryNo() %>">
                     <span><%= w.getUserName() %></span>
@@ -174,8 +179,8 @@
                 
                 <form>
                 <div class="comment-write">
-                    
-                        <textarea id="comment-area" cols="120" rows="5" placeholder="댓글을 남겨주세요."></textarea>
+                    	<br><br><br>
+                        <textarea id="comment-area" cols="170" rows="5" placeholder="댓글을 남겨주세요."></textarea>
                         <%if(m != null) {%>
                         <button id="upload-btn" class="btn-standard" value="등록">등록</button>
                         <%} else{ %>
@@ -194,13 +199,21 @@
                 <div id="replySelectArea">
 			<table id="replySelectTable">
 				<% if(list.isEmpty()){ %>
-					<tr><td colspan=3>댓글이 없습니다.</td></tr>
+					<br><br>
+					<tr><td colspan=3 style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;댓글이 없습니다.</td></tr>
+					<br><br>
 				<%} else{ %>
+					<tr class="replyTr">
+						<th class="center" width="280px" height="40px" colspan="2">작성자</th>
+						<th class="center" width="820px">내용</th>
+						<th class="center" width="220px">작성 날짜</th>
+					</tr>
 					<% for (int i = 0 ; i < list.size(); i++){ %>
 					<tr>
+						<td width="60px" height="60px"><img id="profile" src="<%= request.getContextPath()%>/member_images/<%= list.get(i).getprofileImage() %>" width="50px" height="50px"></td>
 						<td width="200px"><%= list.get(i).getUserName() %></td>
 						<td width="800px"><%= list.get(i).getCommentsText() %></td>
-						<td width="200px"><%= list.get(i).getCommentsDate() %></td>
+						<td width="200px" class="center" ><%= list.get(i).getCommentsDate() %></td>
 					</tr>
 					<% } %>
 				<% } %>	
