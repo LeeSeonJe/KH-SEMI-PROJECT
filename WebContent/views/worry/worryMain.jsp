@@ -2,8 +2,9 @@
 	pageEncoding="UTF-8" import="java.util.ArrayList" import="worry.model.vo.*" %>
 <%
 	ArrayList<Worry> list = (ArrayList<Worry>)request.getAttribute("list");
-	ArrayList<Worry> topList = (ArrayList<Worry>)request.getAttribute("topList");
-	ArrayList<Worry> hitList = (ArrayList<Worry>)request.getAttribute("hitList");
+// 	ArrayList<Worry> topList = (ArrayList<Worry>)request.getAttribute("topList");
+	ArrayList<Worry> top10List = (ArrayList<Worry>)request.getAttribute("top10List");
+// 	ArrayList<Worry> hitList = (ArrayList<Worry>)request.getAttribute("hitList");
 	ArrayList<Worry> lowList = (ArrayList<Worry>)request.getAttribute("lowList");
 	
 	String value = (String)request.getAttribute("value");
@@ -37,7 +38,7 @@
 	
 	.worry-table td:link{color: black;text-decoration: none;}
 	.worry-table td:visited{color: black; text-decoration: none;}
-	.worry-table td:hover{color: green; text-decoration: none;}
+	.worry-table td:hover{ text-decoration: none;}
 
 /*고민게시판*/
 	.worry-board{padding: 0 20px;}
@@ -47,25 +48,20 @@
 	.board-best-wrap, .wait-comment-wrap{
 		height : 190px;
 		vertical-align:center;
-		display:none;}
+		display:none;
+		margin-left: 70px;}
 	
 	.board-best-wrap{display : block;} 
 	
 	#rank10>li, #old-list>li{
 		display:inline-block; 
-		width: 470px; 
-		margin: 2px 15px;
-		border-bottom:1px dotted #666;}
+		width: 450px; 
+		margin: 2px 35px 2px 55px;
+}
 		
-	#rank10>li>a, #old-list>li>a{  
-		display:inline-block;
-		width:370px;
-		white-space: nowrap;
-	  	overflow: hidden;
-	  	text-overflow: ellipsis;
-	  	margin-right:5px;}
+
 	
-	#rank10>li>span, #old-list>li>span{vertical-align:top;}
+	#rank10{ }
 	
 	.rank-num, .rank-dash{margin:2px 5px 2px 2px;}
 			
@@ -76,9 +72,9 @@
 	
 	
 	/*게시글*/
-	.worry-list{/* background-color: orange; */
+	.worry-list{
 				position: relative;
-				height: 400px;
+				height: 480px;
 				margin-top: 35px;}
 				
 	.list-order{display:flex;
@@ -89,17 +85,25 @@
 	.worry-table{collapse:collapse;
 			     border-top:1px solid #666;
 			     border-bottom:1px solid #666;
-				 width:1030px;}
+				 width:1095px;
+				 margin-left: 55px;}
 		  
 	.worry-table>thead>tr>th,
 	.worry-table>tbody>tr>td{border-bottom : 1px solid #666;
-		  					 text-align: center;}
+		  					 text-align: center;
+		  					 }
 		  					 
-	.worry-table>tbody>tr>td{height:30px;}
+	.worry-table>thead>tr>th{background: #f8f8f8;}
+
 		  					 
-	.worry-table>tbody>tr>td>a{white-space: nowrap;
-							  	overflow: hidden;
-							  	text-overflow: ellipsis;}
+						  	
+	.tdtd{height:30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+	#td1{width:110px; nowrap}
+	#td2{width:468px; nowrap}
+	#td3{width:110px; nowrap}
+	#td4{width:110px; nowrap}
+	#td5{width:110px; nowrap}
+	#td6{width:110px; nowrap} 
 	
 	#write-btn{color:white;
 			   background-color:black;
@@ -116,14 +120,31 @@
 					   
 	#worry-list-select{margin:36px 8px;}	
 	
-	#rank1{width:30px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap}
+	
+
+	
+	
+	#rank1{width:20px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; background:LightGrey; text-align: center;}
 	#rank2{width:350px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap}
-	#rank3{width:30px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap}
+	#rank3{width:30px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; margin-left: 30px;}
   	#topListNum{display: none;} 
  	#fail{text-align:center;}
  	.best{display: inline-block; font-size:2em;} 
  	.reply{display: inline-block; cursor:pointer;}
  	.reply:hover{text-decoration: underline;}
+ 	.pagingArea{position:absolute; top:410px; left:50%; transform:translateX(-50%);} 
+
+	select {
+    position: relative;
+    width: 150px;
+    height: 40px;
+    background: url(select_arrow.png) 180px center no-repeat; /* 화살표 이미지 */
+    border: 1px solid #E9DDDD;
+    
+	}
+	.sch{margin-left: 10px;}
+	#select{left: -106px;}
+	#worry-list-select{margin-top: 29px; margin-left: -101px;}
 </style>
 
 
@@ -138,12 +159,15 @@
 				<div class="worry-board-top">
 					<section class="board-best">
 						<div class="board-best-wrap">
-	                    <div class ="best">베스트 고민글</div>&nbsp;&nbsp;&nbsp;&nbsp; <div id="worry-btn2" class="reply">답글을 기다리는 고민</div>
-	                    	
+	                    <div class ="best">베스트 고민</div>&nbsp;&nbsp;&nbsp;&nbsp; <div id="worry-btn2" class="reply">답글을 기다리는 고민</div>
+	                    	<br><br>
 		                    <ol id="rank10">
+<!-- 		                    	<li><div id="topListNum">111</div><div class="rank-num" id="rank1">111</div><div class="rank-num" id="rank2">1111</div><div class="rank-num" id="rank3">111</div></li> -->
+<!-- 		                    	<li><div id="topListNum">111</div><div class="rank-num" id="rank1">111</div><div class="rank-num" id="rank2">1111</div><div class="rank-num" id="rank3">111</div></li> -->
+		       
 		                    	<% for(int i = 0; i < 10; i++){ %>
-		                    		<%if (i < topList.size()){ %> 	
-		                    			<li><div id="topListNum"><%= topList.get(i).getWorryNo() %></div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2"><%= topList.get(i).getTitle() %></div><div class="rank-num" id="rank3"><%= topList.get(i).getWorryThumbUp() %></div></li>                    						
+		                    		<%if (i < top10List.size()){ %> 	
+		                    			<li><div id="topListNum"><%= top10List.get(i).getWorryNo() %></div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2"><%= top10List.get(i).getTitle() %></div><div class="rank-num" id="rank3"><%= top10List.get(i).getWorryThumbUp() %></div></li>                    						
 		                    		<%} else{ %>
 		                        		<li><div id="topListNum">0</div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2">조회된 게시글이 없습니다.</div><div class="rank-num" id="rank3"> - </div></li>
 									<%} %>
@@ -153,12 +177,13 @@
 	                </section>
 					<section class="wait-comment">
 						<div class="wait-comment-wrap">
-	                    <div class ="best">답글을 기다리는 고민</div>&nbsp;&nbsp;&nbsp;&nbsp; <div class="reply" id="worry-btn1">베스트 고민글</div> 
+	                    <div class ="best">답글을 기다리는 고민</div>&nbsp;&nbsp;&nbsp;&nbsp; <div class="reply" id="worry-btn1">베스트 고민</div>
+	                    	<br><br> 
 		                    <ol id="rank10">
 		                    	<% for(int i = 0; i < 10; i++){ %>
 		                    		<%if (i < lowList.size()){ %> 
 		                    				
-		                    			<li><div id="topListNum"><%= topList.get(i).getWorryNo() %></div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2"><%= lowList.get(i).getTitle() %></div><div class="rank-num" id="rank3"><%= topList.get(i).getWorryThumbUp() %></div></li>                    						
+		                    			<li><div id="topListNum"><%= lowList.get(i).getWorryNo() %></div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2"><%= lowList.get(i).getTitle() %></div><div class="rank-num" id="rank3"><%= lowList.get(i).getWorryThumbUp() %></div></li>                    						
 		                    		<%} else{ %>
 		                        		<li><div id="topListNum">0</div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2">조회된 게시글이 없습니다.</div><div class="rank-num" id="rank3"> - </div></li>	
 									<%} %>
@@ -169,6 +194,7 @@
 	               
 	               </div>
 	            <form></form>   
+	            <br>
                 <section class="worry-list">
                 	<div class="list-order">
                 	<% if(value.equals("hit")){ %>
@@ -185,15 +211,15 @@
                     </div>
                     
   
-                    <table class="worry-table">
+                    <table class="worry-table" style="table-layout: fixed">
                     	<thead>
                         <tr>
-                            <th width="10%;" height="40px;">글 번호</th>
-                            <th width="50%;">게시글 제목</th>
-                            <th width="10%;">글쓴이</th>
-                            <th width="10%;">작성일</th>
-                            <th width="10%;">추천수</th>
-                            <th width="10%;">조회수</th>
+                            <th class="tdtd" id="td1">글 번호</th>
+                            <th class="tdtd" id="td2">게시글 제목</th>
+                            <th class="tdtd" id="td3">글쓴이</th>
+                            <th class="tdtd" id="td4">작성일</th>
+                            <th class="tdtd" id="td5">추천수</th>
+                            <th class="tdtd" id="td6">조회수</th>
                         </tr>
                         </thead>
                         
@@ -205,12 +231,12 @@
                         	<% } else{ %>
 	                        		<% for(int i = 0; i< list.size(); i++){ %>
 	                        	<tr>
-	                        		<td><%= list.get(i).getWorryNo() %></td>
-	                        		<td><%=list.get(i).getTitle() %></td>
-	                        		<td><%=list.get(i).getUserName() %></td>
-	                        		<td><%= list.get(i).getDate() %></td>
-	                        		<td><%= list.get(i).getWorryThumbUp() %></td>
-	                        		<td><%= list.get(i).getHit() %></td>
+	                        		<td class="tdtd" id="td1"><%= list.get(i).getWorryNo() %></td>
+	                        		<td class="tdtd" id="td2"><%=list.get(i).getTitle() %></td>
+	                        		<td class="tdtd" id="td3"><%=list.get(i).getUserName() %></td>
+	                        		<td class="tdtd" id="td4"><%= list.get(i).getDate() %></td>
+	                        		<td class="tdtd" id="td5"><%= list.get(i).getWorryThumbUp() %></td>
+	                        		<td class="tdtd" id="td6"><%= list.get(i).getHit() %></td>
 	                        	</tr>
                         		<%} %>
                       		<% } %>	
@@ -274,8 +300,9 @@
 		                <option value="content">내용</option>
 		            </select>
 		                <span class="sch">
+		                <input name="text" type="text">
 		                 <button><img src="<%= request.getContextPath() %>/resources/images/search_icon.png"></button>
-		                 <input name="text" type="text">
+
 		                </span>
 		            </div>
                 </form>
@@ -300,6 +327,12 @@
 		});
 		$('.worry-table td').mouseenter(function(){
 			$('.worry-table td').css('cursor', 'pointer');
+			$(this).parent().css('background', 'PaleTurquoise');
+		});
+		
+		$('.worry-table td').mouseout(function(){
+			$('.worry-table td').css('cursor', 'pointer');
+			$(this).parent().css('background', 'white');
 		});
 		
 		$('#rank10 div').click(function(){
@@ -311,9 +344,13 @@
 		});
 		$('#rank10 div').mouseenter(function(){
 				$('#rank10 li').css('cursor', 'pointer');
+				$(this).parent().css('background', 'PaleTurquoise')
 		});
 		
-		
+		$('#rank10 div').mouseout(function(){
+			$('.worry-table td').css('cursor', 'pointer');
+			$(this).parent().css('background', 'white');
+		});
 		
 	});
 	
