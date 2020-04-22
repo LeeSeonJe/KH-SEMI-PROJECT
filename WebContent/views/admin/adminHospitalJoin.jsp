@@ -181,7 +181,7 @@ table#adminEnrollHospital>tbody>tr>td{
                <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/reviewList.admin'">리뷰 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/boardList.admin'">게시판 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminInq.jsp'">1대1문의 관리</li>
             </ul>
          </section>
