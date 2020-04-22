@@ -75,8 +75,69 @@ public class ReviewService {
 		
 		return result1;
 	}
+	
+	public ArrayList<Review> oldList(int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new ReviewDAO().oldList(conn, currentPage, boardLimit);
+		close(conn);
+		
+		return list;
+	}
+	public ArrayList<Review> lovedList(int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new ReviewDAO().lovedList(conn, currentPage, boardLimit);
+		close(conn);
+		
+		return list;
+	}
+	public ArrayList<Review> unlovedList(int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new ReviewDAO().unlovedList(conn, currentPage, boardLimit);
+		close(conn);
+		
+		return list;
+	}
 
+	public int likeUp(int rno) {
+		Connection conn = getConnection();
+		int result = new ReviewDAO().likeUp(conn, rno);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 
+	public int hateUp(int rno) {
+		Connection conn = getConnection();
+		int result = new ReviewDAO().hateUp(conn, rno);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 
-
+	public ArrayList<Review> selectReq() {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new ReviewDAO().selectReq(conn);
+		close(conn);
+		
+		
+		return list;
+	}
 }

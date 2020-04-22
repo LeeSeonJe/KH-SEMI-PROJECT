@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import customer.model.service.CustomerService;
 import customer.model.vo.MyPageCustomer;
 import customer.model.vo.MyPageReview;
+import customer.model.vo.MyPageWorry;
 import member.model.vo.Member;
 import review.model.vo.PageInfo;
 
@@ -43,7 +44,7 @@ public class MyPageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member m = (Member) session.getAttribute("loginUser");
 		// 마이페이지 내정보관리 내용을 가져옴
-		MyPageCustomer mpc = new CustomerService().selectCustomer(m.getUser_id());
+		
 		
 		
 		// 페이징 처리
@@ -51,6 +52,7 @@ public class MyPageServlet extends HttpServlet {
 		
 		// 게시글의 총 개수
 		int getReviewCount = service.getReviewCount(m.getUser_id());
+		int getWorryCount = service.getWorryCount(m.getUser_id());
 		
 		int currentPage;  		// 현재 페이지
 		int pageLimit = 10;  	// 한 페이지에 표시될 페이징 수
@@ -60,8 +62,9 @@ public class MyPageServlet extends HttpServlet {
 		int boardLimit = 10;   	// 한 페이지에 보여지는 게시글 수
 		
 		PageInfo reviewPi = null;
+		PageInfo worryPi = null;
 		ArrayList<MyPageReview> mpr = null;
-//		ArrayList<MyPageWorry> mpw = null;
+		ArrayList<MyPageWorry> mpw = null;
 		
 		if(request.getParameter("currentPage") != null) {			
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -72,14 +75,28 @@ public class MyPageServlet extends HttpServlet {
 			if(maxPage < endPage) {
 				endPage = maxPage;
 			}
-			reviewPi = new PageInfo(currentPage, getReviewCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 			
 			// 마이페이지 내 리뷰 내용을 가져옴
 			mpr = service.selectCustomerReview(m.getUser_id(), currentPage, boardLimit); 
 			
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(mpr, response.getWriter());
+		} else if(request.getParameter("currentPage2") != null){
+			currentPage = Integer.parseInt(request.getParameter("currentPage2"));
+//			System.out.println(currentPage);
+			startPage = (((int)((double)currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
+			maxPage = (int)((double)getReviewCount / pageLimit + 0.9);
+			endPage = pageLimit + startPage - 1;
+			
+			if(maxPage < endPage) {
+				endPage = maxPage;
+			}			
+			mpw = service.selectCustomerWorry(m.getUser_id(), currentPage, boardLimit);
+			
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(mpw, response.getWriter());
 		} else {
+			MyPageCustomer mpc = new CustomerService().selectCustomer(m.getUser_id());
 			currentPage = 1;
 			
 			startPage = (((int)((double)currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
@@ -92,12 +109,18 @@ public class MyPageServlet extends HttpServlet {
 			// 리뷰 페이징
 			reviewPi = new PageInfo(currentPage, getReviewCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 			mpr = service.selectCustomerReview(m.getUser_id(), currentPage, boardLimit); 
+			
+
+			worryPi = new PageInfo(currentPage, getWorryCount, pageLimit, maxPage, startPage, endPage, boardLimit);
+			mpw = service.selectCustomerWorry(m.getUser_id(), currentPage, boardLimit);
 			String page = "";
 			if(mpc != null) {
 				page = "/views/customer/myPage.jsp";
 				request.setAttribute("mpc", mpc);
 				request.setAttribute("mpr", mpr);
 				request.setAttribute("reviewPi", reviewPi);
+				request.setAttribute("mpw", mpw);
+				request.setAttribute("worryPi", worryPi);
 			} else {
 				request.setAttribute("msg", "회원조회 실패");
 			}

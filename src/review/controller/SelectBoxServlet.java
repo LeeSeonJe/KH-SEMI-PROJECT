@@ -3,29 +3,29 @@ package review.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import customer.model.vo.Customer;
+import com.google.gson.Gson;
+
 import review.model.service.ReviewService;
 import review.model.vo.PageInfo;
 import review.model.vo.Review;
 
 /**
- * Servlet implementation class ReviewListServlet
+ * Servlet implementation class SelectBoxServlet
  */
-@WebServlet("/list.re")
-public class ReviewListServlet extends HttpServlet {
+@WebServlet("/select.re")
+public class SelectBoxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewListServlet() {
+    public SelectBoxServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,12 +34,12 @@ public class ReviewListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
 		ReviewService service = new ReviewService();
-
 		ArrayList<Review> slideList = service.selectSList();
 		
 		int listCount = service.getListCount();
-		System.out.println("ReviewListServlet listCount : " + listCount);
+		System.out.println(listCount);
 		
 		int currentPage;		// 현재 페이지
 		int pageLimit = 10;		// 한 페이지에 표시될 페이징 수
@@ -64,37 +64,24 @@ public class ReviewListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);		
-			
-		ArrayList<Review> list = service.selectList(currentPage, boardLimit);
+
+		String value = request.getParameter("selectId");
 		
-//		System.out.println("ReviewListServlet list review_no : ");
-//		for(Review r : list) {
-//			System.out.print(r.getReview_no() + " ");
-//		}
-//		
-//		System.out.println();
+		ArrayList<Review> list = null;
 		
-		
-		String page = null;
-		if(list != null && slideList != null) {
-			page = "views/review/reviewMain.jsp";
-			request.setAttribute("list", list);
-			request.setAttribute("pi", pi);
-			request.setAttribute("slideList", slideList);
-			String selectId = "latest";
-			request.setAttribute("selectId", selectId);
-		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "조회할 리스트가 없습니다.");
+		if(value.contentEquals("latest")) {
+			list = service.selectList(currentPage, boardLimit);
+		} else if(value.contentEquals("oldest")) {
+			list = service.oldList(currentPage, boardLimit);
+		}  else if(value.contentEquals("loved")) {
+			list = service.lovedList(currentPage, boardLimit);
+		}  else if(value.contentEquals("unloved")) {
+			list = service.unlovedList(currentPage, boardLimit);
 		}
 		
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
-		
-		
-//		for(int i =0; i < list.size(); i++) {
-//	         System.out.println("리스트) "+list.get(i));
-//	      }
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
+	
 	}
 
 	/**

@@ -142,6 +142,15 @@ public class Review {
 		this.thumbs_down = thumbs_down;
 	}
 
+	
+	
+	public Review(int review_no, String userName, Date date) {
+		super();
+		this.review_no = review_no;
+		this.date = date;
+		this.userName = userName;
+	}
+
 
 	public int getReview_no() {
 		return review_no;

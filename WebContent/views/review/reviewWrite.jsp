@@ -147,7 +147,7 @@
 		}
 		
 		function req(){
-			window.open('../admin/cosmeticReqPopup.jsp', 'reqPop', 'width=600, height=500');
+			window.open('reqInsertForm.jsp', 'reqPop', 'width=600, height=500');
 			
 		}
 		</script>
