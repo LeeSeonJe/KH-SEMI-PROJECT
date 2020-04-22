@@ -38,7 +38,8 @@ public class worryDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int worryNo = Integer.parseInt(request.getParameter("worryNo"));	
 		Worry w = new Worry(); 
-		String result = "no";
+		String like = "no";
+		String hate = "no";
 		int userNo = 0;
 		ArrayList<Comments> list = new WorryService().selectComments(worryNo);
 		
@@ -48,19 +49,28 @@ public class worryDetailServlet extends HttpServlet {
 			userNo = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
 			int result2 = new WorryService().LikeList(worryNo, userNo );
 			if(result2 > 0) {
-				result = "yes";
+				like = "yes";
 			}
 		}
-		System.out.println(result);
+		
+		if(request.getSession().getAttribute("loginUser") != null) {
+			userNo = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
+			int result3 = new WorryService().hateList(worryNo, userNo );
+			if(result3 > 0) {
+				hate = "yes";
+			}
+		}
+		
+
 		int last = new WorryService().lastWorry(worryNo);
 		w = new WorryService().worryDetail(worryNo);
-		System.out.println(w);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("w", w);
 		request.setAttribute("fList", fList);
 		RequestDispatcher view = request.getRequestDispatcher("views/worry/worryRead.jsp");
-		request.setAttribute("result", result);
+		request.setAttribute("like", like);
+		request.setAttribute("hate", hate);
 		view.forward(request, response);
 	}
 

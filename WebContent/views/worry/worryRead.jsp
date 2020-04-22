@@ -141,7 +141,7 @@
                     <div class="content-text"><%= w.getContent() %></div>
                     <input type="hidden" name="content" value="<%= w.getContent() %>">
                     <div class="vote-btn">
-                    	<% if((String)request.getAttribute("result") == "yes"){ %> 
+                    	<% if((String)request.getAttribute("like") == "yes"){ %> 
 	                    	<button  type="button" id="like-btn" class="btn-standard" value="좋아요" disabled style="background: lightgray">좋아요</button>
 	                        <span id="like-count" class="counting"><%= w.getWorryThumbUp() %></span>
 	                        <input type="hidden" name="like" value="<%= w.getWorryThumbUp() %>">
@@ -150,9 +150,15 @@
 	                        <span id="like-count" class="counting"><%= w.getWorryThumbUp() %></span>
 	                        <input type="hidden" name="like" value="<%= w.getWorryThumbUp() %>">
                         <% } %>
+                        <% if((String)request.getAttribute("hate") == "yes"){ %> 
+                        <button type="button"  id="hate-btn" class="btn-standard" value="싫어요" disabled style="background: lightgray">싫어요</button>
+                        <input type="hidden" name="hate" value="<%= w.getWorryThumbDown() %>">
+                        <span id="hate-count" class="counting"><%= w.getWorryThumbDown() %></span>
+                        <% } else { %>
                         <button type="button"  id="hate-btn" class="btn-standard" value="싫어요">싫어요</button>
                         <input type="hidden" name="hate" value="<%= w.getWorryThumbDown() %>">
                         <span id="hate-count" class="counting"><%= w.getWorryThumbDown() %></span>
+                        <% } %>
                     </div>
                     <br><br>
                     <% if(fList != null){ %>
