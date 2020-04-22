@@ -1203,6 +1203,68 @@ public class WorryDAO {
 
 		return result;
 	}
+
+
+
+
+
+
+
+
+
+	public int hater(Connection conn, int worryNo, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("hater");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, worryNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+
+
+	public int hateList(Connection conn, int worryNo, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("checkHate");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, worryNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+			result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+
+		return result;
+	}
 	}
 	
 

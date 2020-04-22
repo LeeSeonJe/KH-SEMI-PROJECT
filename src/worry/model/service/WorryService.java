@@ -313,6 +313,28 @@ public class WorryService {
 		return result;
 	}
 
+	public int hater(int worryNo, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new WorryDAO().hater(conn, worryNo, userNo);
+		
+		if(result >0) {
+			commit(conn);
+		} else{
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int hateList(int worryNo, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new WorryDAO().hateList(conn, worryNo, userNo);
+		
+		return result;
+	}
+
 //	public ArrayList<Worry> selectHit10List(int currentPage, int boardLimit) {
 //		Connection conn = getConnection();
 //		
