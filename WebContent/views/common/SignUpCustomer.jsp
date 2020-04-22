@@ -15,11 +15,9 @@
 #CSU-form>table>tbody>tr>td:first-child {
     width: 110px;
 }
-
 #CSU-form>table>tbody>tr>td.td-center {
     text-align: center;
 }
-
 .td-center>button {
 	margin: 12px;
 }
@@ -78,12 +76,12 @@
 					<tr>
 						<td>이메일</td>
 						<td><input class="input-standard" type="email" id="email" name="email" placeholder="이메일을 입력하세요.">
-						<button class="btn-standard">인증번호 전송</button></td>
+						<button class="btn-standard" id="emailCheck" type="button">인증번호 전송</button></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input class="input-standard" type="text" placeholder="인증번호를 입력하세요">
-						<button class="btn-standard">인증번호확인</button></td>
+						<td><input class="input-standard" type="text" id="emailCheckNumber" name="emailCheckNumber" placeholder="인증번호를 입력하세요">
+						<button class="btn-standard" id="emailRealCheck" type="button">인증번호확인</button></td>
 					</tr>
 					<tr>
 						<td>성별</td>
@@ -95,12 +93,12 @@
 					<tr>
 						<td>연령대</td>
 						<td>
-							<label class="label-radio"><input type="radio" name="age" value="10"> 10대</label>
-							<label class="label-radio"><input type="radio" name="age" value="20early"> 20대 초반</label>
-							<label class="label-radio"><input type="radio" name="age" value="20late"> 20대 후반</label>
-							<label class="label-radio"><input type="radio" name="age" value="30early"> 30대 초반</label>
-							<label class="label-radio"><input type="radio" name="age" value="30late"> 30대 후반</label>
-							<label class="label-radio"><input type="radio" name="age" value="other"> 그 외 연령층</label>
+							<label class="label-radio"><input type="radio" name="age" value="10대"> 10대</label>
+							<label class="label-radio"><input type="radio" name="age" value="20대 초반"> 20대 초반</label>
+							<label class="label-radio"><input type="radio" name="age" value="20대 후반"> 20대 후반</label>
+							<label class="label-radio"><input type="radio" name="age" value="30대 초반"> 30대 초반</label>
+							<label class="label-radio"><input type="radio" name="age" value="30대 후반"> 30대 후반</label>
+							<label class="label-radio"><input type="radio" name="age" value="그 외 연령층"> 그 외 연령층</label>
 						</td>
 					</tr>
 					<tr>
@@ -125,11 +123,8 @@
 		</form>
 		<script>
 		function test1(){
-
 			var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-
 			var pwd = $("#pwd").val();
-
 			if(false === reg.test(pwd)) {
 				pwdCheck.innerHTML = '비밀번호는 8자 이상이어야 하며,<br> 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.';
 				pwdCheck.style.color = 'red';
@@ -137,7 +132,6 @@
 				pwdCheck.innerHTML = '&nbsp;사용 가능한 비밀번호입니다.'
 				pwdCheck.style.color = 'green';
 			}
-
 			}
 		 function test2(){
 	         var pwdConfirm = document.getElementById('pwdConfirm');
@@ -155,7 +149,6 @@
 		 
 		 function test3(){
 			 var reg = /^(?=.*?[A-Z,a-z])(?=.*?[0-9]).{8,}$/;
-
 			 var id = $("#id").val();
 		 if(false === reg.test(id)){
 			idCheck.innerHTML = '아이디는 8자 이상이어야 하며, 영어, 숫자만<br> 입력하여야 하고 특수문자는 사용이 불가능합니다';
@@ -177,7 +170,6 @@
 			var gender = document.getElementsByName("gender");
 			var age = document.getElementsByName('age');
 			var skintype = document.getElementsByName('skintype');
-
 			for(var i=0; i<gender.length; i++){
 				if(gender[i].checked == true)
 					found1 = gender[i];
@@ -226,6 +218,38 @@
 		</script>
 	</div>
 	
+	<script>
+		$('#emailCheck').click(function(){
+			var email = $('#email').val();
+			
+			$.ajax({
+				url: '<%= request.getContextPath()%>/emailCheck.me',
+				data: {email:email},
+				success: function(data){
+					alert('인증번호 전송 완료');
+				},
+				error: function(data){
+					alert('인증번호 전송 실패');
+				}
+			});
+		});
+		
+		$('#emailRealCheck').click(function(){
+			var emailCheck =  $('#emailCheckNumber').val();
+			
+			$.ajax({
+				url: '<%= request.getContextPath()%>/emailCheckNumber.me',
+				data : {emailCheck:emailCheck},
+				success: function(data){
+					alert(data);
+				},
+				error: function(data){
+					alert('인증번호 확인 실패');
+				}
+			});
+			
+		});
+	</script>
 
 
 

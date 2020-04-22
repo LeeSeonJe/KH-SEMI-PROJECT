@@ -1,3 +1,5 @@
+<%@page import="cosmetic.model.vo.Cosmetic"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,13 +11,15 @@
 
 <style>
 #page-name>h1 {
-   font-size: 50px;
-   font-weight: 900;
-   margin-left: 70px;
+  	font-size: 40px;
+	font-weight: 900;
+	margin-left: 70px;
+    margin-top: 60px;
 }
 
+/* 필터 css */
 #cosmetic-beauty-filter {
-   display: inline-block;
+	display: inline-block;
     border: 1px solid #ccc;
     padding-left: 18px;
     background-color: #F8F8F8;
@@ -24,68 +28,68 @@
 }
 
 #cosmetic-beauty-filter-header>h3 {
-   display: inline-block;
+	display: inline-block;
 }
 
 input {
-   position: relative;
+	position: relative;
 }
 
 .radioChk+label {
-   display: inline-block;
-   margin: -2px;
-   padding: 8px 19px;
-   background-color: white;
-   border: 1px solid #ccc;
-   font-size: 13px !important;
-   width: 94px   ;
-   text-align: center;
-   position: relative;
-   left: -14px;
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid #ccc;
+	font-size: 13px !important;
+	width: 94px	;
+	text-align: center;
+	position: relative;
+	left: -14px;
 }
 
 .radioChkActive+label {
-   display: inline-block;
-   margin: -2px;
-   padding: 8px 19px;
-   background-color: white;
-   border: 1px solid red;
-   font-size: 13px !important;
-   width: 94px;
-   text-align: center;
-   position: relative;
-   left: -14px;
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid red;
+	font-size: 13px !important;
+	width: 94px;
+	text-align: center;
+	position: relative;
+	left: -14px;
 }
 
 .chkboxChk+label {
-   display: inline-block;
-   margin: -2px;
-   padding: 8px 19px;
-   background-color: white;
-   border: 1px solid #ccc;
-   font-size: 13px !important;
-   width: 94px;
-   text-align: center;
-   position: relative;
-   left: -14px;
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid #ccc;
+	font-size: 13px !important;
+	width: 94px;
+	text-align: center;
+	position: relative;
+	left: -14px;
 }
 
 .chkboxChkActive+label {
-   display: inline-block;
-   margin: -2px;
-   padding: 8px 19px;
-   background-color: white;
-   border: 1px solid red;
-   font-size: 13px !important;
-   width: 94px;
-   text-align: center;
-   position: relative;
-   left: -14px;
+	display: inline-block;
+	margin: -2px;
+	padding: 8px 19px;
+	background-color: white;
+	border: 1px solid red;
+	font-size: 13px !important;
+	width: 94px;
+	text-align: center;
+	position: relative;
+	left: -14px;
 }
 
 
 #select-btn-center {
-   margin-right: 15px;
+	margin-right: 15px;
     text-align: center;
 }
 
@@ -106,57 +110,30 @@ input {
     border: 1px solid red;
 }
 /* #test {
-   display: inline-flex;
-   width: 500px;
+	display: inline-flex;
+	width: 500px;
 } */
 
 #filter-form {
-   display: inline-flex;
-   margin-top: 50px;
+	display: inline-flex;
+	margin-top: 50px;
 }
 
 #filter-form>section#cosmetic-filter {
-   display: inline-flex;
+	display: inline-flex;
 }
 
 #filter-form>section#cosmetic-category {
-   display: block;
-   margin-left: 30px;
-   font-size: 12px;
+	display: block;
+	margin-left: 30px;
+	font-size: 12px;
 }
- 
 #cosmetic-category #cosmetic-big-category, #cosmetic-middle-category, #category-btn, .middle-category{
-   float: left;
+	float: left;
 }
 
-#ranking-list {
-   display: inline-flex;
-    border-block-end: 1px solid #ccc;
-}
-
-#ranking-list div {
-   display: inline-block;
-   height: 170px;
-   text-align: center;
-}
-
-#ranking-list>#cos-rank {
-   width: 80px;
-    padding-top: 30px;
-}
-#ranking-list>#cos-img {
-   width: 150px;
-}
-#ranking-list>#cos-detail {
-   text-align: left;
-   width: 270px;
-}
-#ranking-list>#cos-score {
-   width: 200px;
-   padding-top: 70px;
-}
 #cosmetic-category #cosmetic-big-category {
-   border: 1px solid #ccc;
+	border: 1px solid #ccc;
     background: white;
     border-radius: 5px;
     width: 150px;
@@ -165,7 +142,7 @@ input {
 }
 
 #cosmetic-category .middle-category {
-   border: 1px solid #ccc;
+	border: 1px solid #ccc;
     background: white;
     border-radius: 5px;
     width: 150px;
@@ -173,30 +150,89 @@ input {
     margin-left: 4px;
 }
 #category-btn {
-   border: 1px solid #ccc;
+	border: 1px solid #ccc;
     background: white;
     border-radius: 5px;
     width: 70px;
     height: 30px;
     margin-left: 4px;
 }
+/* 필터 css 마지막 */
+.ranking-list {
+	display: inline-flex;
+    border-block-end: 1px solid #ccc;
+    padding-bottom: 25px;
+}
 
-#cos-img>img{
-   width: 100px;
+.ranking-list div {
+	display: inline-block;
+/* 	height: 170px; */
+	text-align: center;
+}
+
+.ranking-list>.cos-rank {
+	width: 80px;
+    padding-top: 30px;
+}
+.ranking-list>.cos-img {
+	width: 150px;
+}
+.ranking-list>.cos-detail {
+	text-align: left;
+	width: 270px;
+}
+.ranking-list>.cos-score {
+	width: 200px;
+	padding-top: 70px;
+}
+
+.cos-img>img{
+	width: 100px;
     height: 100px;
     margin-top: 30px;
 }
+
+.cos-detail-link {
+	cursor: pointer;
+	font-weight: 700;
+	display:inline-block;
+}
+
+/* 별점 CSS */
+span.star-prototype, span.star-prototype > * {
+		height: 16px; 
+		background: url(<%= request.getContextPath()%>/resources/images/heartAvg.png) 0 -16px repeat-x;
+		width: 80px;
+		display: inline-block;
+		text-align: left;
+}
+
+span.star-prototype > * {
+	background-position: 0 0;
+	max-width:80px; 
+}
+
+.heartPosition {
+	display: inline-block;
+	vertical-align: middle;
+}
 </style>
+
+<% 
+	ArrayList<Cosmetic> list = (ArrayList<Cosmetic>) request.getAttribute("list"); 
+	String middleName = (String) request.getAttribute("middleName");
+	final int MAX = 100;
+%>
 </head>
 <body>
 	<div class="contents">
 		<%@ include file="/views/layout/header.jsp"%>
 		<hr>
 		<section id="page-name">
-			<h1>스킨 랭킹</h1>
+			<h1><%= middleName %> 랭킹</h1>
 		</section>
 		
-		<form id="filter-form" action="#">
+		<form id="filter-form" action="#" onsubmit="return false">
 			<section id="cosmetic-filter">
 				<div id="cosmetic-beauty-filter">
 					<div id="cosmetic-beauty-filter-header">
@@ -206,42 +242,42 @@ input {
 					<br>
 					<div id="cosmetic-beauty-filter-select">
 					<fieldset id="sex-fieldset">
-						<legend>
-							<h4>성별</h4>
-						</legend>
-							<input type="radio" id="filter-sex-all" class="radioChkActive" name="filter-sex" value="filter-sex-all" checked="checked"/> <label for="filter-sex-all">전체</label>
-							<input type="radio" id="filter-sex-female" class="radioChk" name="filter-sex" value="filter-sex-female"/> <label for="filter-sex-female">여자</label>
-							<input type="radio" id="filter-sex-male" class="radioChk" name="filter-sex" value="filter-sex-male"/> <label for="filter-sex-male">남자</label>						
-					</fieldset>
-					<br>
-					<fieldset>
-						<legend>
-							<h4>연령대</h4>
-						</legend>
-							<input type="checkbox" id="filter-age-all" class="chkboxChkActive" name="filter-age-all" value="filter-age-all" checked="checked" /> <label for="filter-age-all">전체</label>
-							<input type="checkbox" id="filter-age-10" class="chkboxChk" name="filter-age" value="filter-age-10" /> <label for="filter-age-10">10대</label>
-							<input type="checkbox" id="filter-age-20u" class="chkboxChk" name="filter-age" value="filter-age-20u" /> <label for="filter-age-20u">20대 초반</label>	
-							<br><br>
-							<input type="checkbox" id="filter-age-20d" class="chkboxChk" name="filter-age" value="filter-age-20d" /> <label for="filter-age-20d">20대 후반</label>	
-							<input type="checkbox" id="filter-age-30" class="chkboxChk" name="filter-age" value="filter-age-30" /> <label for="filter-age-30">30대 초반</label>	
-							<input type="checkbox" id="filter-age-30u" class="chkboxChk" name="filter-age" value="filter-age-30u" /> <label for="filter-age-30u">30대 후반</label>	
-					</fieldset>
-					<br>
-					<fieldset>
-						<legend>
-							<h4>피부타입</h4>
-						</legend>
-							<input type="checkbox" id="filter-skinType-all" class="chkboxChkActive" name="filter-skinType-all" value="filter-skinType-all"/> <label for="filter-skinType-all">전체</label>
-							<input type="checkbox" id="filter-skinType-dry" class="chkboxChk" name="filter-skinType" value="filter-skinType-dry"/> <label for="filter-skinType-dry">건성</label>
-							<input type="checkbox" id="filter-skinType-oily" class="chkboxChk" name="filter-skinType" value="filter-skinType-oily"/> <label for="filter-skinType-oily">지성</label>	
-							<br><br>
-							<input type="checkbox" id="filter-skinType-neutral" class="chkboxChk" name="filter-skinType" value="filter-skinType-neutral"/> <label for="filter-skinType-neutral">중성</label>	
-							<input type="checkbox" id="filter-skinType-combi" class="chkboxChk" name="filter-skinType" value="filter-skinType-combi"/> <label for="filter-skinType-combi">복합성</label>	
-							<input type="checkbox" id="filter-skinType-sensitive" class="chkboxChk" name="filter-skinType" value="filter-skinType-sensitive"/> <label for="filter-skinType-sensitive">민감성</label>	
-					</fieldset>
-					<br><br>
+								<legend>
+									<h4>성별</h4>
+								</legend>
+								<input type="radio" id="filter-sex-all" class="radioChkActive" name="filter-sex" value="ALL" checked="checked"/> <label for="filter-sex-all">전체</label>
+								<input type="radio" id="filter-sex-female" class="radioChk" name="filter-sex" value="여성"/> <label for="filter-sex-female">여자</label>
+								<input type="radio" id="filter-sex-male" class="radioChk" name="filter-sex" value="남성"/> <label for="filter-sex-male">남자</label>						
+							</fieldset>
+							<br>
+							<fieldset>
+								<legend>
+									<h4>연령대</h4>
+								</legend>
+								<input type="checkbox" id="filter-age-all" class="chkboxChkActive" name="filter-age-all" value="ALL" checked="checked" /> <label for="filter-age-all">전체</label>
+								<input type="checkbox" id="filter-age-10" class="chkboxChk" name="filter-age" value="10대" /> <label for="filter-age-10">10대</label>
+								<input type="checkbox" id="filter-age-20u" class="chkboxChk" name="filter-age" value="20대 초반" /> <label for="filter-age-20u">20대 초반</label>	
+								<br><br>
+								<input type="checkbox" id="filter-age-20d" class="chkboxChk" name="filter-age" value="20대 후반" /> <label for="filter-age-20d">20대 후반</label>	
+								<input type="checkbox" id="filter-age-30" class="chkboxChk" name="filter-age" value="30대 초반" /> <label for="filter-age-30">30대 초반</label>	
+								<input type="checkbox" id="filter-age-30u" class="chkboxChk" name="filter-age" value="30대 후반" /> <label for="filter-age-30u">30대 후반</label>	
+							</fieldset>
+							<br>
+							<fieldset>
+								<legend>
+									<h4>피부타입</h4>
+								</legend>
+								<input type="checkbox" id="filter-skinType-all" class="chkboxChkActive" name="filter-skinType-all" value="ALL" checked="checked"/> <label for="filter-skinType-all">전체</label>
+								<input type="checkbox" id="filter-skinType-dry" class="chkboxChk" name="filter-skinType" value="건성"/> <label for="filter-skinType-dry">건성</label>
+								<input type="checkbox" id="filter-skinType-oily" class="chkboxChk" name="filter-skinType" value="지성"/> <label for="filter-skinType-oily">지성</label>	
+								<br><br>
+								<input type="checkbox" id="filter-skinType-neutral" class="chkboxChk" name="filter-skinType" value="중성"/> <label for="filter-skinType-neutral">중성</label>	
+								<input type="checkbox" id="filter-skinType-combi" class="chkboxChk" name="filter-skinType" value="복합성"/> <label for="filter-skinType-combi">복합성</label>	
+								<input type="checkbox" id="filter-skinType-sensitive" class="chkboxChk" name="filter-skinType" value="민감성"/> <label for="filter-skinType-sensitive">민감성</label>	
+							</fieldset>
+								<br><br>
 					<div id="select-btn-center">
-						<button id="select-btn" type="submit">필터적용</button>
+						<button id="select-btn" type="button">필터적용</button>
 					</div>
 					<br>
 					</div>
@@ -270,121 +306,43 @@ input {
 				<div id="cosmetic-middle-category">
 					 <%@include file="/views/cosmetic/select_category.jsp" %>
 				</div>
-				<button id="category-btn" type="submit">적용</button>
+				<button id="category-btn" type="button">적용</button>
 				<br><br>
 				<section>
-					<ul>
+					<ul id="ul-area">
+					<% for (int i = 0; i < list.size(); i++) { %>
 						<li>
-							<div id="ranking-list">
-								<div id="cos-rank">
-									<h3>1</h3>
-									<span>-</span>
+							<div class="ranking-list">
+								<div class="cos-rank">
+									<%if(list.get(i).getCount() > 0) { %>
+									<h3><%= i+1 %></h3>
+									<% } else { %>
+									<h3> - </h3>
+									<% } %>
 								</div>
-								<div id="cos-img">
-									<img src="https://d9vmi5fxk1gsw.cloudfront.net/home/glowmee/upload/20190802/1564712531735_160.png" />
+								<div class="cos-img">
+									<% if(list.get(i).getCosmetic_img().contains("http")){ %>
+										<img src=<%= list.get(i).getCosmetic_img() %> />
+									<% } else {%>
+										<img src="<%= request.getContextPath() %>/cosReq_uploadFiles/<%= list.get(i).getCosmetic_img() %>"/>
+									<% } %>
 								</div>
-								<div id="cos-detail">
+								<div class="cos-detail">
 									<br>
-									<h5>코스알엑스 (COSRX)</h5>
-									<h4><a href="<%= request.getContextPath() %>/views/cosmetic/cosmeticDetail.jsp">풀핏 프로폴리스 시너지 토너</a></h4><br><br>
-									<span>280ml</span>/<span>22,000원</span>							
+									<h6><%= list.get(i).getBrand_name() %></h6>
+									<h5 class="cos-detail-link"><%= list.get(i).getCosmetic_name() %></h5><br><br>
+									<span><%= list.get(i).getVolume() %></span>&nbsp;/&nbsp;<span><%= list.get(i).getPrice() %></span>							
 								</div>
-								<div id="cos-score">
-									<span>4.38</span>
-									<span>imgimgimgimg</span>
-									(<span>807</span>)
+								<div class="cos-score">
+									<span><%= list.get(i).getAvg() %></span>
+									<div class="heartPosition">
+										<span class="star-prototype"><%= list.get(i).getAvg() %></span>
+									</div>
+									<span>(<%= list.get(i).getCount() %>)</span>
 								</div>
 							</div>
 						</li>
-						<li>
-							<div id="ranking-list">
-								<div id="cos-rank">
-									<h3>1</h3>
-									<span>-</span>
-								</div>
-								<div id="cos-img">
-									<img src="https://d9vmi5fxk1gsw.cloudfront.net/home/glowmee/upload/20190802/1564712531735_160.png" />
-								</div>
-								<div id="cos-detail">
-									<br>
-									<h5>코스알엑스 (COSRX)</h5>
-									<h4><a href="#">풀핏 프로폴리스 시너지 토너</a></h4><br><br>
-									<span>280ml</span>/<span>22,000원</span>							
-								</div>
-								<div id="cos-score">
-									<span>4.38</span>
-									<span>imgimgimgimg</span>
-									(<span>807</span>)
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="ranking-list">
-								<div id="cos-rank">
-									<h3>1</h3>
-									<span>-</span>
-								</div>
-								<div id="cos-img">
-									<img src="https://d9vmi5fxk1gsw.cloudfront.net/home/glowmee/upload/20190802/1564712531735_160.png" />
-								</div>
-								<div id="cos-detail">
-									<br>
-									<h5>코스알엑스 (COSRX)</h5>
-									<h4><a href="#">풀핏 프로폴리스 시너지 토너</a></h4><br><br>
-									<span>280ml</span>/<span>22,000원</span>							
-								</div>
-								<div id="cos-score">
-									<span>4.38</span>
-									<span>imgimgimgimg</span>
-									(<span>807</span>)
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="ranking-list">
-								<div id="cos-rank">
-									<h3>1</h3>
-									<span>-</span>
-								</div>
-								<div id="cos-img">
-									<img src="https://d9vmi5fxk1gsw.cloudfront.net/home/glowmee/upload/20190802/1564712531735_160.png" />
-								</div>
-								<div id="cos-detail">
-									<br>
-									<h5>코스알엑스 (COSRX)</h5>
-									<h4><a href="#">풀핏 프로폴리스 시너지 토너</a></h4><br><br>
-									<span>280ml</span>/<span>22,000원</span>							
-								</div>
-								<div id="cos-score">
-									<span>4.38</span>
-									<span>imgimgimgimg</span>
-									(<span>807</span>)
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="ranking-list">
-								<div id="cos-rank">
-									<h3>1</h3>
-									<span>-</span>
-								</div>
-								<div id="cos-img">
-									<img src="https://d9vmi5fxk1gsw.cloudfront.net/home/glowmee/upload/20190802/1564712531735_160.png" />
-								</div>
-								<div id="cos-detail">
-									<br>
-									<h5>코스알엑스 (COSRX)</h5>
-									<h4><a href="#">풀핏 프로폴리스 시너지 토너</a></h4><br><br>
-									<span>280ml</span>/<span>22,000원</span>							
-								</div>
-								<div id="cos-score">
-									<span>4.38</span>
-									<span>imgimgimgimg</span>
-									(<span>807</span>)
-								</div>
-							</div>
-						</li>
-					
+					<%  if(i == MAX) { break; } } %>
 					</ul>
 				</section>
 			</section>
@@ -394,16 +352,228 @@ input {
 	<%@ include file="/views/layout/footer.jsp"%>
 
 	<script>
+		/* 화장품 필터에 따른 랭킹 ajax */
+		$('#select-btn').on('click', function(){
+			var middleCategory = $('.middle-category[name="middle"]').val();
+			var gender = $("input[name='filter-sex']:checked").val()
+			var age = [];
+			var skin = [];
+			
+			/* 나이값 체크박스 배열로 넣기 */
+	        $("input[name='filter-age']:checked").each(function(i) {
+	        	age.push($(this).val());
+	        });
+        	if(Array.isArray(age) && age.length === 0){
+        		age.push($("input[name='filter-age-all']:checked").val());
+        	}
+        	
+        	/* 피부타입값 체크박스 배열로 넣기 */
+        	$("input[name='filter-skinType']:checked").each(function(i) {
+        		skin.push($(this).val());
+ 	        });
+         	if(Array.isArray(skin) && skin.length === 0){
+         		skin.push($("input[name='filter-skinType-all']:checked").val());
+         	}
+         	
+         	// 객체를 통해서 ajax 데이터 넘겨주기
+         	var filter = {
+         		"middleCategory" : middleCategory,
+         		"gender" : gender,
+        		"ageFilter" : age,
+        		"skinTypeFilter" : skin
+         	}
+        	
+			console.log(filter)
+			var count = 0;
+			$.ajax({
+				url: '/COSMEDIC/cosRank.ft',
+				data: filter,
+				success: function(data){
+					console.log(data)
+					$('#ul-area').html("");
+					for(var i in data) {
+						var $li = $('<li></li>')
+						var $div1 = $('<div class="ranking-list"></div>')
+						
+						var $div2 = $('<div class="cos-rank"></div>')
+						var $h3 = $('<h3></h3>')
+						count++;
+						if(data[i].count > 0){
+							$h3.text(count)
+						}  else {
+							$h3.text("-")							
+						}
+						$div2.append($h3);
+						
+						var $div3 = $('<div class="cos-img"></div>')
+						var $img = $('<img>')
+						if((data[i].cosmetic_img).indexOf("http") == -1){
+							$img.attr('src', "<%= request.getContextPath() %>/cosReq_uploadFiles/" + data[i].cosmetic_img);														
+						} else {
+							$img.attr('src', data[i].cosmetic_img);							
+						}
+						
+						$div3.append($img)
+						$br1 = $('<br>')
+						$br2 = $('<br>')
+						$br3 = $('<br>')
+						var $div4 = $('<div class="cos-detail"></div>')
+						var $h6 = $('<h6></h6>').html(data[i].brand_name)
+						var $h5 = $('<h5 class="cos-detail-link"></h5>').html(data[i].cosmetic_name)
+						var $span1 = $('<span></span>').text(data[i].volume + " / ")
+						var $span2 = $('<span></span>').text(data[i].price)
+						
+						$div4.append($br1, $h6, $h5, $br2, $br3, $span1, $span2)
+						
+						
+						var $div5 = $('<div class="cos-score"></div>')
+						if(String(data[i].avg)[3] == undefined){
+							var $span3 = $('<span></span>').text(parseFloat(data[i].avg).toFixed(1) + " ")							
+						} else {
+							var $span3 = $('<span></span>').text(data[i].avg + " ")														
+						}
+						var $div6 = $('<div class="heartPosition"></div>')
+						var $span4 = $('<span class="star-prototype"></span>').text(data[i].avg)
+						var $span5 = $('<span></span>').text(" (" + data[i].count + ")")
+						
+						$div6.append($span4)
+						$div5.append($span3, $div6, $span5)
+						
+						$div1.append($div2, $div3, $div4, $div5)
+						$li.append($div1);
+						
+						$('#ul-area').append($li);
+					
+						if(count == 100) {break}
+					}
+					$.fn.generateStars = function() {
+						return this.each(function(i,e){
+							$(e).html($('<span/>').width($(e).text()*16));
+						});
+					};
+					// 숫자 평점을 별로 변환하도록 호출하는 함수
+					$('.star-prototype').generateStars();
+					
+					$('.cos-detail-link').click(function(){
+						location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + "<%= middleName%>";
+					})
+
+				}
+			})
+		})
+		
+		/* 화장품 카테고리 변경 시 사용하는 ajax */
+		$('#category-btn').on('click', function(){
+			console.log('적용버튼');
+			var middleCategory = $('.middle-category[name="middle"]').val()
+			console.log(middleCategory);
+			var count = 0;
+			$.ajax({
+				url: '/COSMEDIC/cosmetic.li',
+				data: {
+					middleCategory:middleCategory
+				},
+				success: function(data){
+					console.log(data)
+					$('#ul-area').html("");
+					$('#page-name').html("");
+					var $cateH3 = $('<h1></h1>').text(middleCategory + " 랭킹")
+					$('#page-name').append($cateH3)
+					for(var i in data) {
+						var $li = $('<li></li>')
+						var $div1 = $('<div class="ranking-list"></div>')
+						
+						var $div2 = $('<div class="cos-rank"></div>')
+						var $h3 = $('<h3></h3>')
+						count++;
+						if(data[i].count > 0){
+							$h3.text(count)
+						}  else {
+							$h3.text("-")							
+						}
+						$div2.append($h3);
+						
+						var $div3 = $('<div class="cos-img"></div>')
+						var $img = $('<img>')
+						if((data[i].cosmetic_img).indexOf("http") == -1){
+							$img.attr('src', "<%= request.getContextPath() %>/cosReq_uploadFiles/" + data[i].cosmetic_img);														
+						} else {
+							$img.attr('src', data[i].cosmetic_img);							
+						}
+						
+						$div3.append($img)
+						$br1 = $('<br>')
+						$br2 = $('<br>')
+						$br3 = $('<br>')
+						var $div4 = $('<div class="cos-detail"></div>')
+						var $h6 = $('<h6></h6>').html(data[i].brand_name)
+						var $h5 = $('<h5 class="cos-detail-link"></h5>').html(data[i].cosmetic_name)
+						var $span1 = $('<span></span>').text(data[i].volume + " / ")
+						var $span2 = $('<span></span>').text(data[i].price)
+						
+						$div4.append($br1, $h6, $h5, $br2, $br3, $span1, $span2)
+						
+						
+						var $div5 = $('<div class="cos-score"></div>')
+						if(String(data[i].avg)[3] == undefined){
+							var $span3 = $('<span></span>').text(parseFloat(data[i].avg).toFixed(1) + " ")							
+						} else {
+							var $span3 = $('<span></span>').text(data[i].avg + " ")														
+						}
+						var $div6 = $('<div class="heartPosition"></div>')
+						var $span4 = $('<span class="star-prototype"></span>').text(data[i].avg)
+						var $span5 = $('<span></span>').text(" (" + data[i].count + ")")
+						
+						$div6.append($span4)
+						$div5.append($span3, $div6, $span5)
+						
+						$div1.append($div2, $div3, $div4, $div5)
+						$li.append($div1);
+						
+						$('#ul-area').append($li);
+					
+						if(count == 100) {break}
+					}
+					$.fn.generateStars = function() {
+						return this.each(function(i,e){
+							$(e).html($('<span/>').width($(e).text()*16));
+						});
+					};
+					// 숫자 평점을 별로 변환하도록 호출하는 함수
+					$('.star-prototype').generateStars();
+					
+					$('.cos-detail-link').click(function(){
+						location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + "<%= middleName%>";
+					})
+
+				}
+			})
+		})
+	
+		/* 별점 스크립트 */
+		$.fn.generateStars = function() {
+			return this.each(function(i,e){
+				$(e).html($('<span/>').width($(e).text()*16));
+			});
+		};
+
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$('.star-prototype').generateStars();
+	
+		$('.cos-detail-link').click(function(){
+			location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + "<%= middleName%>";
+		})
+	
 		$('input[name=filter-sex]').click(function() {
-			if ($(this)[0].value == "filter-sex-all") {
+			if ($(this)[0].value == "ALL") {
 				$('input[name=filter-sex]').addClass('radioChk')
 				$('input[name=filter-sex]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "filter-sex-female") {
+			} else if ($(this)[0].value == "여성") {
 				$('input[name=filter-sex]').addClass('radioChk')
 				$('input[name=filter-sex]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
-			} else if ($(this)[0].value == "filter-sex-male") {
+			} else if ($(this)[0].value == "남성") {
 				$('input[name=filter-sex]').addClass('radioChk')
 				$('input[name=filter-sex]').removeClass('radioChkActive')
 				$(this).addClass('radioChkActive')
@@ -411,7 +581,7 @@ input {
 		})
 		
 		$('#filter-age-all').click(function(){
-			if ($(this)[0].value == "filter-age-all") {
+			if ($(this)[0].value == "ALL") {
 				console.log($(this)[0].value)
 				$('#filter-age-all').prop("checked", true).removeClass("chkboxChk").addClass("chkboxChkActive");
 				$('input[name=filter-age]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
@@ -442,7 +612,7 @@ input {
 		})
 		
 		$('#filter-skinType-all').click(function(){
-			if ($(this)[0].value == "filter-skinType-all") {
+			if ($(this)[0].value == "ALL") {
 				console.log($(this)[0].value)
 				$('#filter-skinType-all').prop("checked", true).removeClass("chkboxChk").addClass("chkboxChkActive");
 				$('input[name=filter-skinType]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
@@ -472,17 +642,18 @@ input {
 		})
 		
 		$('#reset-btn').click(function(){
-			$('input[name=filter-sex]').addClass('radioChk').removeClass("radioChkActive")
 			$("#filter-sex-all").prop("checked", true).addClass("radioChkActive")
 			$('#filter-age-all').prop("checked", true).removeClass("chkboxChk").addClass("chkboxChkActive");
-			$('input[name=filter-age]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
 			$('#filter-skinType-all').prop("checked", true).removeClass("chkboxChk").addClass("chkboxChkActive");
+			$('input[name=filter-sex]').addClass('radioChk').removeClass("radioChkActive")
+			$('input[name=filter-age]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
 			$('input[name=filter-skinType]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
 		})
 		
+		// 화장품 셀렉트
 		$(function(){
 			$('.middle-category').css('display','none')
-			$('#skincare').css('display','block');
+			$('#skincare').css('display','block').attr("selected", "selected");
 			$('#skincare').attr("name","middle");
 		})
 		

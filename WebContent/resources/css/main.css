@@ -41,9 +41,11 @@ nav.gnb>form>ul>li {
 }
 
 img.logo {
-   width: 160px;
-   height: 60px;
-   margin: 20px;
+	width: 160px;
+	height: 120px;
+	/* margin: 20px; */
+	margin-left: 20px;
+	margin-top: 10px;
 }
 
 header {
@@ -68,10 +70,10 @@ span.sch>button {
 }
 
 span#login {
-   float: right;
-   margin-top: 37px;
-   width: 100px;
-   text-align: right;
+	float: right;
+	margin-top: 53px;
+	width: 100px;
+	text-align: center;
 }
 
 span#login>a {

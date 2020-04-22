@@ -81,18 +81,29 @@
 					</tr>
 					<tr>
 						<td>병원 주소</td>
-						<td><input class="input-standard" type="text" placeholder="병원 대표전화번호를 입력하세요."/></td>
+						<td>
+						<input class="postcodify_postcode5 input-standard" type="text" placeholder="검색버튼을 눌러 주소를 작성해주세요"/>
+						<button id="postcodify_search_button" type="button" class="input-standard">검색</button>
+						</td>
 					</tr>
+					<tr>
+						<td></td>
+						<td><input type="text" name="" class="postcodify_address input-standard" value="" readonly/></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="text" name="" class="postcodify_details input-standard" value="" /></td>
+					</tr>
+					
 					<tr>
 						<td>사업자등록증</td>
-					</tr>
-					<tr>
 						<td>
 							<input class="input-standard" type="text" readonly placeholder="사업자등록증 사진"/>
 							<button class="btn-standard">파일 선택</button>
 						</td>
 					</tr>
 					<tr>
+						<td>병원 사진</td>
 						<td>
 							<input class="input-standard" type="text" readonly placeholder="병원사진"/>
 							<button class="btn-standard">파일 선택</button>
@@ -100,9 +111,6 @@
 					</tr>
 					<tr>
 						<td>병원 설명</td>
-												
-					</tr>
-					<tr>
 						<td><input class="input-standard" type="text" placeholder="내용을 작성해 주세요"/></td>
 					</tr>
 					<tr>
@@ -111,6 +119,11 @@
 					
 				</tbody>
 			</table>
+				<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+				<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+				
+				<!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
+				<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
 		</form>
 		<script>
 		function test1(){

@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String customer_no = request.getParameter("customer_no");
+	String hos_name = request.getParameter("hos_name");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="<%= request.getContextPath() %>/resources/js/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <style>
 	
 	#back{background: black; color: white; display: inline-block; width: 580px; text-align: center; padding: 20px;}
@@ -37,18 +43,12 @@
 	#textbox{width:440px; height:200px; margin: 20px 0 0 0; font-size: 14px; resize:none;}
 	#apply{margin: 0 20px 0 280px; width: 100px;}
 	.bookTitle{margin : -10px 0 10px -350px;}
-	
-
-
-
-
 </style>
 
 </head>
 <body>
 	<div class="contents">
 		<section>
-		<form>
 			<div id="back">
 			<div id="main">예약 페이지</div>
 				<div id="white">
@@ -66,19 +66,26 @@
 					<div class="bookTitle">예약 일시</div>
 						<div class="input">
 							<label >예약 날짜</label><input type="date" id="date" name="date" placeholder='예약 날짜를 선택해주세요.' >
+							<script>
+							$(function(){
+							    $('#date').prop('min', function(){
+							        return new Date().toJSON().split('T')[0];
+							    });
+							});
+							</script>
 						</div>
 						<div class="input">
 							<label>예약 시간</label>
 							<select id="time" name="time">
 							<option>예약 시간을 선택해주세요</option>
-							<option>10:00</option>
-							<option>11:00</option>
-							<option>13:00</option>
-							<option>14:00</option>
-							<option>15:00</option>
-							<option>16:00</option>
-							<option>17:00</option>
-							<option>18:00</option>
+							<option value="09">09:00</option>
+							<option value="10">10:00</option>
+							<option value="11">11:00</option>
+							<option value="13">13:00</option>
+							<option value="14">14:00</option>
+							<option value="15">15:00</option>
+							<option value="16">16:00</option>
+							<option value="17">17:00</option>
 							</select> 
 						</div>
 					</div>
@@ -90,28 +97,59 @@
 						</div>
 					</div>]
 					<br>
-					<input type="submit" class="button" id="apply" value="예약 신청하기">
+					<input type="button" class="button" id="apply" value="예약 신청하기">
 					<input type="button" class="button" id="cancle" value="취소" onclick="window.close();">
 				</div>
 			</div>
-		</form>
-		
-		
-
-		
-
-		
 		</section>
-		
-		
-		
-		
-		
-		
-		
-		
 	</div>
 
-	<script src="/cosMedic/resources/js/main.js"></script>
+	<script>
+		$('#date').change(function(){
+			var date = 	$('#date').val();
+			
+			$.ajax({
+				url: '<%= request.getContextPath()%>/bookTimeCheck.hos',
+				data : {date:date},
+				success: function(data){
+					$('select[name="time"]').find("option").removeAttr('disabled');
+					for(var i in data){
+						$('select[name="time"]').find("option[value="+data[i]+"]").prop('disabled',true);
+					}
+				}
+			})
+		});
+	
+		$('#apply').click(function(){
+			var name = $('#name').val();
+			var tel = $('#tel').val();
+			var date = $('#date').val();
+			var time = $('#time').val();
+			var textbox = $('#textbox').val();
+			var hos_name = "<%=hos_name%>";
+			var customer_no = "<%= customer_no %>";
+			if(name.trim().length == 0 ||
+				tel.trim().length == 0 ||
+				date.trim().length == 0 ||
+				time.trim().length == 13 ||
+				textbox.trim().length == 0){
+				
+				alert("내용을 모두 채워주세요.");
+			} else{
+				$.ajax({
+					url: '<%= request.getContextPath()%>/book.hos',
+					data : {
+						name:name, tel:tel, date:date, time:time,
+						textbox:textbox, customer_no:customer_no,
+						hos_name:hos_name
+					},
+					success: function(data){
+						alert(data);
+						self.close();
+					}
+				})
+			} 
+		})
+	</script>
 </body>
 </html>
