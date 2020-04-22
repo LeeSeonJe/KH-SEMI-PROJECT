@@ -259,29 +259,7 @@ public class ReviewDAO {
 		
 		return result2;
 	}
-
-	public int insertCosReq(Connection conn, Review r) {
-//		insert into cosmetic_req values(seq_board_no.currval, default)
-		Statement stmt = null;
-		int result3 = 0;
-		
-		String query = prop.getProperty("insertCosReq");
-		
-		try {
-			stmt = conn.createStatement();
-			result3 = stmt.executeUpdate(query);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(stmt);
-		}
-		
-		
-		
-		return result3;
-	}
-
+	
 	public ArrayList<Review> selectReq(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -308,5 +286,199 @@ public class ReviewDAO {
 		return list;
 	}
 
-
+	public int insertCosReq(Connection conn, Review r) {
+//		insert into cosmetic_req values(seq_board_no.currval, default)
+		Statement stmt = null;
+		int result3 = 0;
+		
+		String query = prop.getProperty("insertCosReq");
+		
+		try {
+			stmt = conn.createStatement();
+			result3 = stmt.executeUpdate(query);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		return result3;
+	}
+	
+	public ArrayList<Review> oldList(Connection conn, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> list = null;
+		
+		String query = prop.getProperty("oldList");
+		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Review>();
+			
+			while(rset.next()) {
+				Review r = new Review(rset.getInt("REVIEW_NO"),
+						rset.getInt("review_thumbs_up"),
+						rset.getInt("REVIEW_HEART"),
+						rset.getString("REVIEW_DEL_YN"),
+						rset.getString("board_title"),
+						rset.getString("board_content"),
+						rset.getDate("board_date"),
+						rset.getString("board_category"),
+						rset.getString("user_name"),
+						rset.getString("cosmetic_name"),
+						rset.getString("cosmetic_img"),
+						rset.getInt("review_thumbs_down"),
+						rset.getInt("age"),
+						rset.getString("skintype"),
+						rset.getString("gender"),
+						rset.getString("profile_image"));
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public ArrayList<Review> lovedList(Connection conn, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> list = null;
+		
+		String query = prop.getProperty("lovedList");
+		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Review>();
+			
+			while(rset.next()) {
+				Review r = new Review(rset.getInt("REVIEW_NO"),
+						  rset.getInt("review_thumbs_up"),
+						  rset.getInt("REVIEW_HEART"),
+						  rset.getString("REVIEW_DEL_YN"),
+						  rset.getString("board_title"),
+						  rset.getString("board_content"),
+						  rset.getDate("board_date"),
+						  rset.getString("board_category"),
+						  rset.getString("user_name"),
+						  rset.getString("cosmetic_name"),
+						  rset.getString("cosmetic_img"),
+						  rset.getInt("review_thumbs_down"),
+						  rset.getInt("age"),
+						  rset.getString("skintype"),
+						  rset.getString("gender"),
+						  rset.getString("profile_image"));
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	public ArrayList<Review> unlovedList(Connection conn, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> list = null;
+		
+		String query = prop.getProperty("unlovedList");
+		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Review>();
+			
+			while(rset.next()) {
+				Review r = new Review(rset.getInt("REVIEW_NO"),
+						rset.getInt("review_thumbs_up"),
+						rset.getInt("REVIEW_HEART"),
+						rset.getString("REVIEW_DEL_YN"),
+						rset.getString("board_title"),
+						rset.getString("board_content"),
+						rset.getDate("board_date"),
+						rset.getString("board_category"),
+						rset.getString("user_name"),
+						rset.getString("cosmetic_name"),
+						rset.getString("cosmetic_img"),
+						rset.getInt("review_thumbs_down"),
+						rset.getInt("age"),
+						rset.getString("skintype"),
+						rset.getString("gender"),
+						rset.getString("profile_image"));
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	public int likeUp(Connection conn, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("likeUp");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int hateUp(Connection conn, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("hateUp");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rno);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
