@@ -131,7 +131,13 @@ public class ReviewService {
 		return result;
 	}
 
-
-
-
+	public ArrayList<Review> selectReq() {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new ReviewDAO().selectReq(conn);
+		close(conn);
+		
+		
+		return list;
+	}
 }

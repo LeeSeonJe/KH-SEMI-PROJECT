@@ -77,4 +77,13 @@ public class HospitalService {
 		return h;
 	}
 
+	public Hospital hospitalDetail(int userNo) {
+		Connection conn = getConnection();
+		
+		Hospital h = new HospitalDAO().hospitalDetail(conn, userNo);
+		close(conn);
+		
+		return h;
+	}
+
 }

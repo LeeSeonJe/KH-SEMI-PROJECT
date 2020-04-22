@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, review.model.vo.*"%>
+<%
+	ArrayList<Review> list = (ArrayList)request.getAttribute("list");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -176,9 +180,9 @@ table#adminEnrollHospital>tbody>tr>td{
                <li onclick="location.href = '<%= request.getContextPath()%>/user.admin'">회원 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/hospital.admin'">병원 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
-               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
+               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/list.req'">제품 등록 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminReview.jsp'">리뷰 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/boardList.admin'">게시판 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminInq.jsp'">1대1문의 관리</li>
             </ul>
          </section>
@@ -198,30 +202,21 @@ table#adminEnrollHospital>tbody>tr>td{
                   </tr>
                </thead>
                <tbody>
+               <% if(list.isEmpty()){ %>
+                <tr>
+                	<td>조회할 제품 등록 요청이 없습니다.</td>
+                </tr>
+                <% } else { %>
+                	<% for(Review r : list) { %>
                   <tr>
-                     <td>7</td>
-                     <td>박명수</td>
-                     <td>2020-03-19</td>
+                     <td><%= r.getReview_no() %></td>
+                     <td><%= r.getUserName() %></td>
+                     <td><%= r.getDate() %></td>
                      <td><label class="detail">조회</label></td>
                      <td><label class="grant">승인</label></td>
                      <td><label class="refuse">거절</label></td>
                   </tr>
-                  <tr>
-                     <td>6</td>
-                     <td>유재석</td>
-                     <td>2020-03-19</td>
-                     <td><label class="detail">조회</label></td>
-                     <td><label class="grant">승인</label></td>
-                     <td><label class="refuse">거절</label></td>
-                  </tr>
-                  <tr>
-                     <td>5</td>
-                     <td>정형돈</td>
-                     <td>2020-03-19</td>
-                     <td><label class="detail">조회</label></td>
-                     <td><label class="grant">승인</label></td>
-                     <td><label class="refuse">거절</label></td>
-                  </tr>
+                 <% } } %>
                </tbody>
             </table>
             <br>
@@ -272,7 +267,7 @@ table#adminEnrollHospital>tbody>tr>td{
 	});
 	
 	$('#cosmeticReq').click(function(){
-		var popup = window.open("cosmeticReqPopup.jsp", "cosmeticReqPopup", "width=800, height=700");
+		var popup = window.open("<%=request.getContextPath()%>/views/admin/cosmeticReqPopup.jsp", "cosmeticReqPopup", "width=800, height=700");
 	});
    </script>
    <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
