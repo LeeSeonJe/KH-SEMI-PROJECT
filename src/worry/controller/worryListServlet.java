@@ -85,8 +85,7 @@ public class worryListServlet extends HttpServlet {
 		request.setAttribute("value", value);
 		
 		
-		
-		System.out.println(list);
+
 		
 		
 		
