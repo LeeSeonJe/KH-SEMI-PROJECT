@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("profile_image", profile_image);
-			session.setMaxInactiveInterval(600);
+			session.setMaxInactiveInterval(3600);
 			
 			response.sendRedirect(request.getContextPath());
 		} else {
