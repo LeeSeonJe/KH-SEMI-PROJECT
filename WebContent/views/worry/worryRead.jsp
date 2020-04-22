@@ -141,7 +141,7 @@
                     <div class="content-text"><%= w.getContent() %></div>
                     <input type="hidden" name="content" value="<%= w.getContent() %>">
                     <div class="vote-btn">
-                    	<% if((String)request.getAttribute("result") == "yes"){ %>
+                    	<% if((String)request.getAttribute("result") == "yes"){ %> 
 	                    	<button  type="button" id="like-btn" class="btn-standard" value="좋아요" disabled style="background: lightgray">좋아요</button>
 	                        <span id="like-count" class="counting"><%= w.getWorryThumbUp() %></span>
 	                        <input type="hidden" name="like" value="<%= w.getWorryThumbUp() %>">
