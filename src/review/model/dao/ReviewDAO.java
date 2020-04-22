@@ -13,7 +13,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import customer.model.vo.Customer;
 import review.model.vo.AddFile;
 import review.model.vo.Review;
 
@@ -235,7 +234,7 @@ public class ReviewDAO {
 		return result1;
 	}
 
-	public int insertAddFile(Connection conn, AddFile af) {
+/*	public int insertAddFile(Connection conn, AddFile af) {
 //		insert into addfile values(seq_file_no.nextval, ?, ?, seq_board_no.currval, ?, sysdate, default)
 		PreparedStatement pstmt = null;
 		int result2 = 0;
@@ -258,7 +257,7 @@ public class ReviewDAO {
 		
 		
 		return result2;
-	}
+	} */
 
 	public int insertCosReq(Connection conn, Review r) {
 //		insert into cosmetic_req values(seq_board_no.currval, default)
@@ -306,6 +305,147 @@ public class ReviewDAO {
 		}
 		
 		return list;
+	}
+
+	public int insertAddFile(Connection conn, ArrayList<AddFile> fileList) {
+//		insert into addfile values(seq_file_no.nextval, ?, ?, seq_board_no.currval, ?, sysdate, default)
+		PreparedStatement pstmt = null;
+		int result2 = 0;
+		String query = prop.getProperty("insertaAddfile");
+		
+		try {
+			
+			for(int i =0; i<fileList.size(); i++) {
+				AddFile af = fileList.get(i);
+				
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, af.getOrigin_name());
+				pstmt.setString(2, af.getChange_name());
+				pstmt.setString(3, af.getFile_path());
+				
+				result2 += pstmt.executeUpdate();
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result2;
+	}
+
+	public Review selectAdminReq(Connection conn, int boardNo) {
+//		select * from board where board_no = ?
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Review board = null;
+		
+		String query = prop.getProperty("selectAdminReq");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				board = new Review(rset.getInt("board_no"),
+									rset.getString("board_title"),
+									rset.getString("board_content"),
+									rset.getDate("board_date"),
+									rset.getString("board_category"),
+									rset.getInt("user_no"));
+			}
+	//	System.out.println("ReviewDAO board : " + board);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return board;
+	}
+
+	public ArrayList<AddFile> selectReqImg(Connection conn, int boardNo) {
+//		select * from AddFile where board_no = ?
+//		System.out.println("ReviewDAO boardNo : "+boardNo);
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AddFile> list = null;
+		
+		String query = prop.getProperty("selectReqImg");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardNo);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<AddFile>();
+			
+			while(rset.next()) {
+				AddFile af = new AddFile();
+				af.setFile_no(rset.getInt("file_no"));
+				af.setOrigin_name(rset.getString("origin_name"));
+				af.setChange_name(rset.getString("change_name"));
+				af.setBoard_no(rset.getInt("board_no"));
+				af.setFile_path(rset.getString("file_path"));
+				af.setUpload_date(rset.getDate("upload_date"));
+				af.setStatus(rset.getString("status"));
+				
+				list.add(af);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int updateReq(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateReq");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteReq(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteReq");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 

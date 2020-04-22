@@ -241,24 +241,29 @@ table#adminEnrollHospital>tbody>tr>td{
            <%@ include file="/views/layout/footer.jsp"%>
    
    <script>
-	$('.detail').click(function(){
-		var popup = window.open("adminUserDetail.jsp", "detailPopUp", "width=500, height=300");
-		
-
-	});
+ 	$('.detail').click(function(){
+ 		var boardNo = $(this).parent().parent().children().eq(0).text();
+ 	 	var popup = window.open('<%= request.getContextPath() %>/detail.req?boardNo=' + boardNo, "reqDetailPopUp", "width=500, height=300"); 
+ 	}); 
+	
+	
 	$('.grant').click(function(){
 		var result = window.confirm('화장품 등록요청을 승인처리 하시겠습니까?');
-		
+		var boardNo = $(this).parent().parent().children().eq(0).text();
 		if(result){
+			location.href="<%= request.getContextPath() %>/update.req?boardNo=" + boardNo;
 			alert('승인 처리 완료!');
+			
 		} else{
 			alert('취소!');
 		}
 	});
 	$('.refuse').click(function(){
 		var result = window.confirm('화장품 등록요청을 거절처리 하시겠습니까?');
+		var boardNo = $(this).parent().parent().children().eq(0).text();
 		
 		if(result){
+			location.href="<%= request.getContextPath() %>/delete.req?boardNo=" + boardNo;
 			alert('거절 처리 완료!');
 		} else{
 			alert('취소!');
