@@ -211,7 +211,7 @@ table#adminEnrollHospital>tbody>tr>td{
 	                     <td><%= m.getUser_no() %></td>
 	                     <td><%= m.getUser_name() %></td>
 	                     <td><%= m.getEnroll_date() %></td>
-	                     <td><a href="#" style="font-weight: bold;">조회</a></td>
+	                     <td><a href="detail.hos?hosName=<%= m.getUser_name() %>" style="font-weight: bold;">조회</a></td>
 	                     <td><label class="quit">탈퇴처리</label></td>
 	                </tr>
 					<% } %>	

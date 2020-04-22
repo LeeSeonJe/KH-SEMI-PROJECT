@@ -34,23 +34,25 @@ public class worryListServlet3 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-		
 		WorryService service = new WorryService();
-		int listCount = service.getListCount();
-		
-		int currentPage;			
+		String text = request.getParameter("text");
+		String select = request.getParameter("select-worry");
+		int listCount = service.getSearchCount(text, select);
+
+		int currentPage;
+		int boardLimit = 10;
 		int pageLimit = 10;			
 		int maxPage;			
-		int startPage;				
+		int startPage;					
 		int endPage;				
-		int boardLimit = 10;			
+			
 		
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+		
+		
 		maxPage = (int)((double)listCount/boardLimit + 0.9);
 		
 		startPage = (((int)((double)currentPage/pageLimit +0.9)) -1) * pageLimit + 1;
@@ -61,29 +63,34 @@ public class worryListServlet3 extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
+
+
+		
+				
+		
+
 		
 		
-		String text = request.getParameter("text");
-		String select = request.getParameter("select-worry");
 		
+//		ArrayList<Worry> list = service.selectList2(currentPage, boardLimit);
+		ArrayList<Worry> searchList = new WorryService().selectSearchList(currentPage, boardLimit, text, select);
+		ArrayList<Worry> top10List = new WorryService().selectTop10List(currentPage, boardLimit);
+		ArrayList<Worry> lowList = new WorryService().selectLowList(currentPage, boardLimit);
+//		ArrayList<Worry> hitList = new WorryService().selectHitList(currentPage, boardLimit);
+
 		
-		
-		ArrayList<Worry> list = service.selectList2(currentPage, boardLimit);
-		ArrayList<Worry> topList = new WorryService().selectTopList();
-		ArrayList<Worry> lowList = new WorryService().selectLowList();
-		ArrayList<Worry> hitList = new WorryService().selectHitList();
-		ArrayList<Worry> searchList = new WorryService().selectSearchList(text, select);
-		
-		RequestDispatcher view = request.getRequestDispatcher("views/worry/worryMain.jsp");
-		request.setAttribute("list", searchList);
-		request.setAttribute("topList", topList);
-		request.setAttribute("lowList", lowList);
-		request.setAttribute("hitList", hitList);
+		RequestDispatcher view = request.getRequestDispatcher("views/worry/worrySearch.jsp");
 		request.setAttribute("searchList", searchList);
+		request.setAttribute("top10List", top10List);
+		request.setAttribute("lowList", lowList);
+//		request.setAttribute("hitList", hitList);
 		request.setAttribute("pi", pi);
-		
-		String value = "thumb";
+		request.setAttribute("select", select);
+		request.setAttribute("text", text);
+		String value = "hit";
 		request.setAttribute("value", value);
+		
+		System.out.println(searchList.size());
 		
 		view.forward(request, response);
 		

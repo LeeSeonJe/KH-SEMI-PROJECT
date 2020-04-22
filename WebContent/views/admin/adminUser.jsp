@@ -240,7 +240,7 @@ table#adminEnrollHospital>tbody>tr>td{
    <script>
 	$('.detail').click(function(){
 		var userNo = $(this).parent().parent().children().eq(0).text();
-		var popup = window.open('<%=request.getContextPath()%>/userDetail.admin?userNo=' + userNo, "detailPopUp", "width=500, height=300");
+		var popup = window.open('<%=request.getContextPath()%>/userDetail.admin?userNo=' + userNo, "detailPopUp", "width=500, height=750");
 		
 
 	});

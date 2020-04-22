@@ -234,29 +234,66 @@
 					<li><a href="<%=request.getContextPath()%>/worryList.bo">고민</a></li>
 				</ul>
 			</form>
-		</nav>	
-		<% if(loginUser == null) { %>
-		<span id="login" class="login"><a style =  "color : #DF1758;" href="<%= request.getContextPath() %>/views/common/login.jsp">로그인</a></span>
-		<% } else if(loginUser.getUser_id().equals("admin")) { %>
-		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
-		<span id="login" class="login"><label><%= loginUser.getUser_name() %></label></span>
-		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/user.admin'">관리자페이지</label></span>
-		<% } else { %>
-		
-		<span id="login" class="login"><label onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</label></span>
-		<% if(loginUser.getUser_category().equals("C")) { %>
-			<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/mypage.me"><%= loginUser.getUser_name() %></a></label></span>
-		<% } else if(loginUser.getUser_category().equals("H")) { %>
-			<span id="login" class="login"><label><a href="<%= request.getContextPath()%>/mypage.hos"><%= loginUser.getUser_name() %></a></label></span>
-		<% } %>	
-		<% if(loginUser.getUser_category().equals("C")) { %>
-			<img id="login" class="login" style="width: 50px; height: 50px; border-radius: 50px;float: right; margin-top: 40px" src="<%= request.getContextPath() %>/member_images/<%= profile_image %>" alt="" />
-		<% } else if(loginUser.getUser_category().equals("H")) { %>
-			<% String[] profiles = profile_image.split(","); %>
-			<img id="login" class="login" style="width: 50px; height: 50px; border-radius: 50px;float: right; margin-top: 40px" src="<%= request.getContextPath() %>/hospital_images/<%= profiles[0] %>" alt="" />
-		<% } %>
-		<span id="login" class="login"><img src="resources/images/mail1.png" style = "width : 50px; height : 50px; margin-top : -15px;" onclick = "cosTalkOpen();" id = "cosTalkBtn"></span>
-		<% } %>
+		</nav>
+		<%
+			if (loginUser == null) {
+		%>
+		<span id="login" class="login"><a style="color: #DF1758;"
+			href="<%=request.getContextPath()%>/views/common/login.jsp">로그인</a></span>
+		<%
+			} else if (loginUser.getUser_id().equals("admin")) {
+		%>
+		<span id="login" class="login"><label
+			onclick="location.href='<%=request.getContextPath()%>/logout.me'">로그아웃</label></span>
+		<span id="login" class="login"><label><%=loginUser.getUser_name()%></label></span>
+		<span id="login" class="login"><label
+			onclick="location.href='<%=request.getContextPath()%>/user.admin'">관리자페이지</label></span>
+		<%
+			} else {
+		%>
+
+		<span id="login" class="login"><label
+			onclick="location.href='<%=request.getContextPath()%>/logout.me'">로그아웃</label></span>
+		<%
+			if (loginUser.getUser_category().equals("C")) {
+		%>
+		<span id="login" class="login"><label><a
+				href="<%=request.getContextPath()%>/mypage.me"><%=loginUser.getUser_name()%></a></label></span>
+		<%
+			} else if (loginUser.getUser_category().equals("H")) {
+		%>
+		<span id="login" class="login"><label><a
+				href="<%=request.getContextPath()%>/mypage.hos"><%=loginUser.getUser_name()%></a></label></span>
+		<%
+			}
+		%>
+		<%
+			if (loginUser.getUser_category().equals("C")) {
+		%>
+		<img id="login" class="login"
+			style="width: 50px; height: 50px; border-radius: 50px; float: right; margin-top: 40px"
+			src="<%=request.getContextPath()%>/member_images/<%=profile_image%>"
+			alt="" />
+		<%
+			} else if (loginUser.getUser_category().equals("H")) {
+		%>
+		<%
+			String[] profiles = profile_image.split(",");
+		%>
+		<img id="login" class="login"
+			style="width: 50px; height: 50px; border-radius: 50px; float: right; margin-top: 40px"
+			src="<%=request.getContextPath()%>/hospital_images/<%=profiles[0]%>"
+			alt="" />
+		<%
+			}
+		%>
+		<span id="login" class="login"><img
+			src="resources/images/mail1.png"
+			style="width: 50px; height: 50px; margin-top: -15px;"
+			onclick="cosTalkOpen();" id="cosTalkBtn"></span>
+		<%
+			}
+		%>
 		<%-- <span class="sch">
 			<button type="button"><img src="<%= request.getContextPath() %>/resources/images/search_icon.png"></button>
 			<input type="text" placeholder="검색어를 입력하세요.">
@@ -327,10 +364,7 @@
 				<input type="button" id="bBtnn">
 				<div>채팅 추가</div>
 				<div>
-					<input type="text" value="이름을 입력해 주세요" id="rName">
-				</div>
-				<div>
-					<input type="button" value="검색" id="search">
+					<input type="text" value="이름을 입력해 주세요" class="chatAddW" id="rName">
 				</div>
 				<form id="memberViewForm"></form>
 			</div>
@@ -394,8 +428,7 @@
 
 			bBtn.onclick = function() {
 				$("#cFuc").hide();
-				$(".cosTalk-content").show();
-				$("#fTab").show();
+				$("#cTab").show();
 				$("#friendBtnn2").hide();
 				$("#chatBtnn2").hide();
 			}
@@ -414,66 +447,12 @@
 
 			//채팅기능
 
-			var send = document.getElementById("send");
-			send.onclick = (function() {
-				var sMessage = $("#msg").val();
-				var rName = $("#rName").val();
+			
 
-				$.ajax({
-					url : 'CosTalkSendServlet',
-					data : {
-						rName : rName,
-						sMessage : sMessage
-					}
-				});
-
-				var msgLine = $('<div class="msgLine">');
-				var msgBox = $('<div class="msgBox">');
-
-				msgBox.append(sMessage);
-				msgBox.css('display', 'inline-block');
-				msgLine.css('text-align', 'right');
-				msgLine.append(msgBox);
-
-				$('#chatView').append(msgLine);
-
-				document.getElementById("msg").value = '';
-				document.getElementById("msg").focus();
-				$("#chatView").scrollTop($("#chatView")[0].scrollHeight);
-			});
-
-			$("#cFuc").keyup(function() {
-				if (window.event.keyCode == 13) {
-					var sMessage = $("#msg").val();
-					var rName = $("#rName").val();
-
-					$.ajax({
-						url : 'CosTalkSendServlet',
-						data : {
-							rName : rName,
-							sMessage : sMessage
-						}
-					});
-
-					var msgLine = $('<div class="msgLine">');
-					var msgBox = $('<div class="msgBox">');
-
-					msgBox.append(sMessage);
-					msgBox.css('display', 'inline-block');
-					msgLine.css('text-align', 'right');
-					msgLine.append(msgBox);
-
-					$('#chatView').append(msgLine);
-
-					document.getElementById("msg").value = '';
-					document.getElementById("msg").focus();
-					$("#chatView").scrollTop($("#chatView")[0].scrollHeight);
-				}
-			});
-
+			
 		}
 
-		//챗 추가
+		//친구 찾기
 
 		function addChat() {
 			$("#cTab").hide();
@@ -488,44 +467,61 @@
 
 			var search = document.getElementById("search");
 
-			search.onclick = function() {
+			$("#rName")
+					.keyup(
+							function() {
+								var rName = $("#rName").val();
 
-				var rName = $("#rName").val();
+								$
+										.ajax({
+											url : '/COSMEDIC/CosTalkFindServlet',
+											data : {
+												rName : rName
+											},
+											success : function(data) {
+												$('#memberViewForm').html("");
+												//console.log(data);
+												for ( var i in data) {
+													var rNamee = data[i].rMember_name;
+													var rIdd = data[i].rMember_id;
+													var rNoo = data[i].rMember_no;
 
-				$.ajax({
-					url : 'CosTalkSendServlet',
-					data : {
-						rName : rName
-					}
+													var memberLine = $('<div class="memberLine">');
+													var memberBox = $('<div class="memberBox">');
+													var memberValue = $('<div class = "memberValue">');
+													var memberButton = $('<input type="button" value = "채팅 추가" class = "memberButton">');
 
-				});
+													memberBox.text(rNamee + " "
+															+ rIdd);
+													memberBox.css('display',
+															'inline-block');
 
-				var memberLine = $('<div class="memberLine">');
-				var memberBox = $('<div class="memberBox">');
-				var memberButton = $('<input type="button" value = "채팅 추가" class = "memberButton">');
+													memberValue.text(rNoo);
+													memberValue.css('display',
+															'none');
 
-				var friendLine = $('<div class = "friendLine">');
-				var friendBox = $('<div class = "friendBox" id = "friendBoxx" onclick = "friendBoxClick();" onMouseOver = "this.style.cursor=\'pointer\'">');
+													memberLine.css(
+															'text-align',
+															'right');
+													memberLine
+															.append(memberBox);
 
-				memberBox.append(rName);
-				memberBox.css('display', 'inline-block');
-				memberButton.css('display', 'inline-block');
-				memberButton.append(memberButton);
-				memberLine.css('text-align', 'right');
-				memberLine.append(memberBox);
+													$('#memberViewForm')
+															.append(
+																	memberLine,
+																	memberBox,
+																	memberValue,
+																	memberButton);
 
-				friendBox.append(rName);
-				friendBox.css('display', 'inline-block');
-				friendLine.css('text-align', 'right');
-				friendLine.append(friendBox);
+												}
 
-				$('#memberViewForm').append(memberLine);
-				$('#memberViewForm').append(memberButton);
+											}
 
-				$('#friendViewForm').append(friendLine);
+										});
 
-			};
+							});
 
+			//채팅 추가 자동 비우기
 			var rName = document.getElementById("rName");
 			rName.onclick = function() {
 				var el = document.getElementById('rName');
@@ -534,38 +530,150 @@
 			}
 
 		}
-		function friendBoxClick() {
-			$("#cTab").hide();
-			$("#friendBtnn2").hide();
-			$("#chatBtnn2").hide();
-			$("#fTab").hide();
-			$("#friendBtnn1").show();
-			$("#chatBtnn1").show();
-			$(".cosTalk-content").hide();
+		
+		
+		//채팅 추가 버튼 클릭 - > 채팅방으로 이동
+		
+		
+
+		$(document).on('click', '.memberButton', function() {
+			$('#chatNameBoxx').html("");
+			var rMName = $(this).prev().prev().filter('div').text();
+			var rMNum = $(this).prev().filter('div').text();
+			console.log(rMNum);
+			console.log(rMName);
+			$("#chatAddd").hide();
 			$("#cFuc").show();
 
-			var rName = $("#rName").val();
+			var friendBox = $('<div class="friendBox">');
+			friendBox.text(rMName);
+			friendBox.css('display', 'inline-block');
 
+			$("#chatNameBoxx").append(friendBox);
+			console.log(rMNum);
+			console.log(rMName);
 			$.ajax({
 				url : 'CosTalkSendServlet',
 				data : {
-					rName : rName,
+					rMName : rMName,
+					rMNum : rMNum
 				}
 			});
+			
+			// 채팅 내역 갱신 setInterval(function(){}, 지연시간);
+			setInterval(function(){
+				$.ajax({
+					url : 'CosTalkRefreshServlet',
+					data : {
+						rMNum : rMNum
+					},
+					success : function(data){
+						$('#chatView').html("");
+						for(var i in data){
+							if(data[i].reception_no==rMNum){
+								var msgLine = $('<div class="msgLine">');
+								var msgBox = $('<div class="msgBox">');
 
-			var chatNameBox = $('<div class="chatNameBox">');
-			
-			chatNameBox.append(rName);
-			chatNameBox.css('display', 'inline-block');
-			
-			$('#chatNameBoxx').append(chatNameBox);
-			
-			var friendBox = $('<div class = "friendBox">');
-			friendBox.append(rName);
-			friendBox.css('display', 'inline-block');
-			
-			$('#chatChatBoxx').append(friendBox);
+								msgBox.text(data[i].message);
+								msgBox.css('display', 'inline-block');
+								msgLine.css('text-align', 'right');
+								msgLine.append(msgBox);
 
-		}
+								$('#chatView').append(msgLine);
+							} else{
+								var msgLine = $('<div class="msgLine">');
+								var msgBox = $('<div class="msgBox">');
+
+								msgBox.text(data[i].message);
+								msgBox.css('display', 'inline-block');
+								msgLine.css('text-align', 'left');
+								msgBox.css('background', 'white');
+								msgLine.append(msgBox);
+
+								$('#chatView').append(msgLine);
+							}
+							
+						}
+						
+					}
+				});
+				
+			}, 300);
+			
+			//전송 버튼 누르기
+			var send = document.getElementById("send");
+			send.onclick = (function() {
+				$.ajax({
+					url : 'CosTalkSendServlet',
+					data : {
+						rMName : rMName,
+						rMNum : rMNum,
+						sMessage : sMessage
+					},
+					success : function(data){
+						for(var i in data){
+							var msgLine = $('<div class="msgLine">');
+							var msgBox = $('<div class="msgBox">');
+
+							msgBox.text(data[i].message);
+							msgBox.css('display', 'inline-block');
+							msgLine.css('text-align', 'right');
+							msgLine.append(msgBox);
+
+							$('#chatView').append(msgLine);
+						}
+						document.getElementById("msg").value = '';
+						document.getElementById("msg").focus();
+						$("#chatView").scrollTop($("#chatView")[0].scrollHeight);
+					},
+					complete : function(){
+						console.log("메롱");
+						console.log(rMName + rMNum + sMessage);
+					}
+				});
+			});
+			
+			
+			//엔터 누르기
+			$("#cFuc").keyup(function() {
+				if (window.event.keyCode == 13) {
+					var sMessage = $("#msg").val();
+					var rName = $("#rName").val();
+
+					$.ajax({
+						url : 'CosTalkSendServlet',
+						data : {
+							rMName : rMName,
+							rMNum : rMNum,
+							sMessage : sMessage
+						},
+						success : function(data){
+							for(var i in data){
+								var msgLine = $('<div class="msgLine">');
+								var msgBox = $('<div class="msgBox">');
+
+								msgBox.text(data[i].message);
+								msgBox.css('display', 'inline-block');
+								msgLine.css('text-align', 'right');
+								msgLine.append(msgBox);
+
+								$('#chatView').append(msgLine);
+							}
+							document.getElementById("msg").value = '';
+							document.getElementById("msg").focus();
+							$("#chatView").scrollTop($("#chatView")[0].scrollHeight);
+						},
+						complete : function(){
+							console.log(rMName + rMNum);
+							console.log(sMessage);
+						}
+					});
+
+				}
+			});
+			//메시지 받기
+			
+
+		});
 	</script>
 </header>
