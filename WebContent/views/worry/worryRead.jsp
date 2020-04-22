@@ -5,7 +5,8 @@
 	ArrayList<Comments> list = (ArrayList<Comments>)request.getAttribute("list");
 	Member m = ((Member)request.getSession().getAttribute("loginUser"));
 	ArrayList<AddFile> fList = (ArrayList<AddFile>)request.getAttribute("fList");
-	
+// 	int result = Integer.parseInt((String)request.getAttribute("result"));
+
 %>	
 	
 <!DOCTYPE html>
@@ -25,7 +26,7 @@
 	.worry-read-wrap{padding: 0 5px;}
     .worry-head{border-bottom: 2px solid #666;
                 padding: 0 10px;
-                height: 80px;}
+                height: 120px;}
     .worry-head>h3{margin-bottom: 10px}
     .worry-head>span{font-size:1.1em;}
     .worry-head>time{margin-left:10px;
@@ -100,6 +101,9 @@
 /* 	.content-text{width: 1151px; height: 580px; resize:none; border: none;} */
 	.content-text{width: 1151px; min-height: 280px; white-space:pre-wrap; margin-left:0px;}
 	#profile{border-radius:50px;}
+	.profile{display: inline-block;}
+	#name{margin-left: 22px; height: 60px;}
+	#time{margin-left: 22px;}
 	.center{text-align:center;}
 	#title{font-size:1.3em; width:850px; height: 60px; margin-left: 0px; overflow:hidden; text-overflow: ellipsis; white-space: normal; line-height: 1.2; height: 2.4em;}
 	.replyTr{background: skyblue; width: 100%; margin: 0px; padding: 0px;}
@@ -117,12 +121,16 @@
 			<div class="worry-read-wrap">
                 <article class="worry-head">
                     <div id="title"><%= w.getTitle() %></div>
-                    
                     <input type="hidden" name="title" value="<%= w.getTitle() %>">
                     <input type="hidden" name="worryNo" value="<%= w.getWorryNo() %>">
-                    <span><%= w.getUserName() %></span>
+                    <% if(w.getCategory().equals("A")){ %>
+                    <div  class="profile"><img id="profile" src="<%= request.getContextPath()%>/member_images/1.jpg" width="50px" height="50px"></div>
+                    <%} else{ %>
+                    <div  class="profile"><img id="profile" src="<%= request.getContextPath()%>/member_images/<%= w.getProfileImage() %>" width="50px" height="50px"></div>
+                    <%} %>
+                    <span id="name"><%= w.getUserName() %></span>
                     <input type="hidden" name="userName" value="<%= w.getUserName() %>">
-                    <time datetime="2020-03-28T19:43:20"><%= w.getDate() %></time>
+                    <time id="time" datetime="2020-03-28T19:43:20"><%= w.getDate() %></time>
                     <input type="hidden" name="date" value="<%= w.getDate() %>">
                     <div class="count-reading">
                         <span class="count-title"> 조회수 : <%= w.getHit() %></span>
@@ -133,9 +141,15 @@
                     <div class="content-text"><%= w.getContent() %></div>
                     <input type="hidden" name="content" value="<%= w.getContent() %>">
                     <div class="vote-btn">
-                        <button  type="button" id="like-btn" class="btn-standard" value="좋아요">좋아요</button>
-                        <span id="like-count" class="counting"><%= w.getWorryThumbUp() %></span>
-                        <input type="hidden" name="like" value="<%= w.getWorryThumbUp() %>">
+                    	<% if((String)request.getAttribute("result") == "yes"){ %> 
+	                    	<button  type="button" id="like-btn" class="btn-standard" value="좋아요" disabled style="background: lightgray">좋아요</button>
+	                        <span id="like-count" class="counting"><%= w.getWorryThumbUp() %></span>
+	                        <input type="hidden" name="like" value="<%= w.getWorryThumbUp() %>">
+                    	<% } else { %>
+	                        <button  type="button" id="like-btn" class="btn-standard" value="좋아요">좋아요</button>
+	                        <span id="like-count" class="counting"><%= w.getWorryThumbUp() %></span>
+	                        <input type="hidden" name="like" value="<%= w.getWorryThumbUp() %>">
+                        <% } %>
                         <button type="button"  id="hate-btn" class="btn-standard" value="싫어요">싫어요</button>
                         <input type="hidden" name="hate" value="<%= w.getWorryThumbDown() %>">
                         <span id="hate-count" class="counting"><%= w.getWorryThumbDown() %></span>
@@ -210,7 +224,14 @@
 					</tr>
 					<% for (int i = 0 ; i < list.size(); i++){ %>
 					<tr>
-						<td width="60px" height="60px"><img id="profile" src="<%= request.getContextPath()%>/member_images/<%= list.get(i).getprofileImage() %>" width="50px" height="50px"></td>
+						<% if(list.get(i).getCategory().equals("C")){ %>
+							<td width="60px" height="60px"><img id="profile" src="<%= request.getContextPath()%>/member_images/<%= list.get(i).getprofileImage() %>" width="50px" height="50px"></td>
+						<%} else if(list.get(i).getCategory().equals("H")){ %>
+							<%String[] profile = list.get(i).getprofileImage().split(","); %>
+							<td width="60px" height="60px"><img id="profile" src="<%= request.getContextPath()%>/hospital_images/<%= profile[0] %>" width="50px" height="50px"></td>
+						<%} else {%>
+							<td width="60px" height="60px"><img id="profile" src="<%= request.getContextPath()%>/member_images/1.jpg" width="50px" height="50px"></td>
+						<% } %>
 						<td width="200px"><%= list.get(i).getUserName() %></td>
 						<td width="800px"><%= list.get(i).getCommentsText() %></td>
 						<td width="200px" class="center" ><%= list.get(i).getCommentsDate() %></td>
