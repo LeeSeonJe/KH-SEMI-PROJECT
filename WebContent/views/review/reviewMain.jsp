@@ -100,7 +100,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 			<!-- 작성 -->
 		<div id="slide"><!-- 탑리뷰어  -->
 	   	   <button class="btn-direction"><img id="prev" src="<%= request.getContextPath() %>/resources/images/prev.png"></button>
-	   			<h3>top reviewers</h3>
+	   			<h3>♥top reviewers♥</h3>
 					<table id="tableDiv">
 						<tr>
 							<td><img class="medal" src="<%= request.getContextPath() %>/resources/images/금메달.png"></td>
