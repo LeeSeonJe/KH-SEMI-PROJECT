@@ -189,7 +189,7 @@ table#myPost>tbody>tr>td{
             <ul id="nav-tab-ul">
                <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/mypage.hos'">내정보관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/bookControl.hos'">예약 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">1대1 문의</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/hospitalQnA.hos'">1대1 문의</li>
             </ul>
          </section>
          

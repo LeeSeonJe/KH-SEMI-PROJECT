@@ -134,8 +134,64 @@ public class InquiryDAO {
 			close(rset);
 			close(stmt);
 		}
-
+  }
 		return result;
+	public ArrayList<Inquiry> selectQnA(Connection conn, int user_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Inquiry> list = new ArrayList<>();
+		Inquiry i = null;
+		
+		String query = prop.getProperty("selectQnA");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, user_no);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				i = new Inquiry(rset.getInt("board_no"),
+						 		rset.getString("board_title"),
+						 		rset.getDate("board_date"),
+						 		rset.getString("answer_yn"));
+				list.add(i);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public Inquiry detailAnswer(Connection conn, String board_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Inquiry i = null;
+		
+		String query = prop.getProperty("detailAnswer");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, board_no);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				i = new Inquiry(rset.getString("board_title"),
+								rset.getString("board_content"),
+								rset.getString("comments"),
+								rset.getDate("comment_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return i;
 	}
 
 }

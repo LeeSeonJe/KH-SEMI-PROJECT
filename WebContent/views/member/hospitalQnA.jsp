@@ -1,21 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8" import="book.model.vo.Book, java.util.*,
-    org.json.simple.*, org.json.simple.parser.JSONParser,
-    org.json.simple.parser.ParseException"%>
+    pageEncoding="UTF-8" import="java.util.*, inquiry.model.vo.Inquiry"%>
 <%
-	ArrayList<Book> list = (ArrayList<Book>)request.getAttribute("list");
-	String json;
-	JSONArray ja = new JSONArray();
-	for(int i=0; i<list.size(); i++){
-		JSONObject inner = new JSONObject();
-		inner.put("end", list.get(i).getBooking_date()+"T"+(Integer.parseInt(list.get(i).getBooking_time())+1));
-		inner.put("start", list.get(i).getBooking_date()+"T"+list.get(i).getBooking_time());
-		inner.put("title", list.get(i).getBooking_name() +" : "+ list.get(i).getBooking_content());
-		inner.put("url", "/COSMEDIC/bookDetail.hos?booking_no="+list.get(i).getBooking_no());
-		ja.add(inner);
-	}
-	
-	json = ja.toJSONString();
+	ArrayList<Inquiry> list = (ArrayList<Inquiry>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -84,6 +70,7 @@ table#myInform>tbody>tr>td.tab-myControl-category {
 table#myInform>tbody>tr>td.tab-myControl-content {
 	width: 700px;
 }
+
 
 table#myInform2>tbody>tr>td {
     height: 65px;
@@ -186,74 +173,86 @@ table#myPost>tbody>tr>td{
 #myQnA-writer {
 	text-align: center;
 }
+.title{
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 150px;
+}
 </style>
-<link  rel='stylesheet'  href='<%=request.getContextPath() %>/fullcalendar/fullcalendar.css'  />  
-<script src='<%=request.getContextPath() %>/lib/jquery.min.js'></script>  <script src='<%=request.getContextPath() %>/lib/moment.min.js'></script>  
-<script src='<%=request.getContextPath() %>/fullcalendar/fullcalendar.js'></script>
 </head>
 <body>
-   <div class="contents">
+	<div class="contents">
       <%@ include file="/views/layout/header.jsp"%>
       <hr>
       <section id="page-name">
-         <h2>병원 마이 페이지</h2>
+         <h2>병원 1대1 문의 페이지</h2>
       </section>
       <hr>
       <div id="main-div">
          <section id="nav-tab">
             <ul id="nav-tab-ul">
                <li onclick="location.href = '<%= request.getContextPath()%>/mypage.hos'">내정보관리</li>
-               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/bookControl.hos'">예약 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/hospitalQnA.hos'">1대1 문의</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/bookControl.hos'">예약 관리</li>
+               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/hospitalQnA.hos'">1대1 문의</li>
             </ul>
          </section>
-         
-         <section id="tab-myControl" class="tab-mypage">
-				<div id="tab-title">예약 관리</div>
-				<div id="tab-title-detail"></div>
+		<section id="tab-myQnA" class="tab-mypage">
+				<div id="tab-title">1대1 문의</div>
+				<div id="tab-title-detail">고객님께서 불편을 드려서 죄송합니다. 최선을 다하겠습니다.</div>
 				<hr>
-				<div id="calendar" style="width: 1024px;"> </div>
-				<script>
-					$(function () {
-						var json = <%= json %>;
-					 $('#calendar').fullCalendar({
-					  header:{
-						left : 'prev,next today',
-						center : 'title',
-						right : 'month,agendaWeek, agendaDay,listMonth'
-					  },
-					  /* defaultDate : '2020-04-12',  */
-					  weekNumbers:false,
-					  navLinks:true,
-					  editable:false,
-					  eventLimit: true,
-					  lang:'ko',
-					  
-					  selectable : true,
-					  selectHelper:true,
-					  
-					  events: json,
-					  eventClick: function(event) {
-						    if (event.url) {
-						        window.open(event.url, "_blank", 'width=650, height= 800');
-						        return false;
-						    }
-						}
-					 })
-					});
-				</script>
-				
-		</section>		      
-      </div>
-   </div>   
-
-   <%@ include file="/views/layout/footer.jsp" %>
-   
-   <script>
-
-
-   </script>
-   <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
-   
+				<table id="myReview" class="table-standard">
+					<thead>
+						<tr>
+							<th class="review-title">번호</th>
+							<th id="title2" class="review-title">제목</th>
+							<th class="review-title">작성일</th>
+							<th class="review-title">답변여부</th>
+							<th class="review-title">조회</th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+	               	  <% if(list.isEmpty()) { %>
+	               	  	 <tr>
+	               	  	 	<td colspan="5">조회된 리스트가 없습니다.</td>
+	               	  	 </tr>
+	               	  <% } else { %>
+		               	  <% for(Inquiry i : list) { %>
+		               	  <tr>
+		                     <td><%=i.getBoard_no() %></td>
+		                     <td><div class="title"><%=i.getBoard_title() %></div></td>
+		                     <td><%= i.getBoard_date() %></td>
+		                     <% if(i.getAnswer_yn().equals("N")){ %>
+		                     	<td style="font: bold;">대기중</td>
+		                     <% } else { %>
+		                     	<td style="font: bold;">답변완료</td>
+		                     <% } %>
+		                     
+		                     <% if(i.getAnswer_yn().equals("Y")){ %>
+		                     	<td style="font: bold; color: red;"><label id="answerStatus">조회</label></td>
+		                     <% } else { %>
+		                     	<td></td>
+		                     <% } %>
+		                  </tr>
+		               	  <% } %>
+	               	  <% } %>
+	               </tbody>
+				</table>
+				<div>
+					<button id="QnA-btn"class="btn-standard">문의하기</button> 				
+				</div> 
+			</section>
+		</div>
+	</div>
+	<script>
+	$('#QnA-btn').on('click', function(){
+		window.open('<%=request.getContextPath()%>/views/customer/sendQnA.jsp', "sendQnA", "width=550, height=600");
+	})
+	
+	$('#answerStatus').click(function(){
+		var board_no = $(this).parent().parent().children().eq(0).text();
+		var popup = window.open("<%=request.getContextPath()%>/InqDetail.hos?board_no="+ board_no, "answerStatusPopUp", "width=550, height=820");
+	});
+	</script>
 </body>
 </html>
