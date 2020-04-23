@@ -18,10 +18,28 @@ public class Inquiry {
 	public Inquiry() {}
 
 	
+	public Inquiry(String board_title, String board_content, String comments, Date comment_date) {
+		super();
+		this.board_title = board_title;
+		this.board_content = board_content;
+		this.comments = comments;
+		this.comment_date = comment_date;
+	}
+
+
 	public Inquiry(String board_title, String board_content) {
 		super();
 		this.board_title = board_title;
 		this.board_content = board_content;
+	}
+
+
+	public Inquiry(int board_no, String board_title, Date board_date, String answer_yn) {
+		super();
+		this.board_no = board_no;
+		this.board_title = board_title;
+		this.board_date = board_date;
+		this.answer_yn = answer_yn;
 	}
 
 
