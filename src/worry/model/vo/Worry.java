@@ -15,7 +15,7 @@ public class Worry {
 	private int worryThumbDown;
 	private String worryStatus;
 	private String profileImage;
-	
+
 	public int getUserNo() {
 		return userNo;
 	}
@@ -26,6 +26,12 @@ public class Worry {
 
 	public void setProfileImage(String profileImage) {
 		this.profileImage = profileImage;
+	}
+
+	public Worry(int worryNo, String title) {
+		super();
+		this.worryNo = worryNo;
+		this.title = title;
 	}
 
 	public Worry(int worryNo, int worryThumbUp, int hit, String title, String content, Date date, String category,
@@ -48,8 +54,7 @@ public class Worry {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	
-	
+
 	public String getWorryStatus() {
 		return worryStatus;
 	}
@@ -111,7 +116,8 @@ public class Worry {
 		this.worryThumbDown = worryThumbDown;
 	}
 
-	public Worry() {}
+	public Worry() {
+	}
 
 	public Worry(int worryNo, int worryThumbUp, int hit) {
 		super();
@@ -119,10 +125,7 @@ public class Worry {
 		this.worryThumbUp = worryThumbUp;
 		this.hit = hit;
 	}
-	
-	
-	
-	
+
 	public Worry(int worryNo, String title, String content, int userNo) {
 		super();
 		this.worryNo = worryNo;
@@ -191,11 +194,6 @@ public class Worry {
 		this.userName = userName;
 	}
 
-	
-
-
-	
-
 	@Override
 	public String toString() {
 		return "Worry [worryNo=" + worryNo + ", worryThumbUp=" + worryThumbUp + ", hit=" + hit + ", title=" + title
@@ -227,9 +225,5 @@ public class Worry {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	
-	
-	
-	
-	
+
 }

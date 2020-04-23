@@ -12,13 +12,18 @@ public class HospitalReviewList {
 	private String board_content;
 	private Date board_date;
 	private String review_heart;
+	private String hospital_heart;
+	private String review_count;
+
+	private String board_no;
 
 	public HospitalReviewList() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public HospitalReviewList(String profile_image, String user_name, String age, String skinType, String gender,
-			String board_title, String board_content, Date board_date, String review_heart) {
+			String board_title, String board_content, Date board_date, String review_heart, String hospital_heart,
+			String review_count) {
 		super();
 		this.profile_image = profile_image;
 		this.user_name = user_name;
@@ -29,6 +34,41 @@ public class HospitalReviewList {
 		this.board_content = board_content;
 		this.board_date = board_date;
 		this.review_heart = review_heart;
+		this.hospital_heart = hospital_heart;
+		this.review_count = review_count;
+	}
+
+	
+	
+	public HospitalReviewList(String user_name, String board_no, String board_title) {
+		super();
+		this.user_name = user_name;
+		this.board_no = board_no;
+		this.board_title = board_title;
+	}
+
+	public String getBoard_no() {
+		return board_no;
+	}
+
+	public void setBoard_no(String board_no) {
+		this.board_no = board_no;
+	}
+
+	public String getHospital_heart() {
+		return hospital_heart;
+	}
+
+	public void setHospital_heart(String hospital_heart) {
+		this.hospital_heart = hospital_heart;
+	}
+
+	public String getReview_count() {
+		return review_count;
+	}
+
+	public void setReview_count(String review_count) {
+		this.review_count = review_count;
 	}
 
 	public String getProfile_image() {

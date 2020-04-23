@@ -23,6 +23,7 @@ public class Review {
 	private String skintype;
 	private String gender;
 	private String profile_image;
+	private String middle_name;
 	
 	public Review () {}
 
@@ -149,6 +150,25 @@ public class Review {
 		this.review_no = review_no;
 		this.date = date;
 		this.userName = userName;
+	}
+
+
+	public Review(String title, int cosmetic_no, String middle_name, String cosmetic_name) {
+		super();
+		this.title = title;
+		this.cosmetic_no = cosmetic_no;
+		this.middle_name = middle_name;
+		this.cosmetic_name = cosmetic_name;
+	}
+
+
+	public String getMiddle_name() {
+		return middle_name;
+	}
+
+
+	public void setMiddle_name(String middle_name) {
+		this.middle_name = middle_name;
 	}
 
 

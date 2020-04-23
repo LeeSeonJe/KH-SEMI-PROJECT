@@ -1,5 +1,10 @@
 package worry.model.service;
 
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -7,8 +12,6 @@ import worry.model.dao.WorryDAO;
 import worry.model.vo.AddFile;
 import worry.model.vo.Comments;
 import worry.model.vo.Worry;
-
-import static common.JDBCTemplate.*;
 
 public class WorryService {
 
@@ -333,6 +336,13 @@ public class WorryService {
 		int result = new WorryDAO().hateList(conn, worryNo, userNo);
 		
 		return result;
+	}
+
+	public ArrayList<Worry> worryList() {
+		Connection conn = getConnection();
+		ArrayList<Worry> wList = new WorryDAO().worryList(conn);
+		close(conn);
+		return wList;
 	}
 
 //	public ArrayList<Worry> selectHit10List(int currentPage, int boardLimit) {

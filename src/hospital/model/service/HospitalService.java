@@ -102,9 +102,10 @@ public class HospitalService {
 		int result1 = hd.insertHospitalReview1(conn, title, content, user_no);
 		int result2 = hd.insertHospitalReview2(conn, heart);
 		int result3 = hd.insertHospitalReview3(conn, hospitalNo);
-		result = result1 + result2 + result3;
+		int result4 = hd.updateHospitalReview(conn, hospitalNo);
+		result = result1 + result2 + result3 + result4;
 		ArrayList<HospitalReviewList> hrlList = null;
-		if(result == 3) {
+		if(result == 4) {
 			commit(conn);
 			hrlList = new HospitalDAO().HospitalReviewList(conn, hospitalNo);
 		} else {
@@ -112,6 +113,13 @@ public class HospitalService {
 		}
 		close(conn);
 		return hrlList;
+	}
+
+	public ArrayList<HospitalReviewList> hospitalList() {
+		Connection conn = getConnection();
+		ArrayList<HospitalReviewList> hList = new HospitalDAO().hospitalList(conn);
+		close(conn);
+		return hList;
 	}
 
 }

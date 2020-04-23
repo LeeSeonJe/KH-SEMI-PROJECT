@@ -340,10 +340,20 @@ public class HospitalDAO {
 			while (rset.next()) {
 				String age = rset.getString("age");
 				age = ac.ageCal(age);
-				hrlList.add(new HospitalReviewList(rset.getString("profile_image"), rset.getString("user_name"), age,
-						rset.getString("skinType"), rset.getString("gender"), rset.getString("board_title"),
-						rset.getString("board_content"), rset.getDate("board_date"), rset.getString("review_heart")));
+				hrlList.add(new HospitalReviewList(
+						rset.getString("profile_image"), 
+						rset.getString("user_name"), age,
+						rset.getString("skinType"), 
+						rset.getString("gender"), 
+						rset.getString("board_title"),
+						rset.getString("board_content"), 
+						rset.getDate("board_date"), 
+						rset.getString("review_heart"),
+						rset.getString("hospital_heart"),
+						rset.getString("review_count")
+				));
 			}
+			
 //			System.out.println("HospitalDAO.java : " + hrlList.size());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -413,6 +423,54 @@ public class HospitalDAO {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int updateHospitalReview(Connection conn, int hospitalNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateHospitalReview");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, hospitalNo);
+			pstmt.setInt(2, hospitalNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+
+	public ArrayList<HospitalReviewList> hospitalList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<HospitalReviewList> hList = new ArrayList<HospitalReviewList>();
+		String query = prop.getProperty("hospitalList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while (rset.next()) {
+				hList.add(new HospitalReviewList(
+						rset.getString("user_name"),
+						rset.getString("board_no"),
+						rset.getString("board_title")
+						));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return hList;
 	}
 
 }

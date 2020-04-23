@@ -481,4 +481,31 @@ public class ReviewDAO {
 		}
 		return result;
 	}
+
+	public ArrayList<Review> riviewList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> rList = new ArrayList<Review>();
+		String query = prop.getProperty("riviewList");
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				rList.add(new Review(
+						rset.getString("board_title"),
+						rset.getInt("cosmetic_no"),
+						rset.getString("middle_name"),
+						rset.getString("cosmetic_name")
+						));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return rList;
+	}
 }

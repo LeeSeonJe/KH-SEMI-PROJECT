@@ -140,4 +140,14 @@ public class ReviewService {
 		
 		return list;
 	}
+
+	public ArrayList<Review> riviewList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> rList = new ReviewDAO().riviewList(conn);
+		
+		close(conn);
+		
+		return rList;
+	}
 }
