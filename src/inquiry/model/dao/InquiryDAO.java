@@ -30,17 +30,23 @@ public class InquiryDAO {
 		}
 	}
 
-	public ArrayList<Inquiry> selectAll(Connection conn) {
-		Statement stmt = null;
+	public ArrayList<Inquiry> selectAll(Connection conn, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Inquiry> list = new ArrayList<>();
 		Inquiry i = null;
 		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
+		
 		String query = prop.getProperty("selectAll");
 		
 		try {
-			stmt= conn.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				i = new Inquiry(rset.getInt("board_no"),
@@ -55,7 +61,7 @@ public class InquiryDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		
 		return list;
@@ -106,6 +112,30 @@ public class InquiryDAO {
 		return result;
 	}
 
+	public int getListCountI(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("getListCountI");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+  }
+		return result;
 	public ArrayList<Inquiry> selectQnA(Connection conn, int user_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

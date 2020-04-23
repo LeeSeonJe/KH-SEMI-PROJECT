@@ -11,9 +11,9 @@ import inquiry.model.vo.Inquiry;
 
 public class InquiryService {
 
-	public ArrayList<Inquiry> selectAll() {
+	public ArrayList<Inquiry> selectAll(int currentPage, int boardLimit) {
 		Connection conn = getConnection();
-		ArrayList<Inquiry> list = new InquiryDAO().selectAll(conn);
+		ArrayList<Inquiry> list = new InquiryDAO().selectAll(conn, currentPage, boardLimit);
 		close(conn);
 		return list;
 	}
@@ -37,6 +37,15 @@ public class InquiryService {
 		return result;
 	}
 
+
+	public int getListCountI() {
+		Connection conn = getConnection();
+		int result = new InquiryDAO().getListCountI(conn);
+		
+		close(conn);
+		
+		return result;
+  }
 	public ArrayList<Inquiry> selectQnA(int user_no) {
 		Connection conn = getConnection();
 		ArrayList<Inquiry> list = new InquiryDAO().selectQnA(conn, user_no);
@@ -49,6 +58,7 @@ public class InquiryService {
 		Inquiry i = new InquiryDAO().detailAnswer(conn, board_no);
 		close(conn);
 		return i;
+
 	}
 
 }
