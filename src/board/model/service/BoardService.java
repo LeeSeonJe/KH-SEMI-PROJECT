@@ -38,5 +38,13 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+
+	public ArrayList<Board> selectBoardAll() {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDAO().selectBoardAll(conn);
+		close(conn);
+		return list;
+	}
 	
 }

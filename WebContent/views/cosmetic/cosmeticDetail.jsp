@@ -161,6 +161,7 @@ div>.wDate {
 	resize: none;
 	font-size: 16px;
     width: 76vh;
+    background: white;
 }
 
 /* 리뷰 클릭시 나오는 아웃라인 제거 */
@@ -358,7 +359,7 @@ span.star-prototype > * {
 								</div>
 								<div class="userReview">
 									<h3><%= rList.get(i).getBoard_title() %></h3>
-									<textarea  class="review_ta" ><%= rList.get(i).getBoard_content() %></textarea>
+									<textarea  class="review_ta" disabled="disabled"><%= rList.get(i).getBoard_content() %></textarea>
 								</div>
 							</li>
 						<% } %>
@@ -506,6 +507,9 @@ span.star-prototype > * {
 				document.getElementsByClassName('review_ta')[tt].select(); 
 			}
 		})
+		
+		
+		
 		function brandHome() {
 			location.href = '<%= request.getContextPath()%>/detail.br?bname=' + '<%= c.getBrand_name()%>';
 		}

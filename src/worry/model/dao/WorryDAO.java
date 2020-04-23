@@ -552,6 +552,7 @@ public class WorryDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, worryNo);
+			pstmt.setInt(2, worryNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -562,10 +563,12 @@ public class WorryDAO {
 						rset.getString("BOARD_TITLE"),
 						rset.getString("BOARD_CONTENT"),
 						rset.getDate("BOARD_DATE"),
-						rset.getString("BOARD_CATEGORY"),
+						rset.getString("USER_CATEGORY"),
 						rset.getString("USER_NAME"),
 						rset.getInt("USER_NO"),
-						rset.getInt("WORRY_THUMBS_DOWN"));
+						rset.getInt("WORRY_THUMBS_DOWN"),
+						rset.getString("WORRY_STATUS"),
+						rset.getString("PROFILE_IMAGE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -637,6 +640,8 @@ public class WorryDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, worryNo);
+			pstmt.setInt(2, worryNo);
+			pstmt.setInt(3, worryNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -647,7 +652,8 @@ public class WorryDAO {
 								 rset.getString("COMMENT_TEXT"),
 								 rset.getDate("COMMENT_DATE"),
 								 rset.getString("USER_NAME"),
-								 rset.getString("PROFILE_IMAGE")
+								 rset.getString("PROFILE_IMAGE"),
+								 rset.getString("USER_CATEGORY")
 						);
 				list.add(c);
 			}
@@ -892,6 +898,7 @@ public class WorryDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, worryNo);
+			pstmt.setInt(2, worryNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -902,10 +909,12 @@ public class WorryDAO {
 						rset.getString("BOARD_TITLE"),
 						rset.getString("BOARD_CONTENT"),
 						rset.getDate("BOARD_DATE"),
-						rset.getString("BOARD_CATEGORY"),
+						rset.getString("USER_CATEGORY"),
 						rset.getString("USER_NAME"),
 						rset.getInt("USER_NO"),
-						rset.getInt("WORRY_THUMBS_DOWN"));
+						rset.getInt("WORRY_THUMBS_DOWN"),
+						rset.getString("WORRY_STATUS"),
+						rset.getString("PROFILE_IMAGE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -951,6 +960,7 @@ public class WorryDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, worryNo);
+			pstmt.setInt(2, worryNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -961,10 +971,12 @@ public class WorryDAO {
 						rset.getString("BOARD_TITLE"),
 						rset.getString("BOARD_CONTENT"),
 						rset.getDate("BOARD_DATE"),
-						rset.getString("BOARD_CATEGORY"),
+						rset.getString("USER_CATEGORY"),
 						rset.getString("USER_NAME"),
 						rset.getInt("USER_NO"),
-						rset.getInt("WORRY_THUMBS_DOWN"));
+						rset.getInt("WORRY_THUMBS_DOWN"),
+						rset.getString("WORRY_STATUS"),
+						rset.getString("PROFILE_IMAGE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1130,6 +1142,126 @@ public class WorryDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		return result;
+	}
+
+
+
+
+
+	public int WorryLikey(Connection conn, int worryNo, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("likey");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, worryNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+
+
+	public int LikeList(Connection conn, int worryNo, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("checkLike");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, worryNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+			result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+
+		return result;
+	}
+
+
+
+
+
+
+
+
+
+	public int hater(Connection conn, int worryNo, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("hater");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, worryNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+
+
+	public int hateList(Connection conn, int worryNo, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("checkHate");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, worryNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+			result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
 
 		return result;
 	}

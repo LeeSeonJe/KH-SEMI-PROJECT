@@ -32,8 +32,8 @@ public class MyPageReviewDeleteServlet extends HttpServlet {
 		int result = new CustomerService().reviewDelete(board_no);
 		
 		response.getWriter().println(result);
-//		response.getWriter().flush();
-//		response.getWriter().close();
+		response.getWriter().flush();
+		response.getWriter().close();
 	}
 
 	/**

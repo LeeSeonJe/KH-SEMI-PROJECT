@@ -54,12 +54,13 @@
 	#rank10>li, #old-list>li{
 		display:inline-block; 
 		width: 450px; 
-		margin: 2px 35px 2px 55px;
+		margin: 0px 35px 0px 55px;
+		border-bottom: 1px solid black;
 }
 		
 
 	
-	#rank10{ }
+
 	
 	.rank-num, .rank-dash{margin:2px 5px 2px 2px;}
 			
@@ -95,7 +96,7 @@
 
 		  					 
 						  	
-	.tdtd{height:30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+	.tdtd{height:35px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 	#td1{width:110px; nowrap}
 	#td2{width:468px; nowrap}
 	#td3{width:110px; nowrap}
@@ -106,8 +107,8 @@
 	#write-btn{color:white;
 			   background-color:black;
 			   position:absolute;
-			   bottom:0;
-			   right:0;}
+			   bottom: -11px;
+			   right: 114px;}
 	
 	#worry-table-btn{position:absolute;
 					 bottom:0;
@@ -121,16 +122,26 @@
 	
 
 	
+	#rankrank1{background:#f8f8f8; border-bottom: 1px solid black; border-top: 1px solid black; display: inline-block; margin-left: 57px; margin-right: 90px; width:450px;}
+	#rankrank2{background:#f8f8f8; border-bottom: 1px solid black; border-top: 1px solid black; display: inline-block; width:450px;}
 	
-	#rank1{width:20px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; background:LightGrey; text-align: center;}
-	#rank2{width:350px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap}
+	#rank11{width:50px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; }
+	#rank21{width:330px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; margin-left:0; text-align: center;}
+	#rank31{width:50px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; margin-left:0; text-align: center;}
+	
+	#rank12{width:50px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; margin-left: 0px;}
+	#rank22{width:330px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; margin-left: 0x; text-align: center;}
+	#rank32{width:50px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; margin-left: 0px; text-align: center;}
+	
+	#rank1{width:20px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; background:LightGrey; text-align: center; margin-left:20px; margin-top: 6px; }
+	#rank2{width:300px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; margin-left:30px; }
 	#rank3{width:30px; height: 20px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; margin-left: 30px;}
   	#topListNum{display: none;} 
  	#fail{text-align:center;}
  	.best{display: inline-block; font-size:2em;} 
  	.reply{display: inline-block; cursor:pointer;}
  	.reply:hover{text-decoration: underline;}
- 	.pagingArea{position:absolute; top:410px; left:50%; transform:translateX(-50%);} 
+ 	.pagingArea{position:absolute; top:460px; left:50%; transform:translateX(-50%);} 
 
 	select {
     position: relative;
@@ -159,10 +170,13 @@
 						<div class="board-best-wrap">
 	                    <div class ="best">베스트 고민</div>&nbsp;&nbsp;&nbsp;&nbsp; <div id="worry-btn2" class="reply">답글을 기다리는 고민</div>
 	                    	<br><br>
+	                    	<div id="rankrank1">
+			                    	<div class="rank-num" id="rank11">순위</div><div class="rank-num" id="rank21">제목</div><div class="rank-num" id="rank31">추천수</div>
+			                </div>
+			                <div id="rankrank2">   	
+			                    	<div class="rank-num" id="rank12">순위</div><div class="rank-num" id="rank22">제목</div><div class="rank-num" id="rank32">추천수</div>
+		       				</div>
 		                    <ol id="rank10">
-<!-- 		                    	<li><div id="topListNum">111</div><div class="rank-num" id="rank1">111</div><div class="rank-num" id="rank2">1111</div><div class="rank-num" id="rank3">111</div></li> -->
-<!-- 		                    	<li><div id="topListNum">111</div><div class="rank-num" id="rank1">111</div><div class="rank-num" id="rank2">1111</div><div class="rank-num" id="rank3">111</div></li> -->
-		       
 		                    	<% for(int i = 0; i < 10; i++){ %>
 		                    		<%if (i < top10List.size()){ %> 	
 		                    			<li><div id="topListNum"><%= top10List.get(i).getWorryNo() %></div><div class="rank-num" id="rank1"><%= i +1 %></div><div class="rank-num" id="rank2"><%= top10List.get(i).getTitle() %></div><div class="rank-num" id="rank3"><%= top10List.get(i).getWorryThumbUp() %></div></li>                    						
@@ -176,7 +190,13 @@
 					<section class="wait-comment">
 						<div class="wait-comment-wrap">
 	                    <div class ="best">답글을 기다리는 고민</div>&nbsp;&nbsp;&nbsp;&nbsp; <div class="reply" id="worry-btn1">베스트 고민</div>
-	                    	<br><br> 
+	                    	<br><br>
+	                    	<div id="rankrank1">
+			                    	<div class="rank-num" id="rank11">순위</div><div class="rank-num" id="rank21">제목</div><div class="rank-num" id="rank31">추천수</div>
+			                </div>
+			                <div id="rankrank2">   	
+			                    	<div class="rank-num" id="rank12">순위</div><div class="rank-num" id="rank22">제목</div><div class="rank-num" id="rank32">추천수</div>
+		       				</div> 
 		                    <ol id="rank10">
 		                    	<% for(int i = 0; i < 10; i++){ %>
 		                    		<%if (i < lowList.size()){ %> 
@@ -192,7 +212,7 @@
 	               
 	               </div>
 	            <form></form>   
-	            <br>
+	            <br><br><br>
                 <section class="worry-list">
                 	<div class="list-order">
                 	<% if(value.equals("hit")){ %>
@@ -261,7 +281,7 @@
 							<!-- 10개 페이지 목록 -->
 							<% for(int p = startPage; p <= endPage;p++){ %>
 								<% if(p == currentPage){ %>
-									<button id="choosen"  class="btn-standard" disabled><%= p %></button>		
+									<button id="choosen"  class="btn-standard" disabled style="background:DarkTurquoise"style="background:DarkTurquoise"><%= p %></button>		
 								<%} else{ %>
 									<button id="numBtn"  class="btn-standard" onclick="location.href='<%=request.getContextPath() %>/worryList2.bo?currentPage=<%=p%>'"><%= p %></button>
 								<%} %>

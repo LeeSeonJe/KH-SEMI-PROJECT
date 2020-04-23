@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import hospital.model.dao.HospitalDAO;
 import hospital.model.vo.Hospital;
+import hospital.model.vo.HospitalReviewList;
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
 
@@ -84,6 +85,33 @@ public class HospitalService {
 		close(conn);
 		
 		return h;
+	}
+
+	public ArrayList<HospitalReviewList> HospitalReviewList(int hospitalNo) {
+		Connection conn = getConnection();
+		ArrayList<HospitalReviewList> hrlList = new HospitalDAO().HospitalReviewList(conn, hospitalNo);
+		close(conn);
+		return hrlList;
+	}
+
+	public ArrayList<hospital.model.vo.HospitalReviewList> insertHospitalReview(String title, String content,
+			int user_no, int hospitalNo, String heart) {
+		Connection conn = getConnection();
+		HospitalDAO hd = new HospitalDAO();
+		int result = 0;
+		int result1 = hd.insertHospitalReview1(conn, title, content, user_no);
+		int result2 = hd.insertHospitalReview2(conn, heart);
+		int result3 = hd.insertHospitalReview3(conn, hospitalNo);
+		result = result1 + result2 + result3;
+		ArrayList<HospitalReviewList> hrlList = null;
+		if(result == 3) {
+			commit(conn);
+			hrlList = new HospitalDAO().HospitalReviewList(conn, hospitalNo);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return hrlList;
 	}
 
 }

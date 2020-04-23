@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, inquiry.model.vo.Inquiry"%>
+<%
+	ArrayList<Inquiry> list = (ArrayList<Inquiry>)request.getAttribute("list");
+%>    
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -160,6 +164,13 @@ table#adminEnrollHospital>tbody>tr>td{
 .paging .on{padding-top:1px;height:22px;color:#fff;font-weight:bold;background:#000;}
 .paging .on:hover{text-decoration:none;}
 
+.title{
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 150px;
+}
+
 </style>
 </head>
 <body>
@@ -178,8 +189,8 @@ table#adminEnrollHospital>tbody>tr>td{
                <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/reviewList.admin'">리뷰 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
-               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminInq.jsp'">1대1문의 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/boardList.admin'">게시판 관리</li>
+               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/inqList.admin'">1대1문의 관리</li>
             </ul>
          </section>
          <section id="tab-adminQnA" class="tab-adminpage">
@@ -197,31 +208,32 @@ table#adminEnrollHospital>tbody>tr>td{
                      <th>답변작성</th>                     
                   </tr>
                </thead>
-               <tbody>
-                  <tr>
-                     <td>10</td>
-                     <td class="title">리뷰 삭제는 어떻게 하나요?</td>
-                     <td>안정환</td>
-                     <td>2020-03-19</td>
-                     <td><label id="status">대기중</label></td>
-                     <td><label id="answerStatus">답변작성</label></td>
-                  </tr>
-                  <tr>
-                     <td>9</td>
-                     <td class="title">계정을 삭제하고 싶습니다</td>
-                     <td>김희철</td>
-                     <td>2020-03-19</td>
-                     <td><label id="status">답변완료</label></td>
-                     <td><label id="answerStatus"></label></td>
-                  </tr>
-                  <tr>
-                     <td>8</td>
-                     <td class="title">랭킹은 어떤 기준인가요?</td>
-                     <td>강호동</td>
-                     <td>2020-03-19</td>
-                     <td><label id="status">대기중</label></td>
-                     <td><label id="answerStatus">답변작성</label></td>
-                  </tr>
+               <tbody id="tbody">
+               	  <% if(list.isEmpty()) { %>
+               	  	 <tr>
+               	  	 	<td colspan="6">조회된 리스트가 없습니다.</td>
+               	  	 </tr>
+               	  <% } else { %>
+	               	  <% for(Inquiry i : list) { %>
+	               	  <tr>
+	                     <td><%=i.getBoard_no() %></td>
+	                     <td><div class="title"><%=i.getBoard_title() %></div></td>
+	                     <td><%= i.getUser_name() %></td>
+	                     <td><%= i.getBoard_date() %></td>
+	                     <% if(i.getAnswer_yn().equals("N")){ %>
+	                     	<td style="font: bold;">대기중</td>
+	                     <% } else { %>
+	                     	<td style="font: bold;">답변완료</td>
+	                     <% } %>
+	                     
+	                     <% if(i.getAnswer_yn().equals("N")){ %>
+	                     	<td><label id="answerStatus">답변작성</label></td>
+	                     <% } else { %>
+	                     	<td></td>
+	                     <% } %>
+	                  </tr>
+	               	  <% } %>
+               	  <% } %>
                </tbody>
             </table>
             <br><br>
@@ -243,9 +255,8 @@ table#adminEnrollHospital>tbody>tr>td{
    
    <script>
 	$('#answerStatus').click(function(){
-		var popup = window.open("", "answerStatusPopUp", "width=500, height=300");
-		
-		popup.document.write('<html><body><h2>답변 작성 팝업</h2><body><html>')
+		var board_no = $(this).parent().parent().children().eq(0).text();
+		var popup = window.open("<%=request.getContextPath()%>/InqDetail.admin?board_no="+ board_no, "answerStatusPopUp", "width=550, height=750");
 	});
    </script>
    <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>

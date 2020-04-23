@@ -163,6 +163,20 @@ table#adminEnrollHospital>tbody>tr>td{
 .paging .on{padding-top:1px;height:22px;color:#fff;font-weight:bold;background:#000;}
 .paging .on:hover{text-decoration:none;}
 
+.title{
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100px;
+}
+
+.content{
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 200px;
+}
+
 </style>
 </head>
 <body>
@@ -181,8 +195,8 @@ table#adminEnrollHospital>tbody>tr>td{
                <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
                <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/reviewList.admin'">리뷰 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminInq.jsp'">1대1문의 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/boardList.admin'">게시판 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/inqList.admin'">1대1문의 관리</li>
             </ul>
          </section>
          <section id="tab-adminReview" class="tab-adminpage">
@@ -214,8 +228,8 @@ table#adminEnrollHospital>tbody>tr>td{
 	               	  <% for(Board b : list) { %>
 	               	  <tr>
 	                     <td><%=b.getBoard_no() %></td>
-	                     <td class="title"><%=b.getBoard_title() %></td>
-	                     <td class="title"><%= b.getBoard_content() %></td>
+	                     <td><div class="title"><%=b.getBoard_title() %></div></td>
+	                     <td><div class="content"><%= b.getBoard_content() %></div></td>
 	                     <td><%= b.getUser_name() %></td>
 	                     <td><%=b.getBoard_date() %></td>
 	                     <% if(b.getBoard_category().equals("hospital")){ %>
@@ -265,8 +279,10 @@ table#adminEnrollHospital>tbody>tr>td{
 					for(var i in data){
 						var $tr = $('<tr></tr>');
 						var $td1 = $('<td></td>').text(data[i].board_no);
-						var $td2 = $('<td></td>').text(data[i].board_title);
-						var $td3 = $('<td></td>').text(data[i].board_content);
+						var $td2 = $('<td></td>');
+						var $div1 = $("<div class='title'></div>").text(data[i].board_title);
+						var $td3 = $('<td></td>');
+						var $div2 = $("<div class='content'></div>").text(data[i].board_content);
 						var $td4 = $('<td></td>').text(data[i].user_name);
 						var $td5 = $('<td></td>').text(data[i].board_date);
 						
@@ -280,6 +296,9 @@ table#adminEnrollHospital>tbody>tr>td{
 						var $label = $("<label class='remove'></label'").text("삭제");
 						
 						$td7.append($label);
+						
+						$td2.append($div1);
+						$td3.append($div2);
 						
 						$tr.append($td1);
 						$tr.append($td2);

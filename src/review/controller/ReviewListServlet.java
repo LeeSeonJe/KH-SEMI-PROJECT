@@ -67,12 +67,13 @@ public class ReviewListServlet extends HttpServlet {
 			
 		ArrayList<Review> list = service.selectList(currentPage, boardLimit);
 		
-		System.out.println("ReviewListServlet list review_no : ");
-		for(Review r : list) {
-			System.out.print(r.getReview_no() + " ");
-		}
+//		System.out.println("ReviewListServlet list review_no : ");
+//		for(Review r : list) {
+//			System.out.print(r.getReview_no() + " ");
+//		}
+//		
+//		System.out.println();
 		
-		System.out.println();
 		
 		String page = null;
 		if(list != null && slideList != null) {
@@ -80,6 +81,8 @@ public class ReviewListServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 			request.setAttribute("slideList", slideList);
+			String selectId = "latest";
+			request.setAttribute("selectId", selectId);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "조회할 리스트가 없습니다.");

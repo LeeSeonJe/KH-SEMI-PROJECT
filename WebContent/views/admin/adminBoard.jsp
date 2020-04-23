@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, board.model.vo.Board"%>
+<%
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +50,20 @@ div>section.tab-adminpage {
     font-size: 25px;
     font-weight: 900;
     display: inline-block;
+}
+
+.title{
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 150px;
+}
+
+.content{
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 300px;
 }
 
 #tab-title-detail {
@@ -178,8 +195,8 @@ table#adminEnrollHospital>tbody>tr>td{
                <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/reviewList.admin'">리뷰 관리</li>
-               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminInq.jsp'">1대1문의 관리</li>
+               <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/boardList.admin'">게시판 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/inqList.admin'">1대1문의 관리</li>
             </ul>
          </section>
          <section id="tab-adminBoard" class="tab-adminpage">
@@ -191,37 +208,29 @@ table#adminEnrollHospital>tbody>tr>td{
                   <tr>
                      <th>번호</th>
                      <th>제목</th>
-                     <th>작성자</th>
-                     <th>작성일</th>   
-              		 <th>상세</th>                    
+                     <th>내용</th>
+                     <th>작성자</th>   
+              		 <th>작성일</th>                    
                      <th>삭제처리</th>                     
                   </tr>
                </thead>
-               <tbody>
-                  <tr>
-                     <td>70</td>
-                     <td class="title">여드름 관리 어떻게들 하세요?ㅠㅠ</td>
-                     <td>박명수</td>
-                     <td>2020-03-19</td>
-                     <td><a href="#" style="font-weight: bold;">조회</a></td>                     
-                     <td><label class="remove">삭제</label></td>
-                  </tr>
-                  <tr>
-                     <td>69</td>
-                     <td class="title">대구 5만원 피부 압출 관리숍 추천받아요!</td>
-                     <td>유재석</td>
-                     <td>2020-03-19</td>
-                     <td><a href="#" style="font-weight: bold;">조회</a></td> 
-					 <td><label class="remove">삭제</label></td>
-                  </tr>
-                  <tr>
-                     <td>68</td>
-                     <td class="title">점 빼고 난 후 붉은 반점 언제 사라지나요?</td>
-                     <td>정형돈</td>
-                     <td>2020-03-19</td>
-                     <td><a href="#" style="font-weight: bold;">조회</a></td> 
-					 <td><label class="remove">삭제</label></td>
-                  </tr>
+               <tbody id="tbody">
+               	  <% if(list.isEmpty()) { %>
+               	  	 <tr>
+               	  	 	<td colspan="6">조회된 리스트가 없습니다.</td>
+               	  	 </tr>
+               	  <% } else { %>
+	               	  <% for(Board b : list) { %>
+	               	  <tr>
+	                     <td><%=b.getBoard_no() %></td>
+	                     <td><div class="title"><%=b.getBoard_title() %></div></td>
+	                     <td><div class="content"><%= b.getBoard_content() %></div></td>
+	                     <td><%= b.getUser_name() %></td>
+	                     <td><%=b.getBoard_date() %></td>
+	                     <td><label class="remove">삭제</label></td>
+	                  </tr>
+	               	  <% } %>
+               	  <% } %>
                </tbody>
             </table>
             <br><br>
@@ -244,13 +253,20 @@ table#adminEnrollHospital>tbody>tr>td{
    <script>
 	$('.remove').click(function(){
 		var result = window.confirm('해당 게시글을 삭제처리 하시겠습니까?');
-		
+		var worryNo = $(this).parent().parent().children().eq(0).text();
 		if(result){
 			alert('삭제 처리 완료!');
+			location.href='<%=request.getContextPath() %>/worryDelete.admin?worryNo=' + worryNo;
 		} else{
 			alert('취소!');
 		}
 	});
+	
+	$('.content').click(function(){
+		var worryNo = $(this).parent().parent().children().eq(0).text();
+		location.href='<%=request.getContextPath() %>/worryDetail.bo?worryNo=' + worryNo;
+	});
+	
    </script>
    <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
    
