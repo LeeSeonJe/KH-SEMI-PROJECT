@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 
 import customer.model.service.CustomerService;
 import customer.model.vo.MyPageCustomer;
+import customer.model.vo.MyPageQnA;
 import customer.model.vo.MyPageReview;
 import customer.model.vo.MyPageWorry;
 import member.model.vo.Member;
@@ -53,6 +54,8 @@ public class MyPageServlet extends HttpServlet {
 		// 게시글의 총 개수
 		int getReviewCount = service.getReviewCount(m.getUser_id());
 		int getWorryCount = service.getWorryCount(m.getUser_id());
+		int getQnACount = service.getQnACount(m.getUser_id());
+		
 		
 		int currentPage;  		// 현재 페이지
 		int pageLimit = 10;  	// 한 페이지에 표시될 페이징 수
@@ -63,8 +66,10 @@ public class MyPageServlet extends HttpServlet {
 		
 		PageInfo reviewPi = null;
 		PageInfo worryPi = null;
+		PageInfo qnaPi = null;
 		ArrayList<MyPageReview> mpr = null;
 		ArrayList<MyPageWorry> mpw = null;
+		ArrayList<MyPageQnA> mpq = null;
 		
 		if(request.getParameter("currentPage") != null) {			
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -95,6 +100,21 @@ public class MyPageServlet extends HttpServlet {
 			
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(mpw, response.getWriter());
+		} else if(request.getParameter("currentPage3") != null){
+			currentPage = Integer.parseInt(request.getParameter("currentPage3"));
+//			System.out.println(currentPage);
+			startPage = (((int)((double)currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
+			maxPage = (int)((double)getReviewCount / pageLimit + 0.9);
+			endPage = pageLimit + startPage - 1;
+			
+			if(maxPage < endPage) {
+				endPage = maxPage;
+			}			
+			mpq = service.selectCustomerQnA(m.getUser_id(), currentPage, boardLimit);
+			
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(mpq, response.getWriter());
+			
 		} else {
 			MyPageCustomer mpc = new CustomerService().selectCustomer(m.getUser_id());
 			currentPage = 1;
@@ -110,9 +130,26 @@ public class MyPageServlet extends HttpServlet {
 			reviewPi = new PageInfo(currentPage, getReviewCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 			mpr = service.selectCustomerReview(m.getUser_id(), currentPage, boardLimit); 
 			
+			startPage = (((int)((double)currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
+			maxPage = (int)((double)getWorryCount / pageLimit + 0.9);
+			endPage = pageLimit + startPage - 1;
+			if(maxPage < endPage) {
+				endPage = maxPage;
+			}
 
 			worryPi = new PageInfo(currentPage, getWorryCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 			mpw = service.selectCustomerWorry(m.getUser_id(), currentPage, boardLimit);
+			
+			startPage = (((int)((double)currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
+			maxPage = (int)((double)getQnACount / pageLimit + 0.9);
+			endPage = pageLimit + startPage - 1;
+			if(maxPage < endPage) {
+				endPage = maxPage;
+			}
+			
+			qnaPi = new PageInfo(currentPage, getQnACount, pageLimit, maxPage, startPage, endPage, boardLimit);
+			mpq = service.selectCustomerQnA(m.getUser_id(), currentPage, boardLimit);
+			
 			String page = "";
 			if(mpc != null) {
 				page = "/views/customer/myPage.jsp";
@@ -121,6 +158,8 @@ public class MyPageServlet extends HttpServlet {
 				request.setAttribute("reviewPi", reviewPi);
 				request.setAttribute("mpw", mpw);
 				request.setAttribute("worryPi", worryPi);
+				request.setAttribute("mpq", mpq);
+				request.setAttribute("qnaPi", qnaPi);
 			} else {
 				request.setAttribute("msg", "회원조회 실패");
 			}

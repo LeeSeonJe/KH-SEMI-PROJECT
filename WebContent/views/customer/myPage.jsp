@@ -1,3 +1,4 @@
+<%@page import="customer.model.vo.MyPageQnA"%>
 <%@page import="customer.model.vo.MyPageWorry"%>
 <%@page import="review.model.vo.PageInfo"%>
 <%@page import="customer.model.vo.MyPageReview"%>
@@ -242,7 +243,7 @@ tbody img {
 	cursor: pointer;
 }
 
-.numBtn {
+.numBtn, .numBtn2, .numBtn3 {
 	cursor: pointer;
 	border-bottom-color: #e2e2e2;
 	border: 1px solid #ccccce;
@@ -256,18 +257,36 @@ tbody img {
 	margin-left: 5px;
 }
 
-.numBtn2 {
-	cursor: pointer;
-	border-bottom-color: #e2e2e2;
-	border: 1px solid #ccccce;
-	border-radius: 6px;
-	background-color: #fff;
-	font-weight: 500;
-	color: #666;
-	font-size: 12px;
-	padding: 7px;
-	margin-right: 5px;
-	margin-left: 5px;
+
+.QnA_comment {
+	display: none;
+}
+
+.btn_standard_view {
+    border: 1px solid #ccccce;
+    border-radius: 6px;
+    background-color: #fff;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 7px
+}
+
+.QnA_tr>td {
+	border: 1px solid;
+	background-color: #f8f8f8;
+}
+
+.review_ta {
+/* 	width:850px; */
+	min-height:32px;
+	overflow-y:hidden;
+	border: 0;
+	resize: none;
+	font-size: 16px;
+    width: 500px;
+    background: #f8f8f8;
 }
 </style>
 
@@ -275,9 +294,11 @@ tbody img {
 	MyPageCustomer mpc = (MyPageCustomer) request.getAttribute("mpc");
 	ArrayList<MyPageReview> mpr = (ArrayList<MyPageReview>) request.getAttribute("mpr");
 	ArrayList<MyPageWorry> mpw = (ArrayList<MyPageWorry>) request.getAttribute("mpw");
+	ArrayList<MyPageQnA> mpq = (ArrayList<MyPageQnA>) request.getAttribute("mpq");
 	
 	PageInfo reviewPi = (PageInfo)request.getAttribute("reviewPi");
 	PageInfo worryPi = (PageInfo)request.getAttribute("worryPi");
+	PageInfo qnaPi = (PageInfo)request.getAttribute("qnaPi");
 	
 	int currentPage = reviewPi.getCurrentPage();
 	int maxPage = reviewPi.getMaxPage();
@@ -289,6 +310,14 @@ tbody img {
 	int maxPage2 = worryPi.getMaxPage();
 	int startPage2 = worryPi.getStartPage();
 	int endPage2 = worryPi.getEndPage();
+	
+	int currentPage3 = qnaPi.getCurrentPage();
+	int maxPage3 = qnaPi.getMaxPage();
+	int startPage3 = qnaPi.getStartPage();
+	int endPage3 = qnaPi.getEndPage();
+	System.out.println(endPage3);
+	
+	
 %>
 </head>
 <body>
@@ -653,7 +682,7 @@ tbody img {
 					<script>
 						$('#beforeBtn2').on('click', function(){
 							console.log(currentPage2);
-							if(1 == currentPage){
+							if(1 == currentPage2){
 								currentPage2 = 1
 							} else {
 								currentPage2--;								
@@ -722,7 +751,7 @@ tbody img {
 					<script>
 						$('#afterBtn2').on('click', function(){
 							if(<%= maxPage2 %> == currentPage2){
-								currentPage2 = <%= maxPage %>
+								currentPage2 = <%= maxPage2 %>
 							} else {
 								currentPage2++;								
 							}
@@ -816,7 +845,7 @@ tbody img {
 				</table>
 				
 			</section>
-			
+<!--문의 게시판 시작 -------------------------------------------------------------------------------------------------------------------------------------------------------  -->			
 			<section id="tab-myQnA" class="tab-mypage">
 				<div id="tab-title">1대1 문의</div>
 				<div id="tab-title-detail">고객님께서 불편을 드려서 죄송합니다. 최선을 다하겠습니다.</div>
@@ -826,48 +855,600 @@ tbody img {
 						<tr>
 							<th class="review-title">번호</th>
 							<th id="title2" class="review-title">제목</th>
-							<th class="review-title">작성자</th>
+							<th class="review-title">답변여부</th>
 							<th class="review-title">작성일</th>							
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id=tbody_area3>
+					<%
+						int count = 0;
+						for(int i = 0; i < mpq.size(); i++) { 
+					%>
 						<tr>
-							<td class="review-content">1</td>
-							<td class="review-content">동해물과백두산이 마르고</td>
-							<td class="review-content">이선제</td>
-							<td class="review-content">2020-03-26</td>
+							<td class="QnA-content"><%= i+1 %><input type="hidden" value="<%= mpq.get(i).getBoard_no() %>" /></%></td>
+							<td class="QnA-content"><%= mpq.get(i).getBoard_title() %></td>
+						<% if(mpq.get(i).getAnswer_yn().equals("N")) { %>
+							<td style="width: 160px; color: red;" class="QnA-content">답변대기중</td>
+						<% } else { %>
+							<td style="width: 160px;" class="QnA-content"><button type="button" class="btn_standard_view">답변보기</button></td>
+						<% } %>
+							<td style="width: 160px;" class="QnA-content"><%= mpq.get(i).getBoard_date().substring(0, 10) %></td>
 						</tr>
-						<tr>
-							<td class="review-content">1</td>
-							<td class="review-content">동해물과백두산이 마르고</td>
-							<td class="review-content">이선제</td>
-							<td class="review-content">2020-03-26</td>
+						<% 
+						if(mpq.get(i).getAnswer_yn().equals("Y")) { 
+						count ++;
+						%>
+						<tr class="QnA_tr" style="display: none">
+							<td class="QnA-content" >답변 내용</td>
+							<td class="QnA-content" colspan="2" style="width: 160px;" ><textarea  class="review_ta" disabled="disabled"><%= mpq.get(i).getComments() %></textarea></td>
+							<td class="QnA-content" style="width: 160px;"><%= mpq.get(i).getComment_date().substring(0, 10) %></td>
 						</tr>
-						<tr>
-							<td class="review-content">1</td>
-							<td class="review-content">동해물과백두산이 마르고</td>
-							<td class="review-content">이선제</td>
-							<td class="review-content">2020-03-26</td>
-						</tr>
-						<tr>
-							<td class="review-content">1</td>
-							<td class="review-content">동해물과백두산이 마르고</td>
-							<td class="review-content">이선제</td>
-							<td class="review-content">2020-03-26</td>
-						</tr>
-						
+						<% } %>
+					<% } %>
 					</tbody>
 				</table>
 				<div>
 					<button id="QnA-btn"class="btn-standard">문의하기</button> 				
 				</div> 
+<!--문의 게시판 끝 -------------------------------------------------------------------------------------------------------------------------------------------------------  -->
+
+<!--문의 페이징 시작------------------------------------------------------------------------------------------------------------------------------------------  -->
+				<div class="pagingArea3" align="center" style="margin-right: 76px;">
+				<% if(!mpr.isEmpty()){ %>
+					<!--맨 처음으로  -->
+					<button id="fristPage3" class="btn-standard">&lt;&lt;</button>
+					<script>
+						var count = 0
+						var currentPage3 = 1
+						$('#fristPage3').on('click', function(){
+							currentPage3 = "1";
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage3:currentPage3},
+								success: function(data){
+									$('#tbody_area3').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="QnA-content"></td>').text((10*parseInt(currentPage)-10)+parseInt(i)+1);
+										var $td2 = $('<td class="QnA-content"></td>').text(data[i].board_title);
+										var $td3 = $('<td style="width: 160px;" class="QnA-content"></td>')
+										if (data[i].answer_yn == 'Y'){
+											var $button = $('<button type="button" class="btn_standard_view">답변보기</button>');
+											$td3.append($button);
+										} else {
+											$td3.css('color','red');
+											$td3.text('답변대기중');
+										}
+										var $td4 = $('<td style="width: 160px;" class="QnA-content"></td>').text(data[i].board_date.substr(0, 10));	
+										
+										$tr.append($td1, $td2, $td3, $td4);
+										$('#tbody_area3').append($tr)
+										
+										var $tr2;
+										if(data[i].answer_yn == 'Y') {
+											count++;
+											$tr2 = $('<tr class="QnA_tr" style="display: none"></tr>');
+											var $td11 = $('<td class="QnA-content" >답변 내용</td>')
+											var $td22 = $('<td class="QnA-content" colspan="2" style="width: 160px;" ></td>')
+											var textarea = $('<textarea class="review_ta" disabled="disabled"></textarea>').val(data[i].comments);
+											$td22.append(textarea);
+											var $td33 = $('<td style="width: 160px;" class="QnA-content"></td>')
+											
+											$tr2.append($td11, $td22, $td33);
+											$('#tbody_area3').append($tr2)
+										}
+									}
+
+									console.log(count)
+									$(document).on('click', '.btn_standard_view', function(){
+										console.log($(this).parent().parent().next());
+										$(this).parent().parent().next('tr').toggle();
+										var t = document.getElementsByClassName('review_ta');
+										$(function(){
+											function xSize(e) {
+												var t;
+												e.select = function(){
+													t = setInterval(
+														function()
+														{
+															e.style.height = '1px';
+															e.style.height = (e.scrollHeight + 12) + 'px';
+														}, 100);
+												}
+												e.onblur = function(){
+													clearInterval(t);
+												}
+											}
+											for(var tt = 0; tt < count; tt++){ 
+												xSize(t[tt]);	
+												console.log(document.getElementsByClassName('review_ta')[tt]);
+												t[tt].select(); 
+											}
+										})
+									})
+								}
+							})
+							$(document).on('click', '.btn_standard_view', function(){
+								console.log($(this).parent().parent().next());
+								$(this).parent().parent().next('tr').toggle();
+								$(function(){
+									function xSize(e) {
+										var t;
+										e.select = function(){
+											t = setInterval(
+												function()
+												{
+													e.style.height = '1px';
+													e.style.height = (e.scrollHeight + 12) + 'px';
+												}, 100);
+										}
+										e.onblur = function(){
+											clearInterval(t);
+										}
+									}
+									console.log(count)
+									for(var tt = 0; tt < count; tt++){ 
+										xSize(document.getElementsByClassName('review_ta')[tt]);	
+										console.log(document.getElementsByClassName('review_ta')[tt]);
+										document.getElementsByClassName('review_ta')[tt].select(); 
+									}
+								})
+							})
+						})
+					</script>
+					<!--이전 페이지  -->
+					<button  id="beforeBtn3" class="btn-standard">&lt;</button>
+					<script>
+						$('#beforeBtn3').on('click', function(){
+							var count = 0
+							console.log(currentPage3);
+							if(1 == currentPage3){
+								currentPage3 = 1
+							} else {
+								currentPage3--;								
+							}
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage3:currentPage3},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area3').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="QnA-content"></td>').text((10*parseInt(currentPage)-10)+parseInt(i)+1);
+										var $td2 = $('<td class="QnA-content"></td>').text(data[i].board_title);
+										var $td3 = $('<td style="width: 160px;" class="QnA-content"></td>')
+										if (data[i].answer_yn == 'Y'){
+											var $button = $('<button type="button" class="btn_standard_view">답변보기</button>');
+											$td3.append($button);
+										} else {
+											$td3.css('color','red');
+											$td3.text('답변대기중');
+										}
+										var $td4 = $('<td style="width: 160px;" class="QnA-content"></td>').text(data[i].board_date.substr(0, 10));	
+										
+										$tr.append($td1, $td2, $td3, $td4);
+										$('#tbody_area3').append($tr)
+										
+										var $tr2;
+										if(data[i].answer_yn == 'Y') {
+											count++;
+											$tr2 = $('<tr class="QnA_tr" style="display: none"></tr>');
+											var $td11 = $('<td class="QnA-content" >답변 내용</td>')
+											var $td22 = $('<td class="QnA-content" colspan="2" style="width: 160px;" ></td>')
+											var textarea = $('<textarea class="review_ta" disabled="disabled"></textarea>').val(data[i].comments);
+											$td22.append(textarea);
+											var $td33 = $('<td style="width: 160px;" class="QnA-content"></td>')
+											
+											$tr2.append($td11, $td22, $td33);
+											$('#tbody_area3').append($tr2)
+										}
+									}
+									$(document).on('click', '.btn_standard_view', function(){
+										console.log($(this).parent().parent().next());
+										$(this).parent().parent().next('tr').toggle();
+										$(function(){
+											function xSize(e) {
+												var t;
+												e.select = function(){
+													t = setInterval(
+														function()
+														{
+															e.style.height = '1px';
+															e.style.height = (e.scrollHeight + 12) + 'px';
+														}, 100);
+												}
+												e.onblur = function(){
+													clearInterval(t);
+												}
+											}
+											for(var tt = 0; tt < count; tt++){ 
+												xSize(document.getElementsByClassName('review_ta')[tt]);	
+												console.log(document.getElementsByClassName('review_ta')[tt]);
+												document.getElementsByClassName('review_ta')[tt].select(); 
+											}
+										})
+									})
+								}
+							})
+							$(document).on('click', '.btn_standard_view', function(){
+								console.log($(this).parent().parent().next());
+								$(this).parent().parent().next('tr').toggle();
+								$(function(){
+									function xSize(e) {
+										var t;
+										e.select = function(){
+											t = setInterval(
+												function()
+												{
+													e.style.height = '1px';
+													e.style.height = (e.scrollHeight + 12) + 'px';
+												}, 100);
+										}
+										e.onblur = function(){
+											clearInterval(t);
+										}
+									}
+									console.log(count)
+									for(var tt = 0; tt < count; tt++){ 
+										xSize(document.getElementsByClassName('review_ta')[tt]);	
+										console.log(document.getElementsByClassName('review_ta')[tt]);
+										document.getElementsByClassName('review_ta')[tt].select(); 
+									}
+								})
+							})
+						})
+	
+					</script>
+					
+					<!-- 10개 페이지 목록  -->
+					<% for(int p=startPage3; p<=endPage3; p++){ %>
+<%-- 						<%if(p == currentPage){ %> --%>
+								<button class="numBtn3"><%= p %></button>
+<%-- 						<% } else{ %>			 --%>
+<%-- 								<button id="numBtn" onclick="location.href='<%= request.getContextPath() %>/mypage.me?currentPage=<%= p %>'"><%= p %></button> --%>
+<%-- 						<% } %>			 --%>
+					<% } %>
+					<script>
+						$('.numBtn3').on('click', function(){
+							var count = 0
+							currentPage3 = $(this).text();
+							console.log(currentPage3)
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage3:currentPage3},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area3').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="QnA-content"></td>').text((10*parseInt(currentPage)-10)+parseInt(i)+1);
+										var $td2 = $('<td class="QnA-content"></td>').text(data[i].board_title);
+										var $td3 = $('<td style="width: 160px;" class="QnA-content"></td>')
+										if (data[i].answer_yn == 'Y'){
+											var $button = $('<button type="button" class="btn_standard_view">답변보기</button>');
+											$td3.append($button);
+										} else {
+											$td3.css('color','red');
+											$td3.text('답변대기중');
+										}
+										var $td4 = $('<td style="width: 160px;" class="QnA-content"></td>').text(data[i].board_date.substr(0, 10));	
+										
+										$tr.append($td1, $td2, $td3, $td4);
+										$('#tbody_area3').append($tr)
+										
+										var $tr2;
+										if(data[i].answer_yn == 'Y') {
+											count++;
+											$tr2 = $('<tr class="QnA_tr" style="display: none"></tr>');
+											var $td11 = $('<td class="QnA-content" >답변 내용</td>')
+											var $td22 = $('<td class="QnA-content" colspan="2" style="width: 160px;" ></td>')
+											var textarea = $('<textarea class="review_ta" disabled="disabled"></textarea>').val(data[i].comments);
+											$td22.append(textarea);
+											var $td33 = $('<td style="width: 160px;" class="QnA-content"></td>')
+											
+											$tr2.append($td11, $td22, $td33);
+											$('#tbody_area3').append($tr2)
+										}
+									}
+									$(document).on('click', '.btn_standard_view', function(){
+										console.log($(this).parent().parent().next());
+										$(this).parent().parent().next('tr').toggle();
+										$(function(){
+											function xSize(e) {
+												var t;
+												e.select = function(){
+													t = setInterval(
+														function()
+														{
+															e.style.height = '1px';
+															e.style.height = (e.scrollHeight + 12) + 'px';
+														}, 100);
+												}
+												e.onblur = function(){
+													clearInterval(t);
+												}
+											}
+											for(var tt = 0; tt < count; tt++){ 
+												xSize(document.getElementsByClassName('review_ta')[tt]);
+												console.log("A");
+												console.log(document.getElementsByClassName('review_ta')[tt]);
+												document.getElementsByClassName('review_ta')[tt].select(); 
+											}
+										})
+									})
+								}
+							})
+							$(document).on('click', '.btn_standard_view', function(){
+								console.log($(this).parent().parent().next());
+								$(this).parent().parent().next('tr').toggle();
+								$(function(){
+									function xSize(e) {
+										var t;
+										e.select = function(){
+											t = setInterval(
+												function()
+												{
+													e.style.height = '1px';
+													e.style.height = (e.scrollHeight + 12) + 'px';
+												}, 100);
+										}
+										e.onblur = function(){
+											clearInterval(t);
+										}
+									}
+									console.log(count)
+									for(var tt = 0; tt < count; tt++){ 
+										xSize(document.getElementsByClassName('review_ta')[tt]);	
+										console.log(document.getElementsByClassName('review_ta')[tt]);
+										document.getElementsByClassName('review_ta')[tt].select(); 
+									}
+								})
+							})
+						})
+					</script>
+					
+					<!-- 다음 페이지로 -->
+					<button id="afterBtn3" class="btn-standard">&gt;</button>
+					<script>
+						$('#afterBtn3').on('click', function(){
+							var count = 0
+							if(<%= maxPage3 %> == currentPage3){
+								currentPage3 = <%= maxPage3 %>
+							} else {
+								currentPage3++;								
+							}
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage3:currentPage3},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area3').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="QnA-content"></td>').text((10*parseInt(currentPage)-10)+parseInt(i)+1);
+										var $td2 = $('<td class="QnA-content"></td>').text(data[i].board_title);
+										var $td3 = $('<td style="width: 160px;" class="QnA-content"></td>')
+										if (data[i].answer_yn == 'Y'){
+											var $button = $('<button type="button" class="btn_standard_view">답변보기</button>');
+											$td3.append($button);
+										} else {
+											$td3.css('color','red');
+											$td3.text('답변대기중');
+										}
+										var $td4 = $('<td style="width: 160px;" class="QnA-content"></td>').text(data[i].board_date.substr(0, 10));	
+										
+										$tr.append($td1, $td2, $td3, $td4);
+										$('#tbody_area3').append($tr)
+										
+										var $tr2;
+										if(data[i].answer_yn == 'Y') {
+											count++;
+											$tr2 = $('<tr class="QnA_tr" style="display: none"></tr>');
+											var $td11 = $('<td class="QnA-content" >답변 내용</td>')
+											var $td22 = $('<td class="QnA-content" colspan="2" style="width: 160px;" ></td>')
+											var textarea = $('<textarea class="review_ta" disabled="disabled"></textarea>').val(data[i].comments);
+											$td22.append(textarea);
+											var $td33 = $('<td style="width: 160px;" class="QnA-content"></td>')
+											
+											$tr2.append($td11, $td22, $td33);
+											$('#tbody_area3').append($tr2)
+										}
+									}
+									$(document).on('click', '.btn_standard_view', function(){
+										console.log($(this).parent().parent().next());
+										$(this).parent().parent().next('tr').toggle();
+										$(function(){
+											function xSize(e) {
+												var t;
+												e.select = function(){
+													t = setInterval(
+														function()
+														{
+															e.style.height = '1px';
+															e.style.height = (e.scrollHeight + 12) + 'px';
+														}, 100);
+												}
+												e.onblur = function(){
+													clearInterval(t);
+												}
+											}
+											for(var tt = 0; tt < count; tt++){ 
+												xSize(document.getElementsByClassName('review_ta')[tt]);	
+												console.log(document.getElementsByClassName('review_ta')[tt]);
+												document.getElementsByClassName('review_ta')[tt].select(); 
+											}
+										})
+									})
+								}
+							})
+							$(document).on('click', '.btn_standard_view', function(){
+								console.log($(this).parent().parent().next());
+								$(this).parent().parent().next('tr').toggle();
+								$(function(){
+									function xSize(e) {
+										var t;
+										e.select = function(){
+											t = setInterval(
+												function()
+												{
+													e.style.height = '1px';
+													e.style.height = (e.scrollHeight + 12) + 'px';
+												}, 100);
+										}
+										e.onblur = function(){
+											clearInterval(t);
+										}
+									}
+									console.log(count)
+									for(var tt = 0; tt < count; tt++){ 
+										xSize(document.getElementsByClassName('review_ta')[tt]);	
+										console.log(document.getElementsByClassName('review_ta')[tt]);
+										document.getElementsByClassName('review_ta')[tt].select(); 
+									}
+								})
+							})
+						})
+					</script>
+					
+					<!-- 맨 끝으로 -->
+					<button id="lastPage3" class="btn-standard">&gt;&gt;</button>
+					<script>
+						$('#lastPage3').on('click', function(){
+							var count = 0
+							var currentPage3 = <%= maxPage3 %>
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage3:currentPage3},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area3').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="QnA-content"></td>').text((10*parseInt(currentPage)-10)+parseInt(i)+1);
+										var $td2 = $('<td class="QnA-content"></td>').text(data[i].board_title);
+										var $td3 = $('<td style="width: 160px;" class="QnA-content"></td>')
+										if (data[i].answer_yn == 'Y'){
+											var $button = $('<button type="button" class="btn_standard_view">답변보기</button>');
+											$td3.append($button);
+										} else {
+											$td3.css('color','red');
+											$td3.text('답변대기중');
+										}
+										var $td4 = $('<td style="width: 160px;" class="QnA-content"></td>').text(data[i].board_date.substr(0, 10));	
+										
+										$tr.append($td1, $td2, $td3, $td4);
+										$('#tbody_area3').append($tr)
+										
+										var $tr2;
+										if(data[i].answer_yn == 'Y') {
+											count++;
+											$tr2 = $('<tr class="QnA_tr" style="display: none"></tr>');
+											var $td11 = $('<td class="QnA-content" >답변 내용</td>')
+											var $td22 = $('<td class="QnA-content" colspan="2" style="width: 160px;" ></td>')
+											var textarea = $('<textarea class="review_ta" disabled="disabled"></textarea>').val(data[i].comments);
+											$td22.append(textarea);
+											var $td33 = $('<td style="width: 160px;" class="QnA-content"></td>')
+											
+											$tr2.append($td11, $td22, $td33);
+											$('#tbody_area3').append($tr2)
+										}
+									}
+									$(document).on('click', '.btn_standard_view', function(){
+										console.log($(this).parent().parent().next());
+										$(this).parent().parent().next('tr').toggle();
+										$(function(){
+											function xSize(e) {
+												var t;
+												e.select = function(){
+													t = setInterval(
+														function()
+														{
+															e.style.height = '1px';
+															e.style.height = (e.scrollHeight + 12) + 'px';
+														}, 100);
+												}
+												e.onblur = function(){
+													clearInterval(t);
+												}
+											}
+											console.log(count)
+											for(var tt = 0; tt < count; tt++){ 
+												xSize(document.getElementsByClassName('review_ta')[tt]);	
+												console.log(document.getElementsByClassName('review_ta')[tt]);
+												document.getElementsByClassName('review_ta')[tt].select(); 
+											}
+										})
+									})
+								}
+							})
+							$(document).on('click', '.btn_standard_view', function(){
+								console.log($(this).parent().parent().next());
+								$(this).parent().parent().next('tr').toggle();
+								$(function(){
+									function xSize(e) {
+										var t;
+										e.select = function(){
+											t = setInterval(
+												function()
+												{
+													e.style.height = '1px';
+													e.style.height = (e.scrollHeight + 12) + 'px';
+												}, 100);
+										}
+										e.onblur = function(){
+											clearInterval(t);
+										}
+									}
+									console.log(count)
+									for(var tt = 0; tt < count; tt++){ 
+										xSize(document.getElementsByClassName('review_ta')[tt]);	
+										console.log(document.getElementsByClassName('review_ta')[tt]);
+										document.getElementsByClassName('review_ta')[tt].select(); 
+									}
+								})
+							})
+						})
+					</script>
+				<% } %>
+				</div>
+<!--문의 페이징 끝------------------------------------------------------------------------------------------------------------------------------------------  -->
 			</section>
+			
 		</div>
 	</div>	
 
 	<%@ include file="/views/layout/footer.jsp"%>
 	
 	<script>
+		$(document).on('click', '.btn_standard_view', function(){
+			console.log($(this).parent().parent().next());
+// 			$(this).parent().parent().next('tr').css('display', 'table-row')
+			$(this).parent().parent().next('tr').toggle();
+			$(function(){
+				function xSize(e) {
+					var t;
+					e.select = function(){
+						t = setInterval(
+							function()
+							{
+								e.style.height = '1px';
+								e.style.height = (e.scrollHeight + 12) + 'px';
+							}, 100);
+					}
+					e.onblur = function(){
+						clearInterval(t);
+					}
+				}
+				var ttt = <%= count %>
+				for(var tt = 0; tt < ttt; tt++){ 
+					xSize(document.getElementsByClassName('review_ta')[tt]);	
+					console.log(document.getElementsByClassName('review_ta')[tt]);
+					document.getElementsByClassName('review_ta')[tt].select(); 
+				}
+			})
+		})
+	
 		$('#QnA-btn').on('click', function(){
 			window.open('<%=request.getContextPath()%>/views/customer/sendQnA.jsp', "sendQnA", "width=550, height=600");
 		})

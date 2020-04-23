@@ -181,4 +181,18 @@ public class CustomerService {
 		return result;
 	}
 
+	public ArrayList<MyPageQnA> selectCustomerQnA(String user_id, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		ArrayList<MyPageQnA> mpw = new CustomerDAO().selectCustomerQnA(conn, user_id, currentPage, boardLimit);
+		close(conn);
+		return mpw;
+	}
+
+	public int getQnACount(String user_id) {
+		Connection conn = getConnection();
+		int result = new CustomerDAO().getQnACount(conn, user_id);
+		close(conn);
+		return result;
+	}
+
 }

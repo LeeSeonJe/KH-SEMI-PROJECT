@@ -13,6 +13,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import org.apache.catalina.filters.RestCsrfPreventionFilter;
+
 import customer.model.vo.Customer;
 import customer.model.vo.MyPageCustomer;
 import customer.model.vo.MyPageQnA;
@@ -258,7 +260,6 @@ public class CustomerDAO {
 		ArrayList<MyPageWorry> mpr = new ArrayList<MyPageWorry>();
 		int startRow = (currentPage - 1) * boardLimit + 1;
 		int endRow = startRow + boardLimit - 1;
-//		System.out.println(startRow + ", " + endRow);
 		String query = prop.getProperty("selectCustomerWorry");
 
 		try {
@@ -425,5 +426,66 @@ public class CustomerDAO {
 			close(stmt);
 		}
 		return result;
+	}
+
+	public int getQnACount(Connection conn, String user_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("getQnACount");
+		System.out.println(user_id);
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, user_id);
+			rset = pstmt.executeQuery();
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<MyPageQnA> selectCustomerQnA(Connection conn, String user_id, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MyPageQnA> mpr = new ArrayList<MyPageQnA>();
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+		String query = prop.getProperty("selectCustomerQnA");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, user_id);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				mpr.add(new MyPageQnA(
+						rset.getString("user_id"),
+						rset.getString("user_name"),
+						rset.getString("board_no"), 
+						rset.getString("board_title"),
+						rset.getString("board_date"), 
+						rset.getString("answer_yn"),
+						rset.getString("comments"),
+						rset.getString("COMMENT_DATE")
+						));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mpr;
 	}
 }

@@ -52,7 +52,8 @@ public class MyPageSendQnAServlet extends HttpServlet {
 			 			
 			out.println("<script>");
 			
-			out.println("alert('작성이 완료되었습니다.');");			
+			out.println("alert('작성이 완료되었습니다.');");
+			out.println("window.opener.location.reload();");
 			out.println("self.close()");
 			out.println("</script>");		 
 			out.flush();
