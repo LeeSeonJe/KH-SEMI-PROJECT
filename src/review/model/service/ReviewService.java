@@ -155,7 +155,7 @@ public class ReviewService {
 		
 		return rList;
 
-
+	}
 	public int insertReq(Review r, ArrayList<AddFile> fileList) {
 		Connection conn = getConnection();
 		
