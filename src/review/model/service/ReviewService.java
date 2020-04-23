@@ -77,7 +77,7 @@ public class ReviewService {
 
 	} */
 
-	}
+	
 	
 	public ArrayList<Review> oldList(int currentPage, int boardLimit) {
 		Connection conn = getConnection();

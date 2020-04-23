@@ -260,7 +260,7 @@ public class ReviewDAO {
 
 	} */
 
-	}
+	
 	
 	public ArrayList<Review> selectReq(Connection conn) {
 		Statement stmt = null;
@@ -585,7 +585,12 @@ public class ReviewDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	public int likeUp(Connection conn, int rno) {
 		PreparedStatement pstmt = null;
 		int result = 0;
