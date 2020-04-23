@@ -114,12 +114,12 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 						%>
 							<% if(i < 3){ %>
 							<td class="img">
- 							<img src="<%= r.getProfile_image() %>" id="tops">
+ 							<img src="<%= request.getContextPath() %>/member_images/<%=slideList.get(i).getProfile_image() %>" id="tops">
 							</td>
 							<% } } } %>
 						</tr>
 						<tr>
-						<% for(int j = 0; j<list.size(); j++){
+						<% for(int j = 0; j<slideList.size(); j++){
 							Review r = slideList.get(j); 
 							//System.out.println("reviewMain r : " + r);
 							%>
