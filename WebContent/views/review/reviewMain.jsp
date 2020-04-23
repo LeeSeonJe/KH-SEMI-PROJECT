@@ -103,9 +103,9 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 	   			<h3>top reviewers</h3>
 					<table id="tableDiv">
 						<tr>
-							<td><%-- <img class="medal" src="<%= request.getContextPath() %>/resources/images/금메달.png"> --%></td>
-							<td><%-- <img class="medal" src="<%= request.getContextPath() %>/resources/images/은메달.png"> --%></td>
-							<td><%-- <img class="medal" src="<%= request.getContextPath() %>/resources/images/동메달.png"> --%></td>
+							<td><img class="medal" src="<%= request.getContextPath() %>/resources/images/금메달.png"></td>
+							<td><img class="medal" src="<%= request.getContextPath() %>/resources/images/은메달.png"></td>
+							<td><img class="medal" src="<%= request.getContextPath() %>/resources/images/동메달.png"></td>
 						</tr>
 						<tr>
 						<% if(slideList != null){ %>
@@ -114,7 +114,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 						%>
 							<% if(i < 3){ %>
 							<td class="img">
-<%-- 							<img src="<%= r.getProfile_image() %>" id="tops"> --%>
+ 							<img src="<%= r.getProfile_image() %>" id="tops">
 							</td>
 							<% } } } %>
 						</tr>
