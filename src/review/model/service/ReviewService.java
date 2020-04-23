@@ -146,6 +146,15 @@ public class ReviewService {
 	}
 
 
+	public ArrayList<Review> riviewList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> rList = new ReviewDAO().riviewList(conn);
+		
+		close(conn);
+		
+		return rList;
+
 
 	public int insertReq(Review r, ArrayList<AddFile> fileList) {
 		Connection conn = getConnection();
@@ -219,5 +228,6 @@ public class ReviewService {
 		}
 		close(conn);
 		return result;
+
 	}
 }

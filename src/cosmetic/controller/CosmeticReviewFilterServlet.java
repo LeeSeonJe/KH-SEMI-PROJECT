@@ -77,7 +77,7 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 		int count = 0;
 		if (gender.equalsIgnoreCase("ALL") && ageFilter[0].equalsIgnoreCase("ALL")
 				&& skinTypeFilter[0].equalsIgnoreCase("all")) {
-			query = "select * from reviewall where cosmetic_name = '" + cosName + "'" + "ORDER BY BOARD_DATE DESC";
+			query = "select * from reviewall where cosmetic_name = '" + cosName + "'" + "and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 			rList = new CosmeticService().cosReviewFilter(query);
 		} else if (gender.equalsIgnoreCase("ALL") && ageFilter[0].equalsIgnoreCase("ALL")) {
 			for (int i = 0; i < skinTypeFilter.length; i++) {
@@ -94,7 +94,7 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 				}
 			}
 			System.out.println(start);
-			query = "select * from reviewall where cosmetic_name = '" + cosName + "'" + start + "ORDER BY BOARD_DATE DESC";
+			query = "select * from reviewall where cosmetic_name = '" + cosName + "'" + start + "and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 			System.out.println(query);
 			rList = new CosmeticService().cosReviewFilter(query);
 		} else if (gender.equalsIgnoreCase("ALL") && skinTypeFilter[0].equalsIgnoreCase("ALL")) {
@@ -145,7 +145,7 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 					}
 				}
 			}
-			query = "select * from reviewall where cosmetic_name = '" + cosName + "'" + start + "ORDER BY BOARD_DATE DESC";
+			query = "select * from reviewall where cosmetic_name = '" + cosName + "'" + start + "and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 			System.out.println(query);
 			rList = new CosmeticService().cosReviewFilter(query);
 		} else if (gender.equalsIgnoreCase("ALL")) {
@@ -209,13 +209,13 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 					}
 				}
 			}
-			query = "select * from reviewall where cosmetic_name = '" + cosName + "'" + start + "ORDER BY BOARD_DATE DESC";
+			query = "select * from reviewall where cosmetic_name = '" + cosName + "'" + start + "and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 			System.out.println(query);
 			rList = new CosmeticService().cosReviewFilter(query);
 		} else {
 			if (gender.equalsIgnoreCase("여성") && skinTypeFilter[0].equalsIgnoreCase("ALL")
 					&& ageFilter[0].equalsIgnoreCase("ALL")) {
-				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='여성'";
+				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='여성' and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 				System.out.println(query);
 				rList = new CosmeticService().cosReviewFilter(query);
 			} else if (gender.equalsIgnoreCase("여성") && skinTypeFilter[0].equalsIgnoreCase("ALL")) {
@@ -267,7 +267,7 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 						}
 					}
 				}
-				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='여성'" + start + "ORDER BY BOARD_DATE DESC";
+				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='여성'" + start + "and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 				System.out.println(query);
 				rList = new CosmeticService().cosReviewFilter(query);
 			} else if (gender.equalsIgnoreCase("여성") && ageFilter[0].equalsIgnoreCase("ALL")) {
@@ -284,12 +284,12 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 						}
 					}
 				}
-				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='여성'" + start + "ORDER BY BOARD_DATE DESC";
+				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='여성'" + start + "and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 				System.out.println(query);
 				rList = new CosmeticService().cosReviewFilter(query);
 			} else if (gender.equalsIgnoreCase("남성") && ageFilter[0].equalsIgnoreCase("ALL")
 					&& skinTypeFilter[0].equalsIgnoreCase("ALL")) {
-				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='남성'";
+				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='남성' and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 				System.out.println(query);
 				rList = new CosmeticService().cosReviewFilter(query);
 			} else if (gender.equalsIgnoreCase("남성") && skinTypeFilter[0].equalsIgnoreCase("ALL")) {
@@ -341,7 +341,7 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 						}
 					}
 				}
-				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='남성'" + start + "ORDER BY BOARD_DATE DESC";
+				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='남성'" + start + "and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 				System.out.println(query);
 				rList = new CosmeticService().cosReviewFilter(query);
 			} else if (gender.equalsIgnoreCase("남성") && ageFilter[0].equalsIgnoreCase("ALL")) {
@@ -358,7 +358,7 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 						}
 					}
 				}
-				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='남성'" + start + "ORDER BY BOARD_DATE DESC";
+				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='남성'" + start + "and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 				System.out.println(query);
 				rList = new CosmeticService().cosReviewFilter(query);
 			} else if (gender.equalsIgnoreCase("여성")) {
@@ -422,7 +422,7 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 						}
 					}
 				}
-				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='여성'" + start + "ORDER BY BOARD_DATE DESC";
+				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='여성'" + start + "and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 				System.out.println(query);
 				rList = new CosmeticService().cosReviewFilter(query);
 			} else if (gender.equalsIgnoreCase("남성")) {
@@ -486,7 +486,7 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 						}
 					}
 				}
-				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='남성' " + start + "ORDER BY BOARD_DATE DESC";
+				query = "select * from reviewall where cosmetic_name = '" + cosName + "' and gender='남성' " + start + "and review_del_yn='N' ORDER BY BOARD_DATE DESC";
 				System.out.println(query);
 				rList = new CosmeticService().cosReviewFilter(query);
 			}
