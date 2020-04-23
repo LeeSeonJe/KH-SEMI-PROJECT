@@ -40,7 +40,7 @@ public class MyPageUpdateServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int result = 0;
 		if(ServletFileUpload.isMultipartContent(request)) {
-			System.out.println("1");
+//			System.out.println("1");
 			int maxSize = 1024 * 1024 * 10;
 			String root = request.getSession().getServletContext().getRealPath("/");
 			String savePath = root + "member_images/";
@@ -59,19 +59,19 @@ public class MyPageUpdateServlet extends HttpServlet {
 				}
 				String userNo = multiRequest.getParameter("userNo");
 				String skinType = multiRequest.getParameter("skinType");
-				System.out.println(skinType);
+//				System.out.println(skinType);
 				MyPageCustomer mpc = new MyPageCustomer(userNo, skinType, saveFile);
 				
 				result = new CustomerService().updateCustomer(mpc);
 				
 			} else if(stand.equals("basic")) {
-				System.out.println("2");
+//				System.out.println("2");
 				String userNo = multiRequest.getParameter("userNo");
 				String skinType = multiRequest.getParameter("skinType");
 				result = new CustomerService().updateBasicCustomer(userNo, skinType);
 				
 			} else {				
-				System.out.println("3");
+//				System.out.println("3");
 				String userNo = multiRequest.getParameter("userNo");
 				String skinType = multiRequest.getParameter("skinType");
 				result = new CustomerService().updateSkinTypeCustomer(userNo, skinType);
