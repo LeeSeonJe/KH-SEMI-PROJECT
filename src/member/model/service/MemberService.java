@@ -38,10 +38,10 @@ public class MemberService {
 		return loginUser;
 	}
 
-	public ArrayList<Member> selectCustomer() {
+	public ArrayList<Member> selectCustomer(int currentPage, int boardLimit) {
 		Connection conn = getConnection();
 
-		ArrayList<Member> list = new MemberDAO().selectCustomer(conn);
+		ArrayList<Member> list = new MemberDAO().selectCustomer(conn, currentPage, boardLimit);
 		close(conn);
 		return list;
 	}
@@ -71,18 +71,18 @@ public class MemberService {
 		return m;
 	}
 
-	public ArrayList<Member> selectHospital() {
+	public ArrayList<Member> selectHospital(int currentPage, int boardLimit) {
 		Connection conn = getConnection();
 
-		ArrayList<Member> list = new MemberDAO().selectHospital(conn);
+		ArrayList<Member> list = new MemberDAO().selectHospital(conn, currentPage, boardLimit);
 		close(conn);
 		return list;
 	}
 
-	public ArrayList<Member> selectHospitalJoin() {
+	public ArrayList<Member> selectHospitalJoin(int currentPage, int boardLimit) {
 		Connection conn = getConnection();
 
-		ArrayList<Member> list = new MemberDAO().selectHospitalJoin(conn);
+		ArrayList<Member> list = new MemberDAO().selectHospitalJoin(conn, currentPage, boardLimit);
 		close(conn);
 		return list;
 	}
@@ -153,4 +153,36 @@ public class MemberService {
 		close(conn);
 		return loginUser;
 	}
+
+	public int getListCountM() {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().getListCountM(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int getListCountH() {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().getListCountH(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int getListCountHJ() {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().getListCountHJ(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+
 }

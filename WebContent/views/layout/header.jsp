@@ -302,7 +302,7 @@
 	<div>
 		<div id="cosTalk" class="modal">
 			<div>
-				<div>
+				<div> 
 					<input class="cTfunction" type="button" id="xBtn">
 				</div>
 			</div>

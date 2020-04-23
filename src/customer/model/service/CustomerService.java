@@ -195,4 +195,20 @@ public class CustomerService {
 		return result;
 	}
 
+	public int emailCheck(String email) {
+		Connection conn = getConnection();
+		int result = new CustomerDAO().emailCheck(conn, email);
+		close(conn);
+		
+		return result;
+	}
+
+	public int idCheck(String id) {
+		Connection conn = getConnection();
+		int result = new CustomerDAO().idCheck(conn, id);
+		close(conn);
+		
+		return result;
+	}
+
 }

@@ -488,4 +488,54 @@ public class CustomerDAO {
 		}
 		return mpr;
 	}
+
+	public int emailCheck(Connection conn, String email) {
+// select count(*) from customer where email = ?
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("emailCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, email);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int idCheck(Connection conn, String id) {
+// select count(*) from member where user_id = ?		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
 }

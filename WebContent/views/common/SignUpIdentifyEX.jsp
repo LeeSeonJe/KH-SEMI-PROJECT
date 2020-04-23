@@ -115,6 +115,28 @@ button {
 				$('#email').focus();
 			} else {
 				$.ajax({
+					url: '<%= request.getContextPath() %>/emailDouble.me',
+					data: {email:email},
+					success: function(data){
+						if(data == "success"){
+			 				$.ajax({
+								url: '<%= request.getContextPath()%>/emailCheck.me',
+								data: {email:email},
+								success: function(data){
+									alert('인증번호 전송 완료');
+								},
+								error: function(data){
+									alert('인증번호 전송 실패');
+								}
+							}); 
+						} else {
+							alert('이미 사용하고 있는 메일 주소입니다.');
+						}
+					}
+				});
+				
+<%--
+	 				$.ajax({
 					url: '<%= request.getContextPath()%>/emailCheck.me',
 					data: {email:email},
 					success: function(data){
@@ -123,7 +145,8 @@ button {
 					error: function(data){
 						alert('인증번호 전송 실패');
 					}
-				});
+				}); 
+--%>
 			}
 		});
 		

@@ -28,6 +28,17 @@ public class Review {
 	public Review () {}
 
 	
+	public Review(int review_no, String title, String content, Date date, String category, int user_no) {
+		super();
+		this.review_no = review_no;
+		this.title = title;
+		this.content = content;
+		this.date = date;
+		this.category = category;
+		this.user_no = user_no;
+	}
+
+
 	public Review(int review_no, int thumbs_up, int heart, String del_yn, String title, String content, Date date,
 			String category, String userName, String cosmetic_name, String cosmetic_img, int thumbs_down, int age,
 			String skintype, String gender, String profile_image) {

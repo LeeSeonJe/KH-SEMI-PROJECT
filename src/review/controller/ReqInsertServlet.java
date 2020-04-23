@@ -48,40 +48,50 @@ public class ReqInsertServlet extends HttpServlet {
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 			
-//			ArrayList<String> saveFiles = new ArrayList<String>();
-//			ArrayList<String> originFiles = new ArrayList<String>();
-//			
-//			Enumeration<String> files = multiRequest.getFileNames();
-//			
-//			while(files.hasMoreElements()) {
-//				String name = files.nextElement();
-//				
-//				if(multiRequest.getFilesystemName(name) != null) {
-//					saveFiles.add(multiRequest.getFilesystemName(name));
-//					originFiles.add(multiRequest.getOriginalFileName(name));
-//				}
-//			}
+			ArrayList<String> saveFiles = new ArrayList<String>();
+			ArrayList<String> originFiles = new ArrayList<String>();
+			
+			Enumeration<String> files = multiRequest.getFileNames();
+			
+			while(files.hasMoreElements()) {
+				String name = files.nextElement();
+				
+				if(multiRequest.getFilesystemName(name) != null) {
+					saveFiles.add(multiRequest.getFilesystemName(name));
+					originFiles.add(multiRequest.getOriginalFileName(name));
+				}
+			}
 			
 			String content = multiRequest.getParameter("content");
 			HttpSession session = request.getSession();
 			Member loginUser = (Member)session.getAttribute("loginUser");
 			int user_no = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
 			
-			
-//			==
+//			======================================================================
 //			db로 보낼 data
 			Review r = new Review();
 			r.setContent(content);
 			r.setUser_no(user_no);
 			
-//			ArrayList<addFile> fileList = new ArrayList<addFile>();
-			AddFile af = new AddFile();
-			af.setOrigin_name(multiRequest.getOriginalFileName("req_img"));
-			af.setChange_name(multiRequest.getFilesystemName("req_img"));
-			af.setFile_path(savePath);
+			ArrayList<AddFile> fileList = new ArrayList<AddFile>();
+			for(int i = originFiles.size() -1; i >=0; i--) {
+				AddFile af = new AddFile();
+				af.setFile_path(savePath);
+				af.setOrigin_name(originFiles.get(i));
+				af.setChange_name(saveFiles.get(i));
+
+				fileList.add(af);
+			}
+			
+			int result = new ReviewService().insertReq(r, fileList);
+			
+//			AddFile af = new AddFile();
+//			af.setOrigin_name(multiRequest.getOriginalFileName("req_img"));
+//			af.setChange_name(multiRequest.getFilesystemName("req_img"));
+//			af.setFile_path(savePath);
 		//	System.out.println("ReqInsertServlet af : " + af);
 			
-			int result = new ReviewService().insertReq(r, af);
+
 			
 //			if(result > 0) {
 //				response.sendRedirect("");

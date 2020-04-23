@@ -1154,7 +1154,7 @@ public class WorryDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("likey");
+		String query = prop.getProperty("liker");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -1181,7 +1181,7 @@ public class WorryDAO {
 		ResultSet rset = null;
 		int result = 0;
 		
-		String query = prop.getProperty("checkLike");
+		String query = prop.getProperty("checkLiker");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -1243,7 +1243,7 @@ public class WorryDAO {
 		ResultSet rset = null;
 		int result = 0;
 		
-		String query = prop.getProperty("checkHate");
+		String query = prop.getProperty("checkHater");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
