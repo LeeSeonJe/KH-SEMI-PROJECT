@@ -176,11 +176,13 @@
 								value="아이디는 8자 이상, 숫자와 영문자만 포함해야 합니다.                                    "
 								disabled>
 						</div>
+						<!-- - -->
 						<div class="SUChkMainICF" id="IDCheckkT">
 							<input type="button" class="imgAlert2" disabled>
 						</div>
 					</div>
 				</div>
+				<input type="button" id="idChk" disabled style="border: none;">
 				<div class="SUChkMain">
 					비밀번호
 					<h3
@@ -410,6 +412,24 @@
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
+	$('#SUChkMainIID').blur(function(){
+		var id = $('#SUChkMainIID').val();
+
+		$.ajax({
+			url: '<%= request.getContextPath() %>/idCheck.me',
+			data: {id:id},
+			success: function(data){
+				if(data == "success"){
+					$('#idChk').val('중복검사 통과!');
+				} else {
+					$('#idChk').val('이미 사용 중인 아이디에요!');
+				}
+			}
+		});
+		
+	});
+	
+	
 	var email = "<%= emailSNS %>";
 	$(function() {
 		$(".SUChkMainICF").hide();
