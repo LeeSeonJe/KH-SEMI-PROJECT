@@ -134,8 +134,9 @@ public class InquiryDAO {
 			close(rset);
 			close(stmt);
 		}
-  }
 		return result;
+  }
+		
 	public ArrayList<Inquiry> selectQnA(Connection conn, int user_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
