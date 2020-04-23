@@ -37,4 +37,18 @@ public class InquiryService {
 		return result;
 	}
 
+	public ArrayList<Inquiry> selectQnA(int user_no) {
+		Connection conn = getConnection();
+		ArrayList<Inquiry> list = new InquiryDAO().selectQnA(conn, user_no);
+		close(conn);
+		return list;
+	}
+
+	public Inquiry detailAnswer(String board_no) {
+		Connection conn = getConnection();
+		Inquiry i = new InquiryDAO().detailAnswer(conn, board_no);
+		close(conn);
+		return i;
+	}
+
 }
