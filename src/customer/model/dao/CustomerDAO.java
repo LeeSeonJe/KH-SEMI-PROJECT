@@ -16,6 +16,7 @@ import java.util.Properties;
 import org.apache.catalina.filters.RestCsrfPreventionFilter;
 
 import customer.model.vo.Customer;
+import customer.model.vo.MyPageBook;
 import customer.model.vo.MyPageCustomer;
 import customer.model.vo.MyPageQnA;
 import customer.model.vo.MyPageReview;
@@ -537,5 +538,66 @@ public class CustomerDAO {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int getBookCount(Connection conn, String user_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("getBookCount");
+		System.out.println(user_id);
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, user_id);
+			rset = pstmt.executeQuery();
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<MyPageBook> selectCustomerBook(Connection conn, String user_id, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MyPageBook> mpb = new ArrayList<MyPageBook>();
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+		String query = prop.getProperty("selectCustomerBook");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, user_id);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				mpb.add(new MyPageBook(
+						rset.getString("user_name"),
+						rset.getString("tel"),
+						rset.getString("booking_no"),
+						rset.getString("booking_name"),
+						rset.getString("booking_content"),
+						rset.getString("booking_date"),
+						rset.getString("booking_time"),
+						rset.getString("booking_del_ync")						
+						));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mpb;
 	}
 }
