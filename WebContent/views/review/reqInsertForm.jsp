@@ -20,7 +20,8 @@
 	</div>
 	<form action="<%= request.getContextPath() %>/insert.req" encType="multipart/form-data" method="post">
 		<div>
-			<input type="file" name="req_img">
+			<input type="file" name="req_img1" multiple="multiple">
+			<input type="file" name="req-img2" multiple="multiple">
 			<hr>
 			<textarea name="content" rows="10" cols="100%" placeholder="내용을 입력해주세요"></textarea>
 			<button type="submit">등록</button>

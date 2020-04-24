@@ -183,7 +183,7 @@ table#adminEnrollHospital>tbody>tr>td{
                <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/list.req'">제품 등록 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminReview.jsp'">리뷰 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/boardList.admin'">게시판 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminInq.jsp'">1대1문의 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/inqList.admin'">1대1문의 관리</li>
             </ul>
          </section>
          <section id="tab_adminEnrollProduct" class="tab-adminpage">
@@ -241,24 +241,29 @@ table#adminEnrollHospital>tbody>tr>td{
            <%@ include file="/views/layout/footer.jsp"%>
    
    <script>
-	$('.detail').click(function(){
-		var popup = window.open("adminUserDetail.jsp", "detailPopUp", "width=500, height=300");
-		
-
-	});
+ 	$('.detail').click(function(){
+ 		var boardNo = $(this).parent().parent().children().eq(0).text();
+ 	 	var popup = window.open('<%= request.getContextPath() %>/detail.req?boardNo=' + boardNo, "reqDetailPopUp", "width=500, height=300"); 
+ 	}); 
+	
+	
 	$('.grant').click(function(){
 		var result = window.confirm('화장품 등록요청을 승인처리 하시겠습니까?');
-		
+		var boardNo = $(this).parent().parent().children().eq(0).text();
 		if(result){
+			location.href="<%= request.getContextPath() %>/update.req?boardNo=" + boardNo;
 			alert('승인 처리 완료!');
+			
 		} else{
 			alert('취소!');
 		}
 	});
 	$('.refuse').click(function(){
 		var result = window.confirm('화장품 등록요청을 거절처리 하시겠습니까?');
+		var boardNo = $(this).parent().parent().children().eq(0).text();
 		
 		if(result){
+			location.href="<%= request.getContextPath() %>/delete.req?boardNo=" + boardNo;
 			alert('거절 처리 완료!');
 		} else{
 			alert('취소!');

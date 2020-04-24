@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Member;
 import worry.model.service.WorryService;
 import worry.model.vo.AddFile;
 import worry.model.vo.Comments;
@@ -37,18 +38,39 @@ public class worryDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int worryNo = Integer.parseInt(request.getParameter("worryNo"));	
 		Worry w = new Worry(); 
+		String like = "no";
+		String hate = "no";
+		int userNo = 0;
 		ArrayList<Comments> list = new WorryService().selectComments(worryNo);
 		
 		ArrayList<AddFile> fList = new WorryService().selectFile(worryNo);
+		
+		if(request.getSession().getAttribute("loginUser") != null) {
+			userNo = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
+			int result2 = new WorryService().LikeList(worryNo, userNo );
+			if(result2 > 0) {
+				like = "yes";
+			}
+		}
+		
+		if(request.getSession().getAttribute("loginUser") != null) {
+			userNo = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
+			int result3 = new WorryService().hateList(worryNo, userNo );
+			if(result3 > 0) {
+				hate = "yes";
+			}
+		}
+		
 
 		int last = new WorryService().lastWorry(worryNo);
 		w = new WorryService().worryDetail(worryNo);
 		
-
 		request.setAttribute("list", list);
 		request.setAttribute("w", w);
 		request.setAttribute("fList", fList);
 		RequestDispatcher view = request.getRequestDispatcher("views/worry/worryRead.jsp");
+		request.setAttribute("like", like);
+		request.setAttribute("hate", hate);
 		view.forward(request, response);
 	}
 

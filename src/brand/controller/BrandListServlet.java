@@ -57,11 +57,11 @@ public class BrandListServlet extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher(page);
 			view.forward(request, response);
 		} else {			
-			System.out.println(count);			
+//			System.out.println(count);			
 			list = new BrandService().selectBrnadList(brandFilter, count);
-			for(Brand b : list) {
-				System.out.println(b);
-			}
+//			for(Brand b : list) {
+//				System.out.println(b);
+//			}
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(list, response.getWriter());
 		}

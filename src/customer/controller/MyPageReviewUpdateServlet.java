@@ -42,7 +42,7 @@ public class MyPageReviewUpdateServlet extends HttpServlet {
 		
 		MyPageReview mpr = new MyPageReview(board_no, board_title, cosmetic_name, board_content, brand_name, review_heart, cosmetic_no);
 		int result = new CustomerService().reviewUpdate(mpr);
-		System.out.println(result);
+//		System.out.println(result);
 		String page = "";
 		if(result == 2) {
 			page = "mypage.me";

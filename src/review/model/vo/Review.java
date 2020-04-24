@@ -23,10 +23,22 @@ public class Review {
 	private String skintype;
 	private String gender;
 	private String profile_image;
+	private String middle_name;
 	
 	public Review () {}
 
 	
+	public Review(int review_no, String title, String content, Date date, String category, int user_no) {
+		super();
+		this.review_no = review_no;
+		this.title = title;
+		this.content = content;
+		this.date = date;
+		this.category = category;
+		this.user_no = user_no;
+	}
+
+
 	public Review(int review_no, int thumbs_up, int heart, String del_yn, String title, String content, Date date,
 			String category, String userName, String cosmetic_name, String cosmetic_img, int thumbs_down, int age,
 			String skintype, String gender, String profile_image) {
@@ -149,6 +161,25 @@ public class Review {
 		this.review_no = review_no;
 		this.date = date;
 		this.userName = userName;
+	}
+
+
+	public Review(String title, int cosmetic_no, String middle_name, String cosmetic_name) {
+		super();
+		this.title = title;
+		this.cosmetic_no = cosmetic_no;
+		this.middle_name = middle_name;
+		this.cosmetic_name = cosmetic_name;
+	}
+
+
+	public String getMiddle_name() {
+		return middle_name;
+	}
+
+
+	public void setMiddle_name(String middle_name) {
+		this.middle_name = middle_name;
 	}
 
 

@@ -1,5 +1,10 @@
 package worry.model.service;
 
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -7,8 +12,6 @@ import worry.model.dao.WorryDAO;
 import worry.model.vo.AddFile;
 import worry.model.vo.Comments;
 import worry.model.vo.Worry;
-
-import static common.JDBCTemplate.*;
 
 public class WorryService {
 
@@ -289,6 +292,57 @@ public class WorryService {
 		
 		return result;
 		
+	}
+
+	public int Likey(int worryNo, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new WorryDAO().WorryLikey(conn, worryNo, userNo);
+		
+		if(result >0) {
+			commit(conn);
+		} else{
+			rollback(conn);
+		}
+
+		return result;
+	}
+
+	public int LikeList(int worryNo, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new WorryDAO().LikeList(conn, worryNo, userNo);
+		
+		return result;
+	}
+
+	public int hater(int worryNo, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new WorryDAO().hater(conn, worryNo, userNo);
+		
+		if(result >0) {
+			commit(conn);
+		} else{
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int hateList(int worryNo, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new WorryDAO().hateList(conn, worryNo, userNo);
+		
+		return result;
+	}
+
+	public ArrayList<Worry> worryList() {
+		Connection conn = getConnection();
+		ArrayList<Worry> wList = new WorryDAO().worryList(conn);
+		close(conn);
+		return wList;
 	}
 
 //	public ArrayList<Worry> selectHit10List(int currentPage, int boardLimit) {

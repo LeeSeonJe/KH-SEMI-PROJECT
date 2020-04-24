@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Member;
 import worry.model.service.WorryService;
 
 /**
@@ -30,10 +31,13 @@ public class hateUp extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int worryNo = Integer.parseInt(request.getParameter("worryNo"));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
+		
+		int result2 = new WorryService().hater(worryNo, userNo);
 		
 		int result = new WorryService().hateUp(worryNo);
 		
-		System.out.println(result);
+		System.out.println(result2);
 		
 		
 	}
