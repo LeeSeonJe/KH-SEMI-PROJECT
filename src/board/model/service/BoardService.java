@@ -20,10 +20,10 @@ public class BoardService {
 		return list;
 	}
 
-	public ArrayList<Board> searchReview(String keyword) {
+	public ArrayList<Board> searchReview(String keyword, int currentPage, int boardLimit) {
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new BoardDAO().searchReview(conn, keyword);
+		ArrayList<Board> list = new BoardDAO().searchReview(conn, keyword, currentPage, boardLimit);
 		close(conn);
 		return list;
 	}

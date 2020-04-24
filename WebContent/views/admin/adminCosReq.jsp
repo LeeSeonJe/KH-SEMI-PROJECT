@@ -1,7 +1,16 @@
+<%@page import="worry.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, review.model.vo.*"%>
 <%
 	ArrayList<Review> list = (ArrayList)request.getAttribute("list");
+
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+
 %>
 
 <!DOCTYPE html>
@@ -181,7 +190,7 @@ table#adminEnrollHospital>tbody>tr>td{
                <li onclick="location.href = '<%= request.getContextPath()%>/hospital.admin'">병원 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/list.req'">제품 등록 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminReview.jsp'">리뷰 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/reviewList.admin'">리뷰 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/boardList.admin'">게시판 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/inqList.admin'">1대1문의 관리</li>
             </ul>
@@ -224,17 +233,54 @@ table#adminEnrollHospital>tbody>tr>td{
             	<button class="btn-standard" style="width: 100px; height: 30px;" id="cosmeticReq">등록</button>
             </div>
             <br>
-            <div class="paging">
-			  <a href="#" class="btn_arr first"><span class="hide">처음페이지</span></a>            
-			  <a href="#" class="btn_arr prev"><span class="hide">이전페이지</span></a>     
-			  <a href="#" class="on">1</a>
-			  <a href="#">2</a>
-			  <a href="#">3</a>
-			  <a href="#">4</a>
-			  <a href="#">5</a>
-			  <a href="#" class="btn_arr next"><span class="hide">다음페이지</span></a>            
-			  <a href="#" class="btn_arr last"><span class="hide">마지막페이지</span></a>           
-			</div>
+            
+            <div class="pagingArea" align="center">
+	                   	<%if(!list.isEmpty()){ %>
+							<!-- 맨 처음으로 -->
+							<button class="btn-standard" onclick="location.href='<%= request.getContextPath() %>/list.req?currentPage=1'">&lt;&lt;</button>
+						
+							<!-- 이전 페이지로 -->
+							<button class="btn-standard" onclick="location.href='<%= request.getContextPath() %>/list.req?currentPage=<%=currentPage - 1 %>'" id="beforeBtn">&lt;</button>
+							
+							<script>
+								if(<%= currentPage %> <= 1){
+									$('#beforeBtn').attr('disabled', 'ture');
+								}
+							</script>
+							
+							<!-- 10개 페이지 목록 -->
+							<% for(int p = startPage; p <= endPage;p++){ %>
+								<% if(p == currentPage){ %>
+									<button id="choosen"  class="btn-standard" disabled style="background:DarkTurquoise"><%= p %></button>		
+								<%} else{ %>
+									<button id="numBtn"  class="btn-standard" onclick="location.href='<%=request.getContextPath() %>/list.req?currentPage=<%=p%>'"><%= p %></button>
+								<%} %>
+							<%} %>
+							
+							<!-- 다음 페이지로 -->
+							<button id="afterBtn"  class="btn-standard" onclick="location.href='<%= request.getContextPath()%>/list.req?currentPage=<%= currentPage +1%>'">&gt;</button>
+							<script>
+								if(<%= currentPage %> >= <%= maxPage %>){
+									$('#afterBtn').attr('disabled', 'ture');
+								}
+							</script>
+							
+							<!-- 맨 끝으로 -->
+							<button class="btn-standard" onclick="location.href='<%=request.getContextPath()%>/list.req?currentPage=<%=maxPage %>'">&gt;&gt;</button>
+						<%} %>
+                   	</div>
+            
+<!--             <div class="paging"> -->
+<!-- 			  <a href="#" class="btn_arr first"><span class="hide">처음페이지</span></a>             -->
+<!-- 			  <a href="#" class="btn_arr prev"><span class="hide">이전페이지</span></a>      -->
+<!-- 			  <a href="#" class="on">1</a> -->
+<!-- 			  <a href="#">2</a> -->
+<!-- 			  <a href="#">3</a> -->
+<!-- 			  <a href="#">4</a> -->
+<!-- 			  <a href="#">5</a> -->
+<!-- 			  <a href="#" class="btn_arr next"><span class="hide">다음페이지</span></a>             -->
+<!-- 			  <a href="#" class="btn_arr last"><span class="hide">마지막페이지</span></a>            -->
+<!-- 			</div> -->
          </section>
          </div>
          </div>
