@@ -52,17 +52,35 @@ public class CosTalkService {
 		
 		return list;
 	}
+	
 
-	/*public ArrayList<CosTalk> refreshChat2(int rMNum, int sUserNo) {
 
+
+	public ArrayList<CosTalk> refreshHistory(int sUserNo) {
 		Connection conn = getConnection();
-		ArrayList<CosTalk> list = new CosTalkDAO().refreshChat2(conn, rMNum, sUserNo);
+		ArrayList<CosTalk> list = new CosTalkDAO().refreshHistory(conn, sUserNo);
 		
 		close(conn);
-		
+		 
 		return list;
-	}*/
-	
-	
-	
+	}
+
+	public ArrayList<CosTalk> refreshChatBox(ArrayList<Integer> arr, int sUserNo) {
+		Connection conn = getConnection();
+		ArrayList<CosTalk> list = new ArrayList<>();
+		for(int i=0; i<arr.size(); i++) {
+			list = new CosTalkDAO().refreshChatBox(conn, list, arr.get(i), sUserNo);
+		}
+		//ArrayList<CosTalk> list = new CosTalkDAO().refreshChatBox(conn, arr, sUserNo);
+		ArrayList<CosTalk> list2 = new CosTalkDAO().refreshChatBox2(conn, arr, list);
+		close(conn);
+		 
+		return list2;
+	}
+
+	public void getUserNo(String rMNum) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -19,7 +19,7 @@ import member.model.vo.Member;
 import message.model.service.CosTalkService;
 import message.model.vo.CosTalk;
 
-/**
+/**ㄹㄹ
  * Servlet implementation class CosTalkSendServlet
  */
 @WebServlet("/CosTalkSendServlet")
@@ -42,47 +42,19 @@ public class CosTalkSendServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		//채팅 추가하기
-		String rName = request.getParameter("rName");
-		ArrayList<CosTalk> rMember = new CosTalkService().searchMember(rName);
-	//	for(CosTalk CT : rMember) {
-			/*
-			System.out.println("-------------------------------------");
-			System.out.println("수신자 일련번호 : " + CT.getrMember_no());
-			System.out.println("수신자 아이디 : " + CT.getrMember_id());
-			System.out.println("수신자 이름 : " + CT.getrMember_name());
-			System.out.println("-------------------------------------");
-			*/
-			
-	//	}
-		
+	
+
 		
 		//서버로 데이터 보내기
 		HttpSession session = request.getSession();
 		Member m = (Member) session.getAttribute("loginUser");
-		String sUserId = m.getUser_id();
-		String sUserName = m.getUser_name();
 		int sUserNo = m.getUser_no();
 		String sMessage = request.getParameter("sMessage");
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy년 MM월dd일 HH시mm분ss초");
-		String sTime = format1.format(System.currentTimeMillis());
-	
 		String rMNum = request.getParameter("rMNum");
 		
-		if(sMessage == null) {
-			
-		}else {
-			System.out.println("-------------------------------------");
-			System.out.println("수신자 일련번호 : " + rMNum);
-			System.out.println("-------------------------------------");
-			System.out.println("발신자 일련번호 : " + sUserNo);
-			System.out.println("발신자 아이디 : " + sUserId);
-			System.out.println("발신자 이름 : " + sUserName);
-			System.out.println("발신 시각 : " + sTime);
-			System.out.println("발신 내용 : " + sMessage);
-			System.out.println("-------------------------------------");
-			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+		new CosTalkService().getUserNo(rMNum);
 		
-		}
+		
 		
 		CosTalk cosTalk = new CosTalk(0, sMessage, null, null, sUserNo, Integer.parseInt(rMNum));
 		int result = new CosTalkService().sendMessage(cosTalk);

@@ -203,4 +203,12 @@ public class CustomerService {
 		return result;
 	}
 
+	public int idCheck(String id) {
+		Connection conn = getConnection();
+		int result = new CustomerDAO().idCheck(conn, id);
+		close(conn);
+		
+		return result;
+	}
+
 }

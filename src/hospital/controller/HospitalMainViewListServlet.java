@@ -1,25 +1,30 @@
-package review.controller;
+package hospital.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import review.model.service.ReviewService;
+import com.google.gson.Gson;
+
+import hospital.model.service.HospitalService;
+import hospital.model.vo.HospitalReviewList;
 
 /**
- * Servlet implementation class LikeServlet
+ * Servlet implementation class HospitalMainViewListServlet
  */
-@WebServlet("/vote.re")
-public class VoteServlet extends HttpServlet {
+@WebServlet("/mainViewList.hos")
+public class HospitalMainViewListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VoteServlet() {
+    public HospitalMainViewListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,23 +33,10 @@ public class VoteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<HospitalReviewList> hList = new HospitalService().hospitalList();
 		
-		int rno = Integer.parseInt(request.getParameter("rno"));
-		System.out.println("rno : " + rno);
-		
-		String vote = (String)request.getParameter("vote");
-		System.out.println("ttttt : " + vote);
-		int result = 0;
-		int result1 = 0;
-		
-		if(vote.equals("좋아요")) {
-			result = new ReviewService().likeUp(rno);
-			System.out.println("VoteServlet result : " + result);
-		} else if(vote.equals("싫어요")) {
-			result1 = new ReviewService().hateUp(rno);
-			System.out.println("VoteServlet result1 : " + result1);
-		}
-		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(hList, response.getWriter());
 	}
 
 	/**
