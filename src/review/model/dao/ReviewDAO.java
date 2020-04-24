@@ -18,7 +18,7 @@ import review.model.vo.Review;
 
 public class ReviewDAO {
 	private Properties prop = new Properties();
-	
+
 	public ReviewDAO() {
 		String fileName = ReviewDAO.class.getResource("/sql/review/review-query.properties").getPath();
 		try {
@@ -29,19 +29,19 @@ public class ReviewDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public int getListCount(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("getListCount");
-		
+
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
+
+			if (rset.next()) {
 				result = rset.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -50,45 +50,36 @@ public class ReviewDAO {
 			close(rset);
 			close(stmt);
 		}
-		
+
 		return result;
 	}
+
 	public ArrayList<Review> selectList(Connection conn, int currentPage, int boardLimit) {
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> list = null;
-		
+
 		String query = prop.getProperty("selectList");
-		
-		int startRow = (currentPage -1) * boardLimit +1;
-		int endRow = startRow + boardLimit -1;
+
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
 		System.out.println("ReviewDAO startRow, endRow : " + startRow + ", " + endRow);
 		try {
-			pstmt=conn.prepareStatement(query);
+			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			
+
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Review>();
-			
-			while(rset.next()) {
-				Review r = new Review(rset.getInt("REVIEW_NO"),
-									  rset.getInt("REVIEW_THUMBS_UP"),
-									  rset.getInt("REVIEW_HEART"),
-									  rset.getString("REVIEW_DEL_YN"),
-									  rset.getString("board_title"),
-									  rset.getString("board_content"),
-									  rset.getDate("board_date"),
-									  rset.getString("board_category"),
-									  rset.getString("user_name"),
-									  rset.getString("cosmetic_name"),
-									  rset.getString("cosmetic_img"),
-									  rset.getInt("review_thumbs_down"),
-									  rset.getInt("age"),
-									  rset.getString("skintype"),
-									  rset.getString("gender"),
-									  rset.getString("profile_image"));
+
+			while (rset.next()) {
+				Review r = new Review(rset.getInt("REVIEW_NO"), rset.getInt("REVIEW_THUMBS_UP"),
+						rset.getInt("REVIEW_HEART"), rset.getString("REVIEW_DEL_YN"), rset.getString("board_title"),
+						rset.getString("board_content"), rset.getDate("board_date"), rset.getString("board_category"),
+						rset.getString("user_name"), rset.getString("cosmetic_name"), rset.getString("cosmetic_img"),
+						rset.getInt("review_thumbs_down"), rset.getInt("age"), rset.getString("skintype"),
+						rset.getString("gender"), rset.getString("profile_image"));
 				list.add(r);
 			}
 		} catch (SQLException e) {
@@ -97,48 +88,48 @@ public class ReviewDAO {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return list;
 	}
 
-
 	public int insertBoard(Connection conn, Review r) {
 		// insert into board values(seq_board_no.nextval, ?, ?, sysdate, 리뷰게시판, ?)
-		
+
 		PreparedStatement pstmt = null;
 		int result1 = 0;
-		
+
 		String query = prop.getProperty("insertBoard");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, r.getTitle());
 			pstmt.setString(2, r.getContent());
 			pstmt.setInt(3, r.getUser_no());
-			
+
 			result1 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-				
+
 		return result1;
 	}
+
 	public int insertReview(Connection conn, Review r) {
 //		 insert into review values(seq_board_no.currval, default, default, ?, default)
 
 		PreparedStatement pstmt = null;
 		int result2 = 0;
-		
+
 		String query = prop.getProperty("insertReview");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, r.getHeart());
-			
+
 			result2 = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -146,59 +137,51 @@ public class ReviewDAO {
 		}
 		return result2;
 	}
+
 	public int insertCos_review(Connection conn, Review r) {
 //		insert into cosmetic_review values(seq_board_no.currval, ?)
 
 		PreparedStatement pstmt = null;
 		int result3 = 0;
-		
+
 		String query = prop.getProperty("insertCosReview");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, r.getCosmetic_no());
-			
+
 			result3 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
+
 		return result3;
 	}
+
 	public ArrayList<Review> selectSList(Connection conn) {
 
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> slideList = null;
-		
+
 		String query = prop.getProperty("selectSList");
-		
+
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
-			
+
 			slideList = new ArrayList<Review>();
-			
-			while(rset.next()) {
-				Review r = new Review(rset.getInt("REVIEW_NO"),
-									  rset.getInt("REVIEW_THUMBS_UP"),
-									  rset.getInt("REVIEW_HEART"),
-									  rset.getString("REVIEW_DEL_YN"),
-									  rset.getString("board_title"),
-									  rset.getString("board_content"),
-									  rset.getDate("board_date"),
-									  rset.getString("board_category"),
-									  rset.getString("user_name"),
-									  rset.getString("cosmetic_name"),
-									  rset.getString("cosmetic_img"),
-									  rset.getInt("review_thumbs_down"),
-									  rset.getInt("age"),
-									  rset.getString("skintype"),
-									  rset.getString("gender"),
-									  rset.getString("profile_image"));
-					slideList.add(r);
+
+			while (rset.next()) {
+				Review r = new Review(rset.getInt("REVIEW_NO"), rset.getInt("REVIEW_THUMBS_UP"),
+						rset.getInt("REVIEW_HEART"), rset.getString("REVIEW_DEL_YN"), rset.getString("board_title"),
+						rset.getString("board_content"), rset.getDate("board_date"), rset.getString("board_category"),
+						rset.getString("user_name"), rset.getString("cosmetic_name"), rset.getString("cosmetic_img"),
+						rset.getInt("review_thumbs_down"), rset.getInt("age"), rset.getString("skintype"),
+						rset.getString("gender"), rset.getString("profile_image"));
+				slideList.add(r);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -206,110 +189,100 @@ public class ReviewDAO {
 			close(rset);
 			close(stmt);
 		}
-		
+
 		return slideList;
-		
+
 	}
 
 	public int insertBoardReq(Connection conn, Review r) {
 //		insert into board values(seq_board_no.nextval, '제품등록요청', ?, sysdate, 'req', ?);
 		PreparedStatement pstmt = null;
 		int result1 = 0;
-		
+
 		String query = prop.getProperty("insertBoardReq");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, r.getContent());
 			pstmt.setInt(2, r.getUser_no());
-			
+
 			result1 = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
+
 		return result1;
 	}
 
-/*	public int insertAddFile(Connection conn, AddFile af) {
-//		insert into addfile values(seq_file_no.nextval, ?, ?, seq_board_no.currval, ?, sysdate, default)
-		PreparedStatement pstmt = null;
-		int result2 = 0;
-		String query = prop.getProperty("insertaAddfile");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, af.getOrigin_name());
-			pstmt.setString(2, af.getChange_name());
-			pstmt.setString(3, af.getFile_path());
+	/*
+	 * public int insertAddFile(Connection conn, AddFile af) { // insert into
+	 * addfile values(seq_file_no.nextval, ?, ?, seq_board_no.currval, ?, sysdate,
+	 * default) PreparedStatement pstmt = null; int result2 = 0; String query =
+	 * prop.getProperty("insertaAddfile");
+	 * 
+	 * try { pstmt = conn.prepareStatement(query); pstmt.setString(1,
+	 * af.getOrigin_name()); pstmt.setString(2, af.getChange_name());
+	 * pstmt.setString(3, af.getFile_path());
+	 * 
+	 * result2 = pstmt.executeUpdate(); } catch (SQLException e) {
+	 * e.printStackTrace(); } finally { close(pstmt); }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * return result2;
+	 * 
+	 * }
+	 */
 
-			result2 = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		
-		
-		
-		return result2;
-
-	} */
-
-	
-	
 	public ArrayList<Review> selectReq(Connection conn, int currentPage, int boardLimit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> list = new ArrayList<>();
 		Review r = null;
-		
-		int startRow = (currentPage -1) * boardLimit +1;
-		int endRow = startRow + boardLimit -1;
-		
+
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+
 		String query = prop.getProperty("selectReq");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			
+
 			rset = pstmt.executeQuery();
-			//리뷰넘버 유저네임 데이트
-			
-			while(rset.next()) {
-				r = new Review(rset.getInt("BOARD_NO"),
-								rset.getString("USER_NAME"),
-								rset.getDate("BOARD_DATE"));
+			// 리뷰넘버 유저네임 데이트
+
+			while (rset.next()) {
+				r = new Review(rset.getInt("BOARD_NO"), rset.getString("USER_NAME"), rset.getDate("BOARD_DATE"));
 				list.add(r);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return list;
 	}
-
 
 	public int insertCosReq(Connection conn, Review r) {
 //		insert into cosmetic_req values(seq_board_no.currval, default)
 		Statement stmt = null;
 		int result3 = 0;
-		
+
 		String query = prop.getProperty("insertCosReq");
-		
+
 		try {
 			stmt = conn.createStatement();
 			result3 = stmt.executeUpdate(query);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -317,42 +290,32 @@ public class ReviewDAO {
 		}
 		return result3;
 	}
-	
+
 	public ArrayList<Review> oldList(Connection conn, int currentPage, int boardLimit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> list = null;
-		
+
 		String query = prop.getProperty("oldList");
-		
-		int startRow = (currentPage -1) * boardLimit +1;
-		int endRow = startRow + boardLimit -1;
-		
+
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+
 		try {
-			pstmt=conn.prepareStatement(query);
+			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			
+
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Review>();
-			
-			while(rset.next()) {
-				Review r = new Review(rset.getInt("REVIEW_NO"),
-						rset.getInt("review_thumbs_up"),
-						rset.getInt("REVIEW_HEART"),
-						rset.getString("REVIEW_DEL_YN"),
-						rset.getString("board_title"),
-						rset.getString("board_content"),
-						rset.getDate("board_date"),
-						rset.getString("board_category"),
-						rset.getString("user_name"),
-						rset.getString("cosmetic_name"),
-						rset.getString("cosmetic_img"),
-						rset.getInt("review_thumbs_down"),
-						rset.getInt("age"),
-						rset.getString("skintype"),
-						rset.getString("gender"),
-						rset.getString("profile_image"));
+
+			while (rset.next()) {
+				Review r = new Review(rset.getInt("REVIEW_NO"), rset.getInt("review_thumbs_up"),
+						rset.getInt("REVIEW_HEART"), rset.getString("REVIEW_DEL_YN"), rset.getString("board_title"),
+						rset.getString("board_content"), rset.getDate("board_date"), rset.getString("board_category"),
+						rset.getString("user_name"), rset.getString("cosmetic_name"), rset.getString("cosmetic_img"),
+						rset.getInt("review_thumbs_down"), rset.getInt("age"), rset.getString("skintype"),
+						rset.getString("gender"), rset.getString("profile_image"));
 				list.add(r);
 			}
 		} catch (SQLException e) {
@@ -361,45 +324,35 @@ public class ReviewDAO {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return list;
 	}
-	
+
 	public ArrayList<Review> lovedList(Connection conn, int currentPage, int boardLimit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> list = null;
-		
+
 		String query = prop.getProperty("lovedList");
-		
-		int startRow = (currentPage -1) * boardLimit +1;
-		int endRow = startRow + boardLimit -1;
-		
+
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+
 		try {
-			pstmt=conn.prepareStatement(query);
+			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			
+
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Review>();
-			
-			while(rset.next()) {
-				Review r = new Review(rset.getInt("REVIEW_NO"),
-						  rset.getInt("review_thumbs_up"),
-						  rset.getInt("REVIEW_HEART"),
-						  rset.getString("REVIEW_DEL_YN"),
-						  rset.getString("board_title"),
-						  rset.getString("board_content"),
-						  rset.getDate("board_date"),
-						  rset.getString("board_category"),
-						  rset.getString("user_name"),
-						  rset.getString("cosmetic_name"),
-						  rset.getString("cosmetic_img"),
-						  rset.getInt("review_thumbs_down"),
-						  rset.getInt("age"),
-						  rset.getString("skintype"),
-						  rset.getString("gender"),
-						  rset.getString("profile_image"));
+
+			while (rset.next()) {
+				Review r = new Review(rset.getInt("REVIEW_NO"), rset.getInt("review_thumbs_up"),
+						rset.getInt("REVIEW_HEART"), rset.getString("REVIEW_DEL_YN"), rset.getString("board_title"),
+						rset.getString("board_content"), rset.getDate("board_date"), rset.getString("board_category"),
+						rset.getString("user_name"), rset.getString("cosmetic_name"), rset.getString("cosmetic_img"),
+						rset.getInt("review_thumbs_down"), rset.getInt("age"), rset.getString("skintype"),
+						rset.getString("gender"), rset.getString("profile_image"));
 				list.add(r);
 			}
 		} catch (SQLException e) {
@@ -408,44 +361,35 @@ public class ReviewDAO {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return list;
 	}
+
 	public ArrayList<Review> unlovedList(Connection conn, int currentPage, int boardLimit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> list = null;
-		
+
 		String query = prop.getProperty("unlovedList");
-		
-		int startRow = (currentPage -1) * boardLimit +1;
-		int endRow = startRow + boardLimit -1;
-		
+
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+
 		try {
-			pstmt=conn.prepareStatement(query);
+			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			
+
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Review>();
-			
-			while(rset.next()) {
-				Review r = new Review(rset.getInt("REVIEW_NO"),
-						rset.getInt("review_thumbs_up"),
-						rset.getInt("REVIEW_HEART"),
-						rset.getString("REVIEW_DEL_YN"),
-						rset.getString("board_title"),
-						rset.getString("board_content"),
-						rset.getDate("board_date"),
-						rset.getString("board_category"),
-						rset.getString("user_name"),
-						rset.getString("cosmetic_name"),
-						rset.getString("cosmetic_img"),
-						rset.getInt("review_thumbs_down"),
-						rset.getInt("age"),
-						rset.getString("skintype"),
-						rset.getString("gender"),
-						rset.getString("profile_image"));
+
+			while (rset.next()) {
+				Review r = new Review(rset.getInt("REVIEW_NO"), rset.getInt("review_thumbs_up"),
+						rset.getInt("REVIEW_HEART"), rset.getString("REVIEW_DEL_YN"), rset.getString("board_title"),
+						rset.getString("board_content"), rset.getDate("board_date"), rset.getString("board_category"),
+						rset.getString("user_name"), rset.getString("cosmetic_name"), rset.getString("cosmetic_img"),
+						rset.getInt("review_thumbs_down"), rset.getInt("age"), rset.getString("skintype"),
+						rset.getString("gender"), rset.getString("profile_image"));
 				list.add(r);
 			}
 		} catch (SQLException e) {
@@ -454,37 +398,35 @@ public class ReviewDAO {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return list;
 	}
-
 
 	public int insertAddFile(Connection conn, ArrayList<AddFile> fileList) {
 //		insert into addfile values(seq_file_no.nextval, ?, ?, seq_board_no.currval, ?, sysdate, default)
 		PreparedStatement pstmt = null;
 		int result2 = 0;
 		String query = prop.getProperty("insertaAddfile");
-		
+
 		try {
-			
-			for(int i =0; i<fileList.size(); i++) {
+
+			for (int i = 0; i < fileList.size(); i++) {
 				AddFile af = fileList.get(i);
-				
+
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, af.getOrigin_name());
 				pstmt.setString(2, af.getChange_name());
 				pstmt.setString(3, af.getFile_path());
-				
+
 				result2 += pstmt.executeUpdate();
 			}
-
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
+
 		return result2;
 	}
 
@@ -493,23 +435,20 @@ public class ReviewDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Review board = null;
-		
+
 		String query = prop.getProperty("selectAdminReq");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, boardNo);
-			
+
 			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				board = new Review(rset.getInt("board_no"),
-									rset.getString("board_title"),
-									rset.getString("board_content"),
-									rset.getDate("board_date"),
-									rset.getString("board_category"),
-									rset.getInt("user_no"));
+			if (rset.next()) {
+				board = new Review(rset.getInt("board_no"), rset.getString("board_title"),
+						rset.getString("board_content"), rset.getDate("board_date"), rset.getString("board_category"),
+						rset.getInt("user_no"));
 			}
-	//	System.out.println("ReviewDAO board : " + board);
+			// System.out.println("ReviewDAO board : " + board);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -527,17 +466,17 @@ public class ReviewDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<AddFile> list = null;
-		
+
 		String query = prop.getProperty("selectReqImg");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, boardNo);
 			rset = pstmt.executeQuery();
-			
+
 			list = new ArrayList<AddFile>();
-			
-			while(rset.next()) {
+
+			while (rset.next()) {
 				AddFile af = new AddFile();
 				af.setFile_no(rset.getInt("file_no"));
 				af.setOrigin_name(rset.getString("origin_name"));
@@ -546,126 +485,124 @@ public class ReviewDAO {
 				af.setFile_path(rset.getString("file_path"));
 				af.setUpload_date(rset.getDate("upload_date"));
 				af.setStatus(rset.getString("status"));
-				
+
 				list.add(af);
 			}
-				
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return list;
 	}
 
 	public int updateReq(Connection conn, int boardNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("updateReq");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, boardNo);
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
+
 		return result;
 	}
 
 	public int deleteReq(Connection conn, int boardNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("deleteReq");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, boardNo);
-			
+
 			result = pstmt.executeUpdate();
-		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
+
 		return result;
 	}
-	
+
 	public int likeUp(Connection conn, int rno) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("likeUp");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, rno);
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(pstmt);
 		}
 		return result;
 	}
-	
+
 	public int hateUp(Connection conn, int rno) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("hateUp");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, rno);
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 
 			close(pstmt);
 		}
 		return result;
 	}
-
 
 	public int getListCountReq(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("getListCountReq");
-		
-      stmt = conn.createStatement();
+
+		try {
+			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
-  
-      	if(rset.next()) {
+
+			if (rset.next()) {
 				result = rset.getInt(1);
 			}
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rset);
 			close(stmt);
 		}
 
 		return result;
 	}
-
 
 	public ArrayList<Review> riviewList(Connection conn) {
 		Statement stmt = null;
@@ -675,15 +612,10 @@ public class ReviewDAO {
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
-			
 
-			while(rset.next()) {
-				rList.add(new Review(
-						rset.getString("board_title"),
-						rset.getInt("cosmetic_no"),
-						rset.getString("middle_name"),
-						rset.getString("cosmetic_name")
-						));
+			while (rset.next()) {
+				rList.add(new Review(rset.getString("board_title"), rset.getInt("cosmetic_no"),
+						rset.getString("middle_name"), rset.getString("cosmetic_name")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
