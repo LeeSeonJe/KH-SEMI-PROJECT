@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
 encoding//WebContent/views/common/login.jsp=UTF-8
 encoding//src/worry/controller/afterWorryDetailServlet.java=UTF-8
+encoding//src/worry/controller/beforeWorryDetailServlet.java=UTF-8

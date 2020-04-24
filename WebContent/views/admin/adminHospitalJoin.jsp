@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, member.model.vo.Member" %>
+    pageEncoding="UTF-8" import="java.util.ArrayList, member.model.vo.Member, worry.model.vo.*" %>
 <%
 	ArrayList<Member> list = (ArrayList) request.getAttribute("list");
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+
 %>
 <!DOCTYPE html>
 <html>
@@ -180,9 +188,9 @@ table#adminEnrollHospital>tbody>tr>td{
                <li onclick="location.href = '<%= request.getContextPath()%>/hospital.admin'">병원 관리</li>
                <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminReview.jsp'">리뷰 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminBoard.jsp'">게시판 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminInq.jsp'">1대1문의 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/reviewList.admin'">리뷰 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/boardList.admin'">게시판 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/inqList.admin'">1대1문의 관리</li>
             </ul>
          </section>
          <section id="tab-adminEnrollHospital" class="tab-adminpage">
@@ -220,17 +228,54 @@ table#adminEnrollHospital>tbody>tr>td{
                </tbody>
             </table>
             <br><br>
-            <div class="paging">
-			  <a href="#" class="btn_arr first"><span class="hide">처음페이지</span></a>            
-			  <a href="#" class="btn_arr prev"><span class="hide">이전페이지</span></a>     
-			  <a href="#" class="on">1</a>
-			  <a href="#">2</a>
-			  <a href="#">3</a>
-			  <a href="#">4</a>
-			  <a href="#">5</a>
-			  <a href="#" class="btn_arr next"><span class="hide">다음페이지</span></a>            
-			  <a href="#" class="btn_arr last"><span class="hide">마지막페이지</span></a>           
-			</div>
+            
+            <div class="pagingArea" align="center">
+	                   	<%if(!list.isEmpty()){ %>
+							<!-- 맨 처음으로 -->
+							<button class="btn-standard" onclick="location.href='<%= request.getContextPath() %>/hospitalJoin.admin?currentPage=1'">&lt;&lt;</button>
+						
+							<!-- 이전 페이지로 -->
+							<button class="btn-standard" onclick="location.href='<%= request.getContextPath() %>/hospitalJoin.admin?currentPage=<%=currentPage - 1 %>'" id="beforeBtn">&lt;</button>
+							
+							<script>
+								if(<%= currentPage %> <= 1){
+									$('#beforeBtn').attr('disabled', 'ture');
+								}
+							</script>
+							
+							<!-- 10개 페이지 목록 -->
+							<% for(int p = startPage; p <= endPage;p++){ %>
+								<% if(p == currentPage){ %>
+									<button id="choosen"  class="btn-standard" disabled style="background:DarkTurquoise"><%= p %></button>		
+								<%} else{ %>
+									<button id="numBtn"  class="btn-standard" onclick="location.href='<%=request.getContextPath() %>/hospitalJoin.admin?currentPage=<%=p%>'"><%= p %></button>
+								<%} %>
+							<%} %>
+							
+							<!-- 다음 페이지로 -->
+							<button id="afterBtn"  class="btn-standard" onclick="location.href='<%= request.getContextPath()%>/hospitalJoin.admin?currentPage=<%= currentPage +1%>'">&gt;</button>
+							<script>
+								if(<%= currentPage %> >= <%= maxPage %>){
+									$('#afterBtn').attr('disabled', 'ture');
+								}
+							</script>
+							
+							<!-- 맨 끝으로 -->
+							<button class="btn-standard" onclick="location.href='<%=request.getContextPath()%>/hospitalJoin.admin?currentPage=<%=maxPage %>'">&gt;&gt;</button>
+						<%} %>
+                   	</div>
+            
+<!--             <div class="paging"> -->
+<!-- 			  <a href="#" class="btn_arr first"><span class="hide">처음페이지</span></a>             -->
+<!-- 			  <a href="#" class="btn_arr prev"><span class="hide">이전페이지</span></a>      -->
+<!-- 			  <a href="#" class="on">1</a> -->
+<!-- 			  <a href="#">2</a> -->
+<!-- 			  <a href="#">3</a> -->
+<!-- 			  <a href="#">4</a> -->
+<!-- 			  <a href="#">5</a> -->
+<!-- 			  <a href="#" class="btn_arr next"><span class="hide">다음페이지</span></a>             -->
+<!-- 			  <a href="#" class="btn_arr last"><span class="hide">마지막페이지</span></a>            -->
+<!-- 			</div> -->
          </section>
          </div>
          </div>
@@ -238,7 +283,8 @@ table#adminEnrollHospital>tbody>tr>td{
    
    <script>
 	$('.detail').click(function(){
-		var popup = window.open("adminHospitalDetail.jsp", "detailPopUp", "width=500, height=300");
+		var userNo = $(this).parent().parent().children().eq(0).text();
+		var popup = window.open('<%=request.getContextPath()%>/hospitalDetail.admin?userNo=' + userNo, "detailPopUp", "width=966, height=750");
 		
 
 	});

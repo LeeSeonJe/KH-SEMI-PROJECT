@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Member;
 import worry.model.service.WorryService;
 import worry.model.vo.AddFile;
 import worry.model.vo.Comments;
@@ -38,8 +39,11 @@ public class beforeWorryDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int	worryNo = Integer.parseInt(request.getParameter("worryNo"));	
 		int first = new WorryService().firstWorry(worryNo);
-		
+		String like = "no";
+		String hate = "no";
+		int userNo = 0;
 		Worry w = new Worry(); 
+		
 		
 
 		if(worryNo == first) {
@@ -49,7 +53,7 @@ public class beforeWorryDetailServlet extends HttpServlet {
 			 			
 			out.println("<script>");
 			
-			out.println("alert('Ã¹ ÆäÀÌÁö ÀÔ´Ï´Ù.');");
+			out.println("alert('ï¿½ì” ï¿½ìŸ¾ å¯ƒëš¯ë–†æ¹²ï¿½ï¿½ì”  ï¿½ë¾¾ï¿½ë’¿ï¿½ë•²ï¿½ë–Ž.');");
 			
 			out.println("location.href='worryDetail.bo?worryNo=" + worryNo + "';");
 			
@@ -61,9 +65,28 @@ public class beforeWorryDetailServlet extends HttpServlet {
 			ArrayList<Comments> list = new WorryService().selectComments(w.getWorryNo());
 			
 			ArrayList<AddFile> fList = new WorryService().selectFile(w.getWorryNo());
+			
+			if(request.getSession().getAttribute("loginUser") != null) {
+				userNo = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
+				int result2 = new WorryService().LikeList(w.getWorryNo(), userNo);
+				if(result2 > 0) {
+					like = "yes";
+				}
+			}
+			
+			if(request.getSession().getAttribute("loginUser") != null) {
+				userNo = ((Member)request.getSession().getAttribute("loginUser")).getUser_no();
+				int result3 = new WorryService().hateList(worryNo, userNo );
+				if(result3 > 0) {
+					hate = "yes";
+				}
+			}
+			
 			request.setAttribute("list", list);
 			request.setAttribute("w", w);
 			request.setAttribute("fList", fList);
+			request.setAttribute("like", like);
+			request.setAttribute("hate", hate);
 			RequestDispatcher view = request.getRequestDispatcher("views/worry/worryRead.jsp");
 			view.forward(request, response);
 		}

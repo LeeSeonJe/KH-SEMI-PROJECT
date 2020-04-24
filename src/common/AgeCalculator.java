@@ -21,7 +21,7 @@ public class AgeCalculator {
 		String age = myAge.substring(0, 2);
 		String sysdate = sdf.format(d);
 		
-		System.out.println(sysdate);
+//		System.out.println(sysdate);
 		if (Integer.parseInt(age) > Integer.parseInt(sdf2.format(d))) {
 			age = "19" + age;
 			age = (Integer.parseInt(sysdate) - Integer.parseInt(age) + 1) + "";

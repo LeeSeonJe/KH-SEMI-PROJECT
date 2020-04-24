@@ -89,17 +89,23 @@ public class MemberDAO {
 		}
 		return loginUser;
 	}
-	public ArrayList<Member> selectCustomer(Connection conn) {
-		Statement stmt = null;
+	public ArrayList<Member> selectCustomer(Connection conn, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Member> list = new ArrayList<>();
 		Member m = null;
 		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
+		
 		String query = prop.getProperty("selectCustomer");
 		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				m = new Member(rset.getInt("user_no"),
@@ -117,7 +123,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		return list;
 	}
@@ -168,17 +174,23 @@ public class MemberDAO {
 		
 		return m;
 	}
-	public ArrayList<Member> selectHospital(Connection conn) {
-		Statement stmt = null;
+	public ArrayList<Member> selectHospital(Connection conn, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Member> list = new ArrayList<>();
 		Member m = null;
+		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
 		
 		String query = prop.getProperty("selectHospital");
 		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				m = new Member(rset.getInt("user_no"),
@@ -196,21 +208,27 @@ public class MemberDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		return list;
 	}
-	public ArrayList<Member> selectHospitalJoin(Connection conn) {
-		Statement stmt = null;
+	public ArrayList<Member> selectHospitalJoin(Connection conn, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Member> list = new ArrayList<>();
 		Member m = null;
 		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
+		
 		String query = prop.getProperty("selectHospitalJoin");
 		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				m = new Member(rset.getInt("user_no"),
@@ -228,7 +246,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		return list;
 	}
@@ -380,5 +398,81 @@ public class MemberDAO {
 		}
 		return loginUser;
 	}
+	public int getListCountM(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("getListCountM");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return result;
+	}
+	public int getListCountH(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("getListCountH");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return result;
+	}
+	public int getListCountHJ(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("getListCountHJ");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return result;
+	}
+
 
 }

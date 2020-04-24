@@ -9,10 +9,52 @@ public class Comments {
 	private String commentsText;
 	private Date commentsDate;
 	private String userName;
-	
+	private String profileImage;
+	private String category;
 	
 	
 	public Comments() {}
+
+
+
+	public Comments(int commentsNo, int worryNo, int userNo, String commentsText, Date commentsDate, String userName,
+			String profileImage, String category) {
+		super();
+		this.commentsNo = commentsNo;
+		this.worryNo = worryNo;
+		this.userNo = userNo;
+		this.commentsText = commentsText;
+		this.commentsDate = commentsDate;
+		this.userName = userName;
+		this.profileImage = profileImage;
+		this.category = category;
+	}
+
+
+
+	public Comments(int commentsNo, int worryNo, int userNo, String commentsText, Date commentsDate, String userName,
+			String profileImage) {
+		super();
+		this.commentsNo = commentsNo;
+		this.worryNo = worryNo;
+		this.userNo = userNo;
+		this.commentsText = commentsText;
+		this.commentsDate = commentsDate;
+		this.userName = userName;
+		this.profileImage = profileImage;
+	}
+
+
+
+	public String getprofileImage() {
+		return profileImage;
+	}
+
+
+
+	public void setprofileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
 
 
 
@@ -92,8 +134,37 @@ public class Comments {
 	@Override
 	public String toString() {
 		return "Comments [commentsNo=" + commentsNo + ", worryNo=" + worryNo + ", userNo=" + userNo + ", commentsText="
-				+ commentsText + ", commentsDate=" + commentsDate + ", userName=" + userName + "]";
+				+ commentsText + ", commentsDate=" + commentsDate + ", userName=" + userName + ", profileImage="
+				+ profileImage + ", category=" + category + "]";
 	}
+
+
+
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+
+
+	
 
 	
 	

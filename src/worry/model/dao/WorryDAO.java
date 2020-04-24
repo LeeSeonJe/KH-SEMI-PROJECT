@@ -66,6 +66,7 @@ public class WorryDAO {
 
 
 
+
 	public ArrayList selectList(int currentPage, int boardLimit, Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -148,9 +149,399 @@ public class WorryDAO {
 		return list;
 	}
 
+//	public ArrayList<Worry> selectTopList(Connection conn, int currentPage, int boardLimit) {
+//		Statement stmt = null;
+//		ResultSet rset = null;
+//		int result = 0;
+//		Worry w = new Worry();
+//		ArrayList<Worry> topList = new ArrayList<Worry>();
+//
+//		
+//		
+//		String query = prop.getProperty("selectTopList");
+//		
+//		try {
+//			stmt = conn.createStatement();
+//			rset = stmt.executeQuery(query);
+//			
+//			while(rset.next()) {
+//				w = new Worry(rset.getInt("WORRY_NO"),
+//								 rset.getInt("WORRY_THUMBS_UP"),
+//								 rset.getInt("WORRY_HITS"),	
+//								 rset.getString("BOARD_TITLE"),	
+//								 rset.getString("BOARD_CONTENT"),	
+//								 rset.getDate("BOARD_DATE"),	
+//								 rset.getString("BOARD_CATEGORY"),	
+//								 rset.getString("USER_NAME"),	
+//								 rset.getInt("USER_NO"),	
+//								 rset.getInt("WORRY_THUMBS_DOWN"));
+//				
+//				topList.add(w);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(rset);
+//			close(stmt);
+//		}
+//
+//		return topList;
+//	}
+
+
+	public ArrayList<Worry> selectTop10List(int boardLimit, int currentPage, Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		Worry w = new Worry();
+		ArrayList<Worry> top10List = new ArrayList<Worry>();
+
+		
+		
+		String query = prop.getProperty("selectTop10List");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				w = new Worry(rset.getInt("WORRY_NO"),
+								 rset.getInt("WORRY_THUMBS_UP"),
+								 rset.getInt("WORRY_HITS"),	
+								 rset.getString("BOARD_TITLE"),	
+								 rset.getString("BOARD_CONTENT"),	
+								 rset.getDate("BOARD_DATE"),	
+								 rset.getString("BOARD_CATEGORY"),	
+								 rset.getString("USER_NAME"),	
+								 rset.getInt("USER_NO"),	
+								 rset.getInt("WORRY_THUMBS_DOWN"));
+				
+				top10List.add(w);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return top10List;
+	}	
 
 
 
+//	public ArrayList<Worry> selectHit10List(int boardLimit, int currentPage, Connection conn) {
+//		Statement stmt = null;
+//		ResultSet rset = null;
+//		int result = 0;
+//		Worry w = new Worry();
+//		ArrayList<Worry> hit10List = new ArrayList<Worry>();
+//
+//		
+//		
+//		String query = prop.getProperty("selectHit10List");
+//		
+//		try {
+//			stmt = conn.createStatement();
+//			rset = stmt.executeQuery(query);
+//			
+//			while(rset.next()) {
+//				w = new Worry(rset.getInt("WORRY_NO"),
+//								 rset.getInt("WORRY_THUMBS_UP"),
+//								 rset.getInt("WORRY_HITS"),	
+//								 rset.getString("BOARD_TITLE"),	
+//								 rset.getString("BOARD_CONTENT"),	
+//								 rset.getDate("BOARD_DATE"),	
+//								 rset.getString("BOARD_CATEGORY"),	
+//								 rset.getString("USER_NAME"),	
+//								 rset.getInt("USER_NO"),	
+//								 rset.getInt("WORRY_THUMBS_DOWN"));
+//				
+//				hit10List.add(w);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(rset);
+//			close(stmt);
+//		}
+//
+//		return hit10List;
+//	}
+
+//	public ArrayList<Worry> selectHitList(Connection conn, int currentPage, int boardLimit) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		int result = 0;
+//		Worry w = new Worry();
+//		ArrayList<Worry> hitList = new ArrayList<Worry>();
+//		
+//		int startRow = (currentPage -1) * boardLimit +1;
+//		int endRow = startRow + boardLimit -1;
+//		
+//		
+//		String query = prop.getProperty("selectHitList");
+//		
+//		try {
+//			pstmt = conn.prepareStatement(query);
+//			pstmt.setInt(1, startRow);
+//			pstmt.setInt(2, endRow);
+//			
+//			rset = pstmt.executeQuery();
+//			while(rset.next()) {
+//				w = new Worry(rset.getInt("WORRY_NO"),
+//								 rset.getInt("WORRY_THUMBS_UP"),
+//								 rset.getInt("WORRY_HITS"),	
+//								 rset.getString("BOARD_TITLE"),	
+//								 rset.getString("BOARD_CONTENT"),	
+//								 rset.getDate("BOARD_DATE"),	
+//								 rset.getString("BOARD_CATEGORY"),	
+//								 rset.getString("USER_NAME"),	
+//								 rset.getInt("USER_NO"),	
+//								 rset.getInt("WORRY_THUMBS_DOWN"));
+//				
+//				hitList.add(w);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//
+//		return hitList;
+//	}
+	
+	
+
+
+
+	public ArrayList<Worry> selectLowList(Connection conn, int currentPage, int boardLimit) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		Worry w = new Worry();
+		ArrayList<Worry> lowList = new ArrayList<Worry>();
+		
+
+		
+		String query = prop.getProperty("selectLowList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				w = new Worry(rset.getInt("WORRY_NO"),
+								 rset.getInt("WORRY_THUMBS_UP"),
+								 rset.getInt("WORRY_HITS"),	
+								 rset.getString("BOARD_TITLE"),	
+								 rset.getString("BOARD_CONTENT"),	
+								 rset.getDate("BOARD_DATE"),	
+								 rset.getString("BOARD_CATEGORY"),	
+								 rset.getString("USER_NAME"),	
+								 rset.getInt("USER_NO"),	
+								 rset.getInt("WORRY_THUMBS_DOWN"));
+				
+				lowList.add(w);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return lowList;
+	}
+
+
+
+
+
+	public ArrayList<Worry> selectSearchList(Connection conn, String text, String select, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Worry w = new Worry();
+		ArrayList<Worry> searchList = new ArrayList<Worry>();
+		String query = null;
+		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
+		
+		if(select.equals("total")) {
+			query = prop.getProperty("selectSearchList3");
+				
+			try {
+				
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, "%" + text + "%");
+				pstmt.setString(2, "%" + text + "%");
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+				
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					w = new Worry(rset.getInt("WORRY_NO"),
+									 rset.getInt("WORRY_THUMBS_UP"),
+									 rset.getInt("WORRY_HITS"),	
+									 rset.getString("BOARD_TITLE"),	
+									 rset.getString("BOARD_CONTENT"),	
+									 rset.getDate("BOARD_DATE"),	
+									 rset.getString("BOARD_CATEGORY"),	
+									 rset.getString("USER_NAME"),	
+									 rset.getInt("USER_NO"),	
+									 rset.getInt("WORRY_THUMBS_DOWN"));
+					
+					searchList.add(w);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}	
+
+		} else if (select.equals("content")){
+				query = prop.getProperty("selectSearchList2");
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, "%" + text + "%");
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					w = new Worry(rset.getInt("WORRY_NO"),
+									 rset.getInt("WORRY_THUMBS_UP"),
+									 rset.getInt("WORRY_HITS"),	
+									 rset.getString("BOARD_TITLE"),	
+									 rset.getString("BOARD_CONTENT"),	
+									 rset.getDate("BOARD_DATE"),	
+									 rset.getString("BOARD_CATEGORY"),	
+									 rset.getString("USER_NAME"),	
+									 rset.getInt("USER_NO"),	
+									 rset.getInt("WORRY_THUMBS_DOWN"));
+					
+					searchList.add(w);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		} else {	
+			query = prop.getProperty("selectSearchList1");
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, "%" + text + "%");
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					w = new Worry(rset.getInt("WORRY_NO"),
+									 rset.getInt("WORRY_THUMBS_UP"),
+									 rset.getInt("WORRY_HITS"),	
+									 rset.getString("BOARD_TITLE"),	
+									 rset.getString("BOARD_CONTENT"),	
+									 rset.getDate("BOARD_DATE"),	
+									 rset.getString("BOARD_CATEGORY"),	
+									 rset.getString("USER_NAME"),	
+									 rset.getInt("USER_NO"),	
+									 rset.getInt("WORRY_THUMBS_DOWN"));
+					
+					searchList.add(w);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}
+		
+		
+
+		return searchList;
+	}
+
+
+	public int getSearchCount(Connection conn, String text, String select) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = null;
+		
+		if(select.equals("name")) {
+			query = prop.getProperty("getSearchCount1");
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, "%" + text + "%");
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					result = rset.getInt(1);
+					}
+				result = rset.getInt(1);
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+
+		} else if(select.equals("content")) {
+			query = prop.getProperty("getSearchCount2");
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, "%" + text + "%");
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					result = rset.getInt(1);
+					}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+
+		}else {
+			query = prop.getProperty("getSearchCount3");
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, "%" + text + "%");
+				pstmt.setString(2, "%" + text + "%");
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+				result = rset.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+
+		}
+
+		return result;
+	}
+	
+	
+	
+	
+	
 	public Worry worryDetail(int worryNo, Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -161,6 +552,7 @@ public class WorryDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, worryNo);
+			pstmt.setInt(2, worryNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -171,10 +563,12 @@ public class WorryDAO {
 						rset.getString("BOARD_TITLE"),
 						rset.getString("BOARD_CONTENT"),
 						rset.getDate("BOARD_DATE"),
-						rset.getString("BOARD_CATEGORY"),
+						rset.getString("USER_CATEGORY"),
 						rset.getString("USER_NAME"),
 						rset.getInt("USER_NO"),
-						rset.getInt("WORRY_THUMBS_DOWN"));
+						rset.getInt("WORRY_THUMBS_DOWN"),
+						rset.getString("WORRY_STATUS"),
+						rset.getString("PROFILE_IMAGE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -246,6 +640,8 @@ public class WorryDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, worryNo);
+			pstmt.setInt(2, worryNo);
+			pstmt.setInt(3, worryNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -255,7 +651,9 @@ public class WorryDAO {
 								 rset.getInt("USER_NO"),
 								 rset.getString("COMMENT_TEXT"),
 								 rset.getDate("COMMENT_DATE"),
-								 rset.getString("USER_NAME")
+								 rset.getString("USER_NAME"),
+								 rset.getString("PROFILE_IMAGE"),
+								 rset.getString("USER_CATEGORY")
 						);
 				list.add(c);
 			}
@@ -410,7 +808,6 @@ public class WorryDAO {
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -457,234 +854,7 @@ public class WorryDAO {
 
 
 
-	public ArrayList<Worry> selectTopList(Connection conn) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		int result = 0;
-		Worry w = new Worry();
-		ArrayList<Worry> topList = new ArrayList<Worry>();
-		
-		
-		String query = prop.getProperty("selectTopList");
-		
-		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			while(rset.next()) {
-				w = new Worry(rset.getInt("WORRY_NO"),
-								 rset.getInt("WORRY_THUMBS_UP"),
-								 rset.getInt("WORRY_HITS"),	
-								 rset.getString("BOARD_TITLE"),	
-								 rset.getString("BOARD_CONTENT"),	
-								 rset.getDate("BOARD_DATE"),	
-								 rset.getString("BOARD_CATEGORY"),	
-								 rset.getString("USER_NAME"),	
-								 rset.getInt("USER_NO"),	
-								 rset.getInt("WORRY_THUMBS_DOWN"));
-				
-				topList.add(w);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(stmt);
-		}
 
-		return topList;
-	}
-
-
-
-
-
-	public ArrayList<Worry> selectHitList(Connection conn) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		int result = 0;
-		Worry w = new Worry();
-		ArrayList<Worry> hitList = new ArrayList<Worry>();
-		
-		
-		String query = prop.getProperty("selectHitList");
-		
-		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			while(rset.next()) {
-				w = new Worry(rset.getInt("WORRY_NO"),
-								 rset.getInt("WORRY_THUMBS_UP"),
-								 rset.getInt("WORRY_HITS"),	
-								 rset.getString("BOARD_TITLE"),	
-								 rset.getString("BOARD_CONTENT"),	
-								 rset.getDate("BOARD_DATE"),	
-								 rset.getString("BOARD_CATEGORY"),	
-								 rset.getString("USER_NAME"),	
-								 rset.getInt("USER_NO"),	
-								 rset.getInt("WORRY_THUMBS_DOWN"));
-				
-				hitList.add(w);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(stmt);
-		}
-
-		return hitList;
-	}
-
-
-
-
-
-	public ArrayList<Worry> selectLowList(Connection conn) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		int result = 0;
-		Worry w = new Worry();
-		ArrayList<Worry> lowList = new ArrayList<Worry>();
-		
-		
-		String query = prop.getProperty("selectLowList");
-		
-		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			while(rset.next()) {
-				w = new Worry(rset.getInt("WORRY_NO"),
-								 rset.getInt("WORRY_THUMBS_UP"),
-								 rset.getInt("WORRY_HITS"),	
-								 rset.getString("BOARD_TITLE"),	
-								 rset.getString("BOARD_CONTENT"),	
-								 rset.getDate("BOARD_DATE"),	
-								 rset.getString("BOARD_CATEGORY"),	
-								 rset.getString("USER_NAME"),	
-								 rset.getInt("USER_NO"),	
-								 rset.getInt("WORRY_THUMBS_DOWN"));
-				
-				lowList.add(w);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(stmt);
-		}
-
-		return lowList;
-	}
-
-
-
-
-
-	public ArrayList<Worry> selectSearchList(Connection conn, String text, String select) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		Worry w = new Worry();
-		ArrayList<Worry> searchList = new ArrayList<Worry>();
-		String query = null;
-		
-		if(select.equals("total")) {
-			query = prop.getProperty("selectSearchList3");
-				
-			try {
-				
-				pstmt = conn.prepareStatement(query);
-				pstmt.setString(1, "%" + text + "%");
-				pstmt.setString(2, "%" + text + "%");
-				
-				rset = pstmt.executeQuery();
-				while(rset.next()) {
-					w = new Worry(rset.getInt("WORRY_NO"),
-									 rset.getInt("WORRY_THUMBS_UP"),
-									 rset.getInt("WORRY_HITS"),	
-									 rset.getString("BOARD_TITLE"),	
-									 rset.getString("BOARD_CONTENT"),	
-									 rset.getDate("BOARD_DATE"),	
-									 rset.getString("BOARD_CATEGORY"),	
-									 rset.getString("USER_NAME"),	
-									 rset.getInt("USER_NO"),	
-									 rset.getInt("WORRY_THUMBS_DOWN"));
-					
-					searchList.add(w);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				close(rset);
-				close(pstmt);
-			}	
-
-		} else if (select.equals("content")){
-				query = prop.getProperty("selectSearchList2");
-			
-			try {
-				pstmt = conn.prepareStatement(query);
-				pstmt.setString(1, "%" + text + "%");
-				
-				rset = pstmt.executeQuery();
-				
-				while(rset.next()) {
-					w = new Worry(rset.getInt("WORRY_NO"),
-									 rset.getInt("WORRY_THUMBS_UP"),
-									 rset.getInt("WORRY_HITS"),	
-									 rset.getString("BOARD_TITLE"),	
-									 rset.getString("BOARD_CONTENT"),	
-									 rset.getDate("BOARD_DATE"),	
-									 rset.getString("BOARD_CATEGORY"),	
-									 rset.getString("USER_NAME"),	
-									 rset.getInt("USER_NO"),	
-									 rset.getInt("WORRY_THUMBS_DOWN"));
-					
-					searchList.add(w);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				close(rset);
-				close(pstmt);
-			}
-		} else {	
-			query = prop.getProperty("selectSearchList1");
-			
-			try {
-				pstmt = conn.prepareStatement(query);
-				pstmt.setString(1, "%" + text + "%");
-				
-				rset = pstmt.executeQuery();
-				
-				while(rset.next()) {
-					w = new Worry(rset.getInt("WORRY_NO"),
-									 rset.getInt("WORRY_THUMBS_UP"),
-									 rset.getInt("WORRY_HITS"),	
-									 rset.getString("BOARD_TITLE"),	
-									 rset.getString("BOARD_CONTENT"),	
-									 rset.getDate("BOARD_DATE"),	
-									 rset.getString("BOARD_CATEGORY"),	
-									 rset.getString("USER_NAME"),	
-									 rset.getInt("USER_NO"),	
-									 rset.getInt("WORRY_THUMBS_DOWN"));
-					
-					searchList.add(w);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				close(rset);
-				close(pstmt);
-			}
-		}
-		
-		
-
-		return searchList;
-	}
 
 
 
@@ -728,6 +898,7 @@ public class WorryDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, worryNo);
+			pstmt.setInt(2, worryNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -738,10 +909,12 @@ public class WorryDAO {
 						rset.getString("BOARD_TITLE"),
 						rset.getString("BOARD_CONTENT"),
 						rset.getDate("BOARD_DATE"),
-						rset.getString("BOARD_CATEGORY"),
+						rset.getString("USER_CATEGORY"),
 						rset.getString("USER_NAME"),
 						rset.getInt("USER_NO"),
-						rset.getInt("WORRY_THUMBS_DOWN"));
+						rset.getInt("WORRY_THUMBS_DOWN"),
+						rset.getString("WORRY_STATUS"),
+						rset.getString("PROFILE_IMAGE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -787,6 +960,7 @@ public class WorryDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, worryNo);
+			pstmt.setInt(2, worryNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -797,10 +971,12 @@ public class WorryDAO {
 						rset.getString("BOARD_TITLE"),
 						rset.getString("BOARD_CONTENT"),
 						rset.getDate("BOARD_DATE"),
-						rset.getString("BOARD_CATEGORY"),
+						rset.getString("USER_CATEGORY"),
 						rset.getString("USER_NAME"),
 						rset.getInt("USER_NO"),
-						rset.getInt("WORRY_THUMBS_DOWN"));
+						rset.getInt("WORRY_THUMBS_DOWN"),
+						rset.getString("WORRY_STATUS"),
+						rset.getString("PROFILE_IMAGE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -969,7 +1145,156 @@ public class WorryDAO {
 
 		return result;
 	}
+
+
+
+
+
+	public int WorryLikey(Connection conn, int worryNo, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("liker");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, worryNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
+
+
+
+
+
+	public int LikeList(Connection conn, int worryNo, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("checkLiker");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, worryNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+			result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+
+		return result;
+	}
+
+
+
+
+
+
+
+
+
+	public int hater(Connection conn, int worryNo, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("hater");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, worryNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+
+
+	public int hateList(Connection conn, int worryNo, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("checkHater");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, worryNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+			result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+
+		return result;
+	}
+
+
+
+
+
+	public ArrayList<Worry> worryList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Worry> wList = new ArrayList<Worry>();
+		String query = prop.getProperty("worryList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			while(rset.next()) {
+				wList.add(new Worry(
+						rset.getInt("worry_no"),
+						rset.getString("board_title")
+						));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return wList;
+	}
+}
 	
 
 		

@@ -27,8 +27,9 @@ public class Hospital {
 		this.review_count = review_count;
 	}
 	
-	public Hospital(String user_name, String hospital_about, String tel, String address, String hospital_img, double hospital_heart, double review_count, String email) {
+	public Hospital(int hospital_no, String user_name, String hospital_about, String tel, String address, String hospital_img, double hospital_heart, double review_count, String email) {
 		super();
+		this.hospital_no = hospital_no;
 		this.user_name = user_name;
 		this.hospital_about = hospital_about;
 		this.tel = tel;

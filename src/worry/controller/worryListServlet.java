@@ -64,26 +64,34 @@ public class worryListServlet extends HttpServlet {
 		
 		
 		
-		
 		ArrayList<Worry> list = service.selectList(currentPage, boardLimit);
-		ArrayList<Worry> topList = new WorryService().selectTopList();
-		ArrayList<Worry> lowList = new WorryService().selectLowList();
-		ArrayList<Worry> hitList = new WorryService().selectHitList();
+//		ArrayList<Worry> topList = new WorryService().selectTopList(currentPage, boardLimit);
+		ArrayList<Worry> top10List = new WorryService().selectTop10List(currentPage, boardLimit);
+		ArrayList<Worry> lowList = new WorryService().selectLowList(currentPage, boardLimit);
+//		ArrayList<Worry> hitList = new WorryService().selectHitList(currentPage, boardLimit);
+//		ArrayList<Worry> hit10List = new WorryService().selectHit10List(currentPage, boardLimit);
 
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/worry/worryMain.jsp");
 		request.setAttribute("list", list);
-		request.setAttribute("topList", topList);
+//		request.setAttribute("topList", topList);
+		request.setAttribute("top10List", top10List);
 		request.setAttribute("lowList", lowList);
-		request.setAttribute("hitList", hitList);
+//		request.setAttribute("hitList", hitList);
+//		request.setAttribute("hit10List", hit10List);
 		request.setAttribute("pi", pi);
 		
 		String value = "hit";
 		request.setAttribute("value", value);
 		
-		view.forward(request, response);
 		
-		System.out.println(list);
+
+		
+		
+		
+		
+		view.forward(request, response);
+
 
 	}
 

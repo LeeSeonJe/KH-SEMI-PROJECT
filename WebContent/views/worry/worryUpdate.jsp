@@ -26,7 +26,7 @@ ArrayList<AddFile> fList = (ArrayList<AddFile>)request.getAttribute("fList");
 	.worry-read-wrap{padding: 0 5px;}
     .worry-head{border-bottom: 2px solid #666;
                 padding: 0 10px;
-                height: 80px;}
+                height: 120px;}
     .worry-head>h3{margin-bottom: 10px}
     .worry-head>span{font-size:1.1em;}
     .worry-head>time{margin-left:10px;
@@ -89,10 +89,12 @@ ArrayList<AddFile> fList = (ArrayList<AddFile>)request.getAttribute("fList");
 				  width:200px;
 				  text-align:center;
 				  vertical-align:top}
-	
+	#name{margin-left: 22px; height: 60px;}
+	#time{margin-left: 22px;}
 	#content{border: none; width: 90%; height: 300px; resize:none; }
-
-
+	#profile{border-radius:50px;}
+	.profile{display: inline-block;}
+	#title{font-size:1.3em; width:850px; height: 60px; margin-left: 0px; overflow:hidden; text-overflow: ellipsis; white-space: normal; line-height: 1.2; height: 2.4em;}
 </style>
 
 
@@ -107,16 +109,17 @@ ArrayList<AddFile> fList = (ArrayList<AddFile>)request.getAttribute("fList");
 			<div class="worry-read-wrap">
                 <article class="worry-head">
                 	<input type="hidden" name="worryNo" value="<%= request.getParameter("worryNo") %>">
-                    <h3><input type="text" name="title" value="<%= w.getTitle() %>"></h3>
-                    <span><%= m.getUser_name() %></span>
-                    <time datetime="2020-03-28T19:43:20"><%= w.getDate() %></time>
+                    <div id="title"><input style="width:600px;" type="text" name="title" value="<%= w.getTitle() %>"></div>
+                    <div  class="profile"><img id="profile" src="<%= request.getContextPath()%>/member_images/<%= w.getProfileImage() %>" width="50px" height="50px"></div>
+                    <span id="name"><%= m.getUser_name() %></span>
+                    <time id="time" datetime="2020-03-28T19:43:20"><%= w.getDate() %></time>
                     <div class="count-reading">
                         <span class="count-title">조회수 : <%= w.getHit() %></span>
                     </div>
                 </article>
                 <article class="content-body">
 <%--                 	<input id="content" type="text" value='<%= request.getParameter("content") %>'> --%>
-                   <textarea id="content" name="content" row="10" style="overflow: hidden; overflow-wrap: break-word; resize: horicontal; hieght: 170px;"><%= w.getContent() %></textarea>
+                   <textarea id="content" name="content" row="10" style="overflow: hidden; overflow-wrap: break-word; resize: horicontal; height: 170px;"><%= w.getContent() %></textarea>
                  <br><br>
 
                   <% if(fList != null){ %>
