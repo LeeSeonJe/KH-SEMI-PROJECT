@@ -647,7 +647,7 @@ public class ReviewDAO {
 		int result = 0;
 		
 		String query = prop.getProperty("getListCountReq");
-		
+		try {	
       stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
   
