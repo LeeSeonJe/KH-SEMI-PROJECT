@@ -104,7 +104,7 @@
 /* 	width:500px; */
 /* } */
 
-#brandHomeBtn {
+#brandHomeBtn, #reviewBtn {
 	float: right;
 	border: 1px solid red;
     background: white;
@@ -259,7 +259,9 @@ span.star-prototype > * {
 							<tr>
 								<td id="td-contents">설명</td>
 								<td style="width: 75%;"><%= c.getCosmetic_about() %></td>
-								<td style="width: 180px"></td>
+								<td style="width: 180px">
+									<button type="button" id="reviewBtn" style="float: right;" onclick="loginChk()">리뷰쓰기</button>
+								</td>
 							</tr>
 						</table>
 					</div>
@@ -373,6 +375,19 @@ span.star-prototype > * {
 
 	<%@ include file="/views/layout/footer.jsp"%>
 		<script> 
+		function loginChk(){
+			if('<%= loginUser %>' != 'null'){
+				location.href = "/COSMEDIC/CosmeticReviewWriteServlet?cosName=" + encodeURIComponent('<%= c.getCosmetic_name()%>');
+			} else{
+				alert('로그인 후 이용해주세요.');
+				location.href='<%= request.getContextPath() %>/views/common/login.jsp';
+			}
+		}
+		
+// 		$('#reviewBtn').on('click', function(){
+<%-- 			location.href = "/COSMEDIC/CosmeticReviewWriteServlet?cosName=" + encodeURIComponent('<%= c.getCosmetic_name()%>'); --%>
+// 		})
+			
 		
 		$('#select-btn').click(function(){
 			var cosName = $('#brand-product-name>h3').text(); // 화장품 이름 가져오기

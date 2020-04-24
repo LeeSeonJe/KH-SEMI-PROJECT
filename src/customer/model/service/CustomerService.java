@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import customer.model.dao.CustomerDAO;
 import customer.model.vo.Customer;
+import customer.model.vo.MyPageBook;
 import customer.model.vo.MyPageCustomer;
 import customer.model.vo.MyPageQnA;
 import customer.model.vo.MyPageReview;
@@ -209,6 +210,20 @@ public class CustomerService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int getBookCount(String user_id) {
+		Connection conn = getConnection();
+		int result = new CustomerDAO().getBookCount(conn, user_id);
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<MyPageBook> selectCustomerBook(String user_id, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		ArrayList<MyPageBook> mpb = new CustomerDAO().selectCustomerBook(conn, user_id, currentPage, boardLimit);
+		close(conn);
+		return mpb;
 	}
 
 }
