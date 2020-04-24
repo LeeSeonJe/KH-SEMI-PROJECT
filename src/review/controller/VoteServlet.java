@@ -28,12 +28,12 @@ public class VoteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		int rno = Integer.parseInt(request.getParameter("rno"));
-//		System.out.println(rno);
+		System.out.println("rno : " + rno);
 		
 		String vote = (String)request.getParameter("vote");
-		System.out.println(vote);
+		System.out.println("ttttt : " + vote);
 		int result = 0;
 		int result1 = 0;
 		

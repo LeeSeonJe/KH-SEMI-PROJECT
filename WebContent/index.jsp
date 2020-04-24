@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>COSMEDIC</title>
 </head>
 <body>
 	<%@ include file="/views/common/loginedMain.jsp" %>
