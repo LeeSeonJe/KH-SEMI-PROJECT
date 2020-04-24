@@ -184,5 +184,15 @@ public class MemberService {
 		return result;
 	}
 
+	public int getListCountS(String keyword) {
+Connection conn = getConnection();
+		
+		int result = new MemberDAO().getListCountS(conn, keyword);
+		
+		close(conn);
+		
+		return result;
+	}
+
 
 }

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import customer.model.vo.Customer;
+import member.model.dao.MemberDAO;
 import review.model.dao.ReviewDAO;
 import review.model.vo.AddFile;
 import review.model.vo.Review;
@@ -135,10 +136,10 @@ public class ReviewService {
 	}
 
 
-	public ArrayList<Review> selectReq() {
+	public ArrayList<Review> selectReq(int currentPage, int boardLimit) {
 		Connection conn = getConnection();
 		
-		ArrayList<Review> list = new ReviewDAO().selectReq(conn);
+		ArrayList<Review> list = new ReviewDAO().selectReq(conn, currentPage, boardLimit);
 		close(conn);
 		
 		
@@ -220,4 +221,28 @@ public class ReviewService {
 		close(conn);
 		return result;
 	}
+
+	public int getListCountReq() {
+		Connection conn = getConnection();
+		
+		int result = new ReviewDAO().getListCountReq(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

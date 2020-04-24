@@ -201,7 +201,7 @@ table#adminEnrollHospital>tbody>tr>td{
                <li onclick="location.href = '<%= request.getContextPath()%>/user.admin'">회원 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/hospital.admin'">병원 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/list.req'">제품 등록 관리</li>
                <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/reviewList.admin'">리뷰 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/boardList.admin'">게시판 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/inqList.admin'">1대1문의 관리</li>
@@ -253,7 +253,7 @@ table#adminEnrollHospital>tbody>tr>td{
             </table>
             <br><br>
             
-              	<div class="pagingArea" align="center">
+              	<div class="pagingArea1" align="center">
                    	<%if(!list.isEmpty()){ %>
 						<!-- 맨 처음으로 -->
 						<button class="btn-standard" onclick="location.href='<%= request.getContextPath() %>/reviewList.admin?currentPage=1'">&lt;&lt;</button>
@@ -270,7 +270,7 @@ table#adminEnrollHospital>tbody>tr>td{
 						<!-- 10개 페이지 목록 -->
 						<% for(int p = startPage; p <= endPage;p++){ %>
 							<% if(p == currentPage){ %>
-								<button id="choosen"  class="btn-standard" disabled style="background:DarkTurquoise"><%= p %></button>		
+								<button id ="choosen"  class="btn-standard" disabled style="background:DarkTurquoise"><%= p %></button>		
 							<%} else{ %>
 								<button id="numBtn"  class="btn-standard" onclick="location.href='<%=request.getContextPath() %>/reviewList.admin?currentPage=<%=p%>'"><%= p %></button>
 							<%} %>
@@ -288,6 +288,8 @@ table#adminEnrollHospital>tbody>tr>td{
 						<button class="btn-standard" onclick="location.href='<%=request.getContextPath()%>/reviewList.admin?currentPage=<%=maxPage %>'">&gt;&gt;</button>
 					<%} %>
               	</div>
+              	
+             
             
 <!--             <div class="paging"> -->
 <!-- 			  <a href="#" class="btn_arr first"><span class="hide">처음페이지</span></a>             -->
@@ -306,59 +308,69 @@ table#adminEnrollHospital>tbody>tr>td{
            <%@ include file="/views/layout/footer.jsp"%>
    
    <script>
-	$('#searachBtn').click(function(){
-		var keyword = $('#keyword').val();
+// 	function search(){
+// 		var keyword = $('#keyword').val();
+// 		var currentPage = 0;
+<%-- 		if(<%=currentPage%> < 1){ --%>
+// 			currentPage = 1;
+// 		} else{
+<%-- 			currentPage = <%= currentPage%>; --%>
+// 		}
 		
-		$.ajax({
-			url: 'search.hos',
-			data : {keyword:keyword},
-			success: function(data){
-				$('#tbody').html("");
-				if(data.length == 0){
-					var $tr = $('<tr></tr>');
-					var $td = $("<td colspan='7'></td>").text("조회된 리스트가 없습니다.");
+		
+// 		$.ajax({
+// 			url: 'search.hos',
+// 			data : {keyword:keyword, currentPage:currentPage},
+// 			success: function(data){
+// 				$('.pagingArea2').show();
+// 				$('.pagingArea1').hide();
+				
+// 				$('#tbody').html("");
+// 				if(data.length == 0){
+// 					var $tr = $('<tr></tr>');
+// 					var $td = $("<td colspan='7'></td>").text("조회된 리스트가 없습니다.");
 					
-					$tr.append($td);
-					$('#tbody').append($tr);
-				} else {
-					for(var i in data){
-						var $tr = $('<tr></tr>');
-						var $td1 = $('<td></td>').text(data[i].board_no);
-						var $td2 = $('<td></td>');
-						var $div1 = $("<div class='title'></div>").text(data[i].board_title);
-						var $td3 = $('<td></td>');
-						var $div2 = $("<div class='content'></div>").text(data[i].board_content);
-						var $td4 = $('<td></td>').text(data[i].user_name);
-						var $td5 = $('<td></td>').text(data[i].board_date);
+// 					$tr.append($td);
+// 					$('#tbody').append($tr);
+// 				} else {
+// 					for(var i in data){
+// 						var $tr = $('<tr></tr>');
+// 						var $td1 = $('<td></td>').text(data[i].board_no);
+// 						var $td2 = $('<td></td>');
+// 						var $div1 = $("<div class='title'></div>").text(data[i].board_title);
+// 						var $td3 = $('<td></td>');
+// 						var $div2 = $("<div class='content'></div>").text(data[i].board_content);
+// 						var $td4 = $('<td></td>').text(data[i].user_name);
+// 						var $td5 = $('<td></td>').text(data[i].board_date);
 						
-						if(data[i].board_category == "hospital"){
-							var $td6 =$('<td></td>').text('병원');
-						} else if(data[i].board_category == "review"){
-							var $td6 =$('<td></td>').text('화장품');
-						}
+// 						if(data[i].board_category == "hospital"){
+// 							var $td6 =$('<td></td>').text('병원');
+// 						} else if(data[i].board_category == "review"){
+// 							var $td6 =$('<td></td>').text('화장품');
+// 						}
 						
-						var $td7 = $('<td></td>');
-						var $label = $("<label class='remove'></label'").text("삭제");
+// 						var $td7 = $('<td></td>');
+// 						var $label = $("<label class='remove'></label'").text("삭제");
 						
-						$td7.append($label);
+// 						$td7.append($label);
 						
-						$td2.append($div1);
-						$td3.append($div2);
+// 						$td2.append($div1);
+// 						$td3.append($div2);
 						
-						$tr.append($td1);
-						$tr.append($td2);
-						$tr.append($td3);
-						$tr.append($td4);
-						$tr.append($td5);
-						$tr.append($td6);
-						$tr.append($td7);
+// 						$tr.append($td1);
+// 						$tr.append($td2);
+// 						$tr.append($td3);
+// 						$tr.append($td4);
+// 						$tr.append($td5);
+// 						$tr.append($td6);
+// 						$tr.append($td7);
 						
-						$('#tbody').append($tr);
-					}
-				}
-			}
-		});
-	});
+// 						$('#tbody').append($tr);
+// 					}
+// 				}
+// 			}
+// 		});
+// 	});
 	
 	$('.remove').click(function(){
 		var result = window.confirm('해당 리뷰를 삭제처리 하시겠습니까?');
@@ -372,6 +384,14 @@ table#adminEnrollHospital>tbody>tr>td{
 			alert('취소!');
 		}
 	});
+	
+	$('#searachBtn').click(function(){
+			location.href="<%= request.getContextPath() %>/search.hos?currentPage=1&keyword=" + $('#keyword').val();
+
+	});
+	
+	
+	
    </script>
    <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
    

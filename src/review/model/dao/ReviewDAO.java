@@ -262,27 +262,37 @@ public class ReviewDAO {
 
 	
 	
-	public ArrayList<Review> selectReq(Connection conn) {
-		Statement stmt = null;
+	public ArrayList<Review> selectReq(Connection conn, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> list = new ArrayList<>();
 		Review r = null;
 		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
+		
 		String query = prop.getProperty("selectReq");
 		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
 			//리뷰넘버 유저네임 데이트
+			
 			while(rset.next()) {
-				r = new Review(rset.getInt("board_no"),
-								rset.getString("user_name"),
-								rset.getDate("board_date"));
+				r = new Review(rset.getInt("BOARD_NO"),
+								rset.getString("USER_NAME"),
+								rset.getDate("BOARD_DATE"));
 				list.add(r);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return list;
@@ -627,6 +637,32 @@ public class ReviewDAO {
 
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int getListCountReq(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("getListCountReq");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+
 		return result;
 	}
 
