@@ -51,6 +51,8 @@ public class CosTalkDAO {
 
 			}
 
+
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -185,4 +187,102 @@ public class CosTalkDAO {
 
 	*/
 
+	public ArrayList<CosTalk> refreshHistory(Connection conn , int sUserNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<CosTalk> list = new ArrayList<>();
+		CosTalk c = null;
+		
+		String query = prop.getProperty("cosTalkHistoryRefresh");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, sUserNo);
+			pstmt.setInt(2, sUserNo);
+			pstmt.setInt(3, sUserNo);
+			pstmt.setInt(4, sUserNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				c = new CosTalk(rset.getInt("no"), rset.getString("user_id"), rset.getString("user_name"));
+				
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<CosTalk> refreshChatBox(Connection conn, ArrayList<CosTalk> list2, int arr, int sUserNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<CosTalk> list = new ArrayList<>();
+		CosTalk c = null;
+		String query = prop.getProperty("cosTalkChatBoxRefresh");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, arr);
+			pstmt.setInt(2, sUserNo);
+			pstmt.setInt(3, sUserNo);
+			pstmt.setInt(4, arr);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				c = new CosTalk(rset.getString("message"));
+				list2.add(c);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list2;
+	}
+
+	public ArrayList<CosTalk> refreshChatBox2(Connection conn, ArrayList<Integer> arr, ArrayList<CosTalk> list) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("cosTalkChatBoxRefresh2");
+		try {
+			for(int i=0; i<list.size(); i++) {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, arr.get(i));
+			
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					list.get(i).setUser_id(rset.getString("user_id"));
+					list.get(i).setUser_name(rset.getString("user_name"));
+					list.get(i).setReception_no(arr.get(i));
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	// 만들어졋다.
+
+	
 }
