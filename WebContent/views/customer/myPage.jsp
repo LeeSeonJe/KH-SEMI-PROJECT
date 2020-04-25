@@ -1405,6 +1405,10 @@ tbody img {
 				url: 'login.me',
 				data: {category:category, id:id, pwd:pwd}
 			})
+			$.ajax({
+				url: 'login.me',
+				data: {category:category, id:id, pwd:pwd}
+			})
 		}
 	
 		$('#basic_img').on('click', function(){

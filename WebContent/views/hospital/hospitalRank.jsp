@@ -230,7 +230,7 @@ span.star-prototype > * {
 				<div id="cosmetic-beauty-filter">
 					<div id="cosmetic-beauty-filter-header">
 						<h3>필터</h3>
-						<button id="reset-btn" type="reset">초기화</button>
+						<button id="reset-btn" type="button" onClick="window.location.reload()">초기화</button>
 					</div>
 					<br>
 					<div id="cosmetic-beauty-filter-select">
@@ -579,23 +579,12 @@ span.star-prototype > * {
 					var count = 0;
 					$('#ul-area').html("");
 					if(data.length == 0){
-						var $div1 = $('<div class="ranking-list"></div>');
-						var $div2 = $('<div class="cos-rank"></div>');
-						var $div3 = $('<div class="cos-img"></div>');
-						var $div4 = $('<div class="cos-detail"></div>');
-						var $br = $('<br><br><br><br>');
-						var $span = $('<span></span>').text('조회된 리스트가 없습니다.');
-						var $div5 = $('<div class="cos-score"></div>');
+						var $li1 = $('<li class="no" ></li>')
+						var $img = $('<img id="noSearch" src="/COSMEDIC/resources/images/nosearch.png">')
+						var $li2 = $('<li class="no">선택하신 필터 조건과 일치하는 제품이 없습니다.</li>')
 						
-						$div4.append($br);
-						$div4.append($span);
-						
-						$div1.append($div2);
-						$div1.append($div3);
-						$div1.append($div4);
-						$div1.append($div5);
-						
-						$('#ul-area').append($div1);
+						$li1.append($img);
+						$('#ul-area').append($li1, $li2)
 					} else {
 						for(var i in data){
 							count += 1;

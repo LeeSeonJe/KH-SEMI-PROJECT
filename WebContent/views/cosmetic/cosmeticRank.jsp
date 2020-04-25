@@ -216,6 +216,17 @@ span.star-prototype > * {
 	display: inline-block;
 	vertical-align: middle;
 }
+
+.no {
+	text-align: center;
+	font-size: 17px;
+}
+
+#noSearch {
+    width: 300px;
+    margin: 100px;
+    margin-bottom: 0;
+}
 </style>
 
 <% 
@@ -237,45 +248,45 @@ span.star-prototype > * {
 				<div id="cosmetic-beauty-filter">
 					<div id="cosmetic-beauty-filter-header">
 						<h3>필터</h3>
-						<button id="reset-btn" type="reset">초기화</button>
+						<button id="reset-btn" type="button" onClick="window.location.reload()">초기화</button>
 					</div>
 					<br>
 					<div id="cosmetic-beauty-filter-select">
 					<fieldset id="sex-fieldset">
-								<legend>
-									<h4>성별</h4>
-								</legend>
-								<input type="radio" id="filter-sex-all" class="radioChkActive" name="filter-sex" value="ALL" checked="checked"/> <label for="filter-sex-all">전체</label>
-								<input type="radio" id="filter-sex-female" class="radioChk" name="filter-sex" value="여성"/> <label for="filter-sex-female">여자</label>
-								<input type="radio" id="filter-sex-male" class="radioChk" name="filter-sex" value="남성"/> <label for="filter-sex-male">남자</label>						
-							</fieldset>
-							<br>
-							<fieldset>
-								<legend>
-									<h4>연령대</h4>
-								</legend>
-								<input type="checkbox" id="filter-age-all" class="chkboxChkActive" name="filter-age-all" value="ALL" checked="checked" /> <label for="filter-age-all">전체</label>
-								<input type="checkbox" id="filter-age-10" class="chkboxChk" name="filter-age" value="10대" /> <label for="filter-age-10">10대</label>
-								<input type="checkbox" id="filter-age-20u" class="chkboxChk" name="filter-age" value="20대 초반" /> <label for="filter-age-20u">20대 초반</label>	
-								<br><br>
-								<input type="checkbox" id="filter-age-20d" class="chkboxChk" name="filter-age" value="20대 후반" /> <label for="filter-age-20d">20대 후반</label>	
-								<input type="checkbox" id="filter-age-30" class="chkboxChk" name="filter-age" value="30대 초반" /> <label for="filter-age-30">30대 초반</label>	
-								<input type="checkbox" id="filter-age-30u" class="chkboxChk" name="filter-age" value="30대 후반" /> <label for="filter-age-30u">30대 후반</label>	
-							</fieldset>
-							<br>
-							<fieldset>
-								<legend>
-									<h4>피부타입</h4>
-								</legend>
-								<input type="checkbox" id="filter-skinType-all" class="chkboxChkActive" name="filter-skinType-all" value="ALL" checked="checked"/> <label for="filter-skinType-all">전체</label>
-								<input type="checkbox" id="filter-skinType-dry" class="chkboxChk" name="filter-skinType" value="건성"/> <label for="filter-skinType-dry">건성</label>
-								<input type="checkbox" id="filter-skinType-oily" class="chkboxChk" name="filter-skinType" value="지성"/> <label for="filter-skinType-oily">지성</label>	
-								<br><br>
-								<input type="checkbox" id="filter-skinType-neutral" class="chkboxChk" name="filter-skinType" value="중성"/> <label for="filter-skinType-neutral">중성</label>	
-								<input type="checkbox" id="filter-skinType-combi" class="chkboxChk" name="filter-skinType" value="복합성"/> <label for="filter-skinType-combi">복합성</label>	
-								<input type="checkbox" id="filter-skinType-sensitive" class="chkboxChk" name="filter-skinType" value="민감성"/> <label for="filter-skinType-sensitive">민감성</label>	
-							</fieldset>
-								<br><br>
+						<legend>
+							<h4>성별</h4>
+						</legend>
+						<input type="radio" id="filter-sex-all" class="radioChkActive" name="filter-sex" value="ALL" checked="checked"/> <label for="filter-sex-all">전체</label>
+						<input type="radio" id="filter-sex-female" class="radioChk" name="filter-sex" value="여성"/> <label for="filter-sex-female">여자</label>
+						<input type="radio" id="filter-sex-male" class="radioChk" name="filter-sex" value="남성"/> <label for="filter-sex-male">남자</label>						
+					</fieldset>
+					<br>
+					<fieldset>
+						<legend>
+							<h4>연령대</h4>
+						</legend>
+						<input type="checkbox" id="filter-age-all" class="chkboxChkActive" name="filter-age-all" value="ALL" checked="checked" /> <label for="filter-age-all">전체</label>
+						<input type="checkbox" id="filter-age-10" class="chkboxChk" name="filter-age" value="10대" /> <label for="filter-age-10">10대</label>
+						<input type="checkbox" id="filter-age-20u" class="chkboxChk" name="filter-age" value="20대 초반" /> <label for="filter-age-20u">20대 초반</label>	
+						<br><br>
+						<input type="checkbox" id="filter-age-20d" class="chkboxChk" name="filter-age" value="20대 후반" /> <label for="filter-age-20d">20대 후반</label>	
+						<input type="checkbox" id="filter-age-30" class="chkboxChk" name="filter-age" value="30대 초반" /> <label for="filter-age-30">30대 초반</label>	
+						<input type="checkbox" id="filter-age-30u" class="chkboxChk" name="filter-age" value="30대 후반" /> <label for="filter-age-30u">30대 후반</label>	
+					</fieldset>
+					<br>
+					<fieldset>
+						<legend>
+							<h4>피부타입</h4>
+						</legend>
+						<input type="checkbox" id="filter-skinType-all" class="chkboxChkActive" name="filter-skinType-all" value="ALL" checked="checked"/> <label for="filter-skinType-all">전체</label>
+						<input type="checkbox" id="filter-skinType-dry" class="chkboxChk" name="filter-skinType" value="건성"/> <label for="filter-skinType-dry">건성</label>
+						<input type="checkbox" id="filter-skinType-oily" class="chkboxChk" name="filter-skinType" value="지성"/> <label for="filter-skinType-oily">지성</label>	
+						<br><br>
+						<input type="checkbox" id="filter-skinType-neutral" class="chkboxChk" name="filter-skinType" value="중성"/> <label for="filter-skinType-neutral">중성</label>	
+						<input type="checkbox" id="filter-skinType-combi" class="chkboxChk" name="filter-skinType" value="복합성"/> <label for="filter-skinType-combi">복합성</label>	
+						<input type="checkbox" id="filter-skinType-sensitive" class="chkboxChk" name="filter-skinType" value="민감성"/> <label for="filter-skinType-sensitive">민감성</label>	
+					</fieldset>
+					<br><br>
 					<div id="select-btn-center">
 						<button id="select-btn" type="button">필터적용</button>
 					</div>
@@ -391,6 +402,14 @@ span.star-prototype > * {
 				success: function(data){
 					console.log(data)
 					$('#ul-area').html("");
+					if(data.length == 0){
+						var $li1 = $('<li class="no"></li>')
+						var $img = $('<img id="noSearch" src="/COSMEDIC/resources/images/nosearch.png">')
+						var $li2 = $('<li class="no">선택하신 필터 조건과 일치하는 제품이 없습니다.</li>')
+						console.log("?");
+						$li1.append($img);
+						$('#ul-area').append($li1, $li2)
+					}
 					for(var i in data) {
 						var $li = $('<li></li>')
 						var $div1 = $('<div class="ranking-list"></div>')
@@ -479,6 +498,14 @@ span.star-prototype > * {
 					$('#page-name').html("");
 					var $cateH3 = $('<h1></h1>').text(middleCategory + " 랭킹")
 					$('#page-name').append($cateH3)
+					if(data.length == 0){
+						var $li1 = $('<li class="no" ></li>')
+						var $img = $('<img id="noSearch" src="/COSMEDIC/resources/images/nosearch.png">')
+						var $li2 = $('<li class="no">선택하신 필터 조건과 일치하는 제품이 없습니다.</li>')
+						
+						$li1.append($img);
+						$('#ul-area').append($li1, $li2)
+					}
 					for(var i in data) {
 						var $li = $('<li></li>')
 						var $div1 = $('<div class="ranking-list"></div>')
@@ -642,10 +669,10 @@ span.star-prototype > * {
 		})
 		
 		$('#reset-btn').click(function(){
-			$("#filter-sex-all").prop("checked", true).addClass("radioChkActive")
+			$('input[name=filter-sex]').addClass('radioChk').removeClass("radioChkActive");
+			$("#filter-sex-all").prop("checked", true).addClass("radioChkActive");
 			$('#filter-age-all').prop("checked", true).removeClass("chkboxChk").addClass("chkboxChkActive");
 			$('#filter-skinType-all').prop("checked", true).removeClass("chkboxChk").addClass("chkboxChkActive");
-			$('input[name=filter-sex]').addClass('radioChk').removeClass("radioChkActive")
 			$('input[name=filter-age]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
 			$('input[name=filter-skinType]').prop("checked", false).removeClass("chkboxChkActive").addClass("chkboxChk");
 		})
