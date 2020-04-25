@@ -473,6 +473,38 @@ public class MemberDAO {
 
 		return result;
 	}
+  
+	public Member receiveId(Connection conn, String email) {
+//		select * from member join customer on(user_no = customer_no) where email = ?
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = new Member();
+		String query = prop.getProperty("selectId");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, email);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getInt("user_no"),
+								rset.getString("user_name"),
+								rset.getString("user_id"),
+								rset.getString("user_pwd"),
+								rset.getString("user_category"),
+								rset.getString("enroll_date"),
+								rset.getString("status"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	
+
 	public int getListCountS(Connection conn, String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -500,6 +532,7 @@ public class MemberDAO {
 		}
 
 		return result;
+
 	}
 
 
