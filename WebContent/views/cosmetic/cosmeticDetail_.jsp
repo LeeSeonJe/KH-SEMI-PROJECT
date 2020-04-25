@@ -285,7 +285,7 @@ input {
 				<div id="cosmetic-beauty-filter">
 					<div id="cosmetic-beauty-filter-header">
 						<h3>필터</h3>
-						<button id="reset-btn" type="reset">초기화</button>
+						<button id="reset-btn" type="button" onClick="window.location.reload()">초기화</button>
 					</div>
 					<br>
 					<div id="cosmetic-beauty-filter-select">

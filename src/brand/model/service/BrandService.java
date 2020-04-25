@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import brand.model.dao.BrandDAO;
 import brand.model.vo.Brand;
+import cosmetic.model.dao.CosmeticDAO;
 import cosmetic.model.vo.Cosmetic;
 
 public class BrandService {
@@ -26,6 +27,18 @@ public class BrandService {
 		ArrayList<Cosmetic> list = new ArrayList<Cosmetic>();
 		list.addAll(rList);
 		list.addAll(nrList);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Cosmetic> ajaxBrandCosmeticList(String middleCategory, String bname) {
+		Connection conn = getConnection();
+		String cos_middle_no = new CosmeticDAO().getCos_middle_no(conn, middleCategory);
+		ArrayList<Cosmetic> rlist = new BrandDAO().rAjaxBrandCosmeticList(conn, bname, cos_middle_no);
+		ArrayList<Cosmetic> nrlist = new BrandDAO().nrAjaxBrandCosmeticList(conn, bname, cos_middle_no);
+		ArrayList<Cosmetic> list = new ArrayList<Cosmetic>();
+		list.addAll(rlist);
+		list.addAll(nrlist);
 		close(conn);
 		return list;
 	}

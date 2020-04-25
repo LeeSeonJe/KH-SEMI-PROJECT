@@ -18,6 +18,8 @@
 	width: 80%;
 	height: 400px;
 	text-align: center;
+	border-radius: 20px;
+	height: 500px;
 }
 
 #next {
@@ -202,17 +204,23 @@ h3 {
 					for(var i = 0; i < 5; i++){
 						if(!data[i]){
 							$li = $('<li></li>').text((i+1) + ". [리뷰] 조회된 게시물이 없습니다.");
+							$ul.append($li);
 						} else {
 							$li = $('<li></li>').text((i+1) + ". [리뷰] " + data[i].title);
 							$input1 = $('<input type="hidden">').val(data[i].cosmetic_name);
 							$input2 = $('<input type="hidden">').val(data[i].middle_name);
+							$ul.append($li, $input1, $input2);
 						}
-						$ul.append($li, $input1, $input2);
 						if(i == 4){break;}
 					}
 					$('#reviewList-section').append($ul);
 					$('#reviewList-section>ul>li').on('click', function(){
-						location.href = "/COSMEDIC/detail.cos?cosName=" + encodeURIComponent($(this).next().val()) + "&category=" + $(this).next().next().val()
+						if($(this).next().val()==0 || $(this).next().val()==undefined || $(this).next().val()==null){
+							
+						} else {
+							console.log($(this).next().val())
+							location.href = "/COSMEDIC/detail.cos?cosName=" + encodeURIComponent($(this).next().val()) + "&category=" + $(this).next().next().val()							
+						}
 					})
 				}
 			})
@@ -226,16 +234,22 @@ h3 {
 					for(var i = 0; i < 5; i++){
 						if(!data[i]){
 							$li = $('<li></li>').text((i+1) + ". [고민] 조회된 게시물이 없습니다.");
+							$ul.append($li);
 						} else {
 							$li = $('<li></li>').text((i+1) + ". [고민] " + data[i].title);
 							$input = $('<input type="hidden">').val(data[i].worryNo)
+							$ul.append($li, $input);
 						}
-						$ul.append($li, $input);
 						if(i == 4){break;}
 					}
 					$('#worryList-section').append($ul);
 					$('#worryList-section>ul>li').on('click', function(){
-						location.href = location.href='<%=request.getContextPath() %>/worryDetail.bo?worryNo=' + $(this).next().val()
+						if($(this).next().val()==0 || $(this).next().val()==undefined || $(this).next().val()==null){
+							
+						} else {
+							console.log($(this).next().val())
+							location.href = location.href='<%=request.getContextPath() %>/worryDetail.bo?worryNo=' + $(this).next().val()
+						}
 					})
 				}
 			})
@@ -249,16 +263,21 @@ h3 {
 					for(var i = 0; i < 5; i++){
 						if(!data[i]){
 							$li = $('<li></li>').text((i+1) + ". [병원리뷰] 조회된 게시물이 없습니다.");
+							$ul.append($li);
 						} else {
 							$li = $('<li></li>').text((i+1) + ". [병원리뷰] " + data[i].board_title);
 							$input = $('<input type="hidden">').val(data[i].user_name);
+							$ul.append($li, $input);
 						}
-						$ul.append($li, $input);
 						if(i == 4){break;}
 					}
 					$('#HospitalList-section').append($ul);
 					$('#HospitalList-section>ul>li').on('click', function(){
-						location.href = "/COSMEDIC/detail.hos?hosName=" + $(this).next().val()
+						if($(this).next().val()==0 || $(this).next().val()==undefined || $(this).next().val()==null){
+							
+						} else {
+							location.href = "/COSMEDIC/detail.hos?hosName=" + $(this).next().val()
+						}
 					})
 				}
 			})
