@@ -150,7 +150,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 			<table class="tb-profile" style="width: 100%;">
 			<% for(int i = 0; i< list.size(); i++){ %>
 				<tr>
-					<td rowspan="3" align="center" width="10%" style="border-bottom:1px solid #aaa;"><%-- <img src="<%=list.get(i).getProfile_image() %>" class="icon-p"> --%></td>
+					<td rowspan="3" align="center" width="10%" style="border-bottom:1px solid #aaa;"> <img src="<%=list.get(i).getProfile_image() %>" class="icon-p"> </td>
 					<td class="noHidden" style="display:none;"><input type="hidden" name="rno" value="<%= list.get(i).getReview_no() %>"></td>
 					<td class="write-date" width="15%"><%=list.get(i).getDate() %></td>
 					<td class="review-title" height="40px"><!-- 리뷰제목 --><%=list.get(i).getTitle() %></td>
