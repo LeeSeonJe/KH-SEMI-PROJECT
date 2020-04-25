@@ -186,11 +186,22 @@ input {
     width: 70px;
     height: 30px;
     margin-left: 4px;
-    float: right;
+    float: left;
 }
 
 #sidoCd, .sggu, .srch-select, .input-text{
-	float: right;
+	float: left;
+}
+
+.no {
+	text-align: center;
+	font-size: 17px;
+}
+
+#noSearch {
+    width: 300px;
+    margin: 100px;
+    margin-bottom: 0;
 }
 
 /* 별점 CSS */
@@ -211,6 +222,10 @@ span.star-prototype > * {
 		display: inline-block;
 		vertical-align: middle;
 	}
+#search_area{
+	display: inline-block;
+    margin-left: 40px;
+}
 </style>
 
 <% 
@@ -255,29 +270,31 @@ span.star-prototype > * {
 				</div>
 			</section>
 			<section id="cosmetic-category" >
-				<button id="category-btn" type="button" onclick="addressSearch()">검색</button>
-				<input type="text" id="dong" name="dong" style="ime-mode: active;" placeholder="읍/면/동 또는 도로명을 입력해주세요" class="input-text" size="33"/>
-				<%@include file="/views/hospital/select_sggu.jsp" %>
-				<select name="sidoCd" id="sidoCd" title="시/도 선택" class="sido" style="width: 93px;">
-				    <option value="first" selected>시/도 선택</option>
-				    <option value="서울시">서울특별시</option>
-				    <option value="부산광역시">부산광역시</option>
-				    <option value="대구광역시">대구광역시</option>
-				    <option value="인천광역시">인천광역시</option>
-				    <option value="광주광역시">광주광역시</option>
-				    <option value="대전광역시">대전광역시</option>
-				    <option value="울산광역시">울산광역시</option>
-				    <option value="세종특별자치시">세종특별자치시</option>
-				    <option value="경기도">경기도</option>
-				    <option value="강원도">강원도</option>
-				    <option value="충청북도">충청북도</option>
-				    <option value="충청남도">충청남도</option>
-				    <option value="전라북도">전라북도</option>
-				    <option value="전라남도">전라남도</option>
-				    <option value="경상북도">경상북도</option>
-				    <option value="경상남도">경상남도</option>
-				    <option value="제주특별자치도">제주특별자치도</option>
-				</select>
+				<div id="search_area">
+					<%@include file="/views/hospital/select_sggu.jsp" %>
+					<select name="sidoCd" id="sidoCd" title="시/도 선택" class="sido" style="width: 93px;">
+					    <option value="first" selected>시/도 선택</option>
+					    <option value="서울시">서울특별시</option>
+					    <option value="부산광역시">부산광역시</option>
+					    <option value="대구광역시">대구광역시</option>
+					    <option value="인천광역시">인천광역시</option>
+					    <option value="광주광역시">광주광역시</option>
+					    <option value="대전광역시">대전광역시</option>
+					    <option value="울산광역시">울산광역시</option>
+					    <option value="세종특별자치시">세종특별자치시</option>
+					    <option value="경기도">경기도</option>
+					    <option value="강원도">강원도</option>
+					    <option value="충청북도">충청북도</option>
+					    <option value="충청남도">충청남도</option>
+					    <option value="전라북도">전라북도</option>
+					    <option value="전라남도">전라남도</option>
+					    <option value="경상북도">경상북도</option>
+					    <option value="경상남도">경상남도</option>
+					    <option value="제주특별자치도">제주특별자치도</option>
+					</select>
+					<input type="text" id="dong" name="dong" style="ime-mode: active;" placeholder="읍/면/동 또는 도로명을 입력해주세요" class="input-text" size="33"/>
+					<button id="category-btn" type="button" onclick="addressSearch()">검색</button>
+				</div>
 			<section>
 				<ul id='ul-area'>
 				<% if(list.size() == 0) { %>
@@ -406,6 +423,14 @@ span.star-prototype > * {
 					$('#ul-area').html("");
 					console.log(data);
 					for(var i in data){
+						if(data.length == 0){
+							var $li1 = $('<li class="no" ></li>')
+							var $img = $('<img id="noSearch" src="/COSMEDIC/resources/images/nosearch.png">')
+							var $li2 = $('<li class="no">선택하신 필터 조건과 일치하는 제품이 없습니다.</li>')
+							
+							$li1.append($img);
+							$('#ul-area').append($li1, $li2)
+						}
 						count += 1;
 						var $div1 = $('<div class="ranking-list"></div>');
 						var $div2 = $('<div class="cos-rank"></div>');

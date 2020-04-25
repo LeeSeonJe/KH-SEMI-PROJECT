@@ -39,13 +39,19 @@
 </head>
 <body>
 	<div class="top">
-		<form id="reqFrom" action="<%= request.getContextPath() %>/insert.cos" method="post" onsubmit="return validate();" encType="multipart/form-data">
+		<form id="reqFrom" action="<%= request.getContextPath() %>/insert.cos" method="post" onsubmit="return validate();" encType="multipart/form-data" name="reqFrom">
 				<div class="content">
 				<table>
 					<tr>
 						<th width="100px">브랜드명</th>
 						<td rowspan="7">&nbsp;&nbsp;</td>
-						<td colspan="3"><input type="text" size="45" name="brandName"></td>
+						<td colspan="2"><input type="text" size="45" name="brandName" readonly="readonly"></td>
+						<td><button type="button" id="brandFind" class="btn-standard">브랜드 찾기</button></td>
+						<script>
+							$('#brandFind').click(function(){
+								var popup = window.open("<%= request.getContextPath()%>/views/admin/brandFind.jsp", "brandFind", "width=600, height=500");
+							})
+						</script>
 					</tr>
 					<tr>
 						<th>카테고리</th>

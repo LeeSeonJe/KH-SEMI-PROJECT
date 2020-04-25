@@ -78,4 +78,18 @@ public class BookService {
 		return result;
 	}
 
+	public int applyBook(String booking_no) {
+		Connection conn = getConnection();
+		
+		int result = new BookDAO().applyBook(conn, booking_no);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 }

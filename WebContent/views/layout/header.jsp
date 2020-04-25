@@ -271,20 +271,23 @@
 		<%
 			if (loginUser.getUser_category().equals("C")) {
 		%>
-		<img id="login" class="login"
-			style="width: 50px; height: 50px; border-radius: 50px; float: right; margin-top: 40px"
-			src="<%=request.getContextPath()%>/member_images/<%=profile_image%>"
-			alt="" />
+			<% if(profile_image == null){ %>
+		<img id="login" class="login" style="width: 50px; height: 50px; border-radius: 50px; float: right; margin-top: 40px" src="<%=request.getContextPath()%>/member_images/1.jpg" />
+			<% } else { %>
+		<img id="login" class="login" style="width: 50px; height: 50px; border-radius: 50px; float: right; margin-top: 40px" src="<%=request.getContextPath()%>/member_images/<%=profile_image%>" />
+			<% } %>
+		
 		<%
 			} else if (loginUser.getUser_category().equals("H")) {
 		%>
 		<%
 			String[] profiles = profile_image.split(",");
 		%>
-		<img id="login" class="login"
-			style="width: 50px; height: 50px; border-radius: 50px; float: right; margin-top: 40px"
-			src="<%=request.getContextPath()%>/hospital_images/<%=profiles[0]%>"
-			alt="" />
+			<% if(profiles[0] == null){ %>
+			<img id="login" class="login"  style="width: 50px; height: 50px; border-radius: 50px; float: right; margin-top: 40px" src="<%=request.getContextPath()%>/member_images/1.jpg" />
+			<% } else { %>
+			<img id="login" class="login"  style="width: 50px; height: 50px; border-radius: 50px; float: right; margin-top: 40px" src="<%=request.getContextPath()%>/hospital_images/<%=profiles[0]%>" />
+			<% } %>
 		<%
 			}
 		%>

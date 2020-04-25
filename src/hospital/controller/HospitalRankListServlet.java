@@ -37,10 +37,13 @@ public class HospitalRankListServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String hospitalFilter = request.getParameter("hospital_filter");
 		ArrayList<Hospital> list = null;
-		
-		if(hospitalFilter == null) {
+		if(hospitalFilter == null) { 
+//			System.out.println("들어옴?");
 			String page = null;
 			list = new HospitalService().selectHospitalList(hospitalFilter);
+			for(Hospital h:list) {
+				System.out.println(h);
+			}
 			if(list != null) {
 				page="views/hospital/hospitalRank.jsp";
 				request.setAttribute("list", list);

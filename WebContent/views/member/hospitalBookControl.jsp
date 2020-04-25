@@ -84,8 +84,9 @@
 						<div>
 							<textarea id="textbox" name="textbox" readonly><%=b.getBooking_content() %></textarea>
 						</div>
-					</div>]
+					</div>
 					<br>
+					<input type="button" class="button" id="apply2" value="예약 승인">
 					<input type="button" class="button" id="reject" value="예약 거절">
 					<input type="button" class="button" id="cancle" value="취소" onclick="window.close();">
 				</div>
@@ -103,6 +104,11 @@
 				alert("취소");
 			}
 			
+		});
+		$('#apply2').click(function(){
+			location.href="<%= request.getContextPath() %>/applyBook.hos?booking_no=" + <%= b.getBooking_no() %>;
+			alert("예약되었습니다.");
+			window.close();
 		});
 	</script>
 </body>
