@@ -48,7 +48,7 @@ public class CosmeticListServlet extends HttpServlet {
 		System.out.println(middleCategory);
 		String page = null;
 		if (list != null && middleCategory == null) {
-			System.out.println("여기1");
+//			System.out.println("여기1");
 			page = "views/cosmetic/cosmeticRank.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("middleName", middleName);

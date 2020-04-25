@@ -104,7 +104,7 @@
 /* 	width:500px; */
 /* } */
 
-#brandHomeBtn {
+#brandHomeBtn, #reviewBtn {
 	float: right;
 	border: 1px solid red;
     background: white;
@@ -211,6 +211,17 @@ span.star-prototype > * {
 	vertical-align: middle;
 }
 
+.no {
+	text-align: center;
+	font-size: 17px;
+}
+
+#noSearch {
+    width: 300px;
+    margin: 100px;
+    margin-bottom: 0;
+}
+
 </style>
 <%
 	Cosmetic c = (Cosmetic) request.getAttribute("cosmeticInform");
@@ -227,7 +238,13 @@ span.star-prototype > * {
 		<%@ include file="/views/layout/header.jsp"%>
 		<hr>
 		<section id="cos-section">
-			<div id="input-img"><img id="cos-img" src="<%=c.getCosmetic_img() %>" alt="화장품이미지" /></div>
+			<div id="input-img">
+			<% if(c.getCosmetic_img().contains("http")){ %>
+				<img id="cos-img" src="<%=c.getCosmetic_img() %>" alt="화장품이미지" />
+			<% } else {%>
+				<img id="cos-img" src="<%= request.getContextPath() %>/cosReq_uploadFiles/<%= c.getCosmetic_img() %>"/>
+			<% } %>
+			</div>
 			<div id="cos-detail-wrap">
 				<section id="cos-detail">
 					<div id="brand-product-name">
@@ -259,7 +276,9 @@ span.star-prototype > * {
 							<tr>
 								<td id="td-contents">설명</td>
 								<td style="width: 75%;"><%= c.getCosmetic_about() %></td>
-								<td style="width: 180px"></td>
+								<td style="width: 180px">
+									<button type="button" id="reviewBtn" style="float: right;" onclick="loginChk()">리뷰쓰기</button>
+								</td>
 							</tr>
 						</table>
 					</div>
@@ -273,7 +292,7 @@ span.star-prototype > * {
 					<div id="cosmetic-beauty-filter">
 						<div id="cosmetic-beauty-filter-header">
 							<h3>필터</h3>
-							<button id="reset-btn" type="button">초기화</button>
+							<button id="reset-btn" type="button" onClick="window.location.reload()">초기화</button>
 						</div>
 						<br>
 						<div id="cosmetic-beauty-filter-select">
@@ -373,6 +392,19 @@ span.star-prototype > * {
 
 	<%@ include file="/views/layout/footer.jsp"%>
 		<script> 
+		function loginChk(){
+			if('<%= loginUser %>' != 'null'){
+				location.href = "/COSMEDIC/CosmeticReviewWriteServlet?cosName=" + encodeURIComponent('<%= c.getCosmetic_name()%>');
+			} else{
+				alert('로그인 후 이용해주세요.');
+				location.href='<%= request.getContextPath() %>/views/common/login.jsp';
+			}
+		}
+		
+// 		$('#reviewBtn').on('click', function(){
+<%-- 			location.href = "/COSMEDIC/CosmeticReviewWriteServlet?cosName=" + encodeURIComponent('<%= c.getCosmetic_name()%>'); --%>
+// 		})
+			
 		
 		$('#select-btn').click(function(){
 			var cosName = $('#brand-product-name>h3').text(); // 화장품 이름 가져오기
@@ -456,12 +488,12 @@ span.star-prototype > * {
 							$('#ul-area').append($li);
 						} 
 					} else {
-						var $li = $('<li class="review_List"></li>');
-						var $div1 = $('<div class="userInfo"></div>');
-						var $h3 = $('<h3></h3>').text("검색 결과가 없습니다.");
-						$div1.append($h3);
-						$li.append($div1);
-						$('#ul-area').append($li);
+						var $li1 = $('<li class="no" ></li>')
+						var $img = $('<img id="noSearch" src="/COSMEDIC/resources/images/nosearch.png">')
+						var $li2 = $('<li class="no">선택하신 필터 조건과 일치하는 제품이 없습니다.</li>')
+						
+						$li1.append($img);
+						$('#ul-area').append($li1, $li2)
 					}
 					
 					$.fn.generateStars = function() {

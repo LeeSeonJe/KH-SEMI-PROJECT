@@ -1265,7 +1265,36 @@ public class WorryDAO {
 
 		return result;
 	}
+
+
+
+
+
+	public ArrayList<Worry> worryList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Worry> wList = new ArrayList<Worry>();
+		String query = prop.getProperty("worryList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			while(rset.next()) {
+				wList.add(new Worry(
+						rset.getInt("worry_no"),
+						rset.getString("board_title")
+						));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return wList;
 	}
+}
 	
 
 		

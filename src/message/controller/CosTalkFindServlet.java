@@ -43,6 +43,7 @@ public class CosTalkFindServlet extends HttpServlet {
 	//	for(CosTalk CT : rMember) {
 			/*
 			System.out.println("-------------------------------------");
+			
 			System.out.println("수신자 일련번호 : " + CT.getrMember_no());
 			System.out.println("수신자 아이디 : " + CT.getrMember_id());
 			System.out.println("수신자 이름 : " + CT.getrMember_name());

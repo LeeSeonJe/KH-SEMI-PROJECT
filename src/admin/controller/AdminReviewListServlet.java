@@ -59,7 +59,6 @@ public class AdminReviewListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 		
 		ArrayList<Board> list = new BoardService().selectAll(currentPage, boardLimit );
-		System.out.println(listCount);
 		String page = null;
 		if(list != null) {
 			page = "views/admin/adminReview.jsp";

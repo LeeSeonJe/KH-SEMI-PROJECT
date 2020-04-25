@@ -473,6 +473,7 @@ public class MemberDAO {
 
 		return result;
 	}
+  
 	public Member receiveId(Connection conn, String email) {
 //		select * from member join customer on(user_no = customer_no) where email = ?
 		PreparedStatement pstmt = null;
@@ -503,6 +504,35 @@ public class MemberDAO {
 		}
 		return m;
 	
+
+	public int getListCountS(Connection conn, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("getListCountS");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, keyword);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
+
 	}
 
 

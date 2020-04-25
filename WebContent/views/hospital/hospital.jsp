@@ -248,8 +248,18 @@ span.star-prototype, span.star-prototype > * {
 		width: 80px;
 		display: inline-block;
 }
+span.star-prototype2, span.star-prototype2 > * {
+		height: 16px; 
+		background: url(<%= request.getContextPath()%>/resources/images/heartAvg.png) 0 -16px repeat-x;
+		width: 80px;
+		display: inline-block;
+}
 
 span.star-prototype > * {
+	background-position: 0 0;
+	max-width:80px; 
+}
+span.star-prototype2 > * {
 	background-position: 0 0;
 	max-width:80px; 
 }
@@ -487,7 +497,7 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
 									</span>
 									<div class="score-count">
 										<div class="heartPosition">
-											<span class="star-prototype"><%= hrlList.get(i).getReview_heart() %></span>
+											<span class="star-prototype2"><%= hrlList.get(i).getReview_heart() %></span>
 										</div>
 									</div>
 								</div>
@@ -502,144 +512,175 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
 				</section>
 			</section>
 		</div>
-			<script>
-				$(function(){
-					function xSize(e) {
-						var t;
-						e.select = function(){
-							t = setInterval(
-								function()
-								{
-									e.style.height = '1px';
-									e.style.height = (e.scrollHeight + 12) + 'px';
-								}, 100);
-						}
-						e.onblur = function(){
-							clearInterval(t);
-						}
-					}
-					var ttt = <%= hrlList.size() %>
-					for(var tt = 0; tt < ttt; tt++){ 
-						xSize(document.getElementsByClassName('review_ta')[tt]);	
-						console.log(document.getElementsByClassName('review_ta')[tt]);
-						document.getElementsByClassName('review_ta')[tt].select(); 
-					}
-				})
-			
-			
-				$(function() {
-
-					$('#hospital-review-more').click(function() {
-						$('.review-hide').show(100);
-					});
-
-					$.fn.generateStars = function() {
-						return this.each(function(i, e) {
-							$(e).html($('<span/>').width($(e).text() * 16));
-						});
-					};
-
-					// 숫자 평점을 별로 변환하도록 호출하는 함수
-					$('.star-prototype').generateStars();
-
-				})
-				
-			$(function(){
-				console.log(login)
-				$('.bx-wrapper .bx-controls-direction a').css('z-index', '1000');
+		</section>
+	</div>
+	<script>
+		$(function(){
+			function xSize(e) {
+				var t;
+				e.select = function(){
+					t = setInterval(
+						function()
+						{
+							e.style.height = '1px';
+							e.style.height = (e.scrollHeight + 12) + 'px';
+						}, 100);
+				}
+				e.onblur = function(){
+					clearInterval(t);
+				}
+			}
+			var ttt = <%= hrlList.size() %>
+			for(var tt = 0; tt < ttt; tt++){ 
+				xSize(document.getElementsByClassName('review_ta')[tt]);	
+				console.log(document.getElementsByClassName('review_ta')[tt]);
+				document.getElementsByClassName('review_ta')[tt].select(); 
+			}
+		})
+	
+		$.fn.generateStars = function() {
+			return this.each(function(i, e) {
+				$(e).html($('<span/>').width($(e).text() * 16));
 			});
-				
-				
-			function review_insert(){
-				var title = $('#title').val();
-				var content = $('#content').val();
-				var hospitalNo = $('#hospitalNo').val();
-				var heart = $('#reviewScore').val();
-				console.log(heart);
-				var flag = false;
-				if(title.trim().length == 0 && content.trim().length == 0 && $('#reviewScore').val().trim().length == 0){
-					alert("리뷰를 작성해주세요.")
-					$('#title').focus();
-				} else if (title.trim().length == 0){
-					alert("제목을 입력해주세요.")
-					$('#title').focus();					
-				} else if(content.trim().length == 0 ){
-					alert("내용을 입력해주세요.")
-					$('#content').focus();
-				} else if($('#reviewScore').val().trim().length == 0){
-					alert("평점을 입력해주세요.")
-				} else {
-					flag = true;
-					if(flag == true){
-						$.ajax({
-							url: '/COSMEDIC/reviewInsert.hos',
-							data: {
-								title:title, content:content, hospitalNo:hospitalNo, heart:heart
-							},
-							success: function(data){
-								console.log(data)
-								$('#ul-area').html("");
-								for(var i in data){
-									var $li = $('<li class="review_list"></li>');
-									var $div1 = $('<div class="userInfo"></div>');
-									var $div2 = $('<div class="userProfile_name"></div>');
-									var $img1 = $('<img>');
-									if(data[i].profile_image == null){
-										$img1.attr('src', "<%= request.getContextPath() %>/member_images/icon.png");
-									} else {
-										$img1.attr('src', "<%= request.getContextPath() %>/member_images/" + data[i].profile_image);								
-									}
-									var $span1 = $('<span class="wName"></span>').text(data[i].user_name);
-									var $span2 = $('<span class="wDate"></span>').text(data[i].board_date);
-									// 한 div 끝
-									
-									var $div3 = $('<div class="userDetail"></div>');
-									var $img2 = $('<img>');
-									if(data[i].gender == "남성"){
-										$img2.attr('src', "<%= request.getContextPath() %>/resources/images/male.png");								
-									} else {
-										$img2.attr('src', "<%= request.getContextPath() %>/resources/images/female.png");								
-									}
-									var $span3 = $('<span></span>').text(data[i].age + "세 ㆍ " + data[i].skinType + " ㆍ ");
-									var $div5 = $('<div class="score-count"></div>')
-									var $div6 = $('<div class="heartPosition"></div>')
-									var $span4 = $('<span class="star-prototype"></span>').text(data[i].review_heart)
-								
-									$div6.append($span4)
-									$div5.append($div6)
-									
-									
-									var $div4 = $('<div class="userReview"></div>');
-									var $h3 = $('<h3></h3>').text(data[i].board_title);
-									var $textarea = $('<textarea cols="80" class="review_ta"></textarea>').val(data[i].board_content);
-									
-									$div2.append($img1, $span1, $span2);
-									$span3.append($img2);
-									$div3.append($span3, $div5);
-									$div4.append($h3, $textarea)
-									
-									$div1.append($div2, $div3, $div4);
-									$li.append($div1);
-									$('#ul-area').append($li);
-								} 
-								title = "";
-								content = "";
-								$.fn.generateStars = function() {
-									return this.each(function(i,e){
-										$(e).html($('<span/>').width($(e).text()*16));
-									});
-								};
-								// 숫자 평점을 별로 변환하도록 호출하는 함수
-								$('.score-count .star-prototype').generateStars();
+		};
+
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$('.star-prototype, .star-prototype2').generateStars();
+
+		
+	$(function(){
+		console.log(login)
+		$('.bx-wrapper .bx-controls-direction a').css('z-index', '1000');
+	});
+		
+		
+	function review_insert(){
+		var title = $('#title').val();
+		var content = $('#content').val();
+		var hospitalNo = $('#hospitalNo').val();
+		var heart = $('#reviewScore').val();
+		console.log(heart);
+		var flag = false;
+		if(title.trim().length == 0 && content.trim().length == 0 && $('#reviewScore').val().trim().length == 0){
+			alert("리뷰를 작성해주세요.")
+			$('#title').focus();
+		} else if (title.trim().length == 0){
+			alert("제목을 입력해주세요.")
+			$('#title').focus();					
+		} else if(content.trim().length == 0 ){
+			alert("내용을 입력해주세요.")
+			$('#content').focus();
+		} else if($('#reviewScore').val().trim().length == 0){
+			alert("평점을 입력해주세요.")
+		} else {
+			flag = true;
+			if(flag == true){
+				$.ajax({
+					url: '/COSMEDIC/reviewInsert.hos',
+					data: {
+						title:title, content:content, hospitalNo:hospitalNo, heart:heart
+					},
+					success: function(data){
+						console.log(data)
+						$('#ul-area').html("");
+						for(var i in data){
+							var $li = $('<li class="review_list"></li>');
+							var $div1 = $('<div class="userInfo"></div>');
+							var $div2 = $('<div class="userProfile_name"></div>');
+							var $img1 = $('<img>');
+							if(data[i].profile_image == null){
+								$img1.attr('src', "<%= request.getContextPath() %>/member_images/icon.png");
+							} else {
+								$img1.attr('src', "<%= request.getContextPath() %>/member_images/" + data[i].profile_image);								
+							}
+							var $span1 = $('<span class="wName"></span>').text(data[i].user_name);
+							var $span2 = $('<span class="wDate"></span>').text(data[i].board_date);
+							// 한 div 끝
+							
+							var $div3 = $('<div class="userDetail"></div>');
+							var $img2 = $('<img>');
+							if(data[i].gender == "남성"){
+								$img2.attr('src', "<%= request.getContextPath() %>/resources/images/male.png");								
+							} else {
+								$img2.attr('src', "<%= request.getContextPath() %>/resources/images/female.png");								
+							}
+							var $span3 = $('<span></span>').text(data[i].age + "세 ㆍ " + data[i].skinType + " ㆍ ");
+							var $div5 = $('<div class="score-count"></div>')
+							var $div6 = $('<div class="heartPosition"></div>')
+							var $span4 = $('<span class="star-prototype2"></span>').text(data[i].review_heart)
+						
+							$div6.append($span4)
+							$div5.append($div6)
+							
+							
+							var $div4 = $('<div class="userReview"></div>');
+							var $h3 = $('<h3></h3>').text(data[i].board_title);
+							var $textarea = $('<textarea cols="80" class="review_ta"></textarea>').val(data[i].board_content);
+							
+							$div2.append($img1, $span1, $span2);
+							$span3.append($img2);
+							$div3.append($span3, $div5);
+							$div4.append($h3, $textarea)
+							
+							$div1.append($div2, $div3, $div4);
+							$li.append($div1);
+							
+							$('#ul-area').append($li);
+							$('#point1>span').text("(" + data[i].hospital_heart + ")")
+							$('.star-prototype').text(data[i].hospital_heart)
+							$('#point2>span').text("(" + data[i].review_count + ")")
+
+							
+						} 
+						$('#title').val("")
+						$('#content').val("");
+						$.fn.generateStars = function() {
+							return this.each(function(i,e){
+								$(e).html($('<span/>').width($(e).text()*16));
+							});
+						};
+						// 숫자 평점을 별로 변환하도록 호출하는 함수
+
+						$.fn.generateStars = function() {
+							return this.each(function(i, e) {
+								$(e).html($('<span/>').width($(e).text() * 16));
+							});
+						};
+
+						// 숫자 평점을 별로 변환하도록 호출하는 함수
+						$('.star-prototype, .star-prototype2').generateStars();
+
+						
+						$(function(){
+							function xSize(e) {
+								var t;
+								e.select = function(){
+									t = setInterval(
+										function()
+										{
+											e.style.height = '1px';
+											e.style.height = (e.scrollHeight + 12) + 'px';
+										}, 100);
+								}
+								e.onblur = function(){
+									clearInterval(t);
+								}
+							}
+							var ttt = <%= hrlList.size() %>
+							for(var tt = 0; tt < ttt; tt++){ 
+								xSize(document.getElementsByClassName('review_ta')[tt]);	
+								console.log(document.getElementsByClassName('review_ta')[tt]);
+								document.getElementsByClassName('review_ta')[tt].select(); 
 							}
 						})
 					}
-				}
-				
+				})
 			}
-			</script>
-		</section>
-	</div>
+		}
+		
+	}
+	
+	</script>
 	<%@ include file="/views/layout/footer.jsp"%>
 
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>

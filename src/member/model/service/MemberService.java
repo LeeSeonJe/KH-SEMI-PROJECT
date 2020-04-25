@@ -184,6 +184,7 @@ public class MemberService {
 		return result;
 	}
 
+
 	public Member receiveId(String email) {
 		Connection conn = getConnection();
 		MemberDAO dao = new MemberDAO();
@@ -193,6 +194,16 @@ public class MemberService {
 		
 		return m;
 	
+
+	public int getListCountS(String keyword) {
+Connection conn = getConnection();
+		
+		int result = new MemberDAO().getListCountS(conn, keyword);
+		
+		close(conn);
+		
+		return result;
+
 	}
 
 

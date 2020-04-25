@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+.footer_log {position:relative;}
+
+.footer_wraper{padding-top:25px;}
+
+.footer_log > img {width: 140px; 
+					height: 100px;
+					margin-left: 300px;}
+
+.about_us {display:inline-block;
+			margin-left : 25px;
+			vertical-align:middle;}
+			
+.about_us>li{font-size:1.1em;
+			 font-weight:bold;
+			 color: #aaa;}
+			 
+.about_us>li>span {color:indianred;
+					font-weight:800;
+					font-size:1.3em;
+					margin-right:10px;}
+					
+.used_badge{position:absolute;
+			top: 30px;
+			right:300px;}
+
+.used_badge>img{margin-right:20px;}
