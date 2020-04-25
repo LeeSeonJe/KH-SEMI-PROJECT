@@ -503,7 +503,7 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		return m;
-	
+	}
 
 	public int getListCountS(Connection conn, String keyword) {
 		PreparedStatement pstmt = null;
