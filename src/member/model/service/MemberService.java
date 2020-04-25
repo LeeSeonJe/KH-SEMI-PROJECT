@@ -194,7 +194,8 @@ public class MemberService {
 		
 		return m;
 	
-
+	}
+	
 	public int getListCountS(String keyword) {
 Connection conn = getConnection();
 		

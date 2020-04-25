@@ -504,7 +504,7 @@ public class MemberDAO {
 		}
 		return m;
 	
-
+	}
 	public int getListCountS(Connection conn, String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
