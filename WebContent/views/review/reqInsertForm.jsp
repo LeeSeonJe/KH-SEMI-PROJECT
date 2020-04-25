@@ -23,13 +23,13 @@
 			<input type="file" name="req_img1" multiple="multiple">
 			<input type="file" name="req-img2" multiple="multiple">
 			<hr>
-			<textarea name="content" rows="10" cols="100%" placeholder="내용을 입력해주세요"></textarea>
+			<textarea name="content" rows="10" cols="100%" placeholder="해당 화장품의 브랜드와 화장품의 종류 및 카테고리를 입력해주세요."></textarea>
 			<button type="submit">등록</button>
 			<button type="reset">취소</button>
 		</div>
 	</form>
 	<script type="text/javascript">
-
+		
 	</script>
 </body>
 </html>

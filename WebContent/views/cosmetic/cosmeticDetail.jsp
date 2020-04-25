@@ -263,7 +263,13 @@ span.star-prototype > * {
 						</div>
 					</div>
 					<div id="cos-brand">
-						<span><img id="brand-img" src="<%= bImg %>" alt="" /></span>
+						<span>
+						<% if(bImg.contains("http")) { %>
+							<img id="brand-img" src="<%= bImg %>" alt="" />
+						<% } else {%>
+							<img id="brand-img" src="<%= request.getContextPath() %>/brandReq_uploadFiles/<%= bImg %>" alt="" />						
+						<% } %>
+						</span>
 						<span><%= c.getBrand_name() %></span>
 						<button id="brandHomeBtn" class="" type="button" onclick="brandHome()">브랜드홈</button>
 					</div>
@@ -336,8 +342,8 @@ span.star-prototype > * {
 							</div>
 							<br><br><br>
 							<h1 id="keyword_search">키워드 검색</h1>
-							<input id="search_input" type="search" placeholder="리뷰 키워드를 입력하세요" />
-							<button id="search_btn_span">
+							<input id="search_input" type="search" placeholder="리뷰 키워드를 입력하세요" onkeyup="enterkey();"/>
+							<button id="search_btn_span" type="button">
 								<img src="<%= request.getContextPath()%>/resources/images/search_icon.png">
 							</button>
 						</div>
@@ -401,10 +407,114 @@ span.star-prototype > * {
 			}
 		}
 		
-// 		$('#reviewBtn').on('click', function(){
-<%-- 			location.href = "/COSMEDIC/CosmeticReviewWriteServlet?cosName=" + encodeURIComponent('<%= c.getCosmetic_name()%>'); --%>
-// 		})
-			
+		function enterkey() {
+			if (window.event.keyCode == 13) {
+				$('#search_btn_span').click();						 
+			}
+		}
+		
+		$('#search_btn_span').on('click', function(){
+			console.log($(this).prev('input').val());
+			var keyword =  $(this).prev('input').val();
+			if($(this).prev('input').val().trim().length == 0){
+				window.location.reload();
+			} else {
+				var cosName = $('#brand-product-name>h3').text();
+				$.ajax({
+					url: 'cosReview.sc',
+					data: {
+						keyword:keyword, cosName:cosName
+					},
+					success: function(data){
+						console.log(data)
+						$('#ul-area').html("");
+						if(data.length > 0) {
+							for(var i in data){
+								var $li = $('<li class="review_list"></li>');
+								var $div1 = $('<div class="userInfo"></div>');
+								var $div2 = $('<div class="userProfile_name"></div>');
+								var $img1 = $('<img>');
+								if(data[i].profile_image == null){
+									$img1.attr('src', "<%= request.getContextPath() %>/member_images/icon.png");
+								} else {
+									$img1.attr('src', "<%= request.getContextPath() %>/member_images/" + data[i].profile_image);								
+								}
+								var $span1 = $('<span class="wName"></span>').text(data[i].user_name);
+								var $span2 = $('<span class="wDate"></span>').text(data[i].board_date);
+								// 한 div 끝
+								
+								var $div3 = $('<div class="userDetail"></div>');
+								var $img2 = $('<img>');
+								if(data[i].gender == "남성"){
+									$img2.attr('src', "<%= request.getContextPath() %>/resources/images/male.png");								
+								} else {
+									$img2.attr('src', "<%= request.getContextPath() %>/resources/images/female.png");								
+								}
+								var $span3 = $('<span></span>').text(data[i].age + "세 ㆍ " + data[i].skinType + " ㆍ ");
+								var $div5 = $('<div class="score-count"></div>')
+								var $div6 = $('<div class="heartPosition"></div>')
+								var $span4 = $('<span class="star-prototype"></span>').text(data[i].review_heart)
+							
+								$div6.append($span4)
+								$div5.append($div6)
+								
+								
+								var $div4 = $('<div class="userReview"></div>');
+								var $h3 = $('<h3></h3>').text(data[i].board_title);
+								var $textarea = $('<textarea cols="80" class="review_ta"></textarea>').val(data[i].board_content);
+								
+								$div2.append($img1, $span1, $span2);
+								$span3.append($img2);
+								$div3.append($span3, $div5);
+								$div4.append($h3, $textarea)
+								
+								$div1.append($div2, $div3, $div4);
+								$li.append($div1);
+								$('#ul-area').append($li);
+							} 
+						} else {
+							var $li1 = $('<li class="no" ></li>')
+							var $img = $('<img id="noSearch" src="/COSMEDIC/resources/images/nosearch.png">')
+							var $li2 = $('<li class="no">선택하신 필터 조건과 일치하는 제품이 없습니다.</li>')
+							
+							$li1.append($img);
+							$('#ul-area').append($li1, $li2)
+						}
+						
+						$.fn.generateStars = function() {
+							return this.each(function(i,e){
+								$(e).html($('<span/>').width($(e).text()*16));
+							});
+						};
+						// 숫자 평점을 별로 변환하도록 호출하는 함수
+						$('.score-count .star-prototype').generateStars();
+						
+						$(function(){
+							function xSize(e) {
+								var t;
+								e.select = function(){
+									t = setInterval(
+										function()
+										{
+											e.style.height = '1px';
+											e.style.height = (e.scrollHeight + 12) + 'px';
+										}, 100);
+								}
+								e.onblur = function(){
+									clearInterval(t);
+								}
+							}
+							var ttt = <%= rList.size() %>
+							for(var tt = 0; tt < ttt; tt++){ 
+								xSize(document.getElementsByClassName('review_ta')[tt]);	
+								console.log(document.getElementsByClassName('review_ta')[tt]);
+								document.getElementsByClassName('review_ta')[tt].select(); 
+							}
+						})
+					}
+				})
+			}
+		})
 		
 		$('#select-btn').click(function(){
 			var cosName = $('#brand-product-name>h3').text(); // 화장품 이름 가져오기
@@ -503,6 +613,28 @@ span.star-prototype > * {
 					};
 					// 숫자 평점을 별로 변환하도록 호출하는 함수
 					$('.score-count .star-prototype').generateStars();
+					$(function(){
+						function xSize(e) {
+							var t;
+							e.select = function(){
+								t = setInterval(
+									function()
+									{
+										e.style.height = '1px';
+										e.style.height = (e.scrollHeight + 12) + 'px';
+									}, 100);
+							}
+							e.onblur = function(){
+								clearInterval(t);
+							}
+						}
+						var ttt = <%= rList.size() %>
+						for(var tt = 0; tt < ttt; tt++){ 
+							xSize(document.getElementsByClassName('review_ta')[tt]);	
+							console.log(document.getElementsByClassName('review_ta')[tt]);
+							document.getElementsByClassName('review_ta')[tt].select(); 
+						}
+					})
 				}
 			})
 		})

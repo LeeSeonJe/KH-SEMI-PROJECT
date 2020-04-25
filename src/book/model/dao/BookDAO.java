@@ -205,4 +205,24 @@ private Properties prop = new Properties();
 		return result;
 	}
 
+	public int applyBook(Connection conn, String booking_no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("applyBook");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, booking_no);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

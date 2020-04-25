@@ -109,4 +109,11 @@ public class CosmeticService {
 		return rList;
 	}
 
+	public ArrayList<CosmeticReviewList> reviewSearch(String cosName, String keyword) {
+		Connection conn = getConnection();
+		ArrayList<CosmeticReviewList> crl = new CosmeticDAO().reviewSearch(conn, cosName, keyword);
+		close(conn);
+		return crl;
+	}
+
 }

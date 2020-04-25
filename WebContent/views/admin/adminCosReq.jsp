@@ -213,7 +213,7 @@ table#adminEnrollHospital>tbody>tr>td{
                <tbody>
                <% if(list.isEmpty()){ %>
                 <tr>
-                	<td>조회할 제품 등록 요청이 없습니다.</td>
+                	<td colspan="6">조회할 제품 등록 요청이 없습니다.</td>
                 </tr>
                 <% } else { %>
                 	<% for(Review r : list) { %>
@@ -230,7 +230,8 @@ table#adminEnrollHospital>tbody>tr>td{
             </table>
             <br>
             <div style="margin-right: 45px" align="right">
-            	<button class="btn-standard" style="width: 100px; height: 30px;" id="cosmeticReq">등록</button>
+            	<button class="btn-standard" style="width: 100px; height: 30px;" id="brandReq">브랜드등록</button>
+            	<button class="btn-standard" style="width: 100px; height: 30px;" id="cosmeticReq">화장품등록</button>
             </div>
             <br>
             
@@ -319,6 +320,9 @@ table#adminEnrollHospital>tbody>tr>td{
 	
 	$('#cosmeticReq').click(function(){
 		var popup = window.open("<%=request.getContextPath()%>/views/admin/cosmeticReqPopup.jsp", "cosmeticReqPopup", "width=800, height=700");
+	});
+	$('#brandReq').click(function(){
+		var popup = window.open("<%=request.getContextPath()%>/views/admin/brandReqPopup.jsp", "cosmeticReqPopup", "width=700, height=700");
 	});
    </script>
    <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>

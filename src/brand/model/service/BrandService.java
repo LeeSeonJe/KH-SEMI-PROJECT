@@ -12,7 +12,7 @@ import cosmetic.model.dao.CosmeticDAO;
 import cosmetic.model.vo.Cosmetic;
 
 public class BrandService {
-	
+
 	public ArrayList<Brand> selectBrnadList(String brandFilter, String count) {
 		Connection conn = getConnection();
 		ArrayList<Brand> list = new BrandDAO().selectBrandList(conn, brandFilter, count);
@@ -41,5 +41,19 @@ public class BrandService {
 		list.addAll(nrlist);
 		close(conn);
 		return list;
+	}
+
+	public ArrayList<Brand> searchBrand(String findInput) {
+		Connection conn = getConnection();
+		ArrayList<Brand> bList = new BrandDAO().searchBrand(conn, findInput);
+		close(conn);
+		return bList;
+	}
+
+	public int insertBrand(Brand b) {
+		Connection conn = getConnection();
+		int result = new BrandDAO().insertBrand(conn, b);
+		close(conn);
+		return result;
 	}
 }

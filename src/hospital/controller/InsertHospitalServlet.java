@@ -73,7 +73,7 @@ public class InsertHospitalServlet extends HttpServlet {
 			String addressDetail = multiRequest.getParameter("addressDetail");
 			String about = multiRequest.getParameter("about");
 			String tel = tel1 + "-" + tel2 + "-" + tel3;
-			String address = addressBasic + addressDetail;
+			String address = addressBasic + " " + addressDetail;
 			
 			String images = "";
 			

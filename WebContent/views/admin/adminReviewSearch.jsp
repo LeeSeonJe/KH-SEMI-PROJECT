@@ -384,6 +384,11 @@ table#adminEnrollHospital>tbody>tr>td{
 			alert('취소!');
 		}
 	});
+	
+	$('#searachBtn').click(function(){
+		location.href="<%= request.getContextPath() %>/search.hos?currentPage=1&keyword=" + $('#keyword').val();
+
+	});
    </script>
    <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
    

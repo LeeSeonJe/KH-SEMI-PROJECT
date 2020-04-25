@@ -96,7 +96,7 @@ div>section.tab-adminpage {
 
 
 .detail, .grant{color: blue; cursor: pointer;}
-.quit, .refuse, .remove, #answerStatus{color: red; cursor: pointer;}
+.quit, .refuse, .remove, .answerStatus{color: red; cursor: pointer;}
 .detail:hover, .quit:hover, .grant:hover, .refuse:hover, .remove:hover,
 #answerStatus:hover{
 	text-decoration:underline;
@@ -235,7 +235,7 @@ table#adminEnrollHospital>tbody>tr>td{
 	                     <% } %>
 	                     
 	                     <% if(i.getAnswer_yn().equals("N")){ %>
-	                     	<td><label id="answerStatus">답변작성</label></td>
+	                     	<td><label class="answerStatus">답변작성</label></td>
 	                     <% } else { %>
 	                     	<td></td>
 	                     <% } %>
@@ -299,7 +299,7 @@ table#adminEnrollHospital>tbody>tr>td{
           <%@ include file="/views/layout/footer.jsp"%>
    
    <script>
-	$('#answerStatus').click(function(){
+	$('.answerStatus').click(function(){
 		var board_no = $(this).parent().parent().children().eq(0).text();
 		var popup = window.open("<%=request.getContextPath()%>/InqDetail.admin?board_no="+ board_no, "answerStatusPopUp", "width=550, height=750");
 	});
