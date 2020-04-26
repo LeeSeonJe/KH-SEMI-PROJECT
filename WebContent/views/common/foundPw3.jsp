@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+ Member m = (Member)request.getAttribute("m");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,11 +11,9 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <%@ include file="/views/layout/import.jsp"%>
-
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/commonCss/foundPw.css"
+	href="<%=request.getContextPath()%>/resources/commonCss/foundPw2.css"
 	type="text/css">
-
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/toggle.css"
 	type="text/css">
@@ -135,7 +136,7 @@
 								<span class="label"> </span> 본인인증으로 찾기
 							</label>
 							<div class="SUIdenI" onmouseover="iconChange1()"
-								onmouseout="iconChange2()" onclick="openEmailIden();"
+								onmouseout="iconChange2()" onclick="openEmailIden()"
 								style="cursor: pointer; margin-left: 39%;">
 								<img class="SUImg" id="SUImgg1"
 									src="<%=request.getContextPath()%>/resources/images/SUEmail2-1.png">
@@ -168,6 +169,7 @@
 					</div>
 					<br> <br>
 				</div>
+				<div id="email_wrap">
 				<div class="fLogin" id="foundPw2" style = "border-top : 1px solid black; border-right : 1px solid black; background-color : white; border-bottom : none; ">
 					<div class="titlebox">
 						비밀번호 찾기
@@ -177,13 +179,15 @@
 				<div class="foundIdF" id = "foundIdFEC1">
 					<br> <br> <br> <br>
 					<div class="foundIdI">
-						비밀번호를 찾고자 하는 아이디를 입력해 주세요.<br> <br>
+						메일인증을 통해 비밀번호를 재설정하실 수 있습니다.<br> <br>
 						<div class="foundIdFF" style = "height : 160px;">
 							<div style = "float : left; width : 15%; margin-left : 25%; margin-top : 17px; font-size : 12pt;" >
-								아이디
+								이메일
 							</div>
 							<div style = "float : left; width : 30%;  margin-top : 6px; " >
-								<input type = "text" id = "foundIdPw" style = "height : 45px; width : 280px; border: 1px solid black;">
+								<input type = "text" id = "femail" name = "email" style = "height : 45px; width : 280px; border: 1px solid black;">
+								<input type = "hidden" id = "femail2" value=<%= m.getUser_pwd() %>>
+								<input type = "hidden" id = "fid" name = "userId" value=<%= m.getUser_id() %>>
 							</div>
 							
 						</div>
@@ -194,46 +198,63 @@
 								<input type = "button"  class = "SUBC" id = "next1" value = "다음" style = "background-color : #595959; color : white; border:none;">
 						</div>
 						<div>
-								<input type = "button"  class = "SUBC" id = "next2" value = "다음" style = "background-color : #DF1758; color : white; border:none;">
+								<input type = "submit"  class = "SUBC" id = "next2" value = "다음" style = "background-color : #DF1758; color : white; border:none;">
 						</div>
 					</div>
 				</div>
-				<div class="foundIdF" id = "foundIdFEC2">
-					<br> <br> 
+				</div>
+				<div id= "new_pwd" style="display:none;">
+				<form action="<%=request.getContextPath() %>/enterPwd.me" method="post" id="newPwd_form">
+				<div class="fLogin" id="foundPw2" style = "border-top : 1px solid black; border-right : 1px solid black; background-color : white; border-bottom : none; ">
+					<div class="titlebox">
+						비밀번호 찾기
+					</div>
+				</div>
+				<div class="sideDiv2"></div>
+				<div class="foundIdF" id = "foundIdFEC1">
+					<br> <br> <br> <br>
 					<div class="foundIdI">
-						<div class="foundIdFF" style = "height : 350px;">
-							<div style = "float : left; width : 50%; margin-left : 30%; margin-top : -15px; font-size : 13pt;" >
-								본인인증을 통해 비밀번호를 재설정하실 수 있습니다.
+						비밀번호를 재설정하실 수 있습니다.<br> <br>
+						<div class="foundIdFF" style = "height : 200px;">
+							<div style = "float:left; width : 15%; margin-left: 7% ;margin-top : 13px; font-size : 12pt; display:inline-block;" >
+								새 비밀번호
 							</div>
-							<div style = "width : 100%; height : 30px;">
-								<br>
+							<div style = "float : left; width : 30%;  margin-top : 6px; " >
+								<input type = "password" id = "password" name = "pwd" style = "height : 45px; width : 280px; border: 1px solid black; display:inline-block" onkeyup = "validateChk();">
 							</div>
-							<div class="SUIdenI" onmouseover="iconChange3()"
-								onmouseout="iconChange4()" onclick="openEmailIden()"
-								style="cursor: pointer; margin-left: 39%;">
-								<img class="SUImg" id="SUImggg1"
-									src="<%=request.getContextPath()%>/resources/images/SUEmail2-1.png">
-								<img class="SUImg" id="SUImggg2"
-									src="<%=request.getContextPath()%>/resources/images/SUEmail1-1.png">
-							</div>	
+							<div style="float:left; width:270px; height:80px; display:inline-block; margin-left:70px;">
+								<span id="pwdCheck1"></span>
+							</div>
+							<div style = "float:left; width : 15%; margin-left: 7% ;margin-top : 14px; font-size : 12pt; display:inline-block;" >
+								비밀번호 확인
+							</div>
+							<div style = "float : left; width : 30%;  margin-top : 6px; " >
+								<input type = "password" id = "password2" style = "height : 45px; width : 280px; border: 1px solid black;" onkeyup = "pwdChk();">
+							</div>
+							<div style="float:left; width:270px; height:80px; display:inline-block; margin-left:70px; margin-top:10px;">
+								<span id="pwdCheck2"></span>
+								<input type = "hidden" id = "fid" name = "userId" value=<%= m.getUser_id() %>>
+							</div>
+							
 						</div>
 						<div>
 							<br><br>
 						</div>
+						<div>
+								<input type = "button"  class = "SUBC" id = "next2" value = "확인" style = "background-color : #595959; color : white; border:none;" onclick="send();">
+						</div>
 					</div>
 				</div>
-			</div>
+				</form>
+				</div>
 		</div>
 	</div>
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
-		function openEmailIden(){
-			window.open("<%=request.getContextPath()%>/views/common/findIdByMail.jsp", "이메일 인증", "height = 450 , width = 500, left = 300, top = 50");
-		}
-	
 		$(function() {
-			$("#mLogin2").hide();
+			$("#mLogin1").hide();
+			$("#mLogin2").show();
 			$("#foundIdFF2").hide();
 			$("#foundIdFF1").show();
 			$("#submit2").hide();
@@ -241,7 +262,7 @@
 			$(".imgAlert1").hide();
 			$(".imgAlert2").hide();
 			$("#next2").hide();
-			$("#foundIdFEC2").hide();
+			$(".mLogin").height("650px");
 		});
 
 		$("#radioId2").click(function() {
@@ -397,8 +418,92 @@
 		}
 		
 		$('#next1').click(function(){
-			location.href="<%= request.getContextPath() %>/selectOption.jsp"
+			var email = $('#femail').val();
+			console.log(email);
+			var email2 = $('#femail2').val().trim();
+			console.log("email : " + email);
+			console.log("email2 : " + email2);
+			if(email.trim().length == 0){
+				alert('이메일을 입력해주세요.');
+				$('#femail').focus();
+				return false;
+			} 
+			if(email != email2){
+				alert('이메일이 일치하지 않습니다. 이메일주소를 확인해주세요.');
+				$('#femail').focus();
+				return false;
+			} else {
+				$('#email_wrap').css({'display':'none'});
+				$('#new_pwd').css('display','inline');
+			}
 		});
+		
+		var flag1 = false;
+		var flag2 = false;
+		function validateChk(){
+			var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+			if (false === reg.test($("#password").val()) && $("#password").val() != "") {
+				pwdCheck1.innerHTML = '비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.';
+				pwdCheck1.style.color = 'red';
+				pwdCheck1.style.fontSize = '10px';
+				console.log($("#password").val());
+				flag1 = false;
+			} else if (true === reg.test($("#password").val())){
+				pwdCheck1.innerHTML = '&nbsp;사용 가능한 비밀번호입니다.';
+				pwdCheck1.style.color = 'green';
+				pwdCheck1.style.fontSize = '10px';
+				console.log($("#password").val());
+				flag1 = true;
+			} else if ($("#password").val().trim().length == 0) {
+				pwdCheck1.innerHTML = "";
+				flag1 = false;
+			}
+		}
+		function pwdChk(){
+			var pwdCheck2 = document.getElementById('pwdCheck2');
+			var pwd = document.getElementById('password');
+			var pwd2 = document.getElementById('password2');
+			
+			if ($("#password2").val().trim().length == 0) {
+				pwdCheck2.innerHTML = "";
+				flag2 = false;
+			} else if(pwd.value == pwd2.value){
+				pwdCheck2.innerHTML = '&nbsp;비밀번호가 일치합니다.';
+				pwdCheck2.style.color = 'green';
+				pwdCheck2.style.fontSize = '10px';
+				flag2 = true;
+			} else if (pwd.value != pwd2.value){
+				pwdCheck2.innerHTML = '&nbsp;비밀번호가 일치하지 않습니다.';
+				pwdCheck2.style.color = 'red';
+				pwdCheck2.style.fontSize = '10px';
+				flag2 = false;
+			}
+		}
+		
+		function send(){
+			var pwd = $('#password').val().trim();
+		 	var pwd2 = $('#password2').val().trim(); 
+		 	var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+		 	
+		 	if(false === reg.test($("#password").val()) && $("#password").val() != ""){
+		 		$('#password').focus();
+		 		return false;
+			} else if($('#password').val().trim().length == 0){
+		 		alert('비밀번호를 입력해주세요.');
+		 		$('#password').focus();
+		 		return false;
+		 	} else if($('#password2').val().trim().length == 0){
+		 		alert('비밀번호 확인을 입력해주세요.');
+		 		$('#password2').focus();
+		 		return false;
+		 	} else if($('#password').val().trim() != $('#password2').val().trim()){
+		 		$('#password2').focus();
+		 		return false;
+		 	} else {
+		 		$('#newPwd_form').submit();
+		 		alert('비밀번호 변경에 성공했습니다.');
+		 	}
+		}
 	
 	</script>
 </body>
