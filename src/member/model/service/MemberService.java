@@ -184,5 +184,31 @@ public class MemberService {
 		return result;
 	}
 
+	public Member existenceId(String userId) {
+		Connection conn = getConnection();
+		Member m = new MemberDAO().existenceId(conn, userId);
+		
+		close(conn);
+		
+		return m;
+	}
+
+	public int updateNewPwd(String userId, String pwd) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().updateNewPwd(conn, userId, pwd);
+		System.out.println("service userId : " + userId);
+		System.out.println("service userId : " + pwd);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+
 
 }

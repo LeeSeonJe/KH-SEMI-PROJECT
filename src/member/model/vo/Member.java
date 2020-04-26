@@ -9,6 +9,8 @@ public class Member {
 	private String enroll_date;
 	private String status;
 	
+	private String email;
+	
 	public Member() {}
 
 	public Member(String user_id, String user_pwd) {
@@ -92,11 +94,20 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 
 	@Override
 	public String toString() {
 		return "Member [user_no=" + user_no + ", user_name=" + user_name + ", user_id=" + user_id + ", user_pwd="
-				+ user_pwd + ", user_category=" + user_category + ", enroll_date=" + enroll_date + ", status=" + status
+				+ user_pwd + ", user_category=" + user_category + ", enroll_date=" + enroll_date + ", status=" + status + ", email=" + email
 				+ "]";
 	}
 	

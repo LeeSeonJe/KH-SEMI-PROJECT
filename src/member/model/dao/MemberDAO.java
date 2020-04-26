@@ -13,11 +13,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import org.apache.tomcat.dbcp.dbcp2.PStmtKey;
-
-import com.sun.org.apache.regexp.internal.REUtil;
-
-import hospital.model.vo.Hospital;
 import member.model.vo.Member;
 
 public class MemberDAO {
@@ -471,6 +466,54 @@ public class MemberDAO {
 			close(stmt);
 		}
 
+		return result;
+	}
+	public Member existenceId(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m= null;
+		
+		String query = prop.getProperty("existenceId");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getString("user_id"),
+							   rset.getString("email"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+	public int updateNewPwd(Connection conn, String userId, String pwd) {
+		System.out.println("dao userId : " + userId);
+		System.out.println("dao userId : " + pwd);
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("updateNewPwd");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, pwd);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("result : " + result);
 		return result;
 	}
 
