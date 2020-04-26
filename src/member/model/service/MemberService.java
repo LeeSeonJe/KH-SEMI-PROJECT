@@ -215,12 +215,13 @@ public class MemberService {
 		Connection conn = getConnection();
 		MemberDAO dao = new MemberDAO();
 		Member m = null;
-
+		
 		m = dao.receiveId(conn, email);
-
+		
 		return m;
-
+	
 	}
+	
 
 	public int getListCountS(String keyword) {
 		Connection conn = getConnection();

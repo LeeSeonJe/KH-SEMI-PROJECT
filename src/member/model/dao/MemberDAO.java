@@ -474,6 +474,7 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		return m;
+	
 	}
 
 	public Member receiveId(Connection conn, String email) {
