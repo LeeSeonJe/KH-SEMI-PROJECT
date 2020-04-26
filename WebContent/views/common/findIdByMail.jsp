@@ -163,6 +163,8 @@ button {
 								data : {email:email},
 								success: function(data){
 									alert('id는 '+data);
+									self.close();
+									opener.window.location.href="login.jsp";
 								}
 							});
 						}
