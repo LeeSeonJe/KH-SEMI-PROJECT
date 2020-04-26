@@ -85,6 +85,8 @@ public class ReqInsertServlet extends HttpServlet {
 			
 			int result = new ReviewService().insertReq(r, fileList);
 			
+			
+			
 //			AddFile af = new AddFile();
 //			af.setOrigin_name(multiRequest.getOriginalFileName("req_img"));
 //			af.setChange_name(multiRequest.getFilesystemName("req_img"));
@@ -92,10 +94,14 @@ public class ReqInsertServlet extends HttpServlet {
 		//	System.out.println("ReqInsertServlet af : " + af);
 			
 
-			
-//			if(result > 0) {
-//				response.sendRedirect("");
-//			}
+			if(result > 0) {
+			//	response.sendRedirect("list.re?currentPage=1");
+				request.setAttribute("msg", "제품 등록 요청에 성공했습니다.");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			} else {			
+				request.setAttribute("msg", "제품 등록 요청에 실패하였습니다.");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
 
 		}
 		

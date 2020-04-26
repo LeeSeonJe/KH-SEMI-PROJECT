@@ -141,7 +141,7 @@ table#myPost>tbody>tr>td {
 }
 
 #myReservation>thead>tr>th {
-	width: 99px;
+	width: 140px;
 	text-align: center;
 	font-size: 16px;
 	border-block-end: 1px solid black;
@@ -300,6 +300,7 @@ tbody img {
 
 <%
 	MyPageCustomer mpc = (MyPageCustomer) request.getAttribute("mpc");
+
 	ArrayList<MyPageReview> mpr = (ArrayList<MyPageReview>) request.getAttribute("mpr");
 	ArrayList<MyPageWorry> mpw = (ArrayList<MyPageWorry>) request.getAttribute("mpw");
 	ArrayList<MyPageQnA> mpq = (ArrayList<MyPageQnA>) request.getAttribute("mpq");
@@ -363,7 +364,7 @@ tbody img {
 						} else if($(this).text() == '내 예약'){
 							$('#fristPage4').click();							
 						} else if($(this).text() == '1대1 문의'){
-							$('#beforeBtn3').click();
+							$('#fristPage3').click();
 						}
 					})
 				</script>
@@ -447,7 +448,14 @@ tbody img {
 						</tr>
 					</thead>
 					<tbody id=tbody_area>
-					
+					<% for(int i = 0; i < mpr.size(); i++) { %>
+						<tr>
+							<td class="review-content"><%= i+1 %><input type="hidden" value="<%= mpr.get(i).getBoard_no() %>" /></%></td>
+							<td class="review-content"><%= mpr.get(i).getBoard_title() %></td>
+							<td class="review-content"><%= mpr.get(i).getUser_name() %></td>
+							<td class="review-content"><%= mpr.get(i).getBoard_date().substring(0, 10) %></td>
+						</tr>
+					<% } %>
 					</tbody>
 
 				</table>
@@ -650,13 +658,22 @@ tbody img {
 						</tr>
 					</thead>
 					<tbody id=tbody_area2>
-					
+					<% for (int i = 0; i < mpw.size(); i++) {%>
+						<tr>
+							<td class="worry-content">i+1
+								<input type="hidden" value="<%= mpw.get(i).getBoard_no()%>">
+							</td>
+							<td class="worry-content"><%= mpw.get(i).getBoard_title() %></td>
+							<td style="width: 160px;" class="worry-content"><%= mpw.get(i).getUser_name() %></td>
+							<td style="width: 160px;" class="worry-content">mpw.get(i).getBoard_date().substring(0, 10)</td>
+						</tr>
+					<% } %>
 					</tbody>
 				</table>
 <!--고민페이지 끝 -------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!--고민 페이징 시작------------------------------------------------------------------------------------------------------------------------------------------  -->
 				<div class="pagingArea2" align="center" style="margin-right: 76px;">
-				<% if(!mpr.isEmpty()){ %>
+				<% if(!mpw.isEmpty()){ %>
 					<!--맨 처음으로  -->
 					<button id="fristPage2" class="btn-standard">&lt;&lt;</button>
 					<script>
@@ -838,14 +855,35 @@ tbody img {
 						</tr>
 					</thead>
 					<tbody id="tbody_area4">
-						
+					<% for (int i = 0; i <mpb.size(); i++) { %>
+						<tr>
+							<td class="book-content"><%= mpb.get(i).getUser_name() %></td>
+							<td class="book-content"><%= mpb.get(i).getTel() %></td>
+							<td class="book-content"><%= mpb.get(i).getBooking_name() %></td>
+							<td class="book-content"><%= mpb.get(i).getBooking_date().substring(0, 10) %></td>
+							<td class="book-content"><%= mpb.get(i).getBooking_time() %>:00</td>
+							<td class="book-content">
+								<div><%= mpb.get(i).getBooking_content() %></div>
+							</td>
+							<td class="book-content">
+							<% if(mpb.get(i).getBooking_del_ync().equalsIgnoreCase("n")) { %>
+								<button type="button" class="btn-standard" onclick="Rupdate(this)">예약수정</button>
+								<input type="hidden" value="9<%= mpb.get(i) %>">
+							<% } else if (mpb.get(i).getBooking_del_ync().equalsIgnoreCase("y")) { %>
+								예약완료
+							<% } else { %>
+								예약거절
+							<% } %>
+							</td>	
+						</tr>
+					<% } %>
 					</tbody>
 				</table>
 <!--예약 게시판 끝 ---------------------------------------------------------------------------------------------------------------------------------------------------------  -->
 				
 <!--예약 페이징 시작------------------------------------------------------------------------------------------------------------------------------------------  -->
 				<div class="pagingArea4" align="center" style="margin-right: 76px;">
-				<% if(!mpr.isEmpty()){ %>
+				<% if(!mpb.isEmpty()){ %>
 					<!--맨 처음으로  -->
 					<button id="fristPage4" class="btn-standard">&lt;&lt;</button>
 					<script>
@@ -1085,7 +1123,31 @@ tbody img {
 						</tr>
 					</thead>
 					<tbody id=tbody_area3>
-
+						<%
+						int count = 0;
+						for(int i = 0; i < mpq.size(); i++) { 
+						%>
+						<tr>
+							<td class="QnA-content"><%= i+1 %><input type="hidden" value="<%= mpq.get(i).getBoard_no() %>" /></%></td>
+							<td class="QnA-content"><%= mpq.get(i).getBoard_title() %></td>
+						<% if(mpq.get(i).getAnswer_yn().equals("N")) { %>
+							<td style="width: 160px; color: red;" class="QnA-content">답변대기중</td>
+						<% } else { %>
+							<td style="width: 160px;" class="QnA-content"><button type="button" class="btn_standard_view">답변보기</button></td>
+						<% } %>
+							<td style="width: 160px;" class="QnA-content"><%= mpq.get(i).getBoard_date().substring(0, 10) %></td>
+						</tr>
+						<% 
+						if(mpq.get(i).getAnswer_yn().equals("Y")) { 
+						count ++;
+						%>
+						<tr class="QnA_tr" style="display: none">
+							<td class="QnA-content" >답변 내용</td>
+							<td class="QnA-content" colspan="2" style="width: 160px;" ><textarea  class="review_ta" disabled="disabled"><%= mpq.get(i).getComments() %></textarea></td>
+							<td class="QnA-content" style="width: 160px;"><%= mpq.get(i).getComment_date().substring(0, 10) %></td>
+						</tr>
+						<% } %>
+					<% } %>
 					</tbody>
 				</table>
 				<div>
@@ -1095,7 +1157,7 @@ tbody img {
 
 <!--문의 페이징 시작------------------------------------------------------------------------------------------------------------------------------------------  -->
 				<div class="pagingArea3" align="center" style="margin-right: 76px;">
-				<% if(!mpr.isEmpty()){ %>
+				<% if(!mpq.isEmpty()){ %>
 					<!--맨 처음으로  -->
 					<button id="fristPage3" class="btn-standard">&lt;&lt;</button>
 					<script>

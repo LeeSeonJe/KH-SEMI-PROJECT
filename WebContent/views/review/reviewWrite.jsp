@@ -62,12 +62,12 @@
 				</div>
 				</td>
 				<td><span class="sp1">브랜드 명</span><br> 
-				<input id="brandName" type="hidden" name="brand_name" style="border: none; margin-left: 30px; readonly"></td>
+				<input id="brandName" type="text" name="brand_name" style="border: none; margin-left: 30px; readonly"></td>
 			</tr>
 			<tr>
 				<td><span class="sp1">제품 명</span><br> 
 				<input id="cosName" type="text" name="cosmetic_name" style="border: none; width: 500px; margin-left: 30px; readonly"></td>
-				<td><input id="cosNo" type="text" name="cosmetic_no"/></td>
+				<td><input id="cosNo" type="hidden" name="cosmetic_no"/></td>
 			</tr>
 			<tr>
 				<td><button type="button" id="btn-select">제품 선택</button></td>
@@ -162,6 +162,6 @@
 			window.open('<%= request.getContextPath() %>/views/cosmetic/cosmeticFind.jsp', "findingProduct", "width=600, height=300")
 		});
 	</script>
-	<script src="../../resources/js/main.js"></script>
+	<script src="/COSMEDIC/resources/js/main.js"></script>
 </body>
 </html>

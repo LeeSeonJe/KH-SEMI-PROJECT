@@ -268,7 +268,8 @@
 				<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
 				
 				<div class="SUChkMain">
-					사업자등록증 사진
+					사업자등록증 사진<br>
+					* 필수 항목
 					<h3
 						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>
@@ -282,7 +283,8 @@
 					</div>
 				</div>
 				<div class="SUChkMain">
-					병원 사진
+					병원 사진<br>
+					* 필수 항목<br>&nbsp;&nbsp;(사진 3장)
 					<h3
 						style="font-size: 13pt; color: #4BD763; display: inline-block; margin-top: 8%;">*</h3>
 				</div>

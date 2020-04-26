@@ -198,71 +198,154 @@ table#myPost>tbody>tr>td{
 				<div id="tab-title">내정보관리</div>
 				<div id="tab-title-detail">고객님의 개인정보 보호를 위해 최선을 다하겠습니다.</div>
 				<hr>
-				<table id="myInform" class="table-standard">
-					<tbody>
-						<tr>
-							<td class="tab-myControl-category">아이디</td>
-							<td class="tab-myControl-content"><%= loginUser.getUser_id() %></td>
-						</tr>
-						<tr>
-							<td class="tab-myControl-category">병원 명</td>
-							<td class="tab-myControl-content"><%= loginUser.getUser_name() %></td>
-						</tr>
-						<tr>
-							<td class="tab-myControl-category">이메일</td>
-							<td class="tab-myControl-content"><%= h.getEmail() %></td>
-						</tr>
-						<tr>
-							<td class="tab-myControl-category">병원 전화번호</td>
-							<td class="tab-myControl-content"><%= h.getTel() %></td>
-						</tr>
-						<tr>
-							<td class="tab-myControl-content-category">병원 주소</td>
-							<td class="tab-myControl-content"><%= h.getAddress() %></td>
-						</tr>
-					</tbody>
-				</table>
-				<table id="myInform2">
-						<tr>
-							<td class="tab-myControl-category">사업자 등록증</td>
-							<td class="tab-myControl-content1"><img src='<%= request.getContextPath() %>/hospital_images/<%= h.getRegi() %>' width="200" height="200"></td>
-							<td class="tab-myControl-content2" style="width="200" height="200""></td>
-							<td class="tab-myControl-content2" style="width="200" height="200""></td>
-						</tr>
-						<tr>
-							<td class="tab-myControl-category">병원 이미지</td>
-							<% String[] images = h.getHospital_img().split(","); %>
-							<% for(int i=0; i<images.length; i++){ %>
-								<td class="tab-myControl-content2"><img src='<%= request.getContextPath() %>/hospital_images/<%= images[i] %>' width="200" height="200"></td>
-							<% } %>
-						</tr>
-				</table>
-				<table id="myInform" class="table-standard">
-					<tbody>
-						<tr>
-							<td class="tab-myControl-category">병원 설명</td>
-							<td class="tab-myControl-content"><textarea style = "height : 300px; width : 700px; font-size : 13pt; margin-top : 10px ; padding-top : 5px; resize:none;" name="about"><%= h.getHospital_about() %></textarea></td>
-						</tr>
-					</tbody>
-				</table>
-				<div id="btn-category">
-					<form action="#">
-						<button type="submit" class="btn-standard">수정하기</button>
-						<button id="change_pwd"type="button" class="btn-standard" onclick="openChangePwd()">비밀번호변경</button>	
-						<button type="button" class="btn-standard">회원탈퇴</button>				
-					</form>
-				</div> 
+				<form action="hMyPage.up" method="post" enctype="multipart/form-data" onsubmit="return update()">
+					<table id="myInform" class="table-standard">
+						<tbody>
+							<tr>
+								<td class="tab-myControl-category">아이디</td>
+								<td class="tab-myControl-content"><%= loginUser.getUser_id() %></td>
+							</tr>
+							<tr>
+								<td class="tab-myControl-category">병원 명</td>
+								<td class="tab-myControl-content"><%= loginUser.getUser_name() %></td>
+							</tr>
+							<tr>
+								<td class="tab-myControl-category">이메일</td>
+								<td class="tab-myControl-content"><%= h.getEmail() %></td>
+							</tr>
+							<tr>
+								<td class="tab-myControl-category">병원 전화번호</td>
+								<td class="tab-myControl-content"><%= h.getTel() %></td>
+							</tr>
+							<tr>
+								<td class="tab-myControl-content-category">병원 주소</td>
+								<td class="tab-myControl-content"><%= h.getAddress() %></td>
+							</tr>
+						</tbody>
+					</table>
+					<table id="myInform2">
+							<tr>
+								<td class="tab-myControl-category">사업자 등록증</td>
+								<td class="tab-myControl-content1">
+									<img src='<%= request.getContextPath() %>/hospital_images/<%= h.getRegi() %>' width="200" height="200">
+								</td>
+								<td class="tab-myControl-content2" style="width='200'" height="200""></td>
+								<td class="tab-myControl-content2" style="width='200'" height="200""></td>
+							</tr>
+							<tr>
+								<td class="tab-myControl-category">병원 이미지</td>
+								<% String[] images = h.getHospital_img().split(","); %>
+								<td id="contentImgArea1" class="tab-myControl-content2">
+									<img id="contentImg1" src='<%= request.getContextPath() %>/hospital_images/<%= images[0] %>' width="200" height="200">
+									<input type="hidden" id="hFirst" name="first"/>
+								</td>
+								<td id="contentImgArea2" class="tab-myControl-content2">
+									<img id="contentImg2" src='<%= request.getContextPath() %>/hospital_images/<%= images[1] %>' width="200" height="200"> 
+									<input type="hidden" id="hSecond" name="second"/>
+								</td>
+								<td id="contentImgArea3" class="tab-myControl-content2">
+									<img id="contentImg3" src='<%= request.getContextPath() %>/hospital_images/<%= images[2] %>' width="200" height="200">
+									<input type="hidden" id="hThird" name="third"/>
+								</td>
+							</tr>
+					</table>
+					<div id="fileArea">
+						<input type="file" id="thumbnailImg1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)">
+						<input type="file" id="thumbnailImg2" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,2)">
+						<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,3)">
+					</div>
+					<table id="myInform" class="table-standard">
+						<tbody>
+							<tr>
+								<td class="tab-myControl-category">병원 설명</td>
+								<td class="tab-myControl-content">
+									<textarea style = "height : 300px; width : 700px; font-size : 13pt; margin-top : 10px ; padding-top : 5px; resize:none;" name="about"><%= h.getHospital_about() %></textarea>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div id="btn-category">
+							<button type="submit" id="updateBtn" class="btn-standard">수정하기</button>
+							<button id="change_pwd"type="button" class="btn-standard" onclick="openChangePwd()">비밀번호변경</button>	
+							<button type="button" class="btn-standard">회원탈퇴</button>				
+					</div> 
+				</form>
 			</section>		      
       </div>
    </div>   
 
    <%@ include file="/views/layout/footer.jsp"%>
    
-   <script>
-
-
-   </script>
-   <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
+	<script>
+		function update(){
+			var profile = $('#profile').attr('src');
+			var category = "H";
+			var id = '<%= loginUser.getUser_id()%>'
+			var pwd = '<%= loginUser.getUser_pwd()%>'
+			console.log(id);
+			console.log(pwd);
+			$.ajax({
+				url: 'login.me',
+				data: {category:category, id:id, pwd:pwd}
+			})
+			$.ajax({
+				url: 'login.me',
+				data: {category:category, id:id, pwd:pwd}
+			})	
+			$.ajax({
+				url: 'login.me',
+				data: {category:category, id:id, pwd:pwd}
+			})	
+		}
+	
+		$(function(){
+			$("#fileArea").hide();
+// 			$("#fileArea2").hide();
+			
+// 			$("#titleImgArea").click(function(){
+// 				$("#thumbnailImg1").click();
+// 			});
+			$("#contentImgArea1").click(function(){
+				$("#thumbnailImg1").click();
+			});
+			$("#contentImgArea2").click(function(){
+				$("#thumbnailImg2").click();
+			});
+			$("#contentImgArea3").click(function(){
+				$("#thumbnailImg3").click();
+			});
+		});
+		
+		// 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
+		function LoadImg(value, num){
+			if(value.files && value.files[0]){
+				var reader = new FileReader();
+				
+				reader.onload = function(e){								
+					switch(num){
+// 					case 1: 
+// 						$("#titleImg").attr("src", e.target.result);
+// 						break;
+					case 1:
+						$("#contentImg1").attr("src", e.target.result);
+						$("#hFirst").val("first");
+						break;
+					case 2: 
+						$("#contentImg2").attr("src", e.target.result);
+						$("#hSecond").val("second");
+						break;
+					case 3:
+						$("#contentImg3").attr("src", e.target.result);
+						$("#hThird").val("third");
+						break;
+					}
+				}
+				
+				reader.readAsDataURL(value.files[0]);
+			}
+		}
+	</script>
+	<script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
    
 </body>
 </html>

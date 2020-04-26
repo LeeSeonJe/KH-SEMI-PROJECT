@@ -121,12 +121,12 @@ public class MemberService {
 
 	public Member checkMember(String id) {
 		Connection conn = getConnection();
-		
+
 		Member loginUser = new MemberDAO().checkMember(conn, id);
 		close(conn);
 		return loginUser;
-  }
-  
+	}
+
 	public int pwdCheck(String userId, String userPwd, String newPwd) {
 		// TODO Auto-generated method stub
 		Connection conn = getConnection();
@@ -135,7 +135,7 @@ public class MemberService {
 
 		if (result > 0) {
 			int update = member.changePwd(conn, userId, userPwd, newPwd);
-			if(update > 0) {
+			if (update > 0) {
 				commit(conn);
 			} else {
 				rollback(conn);
@@ -144,7 +144,7 @@ public class MemberService {
 		} else {
 			return result;
 		}
-  }
+	}
 
 	public Member loginHospital(Member m) {
 		Connection conn = getConnection();
@@ -156,29 +156,55 @@ public class MemberService {
 
 	public int getListCountM() {
 		Connection conn = getConnection();
-		
+
 		int result = new MemberDAO().getListCountM(conn);
-		
+
 		close(conn);
-		
+
 		return result;
 	}
 
 	public int getListCountH() {
 		Connection conn = getConnection();
-		
+
 		int result = new MemberDAO().getListCountH(conn);
-		
+
 		close(conn);
-		
+
 		return result;
 	}
 
 	public int getListCountHJ() {
 		Connection conn = getConnection();
-		
+
 		int result = new MemberDAO().getListCountHJ(conn);
+
+		close(conn);
+
+		return result;
+	}
+
+
+	public Member existenceId(String userId) {
+		Connection conn = getConnection();
+		Member m = new MemberDAO().existenceId(conn, userId);
 		
+		close(conn);
+		
+		return m;
+	}
+
+	public int updateNewPwd(String userId, String pwd) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().updateNewPwd(conn, userId, pwd);
+		System.out.println("service userId : " + userId);
+		System.out.println("service userId : " + pwd);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		close(conn);
 		
 		return result;
@@ -196,16 +222,16 @@ public class MemberService {
 	
 	}
 	
+
 	public int getListCountS(String keyword) {
-Connection conn = getConnection();
-		
+		Connection conn = getConnection();
+
 		int result = new MemberDAO().getListCountS(conn, keyword);
-		
+
 		close(conn);
-		
+
 		return result;
 
 	}
-
 
 }

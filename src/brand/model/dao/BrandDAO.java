@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -35,19 +36,45 @@ public class BrandDAO {
 		String last = null;
 		if (brandFilter != null) {
 			switch (brandFilter) {
-			case "가": last = "나"; break;
-			case "나": last = "다"; break;
-			case "다": last = "라"; break;
-			case "라": last = "마"; break;
-			case "마": last = "바"; break;
-			case "바": last = "사"; break;
-			case "사": last = "아"; break;
-			case "아": last = "자"; break;
-			case "자": last = "차"; break;
-			case "차": last = "카"; break;
-			case "카": last = "타"; break;
-			case "타": last = "파"; break;
-			case "파": last = "하"; break;
+			case "가":
+				last = "나";
+				break;
+			case "나":
+				last = "다";
+				break;
+			case "다":
+				last = "라";
+				break;
+			case "라":
+				last = "마";
+				break;
+			case "마":
+				last = "바";
+				break;
+			case "바":
+				last = "사";
+				break;
+			case "사":
+				last = "아";
+				break;
+			case "아":
+				last = "자";
+				break;
+			case "자":
+				last = "차";
+				break;
+			case "차":
+				last = "카";
+				break;
+			case "카":
+				last = "타";
+				break;
+			case "타":
+				last = "파";
+				break;
+			case "파":
+				last = "하";
+				break;
 			}
 		}
 		PreparedStatement pstmt = null;
@@ -212,6 +239,71 @@ public class BrandDAO {
 		}
 		return nrlist;
 	}
-	
-	
+
+	// 했는데 필요없어서 주석
+//	public ArrayList<Brand> searchBrand1(Connection conn) {
+//		Statement stmt = null;
+//		ResultSet rset = null;
+//		ArrayList<Brand> bList = new ArrayList<Brand>();
+//		String query = "SELECT * FROM BRAND";
+//		
+//		try {
+//			stmt = conn.createStatement();
+//			rset = stmt.executeQuery(query);
+//			while (rset.next()) {
+//				bList.add(new Brand(rset.getString("brand_name"), rset.getString("brand_img")));
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(stmt);
+//		}
+//		return bList;
+//	}
+
+	public ArrayList<Brand> searchBrand(Connection conn, String findInput) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Brand> bList = new ArrayList<Brand>();
+
+		String query = prop.getProperty("searchBrand");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, findInput);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				bList.add(new Brand(rset.getString("brand_name"), rset.getString("brand_img")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bList;
+	}
+
+	public int insertBrand(Connection conn, Brand b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "insert into brand values (?, ?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, b.getBrand_Name());
+			pstmt.setString(2, b.getBrand_Img());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

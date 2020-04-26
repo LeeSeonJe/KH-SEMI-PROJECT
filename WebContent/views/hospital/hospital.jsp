@@ -366,9 +366,7 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
 						</div>
 					</div><br><br>
 					<div id="hospitalInformation">
-						<textarea name="" id="" cols="95" rows="12" style="outline: none; resize: none; border: 0; background: white;" disabled="disabled">
-							<%=h.getHospital_about()%>
-						</textarea>
+						<textarea name="" id="" cols="95" rows="12" style="outline: none; resize: none; border: 0; background: white;" disabled="disabled"><%=h.getHospital_about()%></textarea>
 					</div>
 				</div>
 

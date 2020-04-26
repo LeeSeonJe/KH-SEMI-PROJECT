@@ -68,6 +68,7 @@ public class HospitalDAO {
 
 		try {
 			if (hospitalFilter == null || hospitalFilter.equals("랭킹순")) {
+				System.out.println("1");
 				String query = prop.getProperty("selectHospitalList");
 				stmt = conn.createStatement();
 				rset = stmt.executeQuery(query);
@@ -77,6 +78,7 @@ public class HospitalDAO {
 							rset.getDouble("review_count")));
 				}
 			} else if (hospitalFilter.equals("리뷰 많은 순")) {
+				System.out.println("2");
 				String query = prop.getProperty("selectReviewH");
 				stmt = conn.createStatement();
 				rset = stmt.executeQuery(query);
@@ -86,6 +88,7 @@ public class HospitalDAO {
 							rset.getDouble("review_count")));
 				}
 			} else if (hospitalFilter.equals("리뷰 적은 순")) {
+				System.out.println("3");
 				String query = prop.getProperty("selectReviewL");
 				stmt = conn.createStatement();
 				rset = stmt.executeQuery(query);
@@ -95,6 +98,7 @@ public class HospitalDAO {
 							rset.getDouble("review_count")));
 				}
 			} else if (hospitalFilter.equals("평점 높은 순")) {
+				System.out.println("4");
 				String query = prop.getProperty("selectHeartH");
 				stmt = conn.createStatement();
 				rset = stmt.executeQuery(query);
@@ -104,6 +108,7 @@ public class HospitalDAO {
 							rset.getDouble("review_count")));
 				}
 			} else if (hospitalFilter.equals("평점 낮은 순")) {
+				System.out.println("5");
 				String query = prop.getProperty("selectHeartL");
 				stmt = conn.createStatement();
 				rset = stmt.executeQuery(query);
@@ -113,6 +118,7 @@ public class HospitalDAO {
 							rset.getDouble("review_count")));
 				}
 			} else if (hospitalFilter.equals("답변 많은 순")) {
+				System.out.println("6");
 				String query = prop.getProperty("selectReplyH");
 				stmt = conn.createStatement();
 				rset = stmt.executeQuery(query);
@@ -122,6 +128,7 @@ public class HospitalDAO {
 							rset.getDouble("review_count")));
 				}
 			} else if (hospitalFilter.equals("답변 적은 순")) {
+				System.out.println("7");
 				String query = prop.getProperty("selectReplyL");
 				stmt = conn.createStatement();
 				rset = stmt.executeQuery(query);
@@ -471,6 +478,78 @@ public class HospitalDAO {
 			close(stmt);
 		}
 		return hList;
+	}
+
+	public String getHospitalImages(Connection conn, String user_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String imgs = "";
+		
+		String query = "SELECT HOSPITAL_IMG FROM HOSPITAL JOIN MEMBER ON (HOSPITAL_NO = USER_NO) WHERE USER_ID = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, user_id);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				imgs = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		 
+		return imgs;
+	}
+
+	public int HMyPageUpdate(Connection conn, Hospital h) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("HMyPageUpdate");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, h.getHospital_img());
+			pstmt.setString(2, h.getHospital_about());
+			pstmt.setInt(3, h.getHospital_no());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Hospital> nrSelectHospitalList(Connection conn, String hospitalFilter) {
+		ArrayList<Hospital> nrList = new ArrayList<Hospital>();
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = "select user_name, hospital_about, address, hospital_img, hospital_heart, review_count from hospital join member on (user_no = hospital_no) where join_yn = 'Y' and status='Y' group by user_name, hospital_about, address, hospital_img, hospital_heart, review_count having review_count = 0";
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while (rset.next()) {
+				nrList.add(new Hospital(rset.getString("user_name"), rset.getString("hospital_about"),
+						rset.getString("address"), rset.getString("hospital_img"), rset.getDouble("hospital_heart"),
+						rset.getDouble("review_count")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return nrList;
 	}
 
 }

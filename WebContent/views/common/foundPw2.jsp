@@ -166,6 +166,7 @@
 					</div>
 					<br> <br>
 				</div>
+				<form action="<%= request.getContextPath() %>/fpw.me"  method='post' id="id_form">
 				<div class="fLogin" id="foundPw2" style = "border-top : 1px solid black; border-right : 1px solid black; background-color : white; border-bottom : none; ">
 					<div class="titlebox">
 						비밀번호 찾기
@@ -181,7 +182,7 @@
 								아이디
 							</div>
 							<div style = "float : left; width : 30%;  margin-top : 6px; " >
-								<input type = "text" id = "foundIdPw" style = "height : 45px; width : 280px; border: 1px solid black;">
+								<input type = "text" id = "foundIdPw" name = "foundIdPw" style = "height : 45px; width : 280px; border: 1px solid black;">
 							</div>
 							
 						</div>
@@ -189,13 +190,14 @@
 							<br><br>
 						</div>
 						<div>
-								<input type = "button"  class = "SUBC" id = "next1" value = "다음" style = "background-color : #595959; color : white; border:none;">
+								<input type = "submit"  class = "SUBC" id = "next1" value = "다음" style = "background-color : #595959; color : white; border:none;">
 						</div>
 						<div>
-								<input type = "button"  class = "SUBC" id = "next2" value = "다음" style = "background-color : #DF1758; color : white; border:none;">
+								<input type = "submit"  class = "SUBC" id = "next2" value = "다음" style = "background-color : #DF1758; color : white; border:none;">
 						</div>
 					</div>
 				</div>
+				</form>
 				<div class="foundIdF" id = "foundIdFEC2">
 					<br> <br> 
 					<div class="foundIdI">
@@ -239,21 +241,18 @@
 			$("#foundIdFEC2").hide();
 			$(".mLogin").height("650px");
 		});
-
 		$("#radioId2").click(function() {
 			$("#foundIdFF1").hide();
 			$("#foundIdFF2").show();
 			$("#radioIdd2").prop("checked", true);
 			$(".mLogin").height("920px");
 		});
-
 		$("#radioIdd1").click(function() {
 			$("#foundIdFF2").hide();
 			$("#foundIdFF1").show();
 			$("#radioId1").prop("checked", true);
 			$(".mLogin").height("1000px");
 		});
-
 		$(".PID").keyup(function() {
 			var charLimit = $("#PID1").attr("maxlength");
 			if (this.value.length >= charLimit) {
@@ -261,7 +260,6 @@
 				return false;
 			}
 		});
-
 		$(function() {
 			$('#SUImgg2').hide();
 			$('#SUImgg1').show();
@@ -271,21 +269,16 @@
 			$('#SUImgg2').show();
 			style = "cursor : pointer";
 		}
-
 		function iconChange2() {
 			$('#SUImgg2').hide();
 			$('#SUImgg1').show();
 		}
-
 		$('input').keyup(function() {
 			var name = $("#nameBox").val();
-
 			var PID = $("#PID1").val();
 			var PID2 = $("#PID2").val();
-
 			var flag1 = false;
 			var flag3 = false;
-
 			if (name.length < 1) {
 				$("#imgAlert1").hide();
 				$("#imgAlert2").hide();
@@ -300,7 +293,6 @@
 					$("#imgAlert1").show();
 				}
 			}
-
 			if ((PID.length < 6) || (PID2.length < 1)) {
 				$("#imgAlert3").hide();
 				$("#imgAlert4").hide();
@@ -315,7 +307,6 @@
 					flag3 = false;
 				}
 			}
-
 			if ((flag1 == true) && (flag3 == true)) {
 				$("#submit1").hide();
 				$("#submit2").show();
@@ -323,7 +314,6 @@
 				$("#submit2").hide();
 				$("#submit1").show();
 			}
-
 		});
 		
 		$("#foundPw").click(function(){
@@ -386,11 +376,21 @@
 			$('#SUImggg2').show();
 			style = "cursor : pointer";
 		}
-
 		function iconChange4() {
 			$('#SUImggg2').hide();
 			$('#SUImggg1').show();
 		}
+		
+		$('#next1').click(function(){
+			var id = $('#foundIdPw').val();
+			console.log(id);
+			if(id.trim().length == 0){
+				alert('아이디를 입력해주세요.');
+				$('#foundIdPw').focus();
+				return false;
+			} 
+			$('#id_form').submit();
+		});
 	
 	</script>
 </body>
