@@ -13,9 +13,36 @@ public class CosTalk {
 	private int rMember_no;
 	private String rMember_id;
 	private String rMember_name;
+	
+	private String user_name;
+	private String user_id;
 
-	public CosTalk() {
+	public CosTalk(String message) {
 		super();
+		this.message = message;
+	}
+
+	public CosTalk(int reception_no, String user_id, String user_name) {
+		super();
+		this.reception_no = reception_no;
+		this.user_id = user_id;
+		this.user_name = user_name;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	public CosTalk(int message_no, String message, Date message_date, String message_read,
@@ -29,12 +56,12 @@ public class CosTalk {
 		this.reception_no = reception_no;
 	}
 
-
-	public CosTalk(int rMember_no, String rMember_id, String rMember_name) {
+	public CosTalk(int reception_no, String user_id, String user_name, String message) {
 		super();
-		this.rMember_no = rMember_no;
-		this.rMember_id = rMember_id;
-		this.rMember_name = rMember_name;
+		this.reception_no = reception_no;
+		this.user_id = user_id;
+		this.user_name = user_name;
+		this.message = message;
 	}
 
 	public int getMessage_no() {

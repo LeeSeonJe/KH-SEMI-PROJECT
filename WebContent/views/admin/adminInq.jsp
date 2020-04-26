@@ -96,7 +96,7 @@ div>section.tab-adminpage {
 
 
 .detail, .grant{color: blue; cursor: pointer;}
-.quit, .refuse, .remove, #answerStatus{color: red; cursor: pointer;}
+.quit, .refuse, .remove, .answerStatus{color: red; cursor: pointer;}
 .detail:hover, .quit:hover, .grant:hover, .refuse:hover, .remove:hover,
 #answerStatus:hover{
 	text-decoration:underline;
@@ -195,7 +195,7 @@ table#adminEnrollHospital>tbody>tr>td{
                <li onclick="location.href = '<%= request.getContextPath()%>/user.admin'">회원 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/hospital.admin'">병원 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/hospitalJoin.admin'">병원 가입 관리</li>
-               <li onclick="location.href = '<%= request.getContextPath()%>/views/admin/adminCosReq.jsp'">제품 등록 관리</li>
+               <li onclick="location.href = '<%= request.getContextPath()%>/list.req'">제품 등록 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/reviewList.admin'">리뷰 관리</li>
                <li onclick="location.href = '<%= request.getContextPath()%>/boardList.admin'">게시판 관리</li>
                <li style="background: #f2d0e0" onclick="location.href = '<%= request.getContextPath()%>/inqList.admin'">1대1문의 관리</li>
@@ -235,7 +235,7 @@ table#adminEnrollHospital>tbody>tr>td{
 	                     <% } %>
 	                     
 	                     <% if(i.getAnswer_yn().equals("N")){ %>
-	                     	<td><label id="answerStatus">답변작성</label></td>
+	                     	<td><label class="answerStatus">답변작성</label></td>
 	                     <% } else { %>
 	                     	<td></td>
 	                     <% } %>
@@ -299,7 +299,7 @@ table#adminEnrollHospital>tbody>tr>td{
           <%@ include file="/views/layout/footer.jsp"%>
    
    <script>
-	$('#answerStatus').click(function(){
+	$('.answerStatus').click(function(){
 		var board_no = $(this).parent().parent().children().eq(0).text();
 		var popup = window.open("<%=request.getContextPath()%>/InqDetail.admin?board_no="+ board_no, "answerStatusPopUp", "width=550, height=750");
 	});

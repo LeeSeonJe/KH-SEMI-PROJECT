@@ -1,9 +1,17 @@
 @charset "UTF-8";
 
+#chatView::-webkit-scrollbar { 
+    display: none; 
+}
+
+#msg::-webkit-scrollbar{
+	display : none;
+}
+
 .modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
-	left: 1115px;
+	left: 960px;
 	top: 90px;
 	width: 340px; /* Full width */
 	height: 600px; /* Full height */
@@ -13,6 +21,8 @@
 	box-shadow: 0px 0px 6px 2px gray;
 	/*border : 3px solid #EEEEEE;*/
 }
+
+
 
 /* Modal Content/Box */
 .cosTalk-content {
@@ -86,7 +96,9 @@ div.msgBox {
 	background: yellow;
 	padding: 6px 8px;
 	border-radius: 2px;
+	text-align :left;	
 }
+
 
 div.memberLine {
 	margin: 10px;
@@ -141,9 +153,15 @@ div.chatNameBox {
 }
 
 input.chatAddW{
-	width : 100%;
+	width : 96%;
 	height : 40px;
 	font-size : 12pt;
+	background-color :#FFF0F0;
+	margin-left : 2%;
+	margin-top : 20px; 
+	border: none;
+	outline : none;
+	
 }
 
 input#bBtn {

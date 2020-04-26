@@ -135,6 +135,7 @@ public class InquiryDAO {
 			close(stmt);
 		}
 		return result;
+
 	}
 
 	public ArrayList<Inquiry> selectQnA(Connection conn, int user_no) {

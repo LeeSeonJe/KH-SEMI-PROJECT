@@ -198,7 +198,7 @@ select, input {
 						opener.document.reviewForm.brand_name.value = $(this).find('h6').text();
 						opener.document.reviewForm.cosmetic_name.value = $(this).find('h5').text();
 						if(tt == -1){
-							opener.document.reviewForm.cosmetic_img.src = "<%= request.getContextPath() %>/cosReq_uploadFiles/" + data[i].brand_Img;
+							opener.document.reviewForm.cosmetic_img.src = "<%= request.getContextPath() %>/cosReq_uploadFiles/" + data[i].cosmetic_img;
 						} else {
 							opener.document.reviewForm.cosmetic_img.src = $(this).find('img').attr('src');
 						}

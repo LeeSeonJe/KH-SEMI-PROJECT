@@ -135,7 +135,7 @@
 								<span class="label"> </span> 본인인증으로 찾기
 							</label>
 							<div class="SUIdenI" onmouseover="iconChange1()"
-								onmouseout="iconChange2()" onclick="openEmailIden()"
+								onmouseout="iconChange2()" onclick="openEmailIden();"
 								style="cursor: pointer; margin-left: 39%;">
 								<img class="SUImg" id="SUImgg1"
 									src="<%=request.getContextPath()%>/resources/images/SUEmail2-1.png">
@@ -228,6 +228,10 @@
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
+		function openEmailIden(){
+			window.open("<%=request.getContextPath()%>/views/common/findIdByMail.jsp", "이메일 인증", "height = 450 , width = 500, left = 300, top = 50");
+		}
+	
 		$(function() {
 			$("#mLogin2").hide();
 			$("#foundIdFF2").hide();

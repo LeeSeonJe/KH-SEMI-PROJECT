@@ -107,6 +107,7 @@
 							</div>
 							<button  is="cancleBtn" class="btn-standard" type="reset" value="취소" onclick="location.href='javascript:history.go(-1);'">취소</button>
 							<button class="btn-standard" type="submit" value="등록" id="worry-btn" >등록</button>
+							
 				</form>
 
 

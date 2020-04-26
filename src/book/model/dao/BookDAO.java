@@ -180,4 +180,49 @@ private Properties prop = new Properties();
 		return list;
 	}
 
+	public int updateBook(Connection conn, Book b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateBook");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, b.getBooking_name());
+			pstmt.setString(2, b.getBooking_tel());
+			pstmt.setDate(3, b.getBooking_date());
+			pstmt.setString(4, b.getBooking_time());
+			pstmt.setString(5, b.getBooking_content());
+			pstmt.setInt(6, b.getBooking_no());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int applyBook(Connection conn, String booking_no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("applyBook");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, booking_no);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

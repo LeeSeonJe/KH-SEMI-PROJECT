@@ -1,3 +1,4 @@
+<%@page import="customer.model.vo.MyPageBook"%>
 <%@page import="customer.model.vo.MyPageQnA"%>
 <%@page import="customer.model.vo.MyPageWorry"%>
 <%@page import="review.model.vo.PageInfo"%>
@@ -104,6 +105,7 @@ table#myReview>thead>tr>th {
 	border-block-end: 1px solid black;
 	text-align: center;
 	width: 90px;
+/* 	width: 140px; */
 }
 
 table#myReview>thead>tr>th#title2 {
@@ -139,7 +141,7 @@ table#myPost>tbody>tr>td {
 }
 
 #myReservation>thead>tr>th {
-	width: 99px;
+	width: 140px;
 	text-align: center;
 	font-size: 16px;
 	border-block-end: 1px solid black;
@@ -148,6 +150,7 @@ table#myPost>tbody>tr>td {
 
 #myReservation>tbody>tr>td {
 	height: 45px;
+	width: 140px;
 }
 
 #myQnA-writer {
@@ -243,7 +246,14 @@ tbody img {
 	cursor: pointer;
 }
 
-.numBtn, .numBtn2, .numBtn3 {
+.book-content>div {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 140px;
+}
+
+.numBtn, .numBtn2, .numBtn3, .numBtn4 {
 	cursor: pointer;
 	border-bottom-color: #e2e2e2;
 	border: 1px solid #ccccce;
@@ -279,12 +289,10 @@ tbody img {
 }
 
 .review_ta {
-/* 	width:850px; */
-	min-height:32px;
-	overflow-y:hidden;
-	border: 0;
-	resize: none;
-	font-size: 16px;
+    min-height: 180px;
+    border: 0;
+    resize: none;
+    font-size: 16px;
     width: 500px;
     background: #f8f8f8;
 }
@@ -292,13 +300,16 @@ tbody img {
 
 <%
 	MyPageCustomer mpc = (MyPageCustomer) request.getAttribute("mpc");
+
 	ArrayList<MyPageReview> mpr = (ArrayList<MyPageReview>) request.getAttribute("mpr");
 	ArrayList<MyPageWorry> mpw = (ArrayList<MyPageWorry>) request.getAttribute("mpw");
 	ArrayList<MyPageQnA> mpq = (ArrayList<MyPageQnA>) request.getAttribute("mpq");
+	ArrayList<MyPageBook> mpb = (ArrayList<MyPageBook>) request.getAttribute("mpb");
 	
 	PageInfo reviewPi = (PageInfo)request.getAttribute("reviewPi");
 	PageInfo worryPi = (PageInfo)request.getAttribute("worryPi");
 	PageInfo qnaPi = (PageInfo)request.getAttribute("qnaPi");
+	PageInfo bookPi = (PageInfo)request.getAttribute("bookPi");
 	
 	int currentPage = reviewPi.getCurrentPage();
 	int maxPage = reviewPi.getMaxPage();
@@ -317,6 +328,10 @@ tbody img {
 	int endPage3 = qnaPi.getEndPage();
 	System.out.println(endPage3);
 	
+	int currentPage4 = bookPi.getCurrentPage();
+	int maxPage4 = bookPi.getMaxPage();
+	int startPage4 = bookPi.getStartPage();
+	int endPage4 = bookPi.getEndPage();
 	
 %>
 </head>
@@ -337,6 +352,22 @@ tbody img {
 					<li>내 예약</li>
 					<li>1대1 문의</li>
 				</ul>
+				<script>
+					$('#nav-tab-ul>li').on('click', function(){
+						console.log($(this).text())
+						if($(this).text() == '내정보관리'){
+// 							$('#update_btn').click();
+						} else if($(this).text() == '내 리뷰'){
+							$('#fristPage').click();
+						} else if($(this).text() == '내 게시글'){
+							$('#fristPage2').click();
+						} else if($(this).text() == '내 예약'){
+							$('#fristPage4').click();							
+						} else if($(this).text() == '1대1 문의'){
+							$('#fristPage3').click();
+						}
+					})
+				</script>
 			</section>
 <!--내정보관리 시작 -------------------------------------------------------------------------------------------------------------------------------------------------- -->
 			<section id="tab-myControl" class="tab-mypage">
@@ -420,16 +451,8 @@ tbody img {
 					<% for(int i = 0; i < mpr.size(); i++) { %>
 						<tr>
 							<td class="review-content"><%= i+1 %><input type="hidden" value="<%= mpr.get(i).getBoard_no() %>" /></%></td>
-							<td class="review-content">
-								<div class="cosName">
-									<%= mpr.get(i).getCosmetic_name() %>
-								</div>
-							</td>
-							<td class="review-content">
-								<div class="boTitle">
-									<%= mpr.get(i).getBoard_title() %>
-								</div>
-							</td>								
+							<td class="review-content"><%= mpr.get(i).getBoard_title() %></td>
+							<td class="review-content"><%= mpr.get(i).getUser_name() %></td>
 							<td class="review-content"><%= mpr.get(i).getBoard_date().substring(0, 10) %></td>
 						</tr>
 					<% } %>
@@ -635,12 +658,14 @@ tbody img {
 						</tr>
 					</thead>
 					<tbody id=tbody_area2>
-					<% for(int i = 0; i < mpw.size(); i++) { %>
+					<% for (int i = 0; i < mpw.size(); i++) {%>
 						<tr>
-							<td class="worry-content"><%= i+1 %><input type="hidden" value="<%= mpw.get(i).getBoard_no() %>" /></%></td>
+							<td class="worry-content">i+1
+								<input type="hidden" value="<%= mpw.get(i).getBoard_no()%>">
+							</td>
 							<td class="worry-content"><%= mpw.get(i).getBoard_title() %></td>
 							<td style="width: 160px;" class="worry-content"><%= mpw.get(i).getUser_name() %></td>
-							<td style="width: 160px;" class="worry-content"><%= mpw.get(i).getBoard_date().substring(0, 10) %></td>
+							<td style="width: 160px;" class="worry-content">mpw.get(i).getBoard_date().substring(0, 10)</td>
 						</tr>
 					<% } %>
 					</tbody>
@@ -648,7 +673,7 @@ tbody img {
 <!--고민페이지 끝 -------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!--고민 페이징 시작------------------------------------------------------------------------------------------------------------------------------------------  -->
 				<div class="pagingArea2" align="center" style="margin-right: 76px;">
-				<% if(!mpr.isEmpty()){ %>
+				<% if(!mpw.isEmpty()){ %>
 					<!--맨 처음으로  -->
 					<button id="fristPage2" class="btn-standard">&lt;&lt;</button>
 					<script>
@@ -808,6 +833,9 @@ tbody img {
 				<% } %>
 				</div>
 <!--고민 페이징 끝------------------------------------------------------------------------------------------------------------------------------------------  -->
+
+
+<!--예약 게시판 시작 ---------------------------------------------------------------------------------------------------------------------------------------------------------  -->
 			</section>
 			
 			<section id="tab_myReservation" class="tab-mypage">
@@ -823,28 +851,263 @@ tbody img {
 							<th>날짜</th>							
 							<th>시간</th>							
 							<th>상담내용</th>							
-							<th>예약수정</th>							
+							<th>예약상태</th>							
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tbody_area4">
+					<% for (int i = 0; i <mpb.size(); i++) { %>
 						<tr>
-							<td>KH피부과</td>
-							<td>02-0000-1111</td>
-							<td>이선제</td>
-							<td>2020-03-26</td>
-							<td>13:00</td>
-							<td>상담</td>
-							<td>
-								<button type="button" class="btn-standard">
-									예약수정
-								</button>
+							<td class="book-content"><%= mpb.get(i).getUser_name() %></td>
+							<td class="book-content"><%= mpb.get(i).getTel() %></td>
+							<td class="book-content"><%= mpb.get(i).getBooking_name() %></td>
+							<td class="book-content"><%= mpb.get(i).getBooking_date().substring(0, 10) %></td>
+							<td class="book-content"><%= mpb.get(i).getBooking_time() %>:00</td>
+							<td class="book-content">
+								<div><%= mpb.get(i).getBooking_content() %></div>
 							</td>
+							<td class="book-content">
+							<% if(mpb.get(i).getBooking_del_ync().equalsIgnoreCase("n")) { %>
+								<button type="button" class="btn-standard" onclick="Rupdate(this)">예약수정</button>
+								<input type="hidden" value="9<%= mpb.get(i) %>">
+							<% } else if (mpb.get(i).getBooking_del_ync().equalsIgnoreCase("y")) { %>
+								예약완료
+							<% } else { %>
+								예약거절
+							<% } %>
+							</td>	
 						</tr>
-						
+					<% } %>
 					</tbody>
 				</table>
+<!--예약 게시판 끝 ---------------------------------------------------------------------------------------------------------------------------------------------------------  -->
 				
+<!--예약 페이징 시작------------------------------------------------------------------------------------------------------------------------------------------  -->
+				<div class="pagingArea4" align="center" style="margin-right: 76px;">
+				<% if(!mpb.isEmpty()){ %>
+					<!--맨 처음으로  -->
+					<button id="fristPage4" class="btn-standard">&lt;&lt;</button>
+					<script>
+						var currentPage4 = 1
+						$('#fristPage4').on('click', function(){
+							currentPage4 = "1";
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage4:currentPage4},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area4').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="book-content"></td>').text(data[i].user_name);
+										var $td2 = $('<td class="book-content"></td>').text(data[i].tel);
+										var $td3 = $('<td class="book-content"></td>').text(data[i].booking_name);										
+										var $td4 = $('<td class="book-content"></td>').text(data[i].booking_date.substr(0, 10));	
+										var $td5 = $('<td class="book-content"></td>').text(data[i].booking_time + ":00");	
+										var $td6 = $('<td class="book-content"></td>')
+										var $div = $('<div></div>').text(data[i].booking_content);	
+										var $td7 = $('<td class="book-content"></td>')	
+										if(data[i].booking_del_ync == 'Y'){
+											$td7.text("예약완료")
+										} else if (data[i].booking_del_ync == 'c'){
+											$td7.text("예약거절")											
+										} else {
+											var $button = ('<button type="button" class="btn-standard" onclick="Rupdate(this)">예약수정</button>')
+											var $input = $('<input type="hidden">').val(data[i].booking_no);
+											$td7.append($button, $input)
+										}
+										
+										$td6.append($div);
+										$tr.append($td1, $td2, $td3, $td4, $td5, $td6, $td7);
+										$('#tbody_area4').append($tr)
+									}
+								}
+							})
+						})
+					</script>
+					<!--이전 페이지  -->
+					<button  id="beforeBtn4" class="btn-standard">&lt;</button>
+					<script>
+						$('#beforeBtn4').on('click', function(){
+							console.log(currentPage4);
+							if(1 == currentPage4){
+								currentPage4 = 1
+							} else {
+								currentPage4--;								
+							}
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage4:currentPage4},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area4').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="book-content"></td>').text(data[i].user_name);
+										var $td2 = $('<td class="book-content"></td>').text(data[i].tel);
+										var $td3 = $('<td class="book-content"></td>').text(data[i].booking_name);										
+										var $td4 = $('<td class="book-content"></td>').text(data[i].booking_date.substr(0, 10));	
+										var $td5 = $('<td class="book-content"></td>').text(data[i].booking_time + ":00");	
+										var $td6 = $('<td class="book-content"></td>')
+										var $div = $('<div></div>').text(data[i].booking_content);	
+										var $td7 = $('<td class="book-content"></td>')	
+										if(data[i].booking_del_ync == 'Y'){
+											$td7.text("예약완료")
+										} else if (data[i].booking_del_ync == 'c'){
+											$td7.text("예약거절")											
+										} else {
+											var $button = ('<button type="button" class="btn-standard" onclick="Rupdate(this)">예약수정</button>')
+											var $input = $('<input type="hidden">').val(data[i].booking_no);
+											$td7.append($button, $input)
+										}
+										$td6.append($div);
+										$tr.append($td1, $td2, $td3, $td4, $td5, $td6, $td7);
+										$('#tbody_area4').append($tr)
+									}
+								}
+							})
+						})
+	
+					</script>
+					
+					<!-- 10개 페이지 목록  -->
+					<% for(int p=startPage4; p<=endPage4; p++){ %>
+<%-- 						<%if(p == currentPage){ %> --%>
+								<button class="numBtn4"><%= p %></button>
+<%-- 						<% } else{ %>			 --%>
+<%-- 								<button id="numBtn" onclick="location.href='<%= request.getContextPath() %>/mypage.me?currentPage=<%= p %>'"><%= p %></button> --%>
+<%-- 						<% } %>			 --%>
+					<% } %>
+					<script>
+						$('.numBtn4').on('click', function(){
+							currentPage4 = $(this).text();
+							console.log(currentPage4)
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage4:currentPage4},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area4').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="book-content"></td>').text(data[i].user_name);
+										var $td2 = $('<td class="book-content"></td>').text(data[i].tel);
+										var $td3 = $('<td class="book-content"></td>').text(data[i].booking_name);										
+										var $td4 = $('<td class="book-content"></td>').text(data[i].booking_date.substr(0, 10));	
+										var $td5 = $('<td class="book-content"></td>').text(data[i].booking_time + ":00");	
+										var $td6 = $('<td class="book-content"></td>')
+										var $div = $('<div></div>').text(data[i].booking_content);	
+										var $td7 = $('<td class="book-content"></td>')	
+										if(data[i].booking_del_ync == 'Y'){
+											$td7.text("예약완료")
+										} else if (data[i].booking_del_ync == 'c'){
+											$td7.text("예약거절")											
+										} else {
+											var $button = ('<button type="button" class="btn-standard" onclick="Rupdate(this)">예약수정</button>')
+											var $input = $('<input type="hidden">').val(data[i].booking_no);
+											$td7.append($button, $input)
+										}
+										
+										$td6.append($div);
+										$tr.append($td1, $td2, $td3, $td4, $td5, $td6, $td7);
+										$('#tbody_area4').append($tr)
+									}
+								}
+							})
+						})
+					</script>
+					
+					<!-- 다음 페이지로 -->
+					<button id="afterBtn4" class="btn-standard">&gt;</button>
+					<script>
+						$('#afterBtn4').on('click', function(){
+							if(<%= maxPage4 %> == currentPage4){
+								currentPage4 = <%= maxPage4 %>
+							} else {
+								currentPage4++;								
+							}
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage4:currentPage4},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area4').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="book-content"></td>').text(data[i].user_name);
+										var $td2 = $('<td class="book-content"></td>').text(data[i].tel);
+										var $td3 = $('<td class="book-content"></td>').text(data[i].booking_name);										
+										var $td4 = $('<td class="book-content"></td>').text(data[i].booking_date.substr(0, 10));	
+										var $td5 = $('<td class="book-content"></td>').text(data[i].booking_time + ":00");	
+										var $td6 = $('<td class="book-content"></td>')
+										var $div = $('<div></div>').text(data[i].booking_content);	
+										var $td7 = $('<td class="book-content"></td>')	
+										if(data[i].booking_del_ync == 'Y'){
+											$td7.text("예약완료")
+										} else if (data[i].booking_del_ync == 'c'){
+											$td7.text("예약거절")											
+										} else {
+											var $button = ('<button type="button" class="btn-standard" onclick="Rupdate(this)">예약수정</button>')
+											var $input = $('<input type="hidden">').val(data[i].booking_no);
+											$td7.append($button, $input)
+										}
+										
+										$td6.append($div);
+										$tr.append($td1, $td2, $td3, $td4, $td5, $td6, $td7);
+										$('#tbody_area4').append($tr)
+									}
+								}
+							})
+						})
+						
+					</script>
+					
+					<!-- 맨 끝으로 -->
+					<button id="lastPage4" class="btn-standard">&gt;&gt;</button>
+					<script>
+						$('#lastPage4').on('click', function(){
+							var currentPage4 = <%= maxPage4 %>
+							$.ajax({
+								url: '/COSMEDIC/mypage.me',
+								data: {currentPage4:currentPage4},
+								success: function(data){
+									console.log(data)
+									$('#tbody_area4').html("");
+									for(var i in data){
+										var $tr = $('<tr></tr>');
+										var $td1 = $('<td class="book-content"></td>').text(data[i].user_name);
+										var $td2 = $('<td class="book-content"></td>').text(data[i].tel);
+										var $td3 = $('<td class="book-content"></td>').text(data[i].booking_name);										
+										var $td4 = $('<td class="book-content"></td>').text(data[i].booking_date.substr(0, 10));	
+										var $td5 = $('<td class="book-content"></td>').text(data[i].booking_time + ":00");	
+										var $td6 = $('<td class="book-content"></td>')
+										var $div = $('<div></div>').text(data[i].booking_content);	
+										var $td7 = $('<td class="book-content"></td>')	
+										if(data[i].booking_del_ync == 'Y'){
+											$td7.text("예약완료")
+										} else if (data[i].booking_del_ync == 'c'){
+											$td7.text("예약거절")											
+										} else {
+											var $button = ('<button type="button" class="btn-standard" onclick="Rupdate(this)">예약수정</button>')
+											var $input = $('<input type="hidden">').val(data[i].booking_no);
+											$td7.append($button, $input)
+										}
+										
+										$td6.append($div);
+										$tr.append($td1, $td2, $td3, $td4, $td5, $td6, $td7);
+										$('#tbody_area4').append($tr)
+									}
+								}
+							})
+						})
+					</script>
+				<% } %>
+				</div>
+<!--예약 페이징 끝------------------------------------------------------------------------------------------------------------------------------------------  -->
 			</section>
+
+
+
+
 <!--문의 게시판 시작 -------------------------------------------------------------------------------------------------------------------------------------------------------  -->			
 			<section id="tab-myQnA" class="tab-mypage">
 				<div id="tab-title">1대1 문의</div>
@@ -860,10 +1123,10 @@ tbody img {
 						</tr>
 					</thead>
 					<tbody id=tbody_area3>
-					<%
+						<%
 						int count = 0;
 						for(int i = 0; i < mpq.size(); i++) { 
-					%>
+						%>
 						<tr>
 							<td class="QnA-content"><%= i+1 %><input type="hidden" value="<%= mpq.get(i).getBoard_no() %>" /></%></td>
 							<td class="QnA-content"><%= mpq.get(i).getBoard_title() %></td>
@@ -894,11 +1157,10 @@ tbody img {
 
 <!--문의 페이징 시작------------------------------------------------------------------------------------------------------------------------------------------  -->
 				<div class="pagingArea3" align="center" style="margin-right: 76px;">
-				<% if(!mpr.isEmpty()){ %>
+				<% if(!mpq.isEmpty()){ %>
 					<!--맨 처음으로  -->
 					<button id="fristPage3" class="btn-standard">&lt;&lt;</button>
 					<script>
-						var count = 0
 						var currentPage3 = 1
 						$('#fristPage3').on('click', function(){
 							currentPage3 = "1";
@@ -906,6 +1168,7 @@ tbody img {
 								url: '/COSMEDIC/mypage.me',
 								data: {currentPage3:currentPage3},
 								success: function(data){
+									var count = -1
 									$('#tbody_area3').html("");
 									for(var i in data){
 										var $tr = $('<tr></tr>');
@@ -913,6 +1176,7 @@ tbody img {
 										var $td2 = $('<td class="QnA-content"></td>').text(data[i].board_title);
 										var $td3 = $('<td style="width: 160px;" class="QnA-content"></td>')
 										if (data[i].answer_yn == 'Y'){
+											count++;
 											var $button = $('<button type="button" class="btn_standard_view">답변보기</button>');
 											$td3.append($button);
 										} else {
@@ -926,7 +1190,6 @@ tbody img {
 										
 										var $tr2;
 										if(data[i].answer_yn == 'Y') {
-											count++;
 											$tr2 = $('<tr class="QnA_tr" style="display: none"></tr>');
 											var $td11 = $('<td class="QnA-content" >답변 내용</td>')
 											var $td22 = $('<td class="QnA-content" colspan="2" style="width: 160px;" ></td>')
@@ -938,61 +1201,7 @@ tbody img {
 											$('#tbody_area3').append($tr2)
 										}
 									}
-
-									console.log(count)
-									$(document).on('click', '.btn_standard_view', function(){
-										console.log($(this).parent().parent().next());
-										$(this).parent().parent().next('tr').toggle();
-										var t = document.getElementsByClassName('review_ta');
-										$(function(){
-											function xSize(e) {
-												var t;
-												e.select = function(){
-													t = setInterval(
-														function()
-														{
-															e.style.height = '1px';
-															e.style.height = (e.scrollHeight + 12) + 'px';
-														}, 100);
-												}
-												e.onblur = function(){
-													clearInterval(t);
-												}
-											}
-											for(var tt = 0; tt < count; tt++){ 
-												xSize(t[tt]);	
-												console.log(document.getElementsByClassName('review_ta')[tt]);
-												t[tt].select(); 
-											}
-										})
-									})
 								}
-							})
-							$(document).on('click', '.btn_standard_view', function(){
-								console.log($(this).parent().parent().next());
-								$(this).parent().parent().next('tr').toggle();
-								$(function(){
-									function xSize(e) {
-										var t;
-										e.select = function(){
-											t = setInterval(
-												function()
-												{
-													e.style.height = '1px';
-													e.style.height = (e.scrollHeight + 12) + 'px';
-												}, 100);
-										}
-										e.onblur = function(){
-											clearInterval(t);
-										}
-									}
-									console.log(count)
-									for(var tt = 0; tt < count; tt++){ 
-										xSize(document.getElementsByClassName('review_ta')[tt]);	
-										console.log(document.getElementsByClassName('review_ta')[tt]);
-										document.getElementsByClassName('review_ta')[tt].select(); 
-									}
-								})
 							})
 						})
 					</script>
@@ -1001,7 +1210,6 @@ tbody img {
 					<script>
 						$('#beforeBtn3').on('click', function(){
 							var count = 0
-							console.log(currentPage3);
 							if(1 == currentPage3){
 								currentPage3 = 1
 							} else {
@@ -1011,6 +1219,7 @@ tbody img {
 								url: '/COSMEDIC/mypage.me',
 								data: {currentPage3:currentPage3},
 								success: function(data){
+									count = 0;
 									console.log(data)
 									$('#tbody_area3').html("");
 									for(var i in data){
@@ -1019,6 +1228,8 @@ tbody img {
 										var $td2 = $('<td class="QnA-content"></td>').text(data[i].board_title);
 										var $td3 = $('<td style="width: 160px;" class="QnA-content"></td>')
 										if (data[i].answer_yn == 'Y'){
+											count++;
+											console.log("tt " + count);
 											var $button = $('<button type="button" class="btn_standard_view">답변보기</button>');
 											$td3.append($button);
 										} else {
@@ -1032,7 +1243,6 @@ tbody img {
 										
 										var $tr2;
 										if(data[i].answer_yn == 'Y') {
-											count++;
 											$tr2 = $('<tr class="QnA_tr" style="display: none"></tr>');
 											var $td11 = $('<td class="QnA-content" >답변 내용</td>')
 											var $td22 = $('<td class="QnA-content" colspan="2" style="width: 160px;" ></td>')
@@ -1044,58 +1254,7 @@ tbody img {
 											$('#tbody_area3').append($tr2)
 										}
 									}
-									$(document).on('click', '.btn_standard_view', function(){
-										console.log($(this).parent().parent().next());
-										$(this).parent().parent().next('tr').toggle();
-										$(function(){
-											function xSize(e) {
-												var t;
-												e.select = function(){
-													t = setInterval(
-														function()
-														{
-															e.style.height = '1px';
-															e.style.height = (e.scrollHeight + 12) + 'px';
-														}, 100);
-												}
-												e.onblur = function(){
-													clearInterval(t);
-												}
-											}
-											for(var tt = 0; tt < count; tt++){ 
-												xSize(document.getElementsByClassName('review_ta')[tt]);	
-												console.log(document.getElementsByClassName('review_ta')[tt]);
-												document.getElementsByClassName('review_ta')[tt].select(); 
-											}
-										})
-									})
 								}
-							})
-							$(document).on('click', '.btn_standard_view', function(){
-								console.log($(this).parent().parent().next());
-								$(this).parent().parent().next('tr').toggle();
-								$(function(){
-									function xSize(e) {
-										var t;
-										e.select = function(){
-											t = setInterval(
-												function()
-												{
-													e.style.height = '1px';
-													e.style.height = (e.scrollHeight + 12) + 'px';
-												}, 100);
-										}
-										e.onblur = function(){
-											clearInterval(t);
-										}
-									}
-									console.log(count)
-									for(var tt = 0; tt < count; tt++){ 
-										xSize(document.getElementsByClassName('review_ta')[tt]);	
-										console.log(document.getElementsByClassName('review_ta')[tt]);
-										document.getElementsByClassName('review_ta')[tt].select(); 
-									}
-								})
 							})
 						})
 	
@@ -1121,11 +1280,13 @@ tbody img {
 									console.log(data)
 									$('#tbody_area3').html("");
 									for(var i in data){
+										count = -1;
 										var $tr = $('<tr></tr>');
 										var $td1 = $('<td class="QnA-content"></td>').text((10*parseInt(currentPage)-10)+parseInt(i)+1);
 										var $td2 = $('<td class="QnA-content"></td>').text(data[i].board_title);
 										var $td3 = $('<td style="width: 160px;" class="QnA-content"></td>')
 										if (data[i].answer_yn == 'Y'){
+											count++;
 											var $button = $('<button type="button" class="btn_standard_view">답변보기</button>');
 											$td3.append($button);
 										} else {
@@ -1139,7 +1300,6 @@ tbody img {
 										
 										var $tr2;
 										if(data[i].answer_yn == 'Y') {
-											count++;
 											$tr2 = $('<tr class="QnA_tr" style="display: none"></tr>');
 											var $td11 = $('<td class="QnA-content" >답변 내용</td>')
 											var $td22 = $('<td class="QnA-content" colspan="2" style="width: 160px;" ></td>')
@@ -1151,59 +1311,7 @@ tbody img {
 											$('#tbody_area3').append($tr2)
 										}
 									}
-									$(document).on('click', '.btn_standard_view', function(){
-										console.log($(this).parent().parent().next());
-										$(this).parent().parent().next('tr').toggle();
-										$(function(){
-											function xSize(e) {
-												var t;
-												e.select = function(){
-													t = setInterval(
-														function()
-														{
-															e.style.height = '1px';
-															e.style.height = (e.scrollHeight + 12) + 'px';
-														}, 100);
-												}
-												e.onblur = function(){
-													clearInterval(t);
-												}
-											}
-											for(var tt = 0; tt < count; tt++){ 
-												xSize(document.getElementsByClassName('review_ta')[tt]);
-												console.log("A");
-												console.log(document.getElementsByClassName('review_ta')[tt]);
-												document.getElementsByClassName('review_ta')[tt].select(); 
-											}
-										})
-									})
 								}
-							})
-							$(document).on('click', '.btn_standard_view', function(){
-								console.log($(this).parent().parent().next());
-								$(this).parent().parent().next('tr').toggle();
-								$(function(){
-									function xSize(e) {
-										var t;
-										e.select = function(){
-											t = setInterval(
-												function()
-												{
-													e.style.height = '1px';
-													e.style.height = (e.scrollHeight + 12) + 'px';
-												}, 100);
-										}
-										e.onblur = function(){
-											clearInterval(t);
-										}
-									}
-									console.log(count)
-									for(var tt = 0; tt < count; tt++){ 
-										xSize(document.getElementsByClassName('review_ta')[tt]);	
-										console.log(document.getElementsByClassName('review_ta')[tt]);
-										document.getElementsByClassName('review_ta')[tt].select(); 
-									}
-								})
 							})
 						})
 					</script>
@@ -1222,6 +1330,7 @@ tbody img {
 								url: '/COSMEDIC/mypage.me',
 								data: {currentPage3:currentPage3},
 								success: function(data){
+									count = -1;
 									console.log(data)
 									$('#tbody_area3').html("");
 									for(var i in data){
@@ -1230,6 +1339,7 @@ tbody img {
 										var $td2 = $('<td class="QnA-content"></td>').text(data[i].board_title);
 										var $td3 = $('<td style="width: 160px;" class="QnA-content"></td>')
 										if (data[i].answer_yn == 'Y'){
+											count++;
 											var $button = $('<button type="button" class="btn_standard_view">답변보기</button>');
 											$td3.append($button);
 										} else {
@@ -1243,7 +1353,6 @@ tbody img {
 										
 										var $tr2;
 										if(data[i].answer_yn == 'Y') {
-											count++;
 											$tr2 = $('<tr class="QnA_tr" style="display: none"></tr>');
 											var $td11 = $('<td class="QnA-content" >답변 내용</td>')
 											var $td22 = $('<td class="QnA-content" colspan="2" style="width: 160px;" ></td>')
@@ -1255,58 +1364,7 @@ tbody img {
 											$('#tbody_area3').append($tr2)
 										}
 									}
-									$(document).on('click', '.btn_standard_view', function(){
-										console.log($(this).parent().parent().next());
-										$(this).parent().parent().next('tr').toggle();
-										$(function(){
-											function xSize(e) {
-												var t;
-												e.select = function(){
-													t = setInterval(
-														function()
-														{
-															e.style.height = '1px';
-															e.style.height = (e.scrollHeight + 12) + 'px';
-														}, 100);
-												}
-												e.onblur = function(){
-													clearInterval(t);
-												}
-											}
-											for(var tt = 0; tt < count; tt++){ 
-												xSize(document.getElementsByClassName('review_ta')[tt]);	
-												console.log(document.getElementsByClassName('review_ta')[tt]);
-												document.getElementsByClassName('review_ta')[tt].select(); 
-											}
-										})
-									})
 								}
-							})
-							$(document).on('click', '.btn_standard_view', function(){
-								console.log($(this).parent().parent().next());
-								$(this).parent().parent().next('tr').toggle();
-								$(function(){
-									function xSize(e) {
-										var t;
-										e.select = function(){
-											t = setInterval(
-												function()
-												{
-													e.style.height = '1px';
-													e.style.height = (e.scrollHeight + 12) + 'px';
-												}, 100);
-										}
-										e.onblur = function(){
-											clearInterval(t);
-										}
-									}
-									console.log(count)
-									for(var tt = 0; tt < count; tt++){ 
-										xSize(document.getElementsByClassName('review_ta')[tt]);	
-										console.log(document.getElementsByClassName('review_ta')[tt]);
-										document.getElementsByClassName('review_ta')[tt].select(); 
-									}
-								})
 							})
 						})
 					</script>
@@ -1315,8 +1373,9 @@ tbody img {
 					<button id="lastPage3" class="btn-standard">&gt;&gt;</button>
 					<script>
 						$('#lastPage3').on('click', function(){
-							var count = 0
 							var currentPage3 = <%= maxPage3 %>
+							count = 0;
+							console.log("a " + count)
 							$.ajax({
 								url: '/COSMEDIC/mypage.me',
 								data: {currentPage3:currentPage3},
@@ -1330,6 +1389,8 @@ tbody img {
 										var $td3 = $('<td style="width: 160px;" class="QnA-content"></td>')
 										if (data[i].answer_yn == 'Y'){
 											var $button = $('<button type="button" class="btn_standard_view">답변보기</button>');
+											count++;
+											console.log("b " + count)
 											$td3.append($button);
 										} else {
 											$td3.css('color','red');
@@ -1342,7 +1403,6 @@ tbody img {
 										
 										var $tr2;
 										if(data[i].answer_yn == 'Y') {
-											count++;
 											$tr2 = $('<tr class="QnA_tr" style="display: none"></tr>');
 											var $td11 = $('<td class="QnA-content" >답변 내용</td>')
 											var $td22 = $('<td class="QnA-content" colspan="2" style="width: 160px;" ></td>')
@@ -1354,59 +1414,7 @@ tbody img {
 											$('#tbody_area3').append($tr2)
 										}
 									}
-									$(document).on('click', '.btn_standard_view', function(){
-										console.log($(this).parent().parent().next());
-										$(this).parent().parent().next('tr').toggle();
-										$(function(){
-											function xSize(e) {
-												var t;
-												e.select = function(){
-													t = setInterval(
-														function()
-														{
-															e.style.height = '1px';
-															e.style.height = (e.scrollHeight + 12) + 'px';
-														}, 100);
-												}
-												e.onblur = function(){
-													clearInterval(t);
-												}
-											}
-											console.log(count)
-											for(var tt = 0; tt < count; tt++){ 
-												xSize(document.getElementsByClassName('review_ta')[tt]);	
-												console.log(document.getElementsByClassName('review_ta')[tt]);
-												document.getElementsByClassName('review_ta')[tt].select(); 
-											}
-										})
-									})
 								}
-							})
-							$(document).on('click', '.btn_standard_view', function(){
-								console.log($(this).parent().parent().next());
-								$(this).parent().parent().next('tr').toggle();
-								$(function(){
-									function xSize(e) {
-										var t;
-										e.select = function(){
-											t = setInterval(
-												function()
-												{
-													e.style.height = '1px';
-													e.style.height = (e.scrollHeight + 12) + 'px';
-												}, 100);
-										}
-										e.onblur = function(){
-											clearInterval(t);
-										}
-									}
-									console.log(count)
-									for(var tt = 0; tt < count; tt++){ 
-										xSize(document.getElementsByClassName('review_ta')[tt]);	
-										console.log(document.getElementsByClassName('review_ta')[tt]);
-										document.getElementsByClassName('review_ta')[tt].select(); 
-									}
-								})
 							})
 						})
 					</script>
@@ -1414,39 +1422,23 @@ tbody img {
 				</div>
 <!--문의 페이징 끝------------------------------------------------------------------------------------------------------------------------------------------  -->
 			</section>
-			
 		</div>
 	</div>	
-
+	
 	<%@ include file="/views/layout/footer.jsp"%>
 	
 	<script>
-		$(document).on('click', '.btn_standard_view', function(){
-			console.log($(this).parent().parent().next());
-// 			$(this).parent().parent().next('tr').css('display', 'table-row')
-			$(this).parent().parent().next('tr').toggle();
-			$(function(){
-				function xSize(e) {
-					var t;
-					e.select = function(){
-						t = setInterval(
-							function()
-							{
-								e.style.height = '1px';
-								e.style.height = (e.scrollHeight + 12) + 'px';
-							}, 100);
-					}
-					e.onblur = function(){
-						clearInterval(t);
-					}
-				}
-				var ttt = <%= count %>
-				for(var tt = 0; tt < ttt; tt++){ 
-					xSize(document.getElementsByClassName('review_ta')[tt]);	
-					console.log(document.getElementsByClassName('review_ta')[tt]);
-					document.getElementsByClassName('review_ta')[tt].select(); 
-				}
-			})
+		function Rupdate(ex){
+			console.log();
+			var hosName = ex.parentElement.parentElement.childNodes[0].innerText;
+			var url = "myPageBookDetail.hos?booking_no=" + ex.nextSibling.value + "&hos_name=" + hosName;
+			window.open(url, 'cosmeticReq', 'width=650, height=800');
+		}
+		$(function(){
+			$(document).on('click', '.btn_standard_view', function(){
+				console.log($(this).parent().parent().next());
+				$(this).parent().parent().next('tr').toggle();
+			});			
 		})
 	
 		$('#QnA-btn').on('click', function(){
@@ -1471,6 +1463,10 @@ tbody img {
 			var id = '<%= mpc.getUser_id()%>'
 			var pwd = '<%= mpc.getUser_pwd()%>'
 			console.log(id);
+			$.ajax({
+				url: 'login.me',
+				data: {category:category, id:id, pwd:pwd}
+			})
 			$.ajax({
 				url: 'login.me',
 				data: {category:category, id:id, pwd:pwd}

@@ -95,7 +95,7 @@
 						<div>
 							<textarea id="textbox" name="textbox"></textarea>
 						</div>
-					</div>]
+					</div>
 					<br>
 					<input type="button" class="button" id="apply" value="예약 신청하기">
 					<input type="button" class="button" id="cancle" value="취소" onclick="window.close();">

@@ -404,4 +404,41 @@ public class CosmeticDAO {
 		return rList;
 	}
 
+	public ArrayList<CosmeticReviewList> reviewSearch(Connection conn, String cosName, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("reviewSearch");
+		ArrayList<CosmeticReviewList> crl = new ArrayList<CosmeticReviewList>();
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cosName);
+			pstmt.setString(2, keyword);
+			pstmt.setString(3, keyword);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				String profile_image = rset.getString("PROFILE_IMAGE");
+				String user_name = rset.getString("USER_NAME");
+				String age = rset.getString("AGE");
+				String skinType = rset.getString("SKINTYPE");
+				String gender = rset.getString("GENDER");
+				String board_title = rset.getString("BOARD_TITLE");
+				String board_content = rset.getString("BOARD_CONTENT");
+				Date board_date = rset.getDate("BOARD_DATE");
+				String review_heart = rset.getString("REVIEW_HEART");
+				crl.add(new CosmeticReviewList(profile_image, user_name, age, skinType, gender, board_title, board_content, board_date, review_heart));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return crl;
+	}
+
 }

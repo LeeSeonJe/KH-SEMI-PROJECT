@@ -103,9 +103,15 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 							Review r = slideList.get(i); 
 						%>
 							<% if(i < 3){ %>
-							<td class="img">
- 							<img src="<%= request.getContextPath() %>/member_images/<%=slideList.get(i).getProfile_image() %>" id="tops">
-							</td>
+								<% if(slideList.get(i).getProfile_image() == null) { %>
+								<td class="img">
+	 								<img src="<%= request.getContextPath() %>/member_images/1.jpg" id="tops">
+								</td>
+								<% } else { %>
+								<td class="img">
+	 								<img src="<%= request.getContextPath() %>/member_images/<%=slideList.get(i).getProfile_image() %>" id="tops">
+								</td>
+								<% } %>
 							<% } } } %>
 						</tr>
 						<tr>
@@ -142,7 +148,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 			<table class="tb-profile" style="width: 100%;">
 			<% for(int i = 0; i< list.size(); i++){ %>
 				<tr>
-					<td rowspan="3" align="center" width="10%" style="border-bottom:1px solid #aaa;"><img src="<%=list.get(i).getProfile_image() %>" class="icon-p"></td>
+					<td rowspan="3" align="center" width="10%" style="border-bottom:1px solid #aaa;"><img src="<%= request.getContextPath() %>/member_images/<%=slideList.get(i).getProfile_image() %>" class="icon-p"></td>
 					<td class="noHidden" style="display:none;"><input type="hidden" name="rno" value="<%= list.get(i).getReview_no() %>"></td>
 					<td class="write-date" width="15%"><%=list.get(i).getDate() %></td>
 					<td class="review-title" height="40px"><!-- 리뷰제목 --><%=list.get(i).getTitle() %></td>
@@ -316,7 +322,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 	 				success:function(data){
 	 					if(data != null){
 		 					$('.tb-profile').html("");
-		 					//console.log(data)
+		 					console.log(data)
 		 					for(var i in data){
 		 						console.log(data);
 			 					var $tr1 = $('<tr></tr>');
@@ -327,7 +333,11 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 			 					var $td3 = $('<td style="vertical-align:middle; padding-bottom:10px;"></td>').text((data[i].age + ' / ' + data[i].skintype + ' / ' + data[i].gender)); 
 			 					var $td4 = $('<td></td>'); 
 			 					var $pImg = $('<img class="icon-p">');
-			 					$pImg.attr('src',"");
+			 					if((data[i].profile_image) == null) {
+			 						$pImg.attr('src','<%= request.getContextPath() %>/member_images/1.jpg');
+			 					} else {
+			 						$pImg.attr('src','<%= request.getContextPath() %>/member_images/' + data[i].profile_image);
+			 					}
 			 					var $span = $('<span></span>');
 			 					var $br1 = $('<br>');
 			 					var $br2 = $('<br>');

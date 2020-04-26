@@ -69,17 +69,22 @@ public class BoardDAO {
 		return list;
 	}
 
-	public ArrayList<Board> searchReview(Connection conn, String keyword) {
+	public ArrayList<Board> searchReview(Connection conn, String keyword, int currentPage, int boardLimit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = new ArrayList<>();
 		Board b = null;
+		
+		int startRow = (currentPage -1) * boardLimit +1;
+		int endRow = startRow + boardLimit -1;
 		
 		String query = prop.getProperty("searchReview");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, keyword);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {

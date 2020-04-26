@@ -206,7 +206,7 @@
 							<br> <br> 
 						</div>
 						<input type="button" class="mSignUpISB" value="  코스메딕 회원가입"
-							onclick="location.href='SignUpCustomerFace.jsp' ">
+							onclick="location.href='/COSMEDIC/views/common/SignUpCustomerFace.jsp' ">
 					</div>
 				</div>
 			</div>
