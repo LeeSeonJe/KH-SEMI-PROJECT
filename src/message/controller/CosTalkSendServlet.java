@@ -60,6 +60,7 @@ public class CosTalkSendServlet extends HttpServlet {
 		int result = new CosTalkService().sendMessage(cosTalk);
 		if(result > 0) {
 			ArrayList<CosTalk> list = new CosTalkService().sendAfterSelect(sUserNo, Integer.parseInt(rMNum));
+			
 			if(list !=null) {
 				response.setContentType("application/json; charset=UTF-8");
 				new Gson().toJson(list, response.getWriter());
