@@ -425,14 +425,6 @@
 				$("#friendBtnn1").show();
 				$("#cTab").show();
 
-// 				var currentLocation = window.location.href;
-// 				//$("#cosTalk").load(currentLocation + ' #cosTalk');
-// 				console.log(currentLocation + '#cosTalk');
-
-// 				location.reload();
-// 				$(".cosTalk-content").show();
-// 				$("#friendBtnn1").show();
-// 				$("#cTab").show();
 			}
 			
 			//0-7.채팅방 뒤로가기 -> 채팅으로 가기
@@ -455,6 +447,9 @@
 		//2.채팅 탭/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 		//2-1.채팅 탭 리프레쉬 form id = "chatChatBoxx"  // 마지막인거 if(i==data.size() -1)
+		
+			
+		
 			setInterval(function(){
 				$.ajax({
 					url : '<%= request.getContextPath() %>/CosTalkChatBoxRefreshServlet',
@@ -517,19 +512,22 @@
 							}
 						}
 						
-					}) 
+					})
 				},200);	
 		//채팅 탭에서 열기 $(document).on('click','.chatChatBoxxB12',function() {
-			function thisChatOpen(t){	
+			 function thisChatOpen(t){	
+				
 				$('#chatNameBoxx').html("");
 				console.log("채팅방을 눌렀습니다.");
 				//선택한 회원의 정보만 변수에 담기	
 				//console.log(t);
 				//console.log($('#' + t.id).parent().children().eq(1).text());
 				//console.log($('#' + t.id).parent().children().eq(2).text());
-				var rMName = $('#' + t.id).parent().children().eq(1).text();
-				var rMNum = $('#' + t.id).parent().children().eq(2).text();
 				
+				var rMName = "";
+				rMName = $('#' + t.id).parent().children().eq(1).text();
+				var rMNum = "";
+				rMNum = $('#' + t.id).parent().children().eq(2).text();
 // 				var rr = $('#' + t.id).parent().children().eq(2).text();
 				//채팅 추가 탭 숨기기 채팅방 보이기 
 				$(".cosTalk-content").hide();
@@ -606,6 +604,7 @@
 									sMessage : sMessage
 								},
 								success : function(data) {
+									console.log(data);
 									for ( var i in data) {
 										var msgLine = $('<div class="msgLine">');
 										var msgBox = $('<div class="msgBox">');		
@@ -618,15 +617,19 @@
 									document.getElementById("msg").value = '';	
 									document.getElementById("msg").focus();
 									$("#chatView").scrollTop($("#chatView")[0].scrollHeight);		
-									console.log("그니까 이게 두번도는거죠?");
-								},
+								}
 								
-							});
+							})();
 						}
-					});
-			}
-
-						
+					});	
+					
+				}
+				
+			 
+			 
+		
+		
+		
 		//3.친구 찾기 탭/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 			function addChat() {
@@ -718,7 +721,8 @@
 				$.ajax({
 					url : 'CosTalkSendServlet',
 					data : {
-						rMNum : rMNum					}
+						rMNum : rMNum					
+						}
 				});			
 				// 채팅 내역 갱신 setInterval(function(){}, 지연시간);
 				setInterval(function() {
