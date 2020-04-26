@@ -300,78 +300,79 @@
 			<input type="text" placeholder="검색어를 입력하세요.">
 		</span> --%>
 	</div>
-	<div>
-		<div id="cosTalk" class="modal">
+	
+	<!-- <div> -->
+	<div id="cosTalk" class="modal" name="modal">
+		<div>
 			<div>
-				<div>
-					<input class="cTfunction" type="button" id="xBtn">
-				</div>
-			</div>
-			<div class="cosTalk-content">
-				<div style="margin-top: 40px; margin-left: 5px; float: left">
-					<input type="button" class="friendBtn" id="friendBtnn1">
-				</div>
-				<div style="margin-top: 20px; margin-left: 5px; float: left">
-					<input type="button" class="chatBtn" id="chatBtnn1">
-				</div>
-				<div style="margin-top: 40px; margin-left: -5px; float: left">
-					<input type="button" class="friendBtn" id="friendBtnn2">
-				</div>
-				<div style="margin-top: 20px; margin-left: 5px; float: left">
-					<input type="button" class="chatBtn" id="chatBtnn2">
-				</div>
-			</div>
-			<!--  
-			<div class="cosTalk-friendTab" id="fTab">
-				<div style="font-size: 15pt; margin-left: -5px; font-weight: 600;">
-					히스토리</div>
-				<div style="width: 100%; height: 40px; margin-top: 18px;">
-
-					<form id="friendViewForm" style="height: 400px; width: 100%;">
-					</form>
-				</div>
-			</div>
-			-->
-			<div class="cosTalk-chatTab" id="cTab">
-				<div style="font-size: 15pt; margin-left: -4px; font-weight: 600;">
-					채팅
-					<div style="float: right; margin-right: 10px;">
-						<img
-							src="<%=request.getContextPath()%>/resources/images/addchat_1_1.png" style = "margin-top : -4px;"
-							onclick="addChat();" onMouseOver="this.style.cursor='pointer'"> <!-- addchat() 채팅추가 탭 -->
-					</div>
-					<form id="chatChatBoxx" style = "margin-top : 14px;"></form>
-				</div>
-			</div>
-			<div class="cosTalk-chatFunction" id="cFuc">
-				<div class="cosTalk-chatFunctionT">
-					<input type="button" id="bBtn">
-					<form id="chatNameBoxx"></form>
-				</div>
-				<div id="chatView" class = "chatVieww" style = "margin-left : -34px; width : 324px;"></div>
-				<form id="submitForm"
-					action="<%=request.getContextPath()%>/CosTalkSendServlet"
-					method="post">
-					<div class="cosTalk-chatFunctionW">
-						<div style="float: left; width: 80%; height: 48%;">
-							<textarea id="msg"
-								style="background-color: white; width: 98%; height: 50px; border: none; outline: none; resize: none; margin-left: 4%; margin-top: 8px; font-size: 10pt;"
-								name="sMessage"></textarea>
-						</div>
-						
-					</div>
-				</form>
-			</div>
-			<div class="chatAdd" id="chatAddd">
-				<input type="button" id="bBtnn" style = "background-color : #FFD2D7;">
-				<div style = "font-size : 14pt; margin-top : 25px; float : left; margin-left : 12px; font-weight : 600;">채팅 추가</div>
-				<div>
-					<input type="text" value="이름을 입력해 주세요" class="chatAddW" id="rName" style = "padding : 10px;">
-				</div>
-				<form id="memberViewForm"></form>
+				<input class="cTfunction" type="button" id="xBtn">
 			</div>
 		</div>
+		<div class="cosTalk-content">
+			<div style="margin-top: 40px; margin-left: 5px; float: left">
+				<input type="button" class="friendBtn" id="friendBtnn1">
+			</div>
+			<div style="margin-top: 20px; margin-left: 5px; float: left">
+				<input type="button" class="chatBtn" id="chatBtnn1">
+			</div>
+			<div style="margin-top: 40px; margin-left: -5px; float: left">
+				<input type="button" class="friendBtn" id="friendBtnn2">
+			</div>
+			<div style="margin-top: 20px; margin-left: 5px; float: left">
+				<input type="button" class="chatBtn" id="chatBtnn2">
+			</div>
+		</div>
+		<!--  
+		<div class="cosTalk-friendTab" id="fTab">
+			<div style="font-size: 15pt; margin-left: -5px; font-weight: 600;">
+				히스토리</div>
+			<div style="width: 100%; height: 40px; margin-top: 18px;">
+
+				<form id="friendViewForm" style="height: 400px; width: 100%;">
+				</form>
+			</div>
+		</div>
+		-->
+		<div class="cosTalk-chatTab" id="cTab">
+			<div style="font-size: 15pt; margin-left: -4px; font-weight: 600;">
+				채팅
+				<div style="float: right; margin-right: 10px;">
+					<img
+						src="<%=request.getContextPath()%>/resources/images/addchat_1_1.png" style = "margin-top : -4px;"
+						onclick="addChat();" onMouseOver="this.style.cursor='pointer'"> <!-- addchat() 채팅추가 탭 -->
+				</div>
+				<form id="chatChatBoxx" style = "margin-top : 14px;"></form>
+			</div>
+		</div>
+		<div class="cosTalk-chatFunction" id="cFuc">
+			<div class="cosTalk-chatFunctionT">
+				<input type="button" id="bBtn">
+				<form id="chatNameBoxx"></form>
+			</div>
+			<div id="chatView" class = "chatVieww" style = "margin-left : -34px; width : 324px;"></div>
+			<form id="submitForm"
+				action="<%=request.getContextPath()%>/CosTalkSendServlet"
+				method="post">
+				<div class="cosTalk-chatFunctionW">
+					<div style="float: left; width: 80%; height: 48%;">
+						<textarea id="msg"
+							style="background-color: white; width: 98%; height: 50px; border: none; outline: none; resize: none; margin-left: 4%; margin-top: 8px; font-size: 10pt;"
+							name="sMessage"></textarea>
+					</div>
+					
+				</div>
+			</form>
+		</div>
+		<div class="chatAdd" id="chatAddd">
+			<input type="button" id="bBtnn" style = "background-color : #FFD2D7;">
+			<div style = "font-size : 14pt; margin-top : 25px; float : left; margin-left : 12px; font-weight : 600;">채팅 추가</div>
+			<div>
+				<input type="text" value="이름을 입력해 주세요" class="chatAddW" id="rName" style = "padding : 10px;">
+			</div>
+			<form id="memberViewForm"></form>
+		</div>
 	</div>
+	<!-- </div> -->
 
 	<script>
 		
@@ -421,7 +422,14 @@
 				$("#friendBtnn1").show();
 				$("#cTab").show();
 
+// 				var currentLocation = window.location.href;
+// 				//$("#cosTalk").load(currentLocation + ' #cosTalk');
+// 				console.log(currentLocation + '#cosTalk');
 
+// 				location.reload();
+// 				$(".cosTalk-content").show();
+// 				$("#friendBtnn1").show();
+// 				$("#cTab").show();
 			}
 			
 			//0-7.채팅방 뒤로가기 -> 채팅으로 가기
@@ -435,7 +443,6 @@
 				$(".cosTalk-content").show();
 				$("#friendBtnn1").show();
 				$("#cTab").show();
-				
 			}
 			
 			//채팅방 하단정렬
@@ -443,13 +450,9 @@
 
 		}
 		//2.채팅 탭/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		<%if(loginUser==null){
-		%>
-		<%
-		}else {
-		%>
+	
 		//2-1.채팅 탭 리프레쉬 form id = "chatChatBoxx"  // 마지막인거 if(i==data.size() -1)
-			var rsett = setInterval(function(){
+			setInterval(function(){
 				$.ajax({
 					url : '<%= request.getContextPath() %>/CosTalkChatBoxRefreshServlet',
 					success : function(data){
@@ -507,26 +510,23 @@
 							msgLine.append(msgBox, memberValue, msgBoxValue,msgInside);
 							$('#chatChatBoxx').append(msgLine);
 							
-							$('#bBtn').on('click', function(){
-								console.log('rotlqkf')
-								clearInterval(rsett);
-							})
+						
 							}
 						}
 						
 					}) 
-				},200);
-			<%}%>
+				},200);	
 		//채팅 탭에서 열기 $(document).on('click','.chatChatBoxxB12',function() {
 			function thisChatOpen(t){	
 				$('#chatNameBoxx').html("");
-			
+				console.log("채팅방을 눌렀습니다.");
 				//선택한 회원의 정보만 변수에 담기	
 				//console.log(t);
 				//console.log($('#' + t.id).parent().children().eq(1).text());
 				//console.log($('#' + t.id).parent().children().eq(2).text());
 				var rMName = $('#' + t.id).parent().children().eq(1).text();
 				var rMNum = $('#' + t.id).parent().children().eq(2).text();
+				
 // 				var rr = $('#' + t.id).parent().children().eq(2).text();
 				//채팅 추가 탭 숨기기 채팅방 보이기 
 				$(".cosTalk-content").hide();
@@ -556,73 +556,71 @@
 					}
 				
 				})
-				
-						var rrrrset = setInterval(function() {	
-							var rr = $('#' + t.id).parent().children().eq(2).text();
-							$.ajax({url : 'CosTalkRefreshServlet',
-									data : {
-									rMNum : rMNum
-									},
-									success : function(data) {
-										$('#chatView').html("");
-										console.log(data)								
-										for ( var i in data) {
-											if (data[i].reception_no == rr) {
-												var msgLine = $('<div class="msgLine">');
-												var msgBox = $('<div class="msgBox">');
-												msgBox.text(data[i].message);
-												msgBox.css('display','inline-block');	
-												msgLine.css('text-align',	'right');		
-												msgLine.append(msgBox);	
-												$('#chatView').append(msgLine);
-													
-											} else {
-												var msgLine = $('<div class="msgLine">');
-												var msgBox = $('<div class="msgBox">');
-												msgBox.text(data[i].message);
-												msgBox.css('display','inline-block');
-												msgLine.css('text-align','left');
-												msgBox.css('background','white');
-												msgLine.append(msgBox);
-												$('#chatView').append(msgLine);				
-											}
-										}
-										$('#bBtn').on('click', function(){
-											console.log('rotlqkf')
-											clearInterval(rrrrset);
-										})
+				var rrrrset = setInterval(function() {	
+					var rr = $('#' + t.id).parent().children().eq(2).text();
+					$.ajax({url : 'CosTalkRefreshServlet',
+							data : {
+							rMNum : rMNum
+							},
+							success : function(data) {
+								$('#chatView').html("");							
+								for ( var i in data) {
+									if (data[i].reception_no == rr) {
+										var msgLine = $('<div class="msgLine">');
+										var msgBox = $('<div class="msgBox">');
+										msgBox.text(data[i].message);
+										msgBox.css('display','inline-block');	
+										msgLine.css('text-align',	'right');		
+										msgLine.append(msgBox);	
+										$('#chatView').append(msgLine);
+											
+									} else {
+										var msgLine = $('<div class="msgLine">');
+										var msgBox = $('<div class="msgBox">');
+										msgBox.text(data[i].message);
+										msgBox.css('display','inline-block');
+										msgLine.css('text-align','left');
+										msgBox.css('background','white');
+										msgLine.append(msgBox);
+										$('#chatView').append(msgLine);				
 									}
-								});
-							}, 200);			
-							//엔터 누르기
-							$("#cFuc").keyup(function() {
-								if (window.event.keyCode == 13) {	
-									var sMessage = $("#msg").val();		
-									var rName = $("#rName").val();		
-									$.ajax({
-										url : 'CosTalkSendServlet',
-										data : {
-											rMNum : rMNum,
-											sMessage : sMessage
-										},
-										success : function(data) {
-											for ( var i in data) {
-												var msgLine = $('<div class="msgLine">');
-												var msgBox = $('<div class="msgBox">');		
-												msgBox.text(data[i].message);
-												msgBox.css('display','inline-block');
-												msgLine.css('text-align','right');	
-												msgLine.append(msgBox);
-												$('#chatView').append(msgLine);
-											}
-											document.getElementById("msg").value = '';		
-											document.getElementById("msg").focus();
-											$("#chatView").scrollTop($("#chatView")[0].scrollHeight);		
-										},
-										
-									});
 								}
+								$('#bBtn').on('click', function(){
+									clearInterval(rrrrset);
+								})
+							}
+						});
+					}, 200);			
+					//채팅방에서엔터 누르기 //채팅방에 들어간 횟수만큼 메시지가 입력되어있는거아님? 그럼 뭐가문제일까
+					$("#cFuc").keyup(function() {
+						if (window.event.keyCode == 13) {	
+							var sMessage = $("#msg").val();	
+							//var rName = $("#rName").val();	
+							$.ajax({
+								url : 'CosTalkSendServlet',
+								data : {
+									rMNum : rMNum,
+									sMessage : sMessage
+								},
+								success : function(data) {
+									for ( var i in data) {
+										var msgLine = $('<div class="msgLine">');
+										var msgBox = $('<div class="msgBox">');		
+										msgBox.text(data[i].message);
+										msgBox.css('display','inline-block');
+										msgLine.css('text-align','right');	
+										msgLine.append(msgBox);
+										$('#chatView').append(msgLine);
+									}
+									document.getElementById("msg").value = '';	
+									document.getElementById("msg").focus();
+									$("#chatView").scrollTop($("#chatView")[0].scrollHeight);		
+									console.log("그니까 이게 두번도는거죠?");
+								},
+								
 							});
+						}
+					});
 			}
 
 						
@@ -643,7 +641,6 @@
 
 				$("#rName").keyup(function() {
 					var rName = $("#rName").val();
-
 					$.ajax({
 						url : '/COSMEDIC/CosTalkFindServlet',
 						data : {
@@ -701,7 +698,6 @@
 				//선택한 회원의 정보만 변수에 담기
 				var rMName = $(this).prev().prev().filter('div').text();
 				var rMNum = $(this).prev().filter('div').text();
-				
 				//채팅방 보이기
 				$("#chatAddd").hide();
 				$("#chatNameBoxx").show();
@@ -722,7 +718,7 @@
 						rMNum : rMNum					}
 				});			
 				// 채팅 내역 갱신 setInterval(function(){}, 지연시간);
-				var rrset2 = setInterval(function() {
+				setInterval(function() {
 					
 					$.ajax({url : 'CosTalkRefreshServlet',
 							data : {
@@ -750,18 +746,16 @@
 										msgLine.append(msgBox);
 										$('#chatView').append(msgLine);				
 									}	
-									$('#bBtn').on('click', function(){
-										console.log('rotlqkf')
-										clearInterval(rrset2);
-									})
+								
 								}
+								
 							}
 						});
 					}, 200);					
-							//엔터 누르기
+							//친추하고 엔터 누르기
 							$("#cFuc").keyup(function() {
 								if (window.event.keyCode == 13) {	
-									var sMessage = $("#msg").val();			
+									var sMessage = $("#msg").val();
 									//마지막 줄 enter로 공백처리되는 부분 없애주고 싶다.
 									$.ajax({
 										url : 'CosTalkSendServlet',
@@ -778,15 +772,16 @@
 												msgLine.css('text-align','right');	
 												msgLine.append(msgBox);
 												$('#chatView').append(msgLine);
-											}
+											}	
+											
 											document.getElementById("msg").value = '';		
 											document.getElementById("msg").focus();
-											$("#chatView").scrollTop($("#chatView")[0].scrollHeight);		
+											$("#chatView").scrollTop($("#chatView")[0].scrollHeight);	
 										},
 										
 									});
 								}
-							});
+							});	
 							
 });				
 		
