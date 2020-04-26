@@ -428,7 +428,7 @@ tbody img {
 					<div id="btn-category">
 						<button id="update_btn" type="submit" class="btn-standard">수정하기</button>
 						<button id="change_pwd"type="button" class="btn-standard" onclick="openChangePwd()">비밀번호변경</button>	
-						<button type="button" class="btn-standard">회원탈퇴</button>				
+						<button id="getOut-_btn" type="button" class="btn-standard">회원탈퇴</button>				
 					</div> 
 				</form>
 			</section>		
@@ -1428,6 +1428,21 @@ tbody img {
 	<%@ include file="/views/layout/footer.jsp"%>
 	
 	<script>
+		$('#getOut-_btn').on('click', function(){
+			if(confirm("가는사람 오는사람 막지 않습니다. 하지만 떠나는 사람은 한번 잡습니다. 떠나실 건가요?") == true) {
+				$.ajax({
+					url: 'delete.me',
+					success: function(data){
+						console.log(data);
+						if(data.trim() == "success"){
+							alert("탈퇴 왼료!")
+							location.href="<%= request.getContextPath() %>";
+						}
+					}
+				})
+			}
+		})
+		
 		function Rupdate(ex){
 			console.log();
 			var hosName = ex.parentElement.parentElement.childNodes[0].innerText;

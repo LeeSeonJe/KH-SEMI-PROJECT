@@ -226,4 +226,15 @@ public class CustomerService {
 		return mpb;
 	}
 
+	public int deleteMember(String user_id) {
+		Connection conn = getConnection();
+		int result = new CustomerDAO().deleteMember(conn, user_id);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 }

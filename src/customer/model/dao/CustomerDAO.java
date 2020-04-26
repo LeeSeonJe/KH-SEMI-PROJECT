@@ -600,4 +600,22 @@ public class CustomerDAO {
 		}
 		return mpb;
 	}
+
+	public int deleteMember(Connection conn, String user_id) {
+		Statement stmt = null;
+		int result = 0;
+		
+		String query = "UPDATE MEMBER SET STATUS = 'N' WHERE USER_ID = '" + user_id + "'";
+		try {
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		
+		return result;
+	}
 }
