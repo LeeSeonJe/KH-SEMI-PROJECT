@@ -294,7 +294,7 @@
 		<span id="login" class="login"><img
 			src="resources/images/mail1.png"
 			style="width: 50px; height: 50px; margin-top: -15px;"
-			onclick="cosTalkOpen();" id="cosTalkBtn"></span>
+			id="cosTalkBtn"></span>
 		<%
 			}
 		%>
@@ -305,6 +305,10 @@
 	</div>
 	
 	<!-- <div> -->
+	<% 
+		if (loginUser == null){
+		}else{
+	%>
 	<div id="cosTalk" class="modal" name="modal">
 		<div>
 			<div>
@@ -375,82 +379,83 @@
 			<form id="memberViewForm"></form>
 		</div>
 	</div>
+	<%} %>
 	<!-- </div> -->
 
 	<script>
+	<%if (loginUser == null){
 		
-		function cosTalkOpen() {
+	}else{
+	%>
+	$("#cosTalkBtn").on("click",function(){
 ////////////0.코스톡 버튼 눌러서 켰을 시 처음 실행되는 화면/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		$("#chatBtnn1").hide();
+		$("#friendBtnn2").hide();
+		$("#cTab").show();
+		$("#chatBtnn2").hide();
+		$("#cFuc").hide();
+		$("#chatAddd").hide();
+		
+		//0-1.변수 선언
+		var modal = document.getElementById('cosTalk'); //코스톡 창 자체
+		var btn = document.getElementById("cosTalkBtn"); //코스톡 켤때 아이콘 버튼
+		var btn2 = document.getElementById("xBtn"); //x버튼
+		var costalkOn = 1; //코스톡 실행했을 시에만 setinterval돌도록 하기
+		//0-2.코스톡 켜기
+		btn.onclick = function() {
+			modal.style.display = "block";
+		}
+		//0-3.코스톡 끄기
+		btn2.onclick = function() {
+			modal.style.display = "none";
+		}
+		
+		//0-4.하위 변수 선언
+		
+		var cTab = document.getElementById("cTab"); //채팅 탭
+		var fBtn2 = document.getElementById("friendBtnn2");//채팅 탭에서의 하트
+		var cBtn2 = document.getElementById("chatBtnn2");//채팅 탭에서의 말풍선
+
+		var bBtn = document.getElementById("bBtn"); //채팅추가 탭에서의 뒤로가기 버튼
+		var bBtnn = document.getElementById("bBtnn"); //채팅방에서의 뒤로가기 버튼
+		
+		var chat = document.getElementById("chatCustomerBtn");//?
+		
+		//0-6.채팅추가 뒤로가기  -> 채팅으로 가기
+		bBtn.onclick = function() {
 			$("#chatBtnn1").hide();
+			$("#chatBtnn2").hide();
 			$("#friendBtnn2").hide();
-			$("#cTab").show();
 			$("#chatBtnn2").hide();
 			$("#cFuc").hide();
 			$("#chatAddd").hide();
-			
-			//0-1.변수 선언
-			var modal = document.getElementById('cosTalk'); //코스톡 창 자체
-			var btn = document.getElementById("cosTalkBtn"); //코스톡 켤때 아이콘 버튼
-			var btn2 = document.getElementById("xBtn"); //x버튼
-			var costalkOn = 1; //코스톡 실행했을 시에만 setinterval돌도록 하기
-			//0-2.코스톡 켜기
-			btn.onclick = function() {
-				modal.style.display = "block";
-			}
-			//0-3.코스톡 끄기
-			btn2.onclick = function() {
-				modal.style.display = "none";
-			}
-			
-			//0-4.하위 변수 선언
-			
-			var cTab = document.getElementById("cTab"); //채팅 탭
-			var fBtn2 = document.getElementById("friendBtnn2");//채팅 탭에서의 하트
-			var cBtn2 = document.getElementById("chatBtnn2");//채팅 탭에서의 말풍선
-
-			var bBtn = document.getElementById("bBtn"); //채팅추가 탭에서의 뒤로가기 버튼
-			var bBtnn = document.getElementById("bBtnn"); //채팅방에서의 뒤로가기 버튼
-			
-			var chat = document.getElementById("chatCustomerBtn");//?
-			
-			//0-6.채팅추가 뒤로가기  -> 채팅으로 가기
-			bBtn.onclick = function() {
-				$("#chatBtnn1").hide();
-				$("#chatBtnn2").hide();
-				$("#friendBtnn2").hide();
-				$("#chatBtnn2").hide();
-				$("#cFuc").hide();
-				$("#chatAddd").hide();
-				$(".cosTalk-content").show();
-				$("#friendBtnn1").show();
-				$("#cTab").show();
-
-			}
-			
-			//0-7.채팅방 뒤로가기 -> 채팅으로 가기
-			bBtnn.onclick = function() {
-				$("#chatBtnn1").hide();
-				$("#chatBtnn2").hide();
-				$("#friendBtnn2").hide();
-				$("#chatBtnn2").hide();
-				$("#cFuc").hide();
-				$("#chatAddd").hide();
-				$(".cosTalk-content").show();
-				$("#friendBtnn1").show();
-				$("#cTab").show();
-			}
-			
-			//채팅방 하단정렬
-			
+			$(".cosTalk-content").show();
+			$("#friendBtnn1").show();
+			$("#cTab").show();
+			location.reload();
 
 		}
-		//2.채팅 탭/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-		//2-1.채팅 탭 리프레쉬 form id = "chatChatBoxx"  // 마지막인거 if(i==data.size() -1)
 		
-			
+		//0-7.채팅방 뒤로가기 -> 채팅으로 가기
+		bBtnn.onclick = function() {
+			$("#chatBtnn1").hide();
+			$("#chatBtnn2").hide();
+			$("#friendBtnn2").hide();
+			$("#chatBtnn2").hide();
+			$("#cFuc").hide();
+			$("#chatAddd").hide();
+			$(".cosTalk-content").show();
+			$("#friendBtnn1").show();
+			$("#cTab").show();
+			location.reload();
+		}
 		
-			setInterval(function(){
+		//채팅방 하단정렬
+		
+
+	});
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	setInterval(function(){
 				$.ajax({
 					url : '<%= request.getContextPath() %>/CosTalkChatBoxRefreshServlet',
 					success : function(data){
@@ -514,8 +519,8 @@
 						
 					})
 				},200);	
-		//채팅 탭에서 열기 $(document).on('click','.chatChatBoxxB12',function() {
-			 function thisChatOpen(t){	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		 function thisChatOpen(t){	
 				
 				$('#chatNameBoxx').html("");
 				console.log("채팅방을 눌렀습니다.");
@@ -591,9 +596,8 @@
 								})
 							}
 						});
-					}, 200);			
-					//채팅방에서엔터 누르기 //채팅방에 들어간 횟수만큼 메시지가 입력되어있는거아님? 그럼 뭐가문제일까
-					$("#cFuc").keyup(function() {
+					}, 200);
+				 $("#cFuc").keyup(function() {
 						if (window.event.keyCode == 13) {	
 							var sMessage = $("#msg").val();	
 							//var rName = $("#rName").val();	
@@ -619,19 +623,11 @@
 									$("#chatView").scrollTop($("#chatView")[0].scrollHeight);		
 								}
 								
-							})();
+							});
 						}
 					});	
-					
 				}
-				
-			 
-			 
-		
-		
-		
-		//3.친구 찾기 탭/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			function addChat() {
 				$("#cTab").hide();
 				$("#friendBtnn2").hide();
@@ -695,10 +691,7 @@
 					el.value = '';
 					}
 				}
-		//4.채팅방 탭/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		//4-1.채팅 추가 버튼 클릭 - > 히스토리 추가 + 채팅 추가 + 채팅방으로 이동 
-
+/////////////////////////////////////////////////////////////////////////////////////////////
 			$(document).on('click','.memberButton',function() {
 				$('#chatNameBoxx').html("");
 				//선택한 회원의 정보만 변수에 담기
@@ -758,40 +751,40 @@
 								
 							}
 						});
-					}, 200);					
-							//친추하고 엔터 누르기
-							$("#cFuc").keyup(function() {
-								if (window.event.keyCode == 13) {	
-									var sMessage = $("#msg").val();
-									//마지막 줄 enter로 공백처리되는 부분 없애주고 싶다.
-									$.ajax({
-										url : 'CosTalkSendServlet',
-										data : {
-											rMNum : rMNum,
-											sMessage : sMessage
-										},
-										success : function(data) {
-											for ( var i in data) {
-												var msgLine = $('<div class="msgLine">');
-												var msgBox = $('<div class="msgBox">');		
-												msgBox.text(data[i].message);
-												msgBox.css('display','inline-block');
-												msgLine.css('text-align','right');	
-												msgLine.append(msgBox);
-												$('#chatView').append(msgLine);
-											}	
-											
-											document.getElementById("msg").value = '';		
-											document.getElementById("msg").focus();
-											$("#chatView").scrollTop($("#chatView")[0].scrollHeight);	
-										},
-										
-									});
-								}
-							});	
-							
-});				
-		
+					}, 200);
+				$("#cFuc").keyup(function() {
+					if (window.event.keyCode == 13) {	
+						var sMessage = $("#msg").val();
+						//마지막 줄 enter로 공백처리되는 부분 없애주고 싶다.
+						$.ajax({
+							url : 'CosTalkSendServlet',
+							data : {
+								rMNum : rMNum,
+								sMessage : sMessage
+							},
+							success : function(data) {
+								for ( var i in data) {
+									var msgLine = $('<div class="msgLine">');
+									var msgBox = $('<div class="msgBox">');		
+									msgBox.text(data[i].message);
+									msgBox.css('display','inline-block');
+									msgLine.css('text-align','right');	
+									msgLine.append(msgBox);
+									$('#chatView').append(msgLine);
+								}	
 								
+								document.getElementById("msg").value = '';		
+								document.getElementById("msg").focus();
+								$("#chatView").scrollTop($("#chatView")[0].scrollHeight);	
+							},
+							
+						});
+					}
+				})
+			});
+				
+	<%
+	}
+	%>
 	</script>
 </header>

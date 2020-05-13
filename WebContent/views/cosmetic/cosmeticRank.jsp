@@ -474,7 +474,10 @@ span.star-prototype > * {
 					$('.star-prototype').generateStars();
 					
 					$('.cos-detail-link').click(function(){
-						location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + "<%= middleName%>";
+						console.log($('#page-name>h1').text());
+						var middleNames = $('#page-name>h1').text();
+						var middleName = middleNames.split(" ");
+						location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + middleName[0];
 					})
 
 				}
@@ -569,8 +572,11 @@ span.star-prototype > * {
 					// 숫자 평점을 별로 변환하도록 호출하는 함수
 					$('.star-prototype').generateStars();
 					
-					$('.cos-detail-link').click(function(){
-						location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + "<%= middleName%>";
+					$('.cos-detail-link').click(function(){			
+						console.log($('#page-name>h1').text());
+						var middleNames = $('#page-name>h1').text();
+						var middleName = middleNames.split(" ");
+						location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + middleName[0];
 					})
 
 				}
@@ -588,7 +594,10 @@ span.star-prototype > * {
 		$('.star-prototype').generateStars();
 	
 		$('.cos-detail-link').click(function(){
-			location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + "<%= middleName%>";
+			console.log($('#page-name>h1').text());
+			var middleNames = $('#page-name>h1').text();
+			var middleName = middleNames.split(" ");
+			location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text()) + "&category=" + middleName[0];
 		})
 	
 		$('input[name=filter-sex]').click(function() {

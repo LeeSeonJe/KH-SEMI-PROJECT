@@ -290,7 +290,7 @@ table#adminEnrollHospital>tbody>tr>td{
    <script>
  	$('.detail').click(function(){
  		var boardNo = $(this).parent().parent().children().eq(0).text();
- 	 	var popup = window.open('<%= request.getContextPath() %>/detail.req?boardNo=' + boardNo, "reqDetailPopUp", "width=500, height=300"); 
+ 	 	var popup = window.open('<%= request.getContextPath() %>/detail.req?boardNo=' + boardNo, "reqDetailPopUp", "width=500, height=500"); 
  	}); 
 	
 	

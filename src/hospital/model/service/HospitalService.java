@@ -159,4 +159,10 @@ public class HospitalService {
 		return result;
 	}
 
+	public int hosFindLink(String hosName) {
+		Connection conn = getConnection();
+		int result = new HospitalDAO().hosFindLink(conn, hosName);
+		return result;
+	}
+
 }

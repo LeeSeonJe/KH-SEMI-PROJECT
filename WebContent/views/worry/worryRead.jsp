@@ -5,6 +5,7 @@
 	ArrayList<Comments> list = (ArrayList<Comments>)request.getAttribute("list");
 	Member m = ((Member)request.getSession().getAttribute("loginUser"));
 	ArrayList<AddFile> fList = (ArrayList<AddFile>)request.getAttribute("fList");
+	System.out.println(w.getCategory());
 // 	int result = Integer.parseInt((String)request.getAttribute("result"));
 
 %>	
@@ -107,6 +108,10 @@
 	.center{text-align:center;}
 	#title{font-size:1.3em; width:850px; height: 60px; margin-left: 0px; overflow:hidden; text-overflow: ellipsis; white-space: normal; line-height: 1.2; height: 2.4em;}
 	.replyTr{background: skyblue; width: 100%; margin: 0px; padding: 0px;}
+	
+	.hosFind_link{
+		cursor: pointer;
+	}
 </style>
 
 
@@ -123,7 +128,7 @@
                     <div id="title"><%= w.getTitle() %></div>
                     <input type="hidden" name="title" value="<%= w.getTitle() %>">
                     <input type="hidden" name="worryNo" value="<%= w.getWorryNo() %>">
-                    <% if(w.getCategory().equals("A")){ %>
+                    <% if(w.getProfileImage() == null){ %>
                     <div  class="profile"><img id="profile" src="<%= request.getContextPath()%>/member_images/1.jpg" width="50px" height="50px"></div>
                     <%} else{ %>
                     <div  class="profile"><img id="profile" src="<%= request.getContextPath()%>/member_images/<%= w.getProfileImage() %>" width="50px" height="50px"></div>
@@ -183,7 +188,7 @@
 	                    <% if(m != null ){ %>
 		                    <% if(w.getUserNo() == m.getUser_no() ){ %>
 	                        <button class="btn-standard" type="submit" id="change-btn" onclick="location.href='worryDetail2.bo?worryNo=<%=w.getWorryNo() %>'">수정</button>
-	                        <button type="button" id="delete-btn" class="btn-standard" onclick="location.href='worryDelete.bo?worryNo=<%=w.getWorryNo() %>'">삭제</button>
+	                        <button type="button" id="delete-btn" class="btn-standard" onclick="deleteWorry()">삭제</button>
 	                        <% } %>
 	                    <% } %>    
                         <button class="btn-standard" type="button" value="목록" onclick="location.href='worryList.bo'">목록</button>
@@ -231,14 +236,16 @@
 					<% for (int i = 0 ; i < list.size(); i++){ %>
 					<tr>
 						<% if(list.get(i).getCategory().equals("C")){ %>
+							<% if (list.get(i).getprofileImage() != null) { %>
 							<td width="60px" height="60px"><img id="profile" src="<%= request.getContextPath()%>/member_images/<%= list.get(i).getprofileImage() %>" width="50px" height="50px"></td>
+							<% } else { %>
+								<td width="60px" height="60px"><img id="profile" src="<%= request.getContextPath()%>/member_images/1.jpg" width="50px" height="50px"></td>
+							<% } %>
 						<%} else if(list.get(i).getCategory().equals("H")){ %>
 							<%String[] profile = list.get(i).getprofileImage().split(","); %>
 							<td width="60px" height="60px"><img id="profile" src="<%= request.getContextPath()%>/hospital_images/<%= profile[0] %>" width="50px" height="50px"></td>
-						<%} else {%>
-							<td width="60px" height="60px"><img id="profile" src="<%= request.getContextPath()%>/member_images/1.jpg" width="50px" height="50px"></td>
 						<% } %>
-						<td width="200px"><%= list.get(i).getUserName() %></td>
+						<td class="hosFind_link" width="200px"><%= list.get(i).getUserName() %></td>
 						<td width="800px"><%= list.get(i).getCommentsText() %></td>
 						<td width="200px" class="center" ><%= list.get(i).getCommentsDate() %></td>
 					</tr>
@@ -256,6 +263,15 @@
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
 	<script>
+		function deleteWorry(){
+		    if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+		       location.href='<%=request.getContextPath()%>/worryDelete.bo?worryNo=<%= w.getWorryNo()%>';
+		  }else{   //취소
+		      return;
+		  }
+		}
+		
+	
 		var likeCount = Number($("#like-count").text());	
 		var hateCount = Number($("#hate-count").text());
 		var count = 0;
@@ -267,6 +283,22 @@
 // 			}
 // 		});
 		
+		$('.hosFind_link').on('click', function(){
+			console.log($(this).text());
+			var hosName = $(this).text();
+			$.ajax({
+				url: 'HosFind.link',
+				data: {
+					hosName:hosName
+				},
+				success: function(data){
+					console.log(data);
+					if(data.trim() == "success"){
+						location.href='detail.hos?hosName=' + hosName;
+					}
+				}
+			})
+		})
 		
 		
 		

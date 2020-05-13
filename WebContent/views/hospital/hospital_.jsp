@@ -168,6 +168,7 @@
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script> 
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script> 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7f198d7f218db4a29813c5a3b81c52fc&libraries=services"></script>
+																				<!-- 카카오디벨로퍼 코드번호			필요한 서비스 라이브러리 -->
 <script> 
 var j = $.noConflict(true); // $.noConflict(true) 를 사용해서 $ -> 변수로 선언한 j로 바꾸니 해결!
 j(document).ready(function(){ 
@@ -270,9 +271,9 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
       var geocoder = new kakao.maps.services.Geocoder();
       
       // 주소로 좌표를 검색합니다
-      var url = "";
+      var url = "";				// 병원 주소
       geocoder.addressSearch('<%= h.getAddress() %>', function(result, status) {
-          // 정상적으로 검색이 완료됐으면 
+          // 정상적으로 검색이 완료됐으면  
            if (status === kakao.maps.services.Status.OK) {
       
               var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -284,7 +285,7 @@ j(".bx-start").hide();	//onload시 시작버튼 숨김.
               });
       
               // 인포윈도우로 장소에 대한 설명을 표시합니다
-              var infowindow = new kakao.maps.InfoWindow({
+              var infowindow = new kakao.maps.InfoWindow({																			// 병원이름
                   content: '<div class="location" style="width:150px; text-align:center; padding:6px 0;"><a target="_blank"><%= h.getUser_name()%></a></div>'
               });
               infowindow.open(map, marker);

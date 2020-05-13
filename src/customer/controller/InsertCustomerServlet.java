@@ -23,7 +23,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class InsertCustomerServlet
  */
-@WebServlet("/insertC.me")
+@WebServlet(urlPatterns = "/insertC.me", name="InsertCustomerServlet")
 public class InsertCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

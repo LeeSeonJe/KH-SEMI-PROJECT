@@ -40,12 +40,18 @@ public class CosTalkHistoryRefreshServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member m = (Member)session.getAttribute("loginUser");
 		
-		int sUserNo = m.getUser_no();
-		//의미없는변수 print
-		ArrayList<message.model.vo.CosTalk> list =  new CosTalkService().refreshHistory(sUserNo);
-	
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
+		if(m == null) {
+			
+		} else {
+			int sUserNo = m.getUser_no();
+			//의미없는변수 print
+			
+			
+			ArrayList<message.model.vo.CosTalk> list =  new CosTalkService().refreshHistory(sUserNo);
+			
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(list, response.getWriter());			
+		}
 	}
 
 	/**

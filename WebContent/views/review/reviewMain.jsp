@@ -1,4 +1,5 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
+ <%@page import="common.AgeCalculator"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
 import="java.util.ArrayList" import="review.model.vo.*"%>
 
 <%
@@ -12,7 +13,8 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
    int maxPage = pi.getMaxPage();
    int startPage = pi.getStartPage();
    int endPage = pi.getEndPage();
-
+	AgeCalculator ac = new AgeCalculator();
+	
 %> 
 <!DOCTYPE html>
 <html>
@@ -79,6 +81,9 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 
 /* 페이징 끝 */
 
+.cosDetail_link {
+	cursor: pointer;
+}
 </style>
 <%@ include file="/views/layout/import.jsp"%>
 
@@ -148,8 +153,16 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 			<table class="tb-profile" style="width: 100%;">
 			<% for(int i = 0; i< list.size(); i++){ %>
 				<tr>
-					<td rowspan="3" align="center" width="10%" style="border-bottom:1px solid #aaa;"><img src="<%= request.getContextPath() %>/member_images/<%=slideList.get(i).getProfile_image() %>" class="icon-p"></td>
-					<td class="noHidden" style="display:none;"><input type="hidden" name="rno" value="<%= list.get(i).getReview_no() %>"></td>
+					<td rowspan="3" align="center" width="10%" style="border-bottom:1px solid #aaa;">
+					<% if(list.get(i).getProfile_image() == null) { %>
+						<img src="<%= request.getContextPath() %>/member_images/1.jpg" class="icon-p">
+					<% } else { %>
+						<img src="<%= request.getContextPath() %>/member_images/<%=list.get(i).getProfile_image() %>" class="icon-p">
+					<% } %>
+					</td>
+					<td class="noHidden" style="display:none;">
+						<input type="hidden" name="rno" value="<%= list.get(i).getReview_no() %>">
+					</td>
 					<td class="write-date" width="15%"><%=list.get(i).getDate() %></td>
 					<td class="review-title" height="40px"><!-- 리뷰제목 --><%=list.get(i).getTitle() %></td>
 					<td rowspan="2" align="center" width="15%"><img src="<%=list.get(i).getCosmetic_img() %>" class="icon-product"></td>
@@ -165,7 +178,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 					<td><span class="content"><%=list.get(i).getContent() %></span></td>					
 				</tr>
 				<tr style="border-bottom: 1px solid #aaa;">
-					<td style="vertical-align:middle; padding-bottom:10px;"><%=list.get(i).getAge() %> / <%=list.get(i).getSkintype() %> / <%=list.get(i).getGender() %> &nbsp;&nbsp;</td>
+					<td style="vertical-align:middle; padding-bottom:10px;"><%= ac.ageCal(Integer.toString(list.get(i).getAge())) %>세 / <%=list.get(i).getSkintype() %> / <%=list.get(i).getGender() %> &nbsp;&nbsp;</td>
 					<td width="48%" class="star-prototype" id="review-star" style="color:red; padding-bottom:10px;">
 					<% if(list.get(i).getHeart() == 5 ) { %> 
 						♥♥♥♥♥
@@ -180,7 +193,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 					<% } %>
 						
 					</td>
-					<td style="text-align:center; padding-bottom:10px;"><%=list.get(i).getCosmetic_name() %></td>
+					<td class="cosDetail_link" style="text-align:center; padding-bottom:10px;"><%=list.get(i).getCosmetic_name() %></td>
 				</tr>
 				<% } %>
 			</table> 
@@ -372,7 +385,7 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 								var $hateSpan = $('<span class="hate_counting""></span>').text(data[i].thumbs_down);
 			 					var $title = $('<td class="review-title" height="40px"></td>').text(data[i].title);
 			 					var $contentSpan = $('<span class="content"></span>').text(data[i].content);
-			 					var $cosName = $('<td style="text-align:center; padding-bottom:10px;"></td>').text(data[i].cosmetic_name);
+			 					var $cosName = $('<td class="cosDetail_link" style="text-align:center; padding-bottom:10px;"></td>').text(data[i].cosmetic_name);
 			 					
 			 					$proTd.append($pImg);
 			 					$reviewNo.append($hiddenInput);
@@ -398,6 +411,22 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 			 					$('.tb-profile').append($tr1,$tr2,$tr3);
 			 				
 		 					}
+		 						
+		 					$('.cosDetail_link').on('click',function(){
+		 						console.log($(this).text())
+		 						var cosName = $(this).text();
+		 						$.ajax({
+		 							url: 'cosDetail.link',
+		 							data: {
+		 								cosName:cosName
+		 							},
+		 							success: function(data){
+		 								console.log(data);
+		 								location.href = "/COSMEDIC/detail.cos?cosName=" + encodeURIComponent(cosName) + "&category=" + data.trim();
+		 							}
+		 						})
+		 					})
+		 					
 		 					
 		 					$(document).on('click', '.comment-like' ,function(){
 		 						if('<%= loginUser %>' != 'null'){
@@ -461,6 +490,21 @@ import="java.util.ArrayList" import="review.model.vo.*"%>
 					}
 				});		
 			});
+			
+			$('.cosDetail_link').on('click',function(){
+				console.log($(this).text())
+				var cosName = $(this).text();
+				$.ajax({
+					url: 'cosDetail.link',
+					data: {
+						cosName:cosName
+					},
+					success: function(data){
+						console.log(data);
+						location.href = "/COSMEDIC/detail.cos?cosName=" + encodeURIComponent(cosName) + "&category=" + data.trim();
+					}
+				})
+			})
 		</script>
 		
 			

@@ -14,7 +14,7 @@ import member.model.service.MemberService;
 /**
  * Servlet implementation class ChangePasswordServlet
  */
-@WebServlet("/changePwd.me")
+@WebServlet(urlPatterns = "/changePwd.me", name = "ChangePasswordServlet")
 public class ChangePasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

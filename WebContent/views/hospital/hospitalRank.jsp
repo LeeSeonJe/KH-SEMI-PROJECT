@@ -226,6 +226,12 @@ span.star-prototype > * {
 	display: inline-block;
     margin-left: 40px;
 }
+.hos_about {
+    width: 270px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 </style>
 
 <% 
@@ -271,10 +277,9 @@ span.star-prototype > * {
 			</section>
 			<section id="cosmetic-category" >
 				<div id="search_area">
-					<%@include file="/views/hospital/select_sggu.jsp" %>
 					<select name="sidoCd" id="sidoCd" title="시/도 선택" class="sido" style="width: 93px;">
 					    <option value="first" selected>시/도 선택</option>
-					    <option value="서울시">서울특별시</option>
+					    <option value="서울특별시">서울특별시</option>
 					    <option value="부산광역시">부산광역시</option>
 					    <option value="대구광역시">대구광역시</option>
 					    <option value="인천광역시">인천광역시</option>
@@ -292,6 +297,7 @@ span.star-prototype > * {
 					    <option value="경상남도">경상남도</option>
 					    <option value="제주특별자치도">제주특별자치도</option>
 					</select>
+					<%@include file="/views/hospital/select_sggu.jsp" %>
 					<input type="text" id="dong" name="dong" style="ime-mode: active;" placeholder="읍/면/동 또는 도로명을 입력해주세요" class="input-text" size="33"/>
 					<button id="category-btn" type="button" onclick="addressSearch()">검색</button>
 				</div>
@@ -332,8 +338,8 @@ span.star-prototype > * {
 								</div>
 								<div class="cos-detail hospital-detail-link">
 									<br>
-									<h6><%= list.get(i).getUser_name() %></h6>
-									<h5><%= list.get(i).getHospital_about() %></h5><br><br>
+									<h6 style="margin-top: 42px;"><%= list.get(i).getUser_name() %></h6>
+									<div class="hos_about"><%= list.get(i).getHospital_about() %></div><br><br>
 								</div>
 								<div class="cos-score">
 									<span>
@@ -450,8 +456,8 @@ span.star-prototype > * {
 							$img.attr('src', "<%= request.getContextPath() %>/hospital_images/" + images[0]);		
 						var $div4 = $('<div class="cos-detail hospital-detail-link"></div>');
 						var $br = $('<br>');
-						var $h6 = $('<h6></h6>').text(data[i].user_name);
-						var $h5 = $('<h5></h5>').text(data[i].hospital_about);
+						var $h6 = $('<h6 style="margin-top: 42px;"></h6>').text(data[i].user_name);
+						var $h5 = $('<div class="hos_about"></div>').text(data[i].hospital_about);
 						var $div5 = $('<div class="cos-score"></div>');
 						var $span1 = $('<span></span>').text(data[i].hospital_heart+" ");
 						var $div6 =  $('<div class="heartPosition"></div>');
@@ -502,7 +508,7 @@ span.star-prototype > * {
 				$('.sggu').attr("name", null);
 				$('#first').css('display','block');
 				$('#first').attr("name","sggu");
-			} else if(t.value=='서울시'){
+			} else if(t.value=='서울특별시'){
 				$('.sggu').css('display','none')
 				$('.sggu').attr("name", null);
 				$('#seoul').css('display','block');
@@ -626,8 +632,8 @@ span.star-prototype > * {
 							$img.attr('src', "<%= request.getContextPath() %>/hospital_images/" + images[0]);														
 							var $div4 = $('<div class="cos-detail hospital-detail-link"></div>');
 							var $br = $('<br>');
-							var $h6 = $('<h6></h6>').text(data[i].user_name);
-							var $h5 = $('<h5></h5>').text(data[i].hospital_about);
+							var $h6 = $('<h6 style="margin-top: 42px;"></h6>').text(data[i].user_name);
+							var $h5 = $('<div class="hos_about"></div>').text(data[i].hospital_about);
 							var $div5 = $('<div class="cos-score"></div>');
 							var $span1 = $('<span></span>').text(data[i].hospital_heart+" ");
 							var $div6 =  $('<div class="heartPosition"></div>');

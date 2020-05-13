@@ -91,27 +91,27 @@ button {
 				<td class="title">이전 비밀번호</td>
 			</tr>
 			<tr>
-				<td><input id="userPwd" type="text" /></td>
+				<td><input id="userPwd" type="password" /></td>
 			</tr>
 			<tr>
 				<td  class="title">새 비밀번호</td>
 			</tr>
 			<tr>
-				<td><input id="newPwd" type="text" onkeyup = "validateChk();"/></td>
+				<td><input id="newPwd" type="password" onkeyup = "validateChk();"/></td>
 				<td><span id="pwdCheck1"></span></td>
 			</tr>
 			<tr>
 				<td class="title">새 비밀번호 확인</td>
 			</tr>
 			<tr>
-				<td><input type="text" id="newPwd2" onkeyup = "pwdChk();"/></td>
+				<td><input type="password" id="newPwd2" onkeyup = "pwdChk();"/></td>
 				<td><span id="pwdCheck2"></span></td>
 			</tr>
 			<tr>
 				<td>
 					<br>
 					<button class="btn-standard" type="button" onclick="send()">확인</button>
-					<button class="btn-standard" type="button">취소</button>				
+					<button class="btn-standard" type="button" id="closeWindow">취소</button>				
 				</td>
 			</tr>
 		</table>
@@ -119,7 +119,9 @@ button {
 	
 	<script>
 		
-		
+		$('#closeWindow').on('click', function(){
+			self.close();
+		})
 		var flag1 = false;
 		var flag2 = false;
 		function validateChk(){

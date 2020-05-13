@@ -277,6 +277,10 @@ table#myPost>tbody>tr>td{
    <%@ include file="/views/layout/footer.jsp"%>
    
 	<script>
+		function openChangePwd(){
+			window.open('/COSMEDIC/views/customer/change_pwd.jsp', 'change_pwd', 'width=600, height=650');
+		}	
+	
 		$('#getOut-_btn').on('click', function(){
 			if(confirm("가는사람 오는사람 막지 않습니다. 하지만 떠나는 사람은 한번 잡습니다. 떠나실 건가요?") == true) {
 				$.ajax({

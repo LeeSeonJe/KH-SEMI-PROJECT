@@ -69,6 +69,7 @@ public class CosmeticDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, cos_middle_no);
 			pstmt.setString(2, cos_middle_no);
+			pstmt.setString(3, cos_middle_no);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
@@ -96,6 +97,7 @@ public class CosmeticDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, cos_middle_no);
+			pstmt.setString(2, cos_middle_no);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
@@ -439,6 +441,31 @@ public class CosmeticDAO {
 			close(pstmt);
 		}
 		return crl;
+	}
+
+	public String getCos_middle_no2(Connection conn, String cosName) {
+		PreparedStatement pstmt = null;
+		String middle_name = "";
+		ResultSet rset = null;
+		String query = "SELECT MIDDLE_NAME FROM COSMETIC JOIN MIDDLE_CATEGORY USING (MIDDLE_NO) WHERE cosmetic_name = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cosName);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				middle_name = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return middle_name;
 	}
 
 }

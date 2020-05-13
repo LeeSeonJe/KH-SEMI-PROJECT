@@ -11,11 +11,12 @@ public class Cosmetic {
 	private String brand_name;
 	private String middle_no;
 	private String cosmetic_img;
-
+	private String middle_name;
 	public Cosmetic() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	public Cosmetic(int cosmetic_no, String cosmetic_name, String cosmetic_about, String volume, String price,
 			int count, double avg, String brand_name, String middle_no, String cosmetic_img) {
 		super();
@@ -30,6 +31,18 @@ public class Cosmetic {
 		this.middle_no = middle_no;
 		this.cosmetic_img = cosmetic_img;
 	}
+	
+	
+
+	public String getMiddle_name() {
+		return middle_name;
+	}
+
+
+	public void setMiddle_name(String middle_name) {
+		this.middle_name = middle_name;
+	}
+
 
 	public int getCosmetic_no() {
 		return cosmetic_no;
