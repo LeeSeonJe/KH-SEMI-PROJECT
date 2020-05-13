@@ -93,7 +93,7 @@ public class MyPageServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage2"));
 //			System.out.println(currentPage);
 			startPage = (((int)((double)currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
-			maxPage = (int)((double)getReviewCount / pageLimit + 0.9);
+			maxPage = (int)((double)getWorryCount / pageLimit + 0.9);
 			endPage = pageLimit + startPage - 1;
 			
 			if(maxPage < endPage) {
@@ -106,7 +106,7 @@ public class MyPageServlet extends HttpServlet {
 		} else if(request.getParameter("currentPage3") != null){
 			currentPage = Integer.parseInt(request.getParameter("currentPage3"));
 			startPage = (((int)((double)currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
-			maxPage = (int)((double)getReviewCount / pageLimit + 0.9);
+			maxPage = (int)((double)getQnACount / pageLimit + 0.9);
 			endPage = pageLimit + startPage - 1;
 			
 			if(maxPage < endPage) {
@@ -120,7 +120,7 @@ public class MyPageServlet extends HttpServlet {
 		} else if (request.getParameter("currentPage4") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage4"));
 			startPage = (((int)((double)currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
-			maxPage = (int)((double)getReviewCount / pageLimit + 0.9);
+			maxPage = (int)((double)getBookCount / pageLimit + 0.9);
 			endPage = pageLimit + startPage - 1;
 			
 			if(maxPage < endPage) {

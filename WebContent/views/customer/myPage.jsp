@@ -364,7 +364,7 @@ tbody img {
 						} else if($(this).text() == '내 예약'){
 							$('#fristPage4').click();							
 						} else if($(this).text() == '1대1 문의'){
-							$('#fristPage3').click();
+// 							$('#fristPage3').click();
 						}
 					})
 				</script>

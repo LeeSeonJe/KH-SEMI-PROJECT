@@ -472,7 +472,7 @@ span.star-prototype > * {
 					// 숫자 평점을 별로 변환하도록 호출하는 함수
 					$('.star-prototype').generateStars();
 					
-					$('.cos-detail-link').click(function(){
+					$('.cos-rank-link').click(function(){
 						location.href="<%= request.getContextPath()%>/detail.cos?cosName=" + encodeURIComponent($(this).text());
 					})
 	

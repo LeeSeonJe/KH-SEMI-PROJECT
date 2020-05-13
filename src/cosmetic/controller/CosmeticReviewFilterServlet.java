@@ -123,11 +123,6 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 				} else if (ageFilter[i].equalsIgnoreCase("30대 후반")) {
 					range[count] = "35";
 					count++;
-					range[count] = "39";
-					count++;
-				} else {
-					range[count] = "40";
-					count++;
 					range[count] = "99";
 					count++;
 				}
@@ -173,11 +168,6 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 					count++;
 				} else if (ageFilter[i].equalsIgnoreCase("30대 후반")) {
 					range[count] = "35";
-					count++;
-					range[count] = "39";
-					count++;
-				} else {
-					range[count] = "40";
 					count++;
 					range[count] = "99";
 					count++;
@@ -243,11 +233,6 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 						count++;
 					} else if (ageFilter[i].equalsIgnoreCase("30대 후반")) {
 						range[count] = "35";
-						count++;
-						range[count] = "39";
-						count++;
-					} else {
-						range[count] = "40";
 						count++;
 						range[count] = "99";
 						count++;
@@ -318,11 +303,6 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 					} else if (ageFilter[i].equalsIgnoreCase("30대 후반")) {
 						range[count] = "35";
 						count++;
-						range[count] = "39";
-						count++;
-					} else {
-						range[count] = "40";
-						count++;
 						range[count] = "99";
 						count++;
 					}
@@ -387,14 +367,9 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 					} else if (ageFilter[i].equalsIgnoreCase("30대 후반")) {
 						range[count] = "35";
 						count++;
-						range[count] = "39";
-						count++;
-					} else {
-						range[count] = "40";
-						count++;
 						range[count] = "99";
 						count++;
-					}
+					} 
 				}
 				for (int j = 0; j < range.length; j = j + 2) {
 					if (range.length == 2) {
@@ -450,11 +425,6 @@ public class CosmeticReviewFilterServlet extends HttpServlet {
 						count++;
 					} else if (ageFilter[i].equalsIgnoreCase("30대 후반")) {
 						range[count] = "35";
-						count++;
-						range[count] = "39";
-						count++;
-					} else {
-						range[count] = "40";
 						count++;
 						range[count] = "99";
 						count++;

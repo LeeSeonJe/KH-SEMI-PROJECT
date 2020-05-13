@@ -20,7 +20,7 @@
 		<% for(int i = 0; i<fileList.size(); i++){ %>
 		<a download="<%= fileList.get(i).getChange_name() %>"
 			href="<%= request.getContextPath() %>/AddFile/<%= fileList.get(i).getChange_name()%>">
-			<img src="<%= request.getContextPath() %>/AddFile/<%= fileList.get(i).getChange_name() %>">
+			<img style="width: 200px; height: 200px;" src="<%= request.getContextPath() %>/AddFile/<%= fileList.get(i).getChange_name() %>">
 		</a>
 		<% } %>
 	</div>

@@ -218,7 +218,7 @@
 								<br>
 							</div>
 							<div class="SUIdenI" onmouseover="iconChange3()"
-								onmouseout="iconChange4()" 
+								onmouseout="iconChange4()" onclick="openEmailIden()";
 								style="cursor: pointer; margin-left: 39%;">
 								<img class="SUImg" id="SUImggg1"
 									src="<%=request.getContextPath()%>/resources/images/SUHChkE_1-1_1.png">
@@ -237,6 +237,11 @@
 	<%@ include file="/views/layout/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 	<script>
+	
+	    function openEmailIden(){
+	        window.open("<%=request.getContextPath()%>/views/common/findIdByMail.jsp", "이메일 인증", "height = 450 , width = 500, left = 300, top = 50");
+	     }
+	    
 		$('#selectEmail').change(function(){ 
 			$("#selectEmail option:selected").each(function () { 
 				if($(this).val()== '1'){ //직접입력일 경우 

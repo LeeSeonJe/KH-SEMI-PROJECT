@@ -15,7 +15,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class lookUpPwdServlet
  */
-@WebServlet("/fpw.me")
+@WebServlet(urlPatterns = "/fpw.me", name = "lookUpPwdServlet")
 public class lookUpPwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

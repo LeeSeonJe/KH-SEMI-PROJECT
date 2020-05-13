@@ -45,7 +45,11 @@
 	<div class="index">피부 타입</div>
 	<div class="info" id="skintype"><%= c.getSkintype() %></div><br>
 	<div class="index">프로필 사진</div>
-	<img src="<%=request.getContextPath()%>/member_images/<%= c.getProfile_image() %>" style="border-radius: 50px; width: 200px; height: 200px;"><br>
+	<% if(c.getProfile_image() == null) { %>
+		<img src="<%=request.getContextPath()%>/member_images/1.jpg" style="border-radius: 50px; width: 200px; height: 200px;"><br>
+	<% } else { %>
+		<img src="<%=request.getContextPath()%>/member_images/<%= c.getProfile_image() %>" style="border-radius: 50px; width: 200px; height: 200px;"><br>
+	<% } %>
 	
 	<div style="text-align: center;"><input type="button" class="btn-standard" id="cancle" value="닫기" onclick="window.close();"></div>
 </body>

@@ -146,6 +146,41 @@ input {
     margin-left: 10px;
     font-size: 20px;
 }
+
+#keyword_search {
+	font-size: 18px;
+	font-weight: 500;
+	padding: 0;
+	margin-bottom: 16px;	
+}
+
+#search_input {
+	border:1px solid white;
+	border-bottom: 2px solid red;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 3px;
+	width: 265px;
+}
+
+#search_input:focus {
+	outline:none;
+}
+
+#search_btn_span {
+    margin-left: 10px;
+    border: 0;
+    background: white;
+}
+
+#search_btn_span:focus {
+   outline:none;
+}
+
+#search_btn_span>img {
+	margin-top: 5px;
+	cursor: pointer;
+}
 </style>
 
 <% 
@@ -195,7 +230,12 @@ input {
 					<div id="select-btn-center">
 						<button id="select-btn" type="button" onclick="filter_apply()">필터적용</button>
 					</div>
-					<br>
+					<br><br><br>
+<!-- 					<h1 id="keyword_search">키워드 검색</h1> -->
+<!-- 					<input id="search_input" type="text" placeholder="리뷰 키워드를 입력하세요" onkeyup="enterkey();"/> -->
+<!-- 					<button id="search_btn_span" type="button"> -->
+<%-- 						<img src="<%= request.getContextPath()%>/resources/images/search_icon.png"> --%>
+<!-- 					</button> -->
 					</div>
 				</div>
 			</section>
@@ -226,6 +266,62 @@ input {
 	<%@ include file="/views/layout/footer.jsp"%>
 
 	<script>
+// 		function enterkey() {
+// 			if (window.event.keyCode == 13) {
+// 				$('#search_btn_span').click();
+// 			}
+// 		}
+		
+// 		$('#search_btn_span').on('click', function(){
+// 			console.log($(this).prev('input').val());
+// 			var findInput =  $(this).prev('input').val();
+// 			if($(this).prev('input').val().trim().length == 0){
+// // 				console.log("?");
+// // 				window.location.reload();
+// 			} else {
+// 				$.ajax({
+// 					url: 'BrandFind.br',
+// 					data: {
+// 						findInput:findInput
+// 					},
+// 					success: function(data){
+// 						$('#ul-area').html("");
+// 						console.log(data);
+// 						for(var i in data){	
+// 							var $li = $('<li class="brand-list-li"></li>');
+// 							var $div1 = $('<div class="brand-list"></div>');
+// 							var $div2 = $('<div class="bd-img"></div>');
+// 							var $img = $('<img>')						
+// 							if((data[i].brand_Img).indexOf("http") == -1){
+<%-- 								$img.attr('src', "<%= request.getContextPath() %>/brandReq_uploadFiles/" + data[i].brand_Img);														 --%>
+// 							} else {
+// 								$img.attr('src', data[i].brand_Img);							
+// 							}
+// 							var $div3 = $('<div class="bd-name"></div>');
+// 							var $h3 = $('<h3></h3>').text(data[i].brand_Name);
+// 							var $div4 = $('<div class="button-div"></div>');
+// 							var $button = $('<button class="brand-detail-btn" type="button">바로가기</button>').val(data[i].brand_Name);
+							
+// 							$div2.append($img);
+// 							$div3.append($h3);
+// 							$div4.append($button);
+// 							$div1.append($div2);
+// 							$div1.append($div3);
+// 							$div1.append($div4);
+							
+// 							$li.append($div1);
+// 							$('#ul-area').append($li);
+// 						}
+// 						$('.brand-detail-btn').click(function(){
+// 							var bname = $(this).val();
+// 							console.log(bname);
+<%-- 							location.href="<%= request.getContextPath()%>/detail.br?bname=" + bname; --%>
+// 						})
+// 					}
+// 				})
+// 			}
+// 		})
+		
 		var count = 20;
 		function filter_apply() {
 			count = 20;
@@ -237,7 +333,7 @@ input {
 				success: function(data){
 					$('#ul-area').html("");
 					for(var i in data){	
-						console.log(data[i]);
+// 						console.log(data[i]);
 						var $li = $('<li class="brand-list-li"></li>');
 						var $div1 = $('<div class="brand-list"></div>');
 						var $div2 = $('<div class="bd-img"></div>');
@@ -421,11 +517,10 @@ input {
 			}
 		})
 
-		$('#reset-btn').click(
-				function() {
-					$('input[name=brand_filter]').addClass('radioChk').removeClass("radioChkActive");
-					$("#brand-all").prop("checked", true).addClass("radioChkActive");
-				})
+		$('#reset-btn').click(function() {
+			$('input[name=brand_filter]').addClass('radioChk').removeClass("radioChkActive");
+			$("#brand-all").prop("checked", true).addClass("radioChkActive");
+		})
 	</script>
 	<script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
 </body>

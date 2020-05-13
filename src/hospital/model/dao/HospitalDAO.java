@@ -178,10 +178,10 @@ public class HospitalDAO {
 
 		String query = prop.getProperty("searchAddress");
 
+		System.out.println(query + plusQuery);
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query + plusQuery);
-
 			while (rset.next()) {
 				list.add(new Hospital(rset.getString("user_name"), rset.getString("hospital_about"),
 						rset.getString("address"), rset.getString("hospital_img"), rset.getDouble("hospital_heart"),
@@ -550,6 +550,31 @@ public class HospitalDAO {
 		}
 		
 		return nrList;
+	}
+
+	public int hosFindLink(Connection conn, String hosName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = "select count(*) from hospital join member on (user_no = hospital_NO) where user_name = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, hosName);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

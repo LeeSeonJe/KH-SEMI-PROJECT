@@ -116,4 +116,11 @@ public class CosmeticService {
 		return crl;
 	}
 
+	public String cosDetailLinkElement(String cosName) {
+		Connection conn = getConnection();
+		String middle_name = new CosmeticDAO().getCos_middle_no2(conn, cosName);
+		close(conn);
+		return middle_name;
+	}
+
 }
